@@ -54,7 +54,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>gcloud-maven-plugin</artifactId>
-        <version>2.0.9.84.v20151031</version>
+        <version>2.0.9.88.v20151125</version>
         <configuration>
           <set_default>true</set_default>
         </configuration>
