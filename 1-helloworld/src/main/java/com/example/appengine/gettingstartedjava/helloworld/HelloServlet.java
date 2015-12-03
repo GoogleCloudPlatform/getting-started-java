@@ -25,10 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START example]
-@WebServlet(name = "helloworld", urlPatterns = { "/*" })
+@SuppressWarnings("serial")
+@WebServlet(name = "helloworld", value = "/*" )
 public class HelloServlet extends HttpServlet {
-
-  private static final long serialVersionUID = 1L;
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
