@@ -15,7 +15,7 @@ to your project.
 
 ## Testing an deploying your app
 
-* Test the app by running `mvn gcloud:run`
+* Test the app by running `mvn gcloud:run -Dgcloud.gcloud_directory="path-to-the-google-cloud-sdk"`
 * Deploy the application using `mvn gcloud:deploy`
 
 ## Contributing changes
