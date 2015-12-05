@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+  <sessions-enabled>true</sessions-enabled>
+  <threadsafe>true</threadsafe>
+  <vm>true</vm>
+  <!-- TODO remove beta-settings -->
+  <beta-settings>
+    <setting name="java_quickstart" value="true" />
+  </beta-settings>
+  <env-variables>
+    <env-var name="AEV2_JAVA_STORAGETYPE" value="YOUR-DATABASE-SELECTION" />
+    <env-var name="SQL_DATABASE_URL" value="jdbc:mysql://HOST-IP:3306/YOUR-DB-NAME?user=USERNAME&amp;password=PASSWORD" />
+    <env-var name="PROJECT_ID" value="YOUR-PROJECT-ID" />
+    <env-var name="BUCKET_NAME" value="YOUR-BUCKET-NAME" />
+  </env-variables>
+</appengine-web-app>
