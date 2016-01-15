@@ -35,6 +35,7 @@ import com.example.appengine.gettingstartedjava.objects.Result;
 import java.util.ArrayList;
 import java.util.List;
 
+// [START example]
 public class DatastoreDao implements BookDao {
 
   private Datastore datastore;
@@ -189,3 +190,4 @@ public class DatastoreDao implements BookDao {
     }
   }
 }
+// [END example]

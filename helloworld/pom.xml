@@ -51,11 +51,13 @@ Copyright 2015 Google Inc. All Rights Reserved.
           <target>1.7</target>
         </configuration>
       </plugin>
+<!-- START plugin -->
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>gcloud-maven-plugin</artifactId>
         <version>2.0.9.89.v20151202</version>
       </plugin>
+<!-- END plugin -->
     </plugins>
   </build>
 </project>

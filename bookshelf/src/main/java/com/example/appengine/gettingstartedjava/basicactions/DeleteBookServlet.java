@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// [START example]
 @SuppressWarnings("serial")
 @WebServlet(name = "delete", value = "/delete")
 public class DeleteBookServlet extends HttpServlet {
@@ -43,3 +44,4 @@ public class DeleteBookServlet extends HttpServlet {
     }
   }
 }
+// [END example]

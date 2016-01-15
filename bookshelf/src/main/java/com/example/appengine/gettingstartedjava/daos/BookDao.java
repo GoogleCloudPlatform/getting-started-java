@@ -19,8 +19,8 @@ package com.example.appengine.gettingstartedjava.daos;
 import com.example.appengine.gettingstartedjava.objects.Book;
 import com.example.appengine.gettingstartedjava.objects.Result;
 
+// [START example]
 public interface BookDao {
-
   public Long createBook(Book book) throws Exception;
 
   public Book readBook(Long bookId) throws Exception;
@@ -33,3 +33,4 @@ public interface BookDao {
 
   public Result<Book> listBooksByUser(String userId, String startCursor) throws Exception;
 }
+// [END example]

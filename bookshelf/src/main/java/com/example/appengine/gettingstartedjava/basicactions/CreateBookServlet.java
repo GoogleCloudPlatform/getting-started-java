@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// [START example]
 @SuppressWarnings("serial")
 @MultipartConfig
 @WebServlet(name = "create", value = "/create")
@@ -80,3 +81,4 @@ public class CreateBookServlet extends HttpServlet {
     }
   }
 }
+// [END example]

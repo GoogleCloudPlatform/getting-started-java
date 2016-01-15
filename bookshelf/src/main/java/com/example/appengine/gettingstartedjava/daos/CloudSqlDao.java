@@ -29,6 +29,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+// [START example]
 public class CloudSqlDao implements BookDao {
 
   private static final BasicDataSource dataSource = new BasicDataSource();
@@ -203,3 +204,4 @@ public class CloudSqlDao implements BookDao {
     }
   }
 }
+// [END example]
