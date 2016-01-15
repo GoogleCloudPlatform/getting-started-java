@@ -31,7 +31,7 @@ import java.util.List;
 
 // [START example]
 public class CloudSqlDao implements BookDao {
-
+// [START constructor]
   private static final BasicDataSource dataSource = new BasicDataSource();
 
   public CloudSqlDao() throws SQLException {
@@ -45,7 +45,8 @@ public class CloudSqlDao implements BookDao {
       conn.createStatement().executeUpdate(createTableSql);
     }
   }
-
+// [END constructor]
+// [START create]
   @Override
   public Long createBook(Book book) throws SQLException {
     final String createBookString = "INSERT INTO books "
@@ -68,7 +69,8 @@ public class CloudSqlDao implements BookDao {
       }
     }
   }
-
+// [END create]
+// [START read]
   @Override
   public Book readBook(Long bookId) throws SQLException {
     final String readBookString = "SELECT * FROM books WHERE id = ?";
@@ -90,7 +92,8 @@ public class CloudSqlDao implements BookDao {
       }
     }
   }
-
+// [END read]
+// [START update]
   @Override
   public void updateBook(Book book) throws SQLException {
     final String updateBookString = "UPDATE books SET author = ?, createdBy = ?, createdById = ?, "
@@ -108,7 +111,8 @@ public class CloudSqlDao implements BookDao {
       updateBookStmt.executeUpdate();
     }
   }
-
+// [END update]
+// [START delete]
   @Override
   public void deleteBook(Long bookId) throws SQLException {
     final String deleteBookString = "DELETE FROM books WHERE id = ?";
@@ -118,7 +122,8 @@ public class CloudSqlDao implements BookDao {
       deleteBookStmt.executeUpdate();
     }
   }
-
+// [END delete]
+// [START listbooks]
   @Override
   public Result<Book> listBooks(String cursor) throws SQLException {
     int offset = 0;
@@ -160,7 +165,8 @@ public class CloudSqlDao implements BookDao {
       }
     }
   }
-
+// [END listbooks]
+// [START listbyuser]
   @Override
   public Result<Book> listBooksByUser(String userId, String startCursor) throws Exception {
     int offset = 0;
@@ -203,5 +209,6 @@ public class CloudSqlDao implements BookDao {
       }
     }
   }
+// [END listbyuser]
 }
 // [END example]
