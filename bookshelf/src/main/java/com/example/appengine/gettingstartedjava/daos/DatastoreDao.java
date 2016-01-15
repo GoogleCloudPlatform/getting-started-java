@@ -38,6 +38,7 @@ import java.util.List;
 // [START example]
 public class DatastoreDao implements BookDao {
 
+// [START constructor]
   private Datastore datastore;
   private KeyFactory keyFactory;
 
@@ -49,7 +50,8 @@ public class DatastoreDao implements BookDao {
         .service();
     keyFactory = datastore.newKeyFactory().kind("Book");
   }
-
+// [END constructor]
+// [START create]
   @Override
   public Long createBook(Book book) {
     IncompleteKey key = keyFactory.kind("Book").newKey();
@@ -65,7 +67,8 @@ public class DatastoreDao implements BookDao {
     Entity bookEntity = datastore.add(incBookEntity);
     return bookEntity.key().id();
   }
-
+// [END create]
+// [START read]
   @Override
   public Book readBook(Long bookId) {
     Entity bookEntity = datastore.get(keyFactory.newKey(bookId));
@@ -83,7 +86,8 @@ public class DatastoreDao implements BookDao {
         .imageUrl(bookEntity.contains(Book.IMAGE_URL) ? bookEntity.getString(Book.IMAGE_URL) : null)
         .build();
   }
-
+// [END read]
+// [START update]
   @Override
   public void updateBook(Book book) {
     Key key = keyFactory.newKey(book.getId());
@@ -98,13 +102,15 @@ public class DatastoreDao implements BookDao {
         .build();
     datastore.update(entity);
   }
-
+// [END update]
+// [START delete]
   @Override
   public void deleteBook(Long bookId) {
     Key key = keyFactory.newKey(bookId);
     datastore.delete(key);
   }
-
+// [END delete]
+// [START listbooks]
   @Override
   public Result<Book> listBooks(String startCursorString) {
     Cursor startCursor = null;
@@ -145,7 +151,8 @@ public class DatastoreDao implements BookDao {
       return new Result<>(resultBooks);
     }
   }
-
+// [END listbooks]
+// [START listbyuser]
   @Override
   public Result<Book> listBooksByUser(String userId, String startCursorString) throws Exception {
     Cursor startCursor = null;
@@ -189,5 +196,6 @@ public class DatastoreDao implements BookDao {
       return new Result<>(resultBooks);
     }
   }
+// [END listbyuser]
 }
 // [END example]
