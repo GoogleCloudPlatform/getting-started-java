@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
+// [START example]
 public class RootServlet extends HttpServlet {
 
   @Override
@@ -61,3 +62,4 @@ public class RootServlet extends HttpServlet {
     req.getRequestDispatcher("/books").forward(req, resp);
   }
 }
+// [END example]

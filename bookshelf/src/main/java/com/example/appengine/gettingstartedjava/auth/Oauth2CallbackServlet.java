@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// [START example]
 @WebServlet(name = "oauth2callback", value = "/oauth2callback")
 @SuppressWarnings("serial")
 public class Oauth2CallbackServlet extends HttpServlet {
@@ -99,3 +100,4 @@ public class Oauth2CallbackServlet extends HttpServlet {
         req.getSession().getAttribute("loginDestination").toString()).forward(req, resp);
   }
 }
+// [END example]

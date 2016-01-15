@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// [START example]
 @SuppressWarnings("serial")
 @WebServlet(name = "list", value = "/books")
 public class ListBookServlet extends HttpServlet {
@@ -60,3 +61,4 @@ public class ListBookServlet extends HttpServlet {
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }
+// [END example]

@@ -14,6 +14,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+<!-- [START example] -->
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
   <sessions-enabled>true</sessions-enabled>
   <threadsafe>true</threadsafe>
@@ -37,3 +38,4 @@ Copyright 2015 Google Inc. All Rights Reserved.
     <property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
   </system-properties>
 </appengine-web-app>
+<!-- [END example] -->

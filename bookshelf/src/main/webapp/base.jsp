@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
+<!-- [START_EXCLUDE] -->
 <!--
 Copyright 2015 Google Inc. All Rights Reserved.
 
@@ -16,6 +17,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+<!-- [END_EXCLUDE] -->
 <html lang="en">
   <head>
     <title>Bookshelf - Java on Google Cloud Platform</title>

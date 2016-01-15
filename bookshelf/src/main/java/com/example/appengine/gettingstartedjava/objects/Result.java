@@ -18,6 +18,7 @@ package com.example.appengine.gettingstartedjava.objects;
 
 import java.util.List;
 
+// [START example]
 public class Result<K> {
 
   public String cursor;
@@ -33,3 +34,4 @@ public class Result<K> {
     this.cursor = null;
   }
 }
+// [END example]

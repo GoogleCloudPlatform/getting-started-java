@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// [START example]
 @SuppressWarnings("serial")
 @WebServlet(name = "read", value = "/read")
 public class ReadBookServlet extends HttpServlet {
@@ -53,3 +54,4 @@ public class ReadBookServlet extends HttpServlet {
     }
   }
 }
+// [END example]

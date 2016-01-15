@@ -1,4 +1,4 @@
-# Getting started with Java on Google Cloud Platform
+# Getting started with Java® on Google Cloud Platform
 
 The code for the samples is contained in individual folders on this repository.
 Follow the instructions at [Java Getting Started on Google Cloud Platform](http://cloud.google.com/java/getting-started) for instructions on how to run locally and deploy.
@@ -15,3 +15,5 @@ Follow the instructions at [Java Getting Started on Google Cloud Platform](http:
 ## Licensing
 
 * See [LICENSE](LICENSE)
+
+Java is a registered trademark of Oracle Corporation and/or its affiliates.

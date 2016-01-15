@@ -16,6 +16,7 @@
 
 package com.example.appengine.gettingstartedjava.objects;
 
+// [START example]
 public class Book {
 
   private String title;
@@ -173,3 +174,4 @@ public class Book {
         + ", Added by: " + createdBy;
   }
 }
+// [END example]

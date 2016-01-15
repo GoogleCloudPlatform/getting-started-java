@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// [START example]
 @SuppressWarnings("serial")
 @WebServlet(name = "listbyuser", value = "/books/mine")
 public class ListByUserServlet extends HttpServlet {
@@ -59,3 +60,4 @@ public class ListByUserServlet extends HttpServlet {
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }
+// [END example]

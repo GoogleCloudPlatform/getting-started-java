@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// [START example]
 @WebServlet(name = "login", value = "/login")
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
@@ -71,3 +72,4 @@ public class LoginServlet extends HttpServlet {
     resp.sendRedirect(url);
   }
 }
+// [END example]

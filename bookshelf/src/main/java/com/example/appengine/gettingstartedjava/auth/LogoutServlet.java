@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// [START example]
 @WebServlet(name = "logout", value = "/logout")
 @SuppressWarnings("serial")
 public class LogoutServlet extends HttpServlet {
@@ -38,3 +39,4 @@ public class LogoutServlet extends HttpServlet {
     req.getRequestDispatcher("/books").forward(req, resp);
   }
 }
+// [END example]

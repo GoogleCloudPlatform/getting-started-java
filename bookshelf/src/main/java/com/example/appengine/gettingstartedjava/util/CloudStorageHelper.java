@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+// [START example]
 public class CloudStorageHelper {
 
   private final Logger logger =
@@ -92,3 +93,4 @@ public class CloudStorageHelper {
     return imageUrl;
   }
 }
+// [END example]

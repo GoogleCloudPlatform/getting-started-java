@@ -1,4 +1,5 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+<!-- [START_EXCLUDE] -->
 <!--
 Copyright 2015 Google Inc. All Rights Reserved.
 
@@ -14,6 +15,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+<-- [END_EXCLUDE] -->
   <servlet>
     <servlet-name>root</servlet-name>
     <servlet-class>com.example.appengine.gettingstartedjava.RootServlet</servlet-class>
