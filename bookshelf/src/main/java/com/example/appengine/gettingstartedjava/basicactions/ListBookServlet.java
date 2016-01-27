@@ -17,10 +17,14 @@
 package com.example.appengine.gettingstartedjava.basicactions;
 
 import com.example.appengine.gettingstartedjava.daos.BookDao;
+import com.example.appengine.gettingstartedjava.daos.CloudSqlDao;
+import com.example.appengine.gettingstartedjava.daos.DatastoreDao;
 import com.example.appengine.gettingstartedjava.objects.Book;
 import com.example.appengine.gettingstartedjava.objects.Result;
+import com.example.appengine.gettingstartedjava.util.CloudStorageHelper;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,12 +37,36 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
-@WebServlet(name = "list", value = "/books")
+// a url pattern of "" makes this servlet the root servlet
+@WebServlet(name = "list", urlPatterns = { "", "/books" } )
 public class ListBookServlet extends HttpServlet {
 
   private final Logger logger =
       Logger.getLogger(
          com.example.appengine.gettingstartedjava.basicactions.ListBookServlet.class.getName());
+
+  @Override
+  public void init() throws ServletException {
+    String storageType = System.getenv("STORAGETYPE");
+    BookDao dao = null;
+    switch (storageType) {
+      case "datastore":
+        dao = new DatastoreDao();
+        break;
+      case "cloudsql":
+        try {
+          dao = new CloudSqlDao();
+        } catch (SQLException e) {
+          throw new ServletException("SQL error", e);
+        }
+        break;
+      default:
+        throw new IllegalStateException("Invalid storage type. Check if environment variable is set.");
+    }
+    this.getServletContext().setAttribute("dao", dao);
+    CloudStorageHelper storageHelper = new CloudStorageHelper();
+    this.getServletContext().setAttribute("storageHelper", storageHelper);
+  }
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,

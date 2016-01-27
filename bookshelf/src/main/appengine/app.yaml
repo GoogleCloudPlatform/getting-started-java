@@ -1,0 +1,17 @@
+runtime: java
+vm: true
+runtime_config:
+  jdk: openjdk8
+  server: jetty9
+
+# [START env_variables]
+env_variables:
+  STORAGETYPE: YOUR-DATABASE-CHOICE
+  SQL_DATABASE_URL: jdbc:mysql://HOST-IP:3306/YOUR-DB-NAME?user=USERNAME&password=PASSWORD
+  PROJECT_ID: YOUR-PROJECT-ID
+  BUCKET_NAME: YOUR-BUCKET-NAME
+  CLIENT_ID: YOUR-CLIENT-ID
+  CLIENT_SECRET: YOUR-CLIENT-SECRET
+  # callback url should be the one registered in Google Developers Console
+  CALLBACK_URL: YOUR-CALLBACK-URL
+# [END env_variables]
