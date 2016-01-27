@@ -16,14 +16,6 @@ Copyright 2015 Google Inc. All Rights Reserved.
  limitations under the License.
 -->
 <!-- [END_EXCLUDE] -->
-  <servlet>
-    <servlet-name>root</servlet-name>
-    <servlet-class>com.example.appengine.gettingstartedjava.RootServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>root</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
   <!-- Use HTTPS all the time -->
   <security-constraint>
     <web-resource-collection>
