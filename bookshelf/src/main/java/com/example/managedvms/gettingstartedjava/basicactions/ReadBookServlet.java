@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.basicactions;
+package com.example.managedvms.gettingstartedjava.basicactions;
 
-import com.example.appengine.gettingstartedjava.daos.BookDao;
-import com.example.appengine.gettingstartedjava.objects.Book;
+import com.example.managedvms.gettingstartedjava.daos.BookDao;
+import com.example.managedvms.gettingstartedjava.objects.Book;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -36,7 +36,7 @@ public class ReadBookServlet extends HttpServlet {
 
   private final Logger logger =
       Logger.getLogger(
-         com.example.appengine.gettingstartedjava.basicactions.ReadBookServlet.class.getName());
+         com.example.managedvms.gettingstartedjava.basicactions.ReadBookServlet.class.getName());
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,

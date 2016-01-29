@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.daos;
+package com.example.managedvms.gettingstartedjava.objects;
 
-import com.example.appengine.gettingstartedjava.objects.Book;
-import com.example.appengine.gettingstartedjava.objects.Result;
+import java.util.List;
 
 // [START example]
-public interface BookDao {
-  public Long createBook(Book book) throws Exception;
+public class Result<K> {
 
-  public Book readBook(Long bookId) throws Exception;
+  public String cursor;
+  public List<K> result;
 
-  public void updateBook(Book book) throws Exception;
+  public Result(List<K> result, String cursor) {
+    this.result = result;
+    this.cursor = cursor;
+  }
 
-  public void deleteBook(Long bookId) throws Exception;
-
-  public Result<Book> listBooks(String startCursor) throws Exception;
-
-  public Result<Book> listBooksByUser(String userId, String startCursor) throws Exception;
+  public Result(List<K> result) {
+    this.result = result;
+    this.cursor = null;
+  }
 }
 // [END example]

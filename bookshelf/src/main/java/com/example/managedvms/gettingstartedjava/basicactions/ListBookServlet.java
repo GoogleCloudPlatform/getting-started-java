@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.basicactions;
+package com.example.managedvms.gettingstartedjava.basicactions;
 
-import com.example.appengine.gettingstartedjava.daos.BookDao;
-import com.example.appengine.gettingstartedjava.daos.CloudSqlDao;
-import com.example.appengine.gettingstartedjava.daos.DatastoreDao;
-import com.example.appengine.gettingstartedjava.objects.Book;
-import com.example.appengine.gettingstartedjava.objects.Result;
-import com.example.appengine.gettingstartedjava.util.CloudStorageHelper;
+import com.example.managedvms.gettingstartedjava.daos.BookDao;
+import com.example.managedvms.gettingstartedjava.daos.CloudSqlDao;
+import com.example.managedvms.gettingstartedjava.daos.DatastoreDao;
+import com.example.managedvms.gettingstartedjava.objects.Book;
+import com.example.managedvms.gettingstartedjava.objects.Result;
+import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,15 +36,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START example]
-@SuppressWarnings("serial")
 // a url pattern of "" makes this servlet the root servlet
 @WebServlet(name = "list", urlPatterns = { "", "/books" } )
+@SuppressWarnings("serial")
 public class ListBookServlet extends HttpServlet {
 
   private final Logger logger =
       Logger.getLogger(
-         com.example.appengine.gettingstartedjava.basicactions.ListBookServlet.class.getName());
+         com.example.managedvms.gettingstartedjava.basicactions.ListBookServlet.class.getName());
 
+  /**
+   * Create the dao based on the user choice and store it in the session
+   */
   @Override
   public void init() throws ServletException {
     String storageType = System.getenv("STORAGETYPE");

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.daos;
+package com.example.managedvms.gettingstartedjava.daos;
 
 import com.google.gcloud.datastore.Cursor;
 import com.google.gcloud.datastore.Datastore;
@@ -29,8 +29,8 @@ import com.google.gcloud.datastore.QueryResults;
 import com.google.gcloud.datastore.StructuredQuery.OrderBy;
 import com.google.gcloud.datastore.StructuredQuery.PropertyFilter;
 
-import com.example.appengine.gettingstartedjava.objects.Book;
-import com.example.appengine.gettingstartedjava.objects.Result;
+import com.example.managedvms.gettingstartedjava.objects.Book;
+import com.example.managedvms.gettingstartedjava.objects.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +43,7 @@ public class DatastoreDao implements BookDao {
   private KeyFactory keyFactory;
 
   public DatastoreDao() {
-    datastore = DatastoreOptions
-        .builder()
-        .projectId(System.getenv("PROJECT_ID"))
-        .build()
-        .service();
+    datastore = DatastoreOptions.defaultInstance().service();
     keyFactory = datastore.newKeyFactory().kind("Book");
   }
 // [END constructor]

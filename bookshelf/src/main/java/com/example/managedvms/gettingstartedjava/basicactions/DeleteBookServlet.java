@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.auth;
+package com.example.managedvms.gettingstartedjava.basicactions;
+
+import com.example.managedvms.gettingstartedjava.daos.BookDao;
 
 import java.io.IOException;
 
@@ -25,18 +27,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START example]
-@WebServlet(name = "logout", value = "/logout")
 @SuppressWarnings("serial")
-public class LogoutServlet extends HttpServlet {
+@WebServlet(name = "delete", value = "/delete")
+public class DeleteBookServlet extends HttpServlet {
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException, ServletException {
-    // you can also make an authenticated request to logout
-    req.getSession().removeAttribute("token");
-    req.getSession().removeAttribute("userEmail");
-    req.getSession().removeAttribute("userImageUrl");
-    req.getRequestDispatcher("/books").forward(req, resp);
+  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+      IOException {
+    Long id = Long.decode(req.getParameter("id"));
+    BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
+    try {
+      dao.deleteBook(id);
+      resp.sendRedirect("/books");
+    } catch (Exception e) {
+      throw new ServletException("Error deleting book", e);
+    }
   }
 }
 // [END example]
