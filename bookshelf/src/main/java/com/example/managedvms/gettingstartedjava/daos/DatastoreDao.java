@@ -111,7 +111,7 @@ public class DatastoreDao implements BookDao {
   public Result<Book> listBooks(String startCursorString) {
     Cursor startCursor = null;
     if(startCursorString != null && !startCursorString.equals("")) {
-          startCursor = Cursor.fromUrlSafe(startCursorString);
+      startCursor = Cursor.fromUrlSafe(startCursorString);
     }
     Query<Entity> q = Query.entityQueryBuilder()
         .kind("Book")
@@ -139,13 +139,7 @@ public class DatastoreDao implements BookDao {
           .build();
       resultBooks.add(book);
     }
-    Cursor cursor = resultList.cursorAfter(); // note cursorAfter() doesn't work currently
-    if(cursor != null)  {
-      String cursorString = cursor.toUrlSafe();
-      return new Result<>(resultBooks, cursorString);
-    } else {
-      return new Result<>(resultBooks);
-    }
+    return new Result<>(resultBooks);
   }
 // [END listbooks]
 // [START listbyuser]
@@ -184,13 +178,7 @@ public class DatastoreDao implements BookDao {
           .build();
       resultBooks.add(book);
     }
-    Cursor cursor = resultList.cursorAfter(); // note cursorAfter() doesn't work currently
-    if(cursor != null)  {
-      String cursorString = cursor.toUrlSafe();
-      return new Result<>(resultBooks, cursorString);
-    } else {
-      return new Result<>(resultBooks);
-    }
+    return new Result<>(resultBooks);
   }
 // [END listbyuser]
 }
