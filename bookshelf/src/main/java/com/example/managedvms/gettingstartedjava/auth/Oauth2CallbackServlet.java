@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.auth;
+package com.example.managedvms.gettingstartedjava.auth;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;

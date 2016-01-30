@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.auth;
+package com.example.managedvms.gettingstartedjava.auth;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.HttpTransport;

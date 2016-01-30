@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.objects;
+package com.example.managedvms.gettingstartedjava.objects;
 
 // [START example]
 public class Book {

@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.util;
+package com.example.managedvms.gettingstartedjava.util;
 
-import com.google.common.io.ByteStreams;
 import com.google.gcloud.storage.Acl;
 import com.google.gcloud.storage.BlobInfo;
-import com.google.gcloud.storage.BlobWriteChannel;
 import com.google.gcloud.storage.Storage;
 import com.google.gcloud.storage.StorageOptions;
 
@@ -29,8 +27,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -46,7 +42,7 @@ public class CloudStorageHelper {
 
   private final Logger logger =
       Logger.getLogger(
-         com.example.appengine.gettingstartedjava.util.CloudStorageHelper.class.getName());
+         com.example.managedvms.gettingstartedjava.util.CloudStorageHelper.class.getName());
   private static Storage storage = null;
 
   public CloudStorageHelper() {
@@ -62,16 +58,18 @@ public class CloudStorageHelper {
 
     // Modify access list to allow all users with link to read file
     List<Acl> acls = new ArrayList<>();
-    acls.add(new Acl(Acl.User.ofAllUsers(), Acl.Role.READER));
-    BlobInfo blobInfo = BlobInfo.builder(BUCKET_NAME, fileName).acl(acls).build();
-    InputStream filecontent = filePart.getInputStream();
-    BlobWriteChannel blobWriter = storage.writer(blobInfo);
-    ByteStreams.copy(filecontent, Channels.newOutputStream(blobWriter));
-    blobWriter.close();
+    acls.add(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
+    // the inputstream is closed by default, so we don't need to close it here
+    BlobInfo blobInfo =
+        storage.create(
+            BlobInfo.builder(BUCKET_NAME, fileName).acl(acls).build(),
+            filePart.getInputStream());
+
     blobInfo = storage.get(BUCKET_NAME, fileName);
     logger.log(
         Level.INFO, "Uploaded file {0} as {1}", new Object[]{
             filePart.getSubmittedFileName(), fileName});
+    // return the public download link
     return blobInfo.mediaLink();
   }
 

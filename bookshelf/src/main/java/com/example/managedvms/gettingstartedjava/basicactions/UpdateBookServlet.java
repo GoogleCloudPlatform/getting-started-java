@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.appengine.gettingstartedjava.basicactions;
+package com.example.managedvms.gettingstartedjava.basicactions;
 
-import com.example.appengine.gettingstartedjava.daos.BookDao;
-import com.example.appengine.gettingstartedjava.objects.Book;
-import com.example.appengine.gettingstartedjava.util.CloudStorageHelper;
+import com.example.managedvms.gettingstartedjava.daos.BookDao;
+import com.example.managedvms.gettingstartedjava.objects.Book;
+import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
 import java.io.IOException;
 
