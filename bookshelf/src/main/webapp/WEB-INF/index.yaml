@@ -1,0 +1,9 @@
+indexes:
+
+- kind: Book
+  ancestor: false
+  properties:
+  - name: createdById
+    direction: asc
+  - name: title
+    direction: asc
