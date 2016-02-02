@@ -20,6 +20,7 @@ import com.google.appengine.api.utils.SystemProperty;
 import com.google.apphosting.api.ApiProxy;
 import com.google.apphosting.api.ApiProxy.Environment;
 
+// [START example]
 /**
  * Generate some simple information about the app version and hostname.
  */
@@ -35,3 +36,4 @@ public class HelloInfo {
   	return infostring;
   }
 }
+// [END example]
