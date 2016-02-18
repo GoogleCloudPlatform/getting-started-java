@@ -27,7 +27,6 @@ import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,9 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class ListBookServlet extends DatastoreHttpServlet {
 
-  private final Logger logger =
-      Logger.getLogger(
-         com.example.managedvms.gettingstartedjava.basicactions.ListBookServlet.class.getName());
+  private Logger logger = Logger.getLogger(this.getClass().getName());
 
   /**
    * Create the dao based on the user choice and store it in the session
@@ -91,13 +88,14 @@ public class ListBookServlet extends DatastoreHttpServlet {
     req.getSession().getServletContext().setAttribute("books", books);
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list");
-    Set<String> names = listSessionVariables();
-    if (names.contains("token")) {
-      req.setAttribute("token", getSessionVariable("token"));
-      req.setAttribute("userEmail", getSessionVariable("userEmail"));
-      req.setAttribute("userId", getSessionVariable("userId"));
-      req.setAttribute("userImageUrl", getSessionVariable("userImageUrl"));
-    }
+//    Set<String> names = listSessionVariables();
+//    if (names.contains("token")) {
+//      req.setAttribute("token", getSessionVariable("token"));
+//      req.setAttribute("userEmail", getSessionVariable("userEmail"));
+//      req.setAttribute("userId", getSessionVariable("userId"));
+//      req.setAttribute("userImageUrl", getSessionVariable("userImageUrl"));
+//    }
+    loadSessionVariables(req);
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }

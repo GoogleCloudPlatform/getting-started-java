@@ -68,8 +68,7 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
       return;
     }
     // remove one-time use state
-    // req.getSession().removeAttribute("state");
-    // deleteSessionVariable("state");
+    deleteSessionVariable("state");
     flow =
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
@@ -84,7 +83,6 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
         .execute();
 
     // keep track of the token
-    // req.getSession().setAttribute("token", tokenResponse.toString());
     setSessionVariable("token", tokenResponse.toString());
     final Credential credential = flow.createAndStoreCredential(tokenResponse, null);
     final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
@@ -98,16 +96,9 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
     HashMap<String, String> userIdResult =
         new ObjectMapper().readValue(jsonIdentity, HashMap.class);
     // from this map, extract the relevant profile info and store it in the session
-    // req.getSession().setAttribute("userEmail", userIdResult.get("email"));
-    // req.getSession().setAttribute("userId", userIdResult.get("id"));
-    // req.getSession().setAttribute("userImageUrl",
-    // userIdResult.get("picture"));
     setSessionVariable("userEmail", userIdResult.get("email"));
     setSessionVariable("userId", userIdResult.get("id"));
     setSessionVariable("userImageUrl", userIdResult.get("picture"));
-    // req.getRequestDispatcher(
-    // req.getSession().getAttribute("loginDestination").toString()).forward(req, resp);
-    listSessionVariables();
     req.getRequestDispatcher(getSessionVariable("loginDestination")).forward(req, resp);
   }
 }

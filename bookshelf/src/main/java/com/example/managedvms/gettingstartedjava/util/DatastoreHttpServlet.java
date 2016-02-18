@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Since session variables are currently not available across Managed VM instances,
@@ -42,9 +43,8 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
 
   /**
    * Retrieve a value stored in the project's datastore.
-   * do i still need? just list session variables at the beginning, otherwise, have multiple gets
    * @param varName
-   * @return
+   * @return the value of the requested session variable
    */
   protected String getSessionVariable(String varName) {
     Entity stateEntity = datastore.get(key);
@@ -54,23 +54,40 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
 
   /**
    * stores the state value in the project's datastore.
-   * @param varName TODO
-   * @param varValue
+   * @param varName the name of the desired session variable
+   * @param varValue the value of the desired session variable
    */
   protected void setSessionVariable(String varName, String varValue) {
     Entity stateEntity = datastore.get(key);
-    // add the new value
     logger.log(Level.INFO, "setting new session variable " + varName + " to " + varValue);
     datastore.put(Entity.builder(stateEntity).set(varName, varValue).build());
   }
 
   protected Set<String> listSessionVariables() {
     Entity stateEntity = datastore.get(key);
+    // if the datastore state entity doesn't exist, create it before proceeding
     if (stateEntity == null) {
-      logger.log(Level.INFO, "state entity was empty before get");
+      logger.log(Level.INFO, "datastore state entity was empty before get");
       stateEntity = Entity.builder(key).build();
       datastore.put(stateEntity);
     }
     return stateEntity.names();
+  }
+
+  /**
+   * Take an HttpServletRequest, and copy all of the current session variables over to it
+   * @param req
+   */
+  protected void loadSessionVariables(HttpServletRequest req) {
+    Entity stateEntity = datastore.get(key);
+    // if the datastore state entity doesn't exist, create it before proceeding
+    if (stateEntity == null) {
+      logger.log(Level.INFO, "datastore state entity was empty before get");
+      stateEntity = Entity.builder(key).build();
+      datastore.put(stateEntity);
+    }
+    for (String varName : stateEntity.names()) {
+      req.setAttribute(varName, stateEntity.getString(varName));
+    }
   }
 }

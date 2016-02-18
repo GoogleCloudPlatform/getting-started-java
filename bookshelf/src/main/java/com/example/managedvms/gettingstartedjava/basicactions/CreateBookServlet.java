@@ -19,6 +19,7 @@ package com.example.managedvms.gettingstartedjava.basicactions;
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
+import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -27,7 +28,6 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 @MultipartConfig
 @WebServlet(name = "create", value = "/create")
-public class CreateBookServlet extends HttpServlet {
+public class CreateBookServlet extends DatastoreHttpServlet {
 
   private final Logger logger =
       Logger.getLogger(
@@ -47,6 +47,7 @@ public class CreateBookServlet extends HttpServlet {
     req.setAttribute("action", "Add");
     req.setAttribute("destination", "create");
     req.setAttribute("page", "form");
+    loadSessionVariables(req);
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 
@@ -59,9 +60,9 @@ public class CreateBookServlet extends HttpServlet {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (req.getSession().getAttribute("token") != null) {
-      createdByString = req.getSession().getAttribute("userEmail").toString();
-      createdByIdString = req.getSession().getAttribute("userId").toString();
+    if (listSessionVariables().contains("token")) {
+      createdByString = getSessionVariable("userEmail");
+      createdByIdString = getSessionVariable("userId");
     }
     Book book = new Book.Builder()
         .author(req.getParameter("author"))

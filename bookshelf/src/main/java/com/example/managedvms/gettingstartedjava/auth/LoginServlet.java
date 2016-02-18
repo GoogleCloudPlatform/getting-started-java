@@ -44,9 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends DatastoreHttpServlet {
 
   private GoogleAuthorizationCodeFlow flow;
-  private final Logger logger =
-      Logger.getLogger(
-         com.example.managedvms.gettingstartedjava.auth.LoginServlet.class.getName());
+  private Logger logger = Logger.getLogger(this.getClass().getName());
   private static final Collection<String> SCOPE =
       Arrays.asList(PlusScopes.USERINFO_EMAIL, PlusScopes.PLUS_LOGIN);
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -66,15 +64,12 @@ public class LoginServlet extends DatastoreHttpServlet {
     String state = new BigInteger(130, new SecureRandom()).toString(32);
     setSessionVariable("state", state);
     if(req.getAttribute("loginDestination") != null) {
-      // req.getSession().setAttribute("loginDestination", req.getAttribute("loginDestination"));
       setSessionVariable("loginDestination", (String) req.getAttribute("loginDestination"));
       logger.log(Level.INFO, "logging destination " + (String) req.getAttribute("loginDestination"));
     } else {
-      // req.getSession().setAttribute("loginDestination", "/books");
-      logger.log(Level.INFO, "logging destination /books");
       setSessionVariable("loginDestination", "/books");
+      logger.log(Level.INFO, "logging destination /books");
     }
-    setSessionVariable("test", "test");
     // callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()
