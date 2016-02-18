@@ -24,17 +24,10 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
   private Logger logger = Logger.getLogger(this.getClass().getName());
   private KeyFactory keyFactory;
   private Key key;
-  private Entity.Builder entityBuilder;
   public void init() throws ServletException {
     datastore = DatastoreOptions.defaultInstance().service();
     keyFactory = datastore.newKeyFactory().kind("SessionVariables");
     key = keyFactory.newKey("bookshelf");
-    Entity stateEntity = datastore.get(key);
-    if (stateEntity == null) {
-      entityBuilder = Entity.builder(key);
-    } else {
-      entityBuilder = Entity.builder(stateEntity);
-    }
   }
 
   /**
@@ -55,12 +48,6 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
    */
   protected String getSessionVariable(String varName) {
     Entity stateEntity = datastore.get(key);
-    Set<String> names = stateEntity.names();
-    Entity.Builder tempBuilder = Entity.builder(key);
-    for (String name : names) {
-      tempBuilder.set(name, stateEntity.getString(name));
-      logger.log(Level.INFO, "previous session var " + name + " is " + stateEntity.getString(name));
-    }
     String state = stateEntity.getString(varName);
     return state;
   }
@@ -72,22 +59,9 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
    */
   protected void setSessionVariable(String varName, String varValue) {
     Entity stateEntity = datastore.get(key);
-    if (stateEntity == null) {
-      // does not exist yet
-      logger.log(Level.INFO, "state entity was empty before set");
-      stateEntity = Entity.builder(key).set(varName, varValue).build();
-      datastore.put(stateEntity);
-    } else {
-      // add the old values
-      Set<String> names = stateEntity.names();
-      Entity.Builder tempBuilder = Entity.builder(key);
-      for (String name : names) {
-        tempBuilder.set(name, stateEntity.getString(name));
-      }
-      // add the new value
-      logger.log(Level.INFO, "setting new session variable " + varName + " to " + varValue);
-      datastore.put(tempBuilder.set(varName, varValue).build());
-    }
+    // add the new value
+    logger.log(Level.INFO, "setting new session variable " + varName + " to " + varValue);
+    datastore.put(Entity.builder(stateEntity).set(varName, varValue).build());
   }
 
   protected Set<String> listSessionVariables() {
