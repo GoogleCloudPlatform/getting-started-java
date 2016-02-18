@@ -23,23 +23,30 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.plus.PlusScopes;
 
+import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
+
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @WebServlet(name = "login", value = "/login")
 @SuppressWarnings("serial")
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends DatastoreHttpServlet {
+
   private GoogleAuthorizationCodeFlow flow;
+  private final Logger logger =
+      Logger.getLogger(
+         com.example.managedvms.gettingstartedjava.auth.LoginServlet.class.getName());
   private static final Collection<String> SCOPE =
       Arrays.asList(PlusScopes.USERINFO_EMAIL, PlusScopes.PLUS_LOGIN);
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -57,12 +64,17 @@ public class LoginServlet extends HttpServlet {
             SCOPE)
         .build();
     String state = new BigInteger(130, new SecureRandom()).toString(32);
-    req.getSession().setAttribute("state", state);
+    setSessionVariable("state", state);
     if(req.getAttribute("loginDestination") != null) {
-      req.getSession().setAttribute("loginDestination", req.getAttribute("loginDestination"));
+      // req.getSession().setAttribute("loginDestination", req.getAttribute("loginDestination"));
+      setSessionVariable("loginDestination", (String) req.getAttribute("loginDestination"));
+      logger.log(Level.INFO, "logging destination " + (String) req.getAttribute("loginDestination"));
     } else {
-      req.getSession().setAttribute("loginDestination", "/books");
+      // req.getSession().setAttribute("loginDestination", "/books");
+      logger.log(Level.INFO, "logging destination /books");
+      setSessionVariable("loginDestination", "/books");
     }
+    setSessionVariable("test", "test");
     // callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()
@@ -71,5 +83,6 @@ public class LoginServlet extends HttpServlet {
         .build();
     resp.sendRedirect(url);
   }
+
 }
 // [END example]

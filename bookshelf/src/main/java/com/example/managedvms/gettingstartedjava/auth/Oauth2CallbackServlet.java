@@ -28,23 +28,24 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.plus.PlusScopes;
 
+import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @WebServlet(name = "oauth2callback", value = "/oauth2callback")
 @SuppressWarnings("serial")
-public class Oauth2CallbackServlet extends HttpServlet {
+public class Oauth2CallbackServlet extends DatastoreHttpServlet {
 
   private GoogleAuthorizationCodeFlow flow;
   private static final Collection<String> SCOPE =
@@ -58,14 +59,17 @@ public class Oauth2CallbackServlet extends HttpServlet {
       ServletException {
     // Ensure that this is no request forgery going on, and that the user
     // sending us this connect request is the user that was supposed to.
-    if (!req.getParameter("state").equals(req.getSession().getAttribute("state"))) {
+    Set<String> names = listSessionVariables();
+    if (
+        !names.contains("state") ||
+        !req.getParameter("state").equals(getSessionVariable("state"))) {
       resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       resp.getWriter().print("Invalid state parameter.");
       return;
     }
     // remove one-time use state
-    req.getSession().removeAttribute("state");
-
+    // req.getSession().removeAttribute("state");
+    // deleteSessionVariable("state");
     flow =
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
@@ -74,14 +78,15 @@ public class Oauth2CallbackServlet extends HttpServlet {
             System.getenv("CLIENT_SECRET"),
             SCOPE)
         .build();
-    final TokenResponse tockenResponse =
+    final TokenResponse tokenResponse =
         flow.newTokenRequest(req.getParameter("code"))
         .setRedirectUri(System.getenv("CALLBACK_URL"))
         .execute();
 
     // keep track of the token
-    req.getSession().setAttribute("token", tockenResponse.toString());
-    final Credential credential = flow.createAndStoreCredential(tockenResponse, null);
+    // req.getSession().setAttribute("token", tokenResponse.toString());
+    setSessionVariable("token", tokenResponse.toString());
+    final Credential credential = flow.createAndStoreCredential(tokenResponse, null);
     final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
     // Make an authenticated request
     final GenericUrl url = new GenericUrl(LOGIN_API_URL);
@@ -93,11 +98,17 @@ public class Oauth2CallbackServlet extends HttpServlet {
     HashMap<String, String> userIdResult =
         new ObjectMapper().readValue(jsonIdentity, HashMap.class);
     // from this map, extract the relevant profile info and store it in the session
-    req.getSession().setAttribute("userEmail", userIdResult.get("email"));
-    req.getSession().setAttribute("userId", userIdResult.get("id"));
-    req.getSession().setAttribute("userImageUrl", userIdResult.get("picture"));
-    req.getRequestDispatcher(
-        req.getSession().getAttribute("loginDestination").toString()).forward(req, resp);
+    // req.getSession().setAttribute("userEmail", userIdResult.get("email"));
+    // req.getSession().setAttribute("userId", userIdResult.get("id"));
+    // req.getSession().setAttribute("userImageUrl",
+    // userIdResult.get("picture"));
+    setSessionVariable("userEmail", userIdResult.get("email"));
+    setSessionVariable("userId", userIdResult.get("id"));
+    setSessionVariable("userImageUrl", userIdResult.get("picture"));
+    // req.getRequestDispatcher(
+    // req.getSession().getAttribute("loginDestination").toString()).forward(req, resp);
+    listSessionVariables();
+    req.getRequestDispatcher(getSessionVariable("loginDestination")).forward(req, resp);
   }
 }
 // [END example]

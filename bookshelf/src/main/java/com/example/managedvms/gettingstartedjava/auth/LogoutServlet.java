@@ -16,26 +16,31 @@
 
 package com.example.managedvms.gettingstartedjava.auth;
 
+import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @WebServlet(name = "logout", value = "/logout")
 @SuppressWarnings("serial")
-public class LogoutServlet extends HttpServlet {
+public class LogoutServlet extends DatastoreHttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
     // you can also make an authenticated request to logout
-    req.getSession().removeAttribute("token");
-    req.getSession().removeAttribute("userEmail");
-    req.getSession().removeAttribute("userImageUrl");
+    deleteSessionVariable("token");
+    deleteSessionVariable("userEmail");
+    deleteSessionVariable("userId");
+    deleteSessionVariable("userImageUrl");
+    // req.getSession().removeAttribute("token");
+    // req.getSession().removeAttribute("userEmail");
+    // req.getSession().removeAttribute("userImageUrl");
     req.getRequestDispatcher("/books").forward(req, resp);
   }
 }

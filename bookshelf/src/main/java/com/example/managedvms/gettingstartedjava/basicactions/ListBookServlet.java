@@ -22,16 +22,17 @@ import com.example.managedvms.gettingstartedjava.daos.DatastoreDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
+import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 // a url pattern of "" makes this servlet the root servlet
 @WebServlet(name = "list", urlPatterns = { "", "/books" } )
 @SuppressWarnings("serial")
-public class ListBookServlet extends HttpServlet {
+public class ListBookServlet extends DatastoreHttpServlet {
 
   private final Logger logger =
       Logger.getLogger(
@@ -50,6 +51,7 @@ public class ListBookServlet extends HttpServlet {
    */
   @Override
   public void init() throws ServletException {
+    super.init();
     String storageType = System.getenv("STORAGETYPE");
     BookDao dao = null;
     switch (storageType) {
@@ -89,6 +91,13 @@ public class ListBookServlet extends HttpServlet {
     req.getSession().getServletContext().setAttribute("books", books);
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list");
+    Set<String> names = listSessionVariables();
+    if (names.contains("token")) {
+      req.setAttribute("token", getSessionVariable("token"));
+      req.setAttribute("userEmail", getSessionVariable("userEmail"));
+      req.setAttribute("userId", getSessionVariable("userId"));
+      req.setAttribute("userImageUrl", getSessionVariable("userImageUrl"));
+    }
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }
