@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Google Inc. All Rights Reserved.
+ * Copyright (c) 2016 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -25,7 +25,7 @@ public class HelloInfo {
   public static String getInfo() {
     return "Version: "+System.getProperty("java.version") +
           " OS: "+System.getProperty("os.name") +
-          "User: " +System.getProperty("user.name");
+          " User: " +System.getProperty("user.name");
   }
 }
 // [END example]
