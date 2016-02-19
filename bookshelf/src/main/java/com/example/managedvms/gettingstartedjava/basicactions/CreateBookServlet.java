@@ -21,12 +21,15 @@ import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,15 +56,22 @@ public class CreateBookServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
+    Map<String, Cookie> cookieMap = new HashMap<>();
+    Cookie[] cookies = req.getCookies();
+    if (cookies != null) {
+      for (Cookie c : cookies) {
+        cookieMap.put(c.getName(), c);
+      }
+    }
     CloudStorageHelper storageHelper =
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
     String imageUrl = storageHelper.getImageUrl(req, resp);
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (req.getSession().getAttribute("token") != null) {
-      createdByString = req.getSession().getAttribute("userEmail").toString();
-      createdByIdString = req.getSession().getAttribute("userId").toString();
+    if (cookieMap.containsKey("token")) {
+      createdByString = cookieMap.get("userEmail").getValue();
+      createdByIdString = cookieMap.get("userId").getValue();
     }
     Book book = new Book.Builder()
         .author(req.getParameter("author"))

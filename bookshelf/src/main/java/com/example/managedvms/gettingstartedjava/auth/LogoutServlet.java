@@ -17,9 +17,14 @@
 package com.example.managedvms.gettingstartedjava.auth;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,14 +34,35 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class LogoutServlet extends HttpServlet {
 
+  private Logger logger = Logger.getLogger(this.getClass().getName());
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
     // you can also make an authenticated request to logout
-    req.getSession().removeAttribute("token");
-    req.getSession().removeAttribute("userEmail");
-    req.getSession().removeAttribute("userImageUrl");
-    req.getRequestDispatcher("/books").forward(req, resp);
+    Map<String, Cookie> cookieMap = new HashMap<>();
+    Cookie[] cookies = req.getCookies();
+    if (cookies != null) {
+      for (Cookie c : cookies) {
+        cookieMap.put(c.getName(), c);
+      }
+    }
+    // TODO make this into a helper class
+    try {
+      if (cookieMap.containsKey("token")) {
+        cookieMap.get("token").setMaxAge(0);
+        resp.addCookie(cookieMap.get("token"));
+        cookieMap.get("userEmail").setMaxAge(0);
+        resp.addCookie(cookieMap.get("userEmail"));
+        cookieMap.get("userImageUrl").setMaxAge(0);
+        resp.addCookie(cookieMap.get("userImageUrl"));
+        cookieMap.get("userId").setMaxAge(0);
+        resp.addCookie(cookieMap.get("userId"));
+      }
+    } catch (NullPointerException e) {
+      logger.log(Level.INFO, "The requested cookies are already null");
+    }
+    resp.sendRedirect("/books");
   }
 }
 // [END example]

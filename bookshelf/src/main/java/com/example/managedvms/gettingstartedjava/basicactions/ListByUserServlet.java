@@ -21,10 +21,13 @@ import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,8 +40,15 @@ public class ListByUserServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
         ServletException {
-    if (req.getSession().getAttribute("token") == null) {
-      req.setAttribute("loginDesintaion", "/books/mine");
+    Map<String, Cookie> cookieMap = new HashMap<>();
+    Cookie[] cookies = req.getCookies();
+    if (cookies != null) {
+      for (Cookie c : cookies) {
+        cookieMap.put(c.getName(), c);
+      }
+    }
+    if (!cookieMap.containsKey("token")) {
+      req.setAttribute("loginDestination", "/books/mine");
       req.getRequestDispatcher("/login").forward(req, resp);
       return;
     }
@@ -48,7 +58,7 @@ public class ListByUserServlet extends HttpServlet {
     String endCursor = null;
     try {
       Result<Book> result = dao.listBooksByUser(
-          req.getSession().getAttribute("userId").toString(), startCursor);
+          cookieMap.get("userId").getValue(), startCursor);
       books = result.result;
       endCursor = result.cursor;
     } catch (Exception e) {

@@ -28,9 +28,12 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +51,11 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
+    Map<String, Cookie> cookieMap = new HashMap<>();
+    Cookie[] cookies = req.getCookies();
+    for (Cookie c : cookies) {
+      cookieMap.put(c.getName(), c);
+    }
     flow =
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
@@ -57,12 +65,19 @@ public class LoginServlet extends HttpServlet {
             SCOPE)
         .build();
     String state = new BigInteger(130, new SecureRandom()).toString(32);
-    req.getSession().setAttribute("state", state);
+    Cookie stateCookie = new Cookie("state", state);
+    stateCookie.setPath("/");
+    resp.addCookie(stateCookie);
+    // do i need this, or do
+    Cookie loginDestCookie = new Cookie("loginDestination", "");
     if(req.getAttribute("loginDestination") != null) {
-      req.getSession().setAttribute("loginDestination", req.getAttribute("loginDestination"));
+      loginDestCookie.setValue((String) req.getAttribute("loginDestination"));
     } else {
-      req.getSession().setAttribute("loginDestination", "/books");
+      loginDestCookie.setValue("/books");
     }
+    // Set the path to root so it's visible to all pages
+    loginDestCookie.setPath("/");
+    resp.addCookie(loginDestCookie);
     // callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()

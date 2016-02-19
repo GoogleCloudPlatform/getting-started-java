@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 // a url pattern of "" makes this servlet the root servlet
-@WebServlet(name = "list", urlPatterns = { "", "/books" } )
+@WebServlet(name = "list", urlPatterns = { "", "/books" }, loadOnStartup=1 )
 @SuppressWarnings("serial")
 public class ListBookServlet extends HttpServlet {
 
