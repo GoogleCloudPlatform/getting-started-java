@@ -14,26 +14,18 @@
  * permissions and limitations under the License.
  */
 
-package com.google.appengine.demos.hello.server;
-
-import com.google.appengine.api.utils.SystemProperty;
-import com.google.apphosting.api.ApiProxy;
-import com.google.apphosting.api.ApiProxy.Environment;
+package org.example.appengine.hello;
 
 // [START example]
 /**
- * Generate some simple information about the app version and hostname.
+ * Generate some simple information.
  */
 public class HelloInfo {
 
   public static String getInfo() {
-    String version = SystemProperty.applicationVersion.get();
-    String majorVersion = version.substring(0, version.indexOf('.'));
-  	Environment env = ApiProxy.getCurrentEnvironment();
-    String hostname = "" +
-        env.getAttributes().get("com.google.appengine.runtime.default_version_hostname");
-  	String infostring = "version: " + majorVersion + " and hostname: " + hostname;
-  	return infostring;
+    return "Version: "+System.getProperty("java.version") +
+          " OS: "+System.getProperty("os.name") +
+          "User: " +System.getProperty("user.name");
   }
 }
 // [END example]

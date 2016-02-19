@@ -2,7 +2,7 @@
 
 ## Requirements
 * [Apache Maven](http://maven.apache.org) 3.1 or greater
-* JDK 7 in order to run
+* JDK 8 in order to run
 * [Cloud SDK for Managed VMs](https://cloud.google.com/appengine/docs/managed-vms/)
 
 
