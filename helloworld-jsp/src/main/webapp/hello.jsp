@@ -1,11 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.google.appengine.api.users.User" %>
-<%@ page import="com.google.appengine.api.users.UserService" %>
-<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
-<%@ page import="com.google.appengine.demos.hello.server.HelloInfo" %>
-
+<%@ page import="org.example.appengine.hello.HelloInfo" %>
+<!-- [START_EXCLUDE] -->
 <%--
-  ~ Copyright (c) 2013 Google Inc. All Rights Reserved.
+  ~ Copyright (c) 2016 Google Inc. All Rights Reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License"); you
   ~ may not use this file except in compliance with the License. You may
@@ -19,27 +16,15 @@
   ~ implied. See the License for the specific language governing
   ~ permissions and limitations under the License.
   --%>
-
-<%
-  UserService userService = UserServiceFactory.getUserService();
-  User user = userService.getCurrentUser();
-%>
-
+<!-- [END_EXCLUDE] -->
 <!DOCTYPE html>
-
 <html>
-
 <head>
   <link href='//fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>
 </head>
-
 <body>
-
   <h2>Hello!</h2>
 
-  <p>Hello, <%= user.getNickname() %>.
-     I'm running on <%= HelloInfo.getInfo() %>.
-  </p>
-
+  <p>This is <%= HelloInfo.getInfo() %>.</p>
 </body>
 </html>
