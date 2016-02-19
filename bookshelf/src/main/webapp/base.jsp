@@ -37,13 +37,13 @@ Copyright 2015 Google Inc. All Rights Reserved.
         </ul>
         <p class="navbar-text navbar-right">
           <c:choose>
-          <c:when test="${not empty token}">
+          <c:when test="${not empty cookie.token}">
           <!-- using pageContext requires jsp-api artifact in pom.xml -->
           <a href="/logout">
-            <c:if test="${not empty userImageUrl}">
-              <img class="img-circle" src="${fn:escapeXml(userImageUrl)}" width="24">
+            <c:if test="${not empty cookie.userImageUrl}">
+              <img class="img-circle" src="${fn:escapeXml(cookie.userImageUrl.value)}" width="24">
             </c:if>
-            ${fn:escapeXml(userEmail)}
+            ${fn:escapeXml(cookie.userEmail.value)}
           </a>
           </c:when>
           <c:otherwise>

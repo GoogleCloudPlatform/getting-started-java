@@ -34,9 +34,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,6 +49,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "oauth2callback", value = "/oauth2callback")
 @SuppressWarnings("serial")
 public class Oauth2CallbackServlet extends HttpServlet {
+
+  private Logger logger = Logger.getLogger(this.getClass().getName());
 
   private GoogleAuthorizationCodeFlow flow;
   private static final Collection<String> SCOPE =
@@ -56,15 +62,25 @@ public class Oauth2CallbackServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {
+    Map<String, Cookie> cookieMap = new HashMap<>();
+    Cookie[] cookies = req.getCookies();
+    for (Cookie c : cookies) {
+      logger.log(Level.INFO, c.getName() + " " + c.getValue());
+      cookieMap.put(c.getName(), c);
+    }
     // Ensure that this is no request forgery going on, and that the user
     // sending us this connect request is the user that was supposed to.
-    if (!req.getParameter("state").equals(req.getSession().getAttribute("state"))) {
+    logger.log(Level.INFO, cookieMap.get("state").getValue());
+    logger.log(Level.INFO, req.getParameter("state"));
+    if (!req.getParameter("state")
+        .equals(cookieMap.get("state").getValue())) {
       resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       resp.getWriter().print("Invalid state parameter.");
       return;
     }
     // remove one-time use state
-    req.getSession().removeAttribute("state");
+    cookieMap.get("state").setMaxAge(0);
+    resp.addCookie(cookieMap.get("state"));
 
     flow =
         new GoogleAuthorizationCodeFlow.Builder(
@@ -74,14 +90,14 @@ public class Oauth2CallbackServlet extends HttpServlet {
             System.getenv("CLIENT_SECRET"),
             SCOPE)
         .build();
-    final TokenResponse tockenResponse =
+    final TokenResponse tokenResponse =
         flow.newTokenRequest(req.getParameter("code"))
         .setRedirectUri(System.getenv("CALLBACK_URL"))
         .execute();
 
     // keep track of the token
-    req.getSession().setAttribute("token", tockenResponse.toString());
-    final Credential credential = flow.createAndStoreCredential(tockenResponse, null);
+    resp.addCookie(new Cookie("token", tokenResponse.toString()));
+    final Credential credential = flow.createAndStoreCredential(tokenResponse, null);
     final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
     // Make an authenticated request
     final GenericUrl url = new GenericUrl(LOGIN_API_URL);
@@ -93,11 +109,10 @@ public class Oauth2CallbackServlet extends HttpServlet {
     HashMap<String, String> userIdResult =
         new ObjectMapper().readValue(jsonIdentity, HashMap.class);
     // from this map, extract the relevant profile info and store it in the session
-    req.getSession().setAttribute("userEmail", userIdResult.get("email"));
-    req.getSession().setAttribute("userId", userIdResult.get("id"));
-    req.getSession().setAttribute("userImageUrl", userIdResult.get("picture"));
-    req.getRequestDispatcher(
-        req.getSession().getAttribute("loginDestination").toString()).forward(req, resp);
+    resp.addCookie(new Cookie("userEmail", userIdResult.get("email")));
+    resp.addCookie(new Cookie("userId", userIdResult.get("id")));
+    resp.addCookie(new Cookie("userImageUrl", userIdResult.get("picture")));
+    resp.sendRedirect(cookieMap.get("loginDestination").getValue());
   }
 }
 // [END example]
