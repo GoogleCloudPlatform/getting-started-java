@@ -81,7 +81,6 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
       stateEntity = Entity.builder(key).build();
       datastore.put(stateEntity);
     }
-    logger.log(Level.INFO, "setting new session variable " + varName + " to " + varValue);
     datastore.put(
         Entity.builder(stateEntity)
         .set(varName, varValue).build());
