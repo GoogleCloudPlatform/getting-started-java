@@ -22,6 +22,7 @@ import com.example.managedvms.gettingstartedjava.daos.DatastoreDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
+import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,7 +32,6 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,17 +39,16 @@ import javax.servlet.http.HttpServletResponse;
 // a url pattern of "" makes this servlet the root servlet
 @WebServlet(name = "list", urlPatterns = { "", "/books" } )
 @SuppressWarnings("serial")
-public class ListBookServlet extends HttpServlet {
+public class ListBookServlet extends DatastoreHttpServlet {
 
-  private final Logger logger =
-      Logger.getLogger(
-         com.example.managedvms.gettingstartedjava.basicactions.ListBookServlet.class.getName());
+  private Logger logger = Logger.getLogger(this.getClass().getName());
 
   /**
    * Create the dao based on the user choice and store it in the session
    */
   @Override
   public void init() throws ServletException {
+    super.init();
     String storageType = System.getenv("STORAGETYPE");
     BookDao dao = null;
     switch (storageType) {
@@ -89,6 +88,7 @@ public class ListBookServlet extends HttpServlet {
     req.getSession().getServletContext().setAttribute("books", books);
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list");
+    loadSessionVariables(req);
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }
