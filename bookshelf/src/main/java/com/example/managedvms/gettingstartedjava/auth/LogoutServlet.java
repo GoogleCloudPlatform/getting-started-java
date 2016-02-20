@@ -40,10 +40,7 @@ public class LogoutServlet extends DatastoreHttpServlet {
     // you can also make an authenticated request to logout, but here we choose to
     // simply delete the session variables for simplicity
     try {
-    deleteSessionVariable("token");
-    deleteSessionVariable("userEmail");
-    deleteSessionVariable("userId");
-    deleteSessionVariable("userImageUrl");
+      deleteSessionVariable(req, "token", "userEmail", "userId", "userImageUrl");
     } catch (NullPointerException e) {
       logger.log(Level.INFO, "the requested session variables are already null");
     }

@@ -88,13 +88,6 @@ public class ListBookServlet extends DatastoreHttpServlet {
     req.getSession().getServletContext().setAttribute("books", books);
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list");
-//    Set<String> names = listSessionVariables();
-//    if (names.contains("token")) {
-//      req.setAttribute("token", getSessionVariable("token"));
-//      req.setAttribute("userEmail", getSessionVariable("userEmail"));
-//      req.setAttribute("userId", getSessionVariable("userId"));
-//      req.setAttribute("userImageUrl", getSessionVariable("userImageUrl"));
-//    }
     loadSessionVariables(req);
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }

@@ -60,9 +60,9 @@ public class CreateBookServlet extends DatastoreHttpServlet {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (listSessionVariables().contains("token")) {
-      createdByString = getSessionVariable("userEmail");
-      createdByIdString = getSessionVariable("userId");
+    if (listSessionVariables(req).contains("token")) {
+      createdByString = getSessionVariable(req, "userEmail");
+      createdByIdString = getSessionVariable(req, "userId");
     }
     Book book = new Book.Builder()
         .author(req.getParameter("author"))
