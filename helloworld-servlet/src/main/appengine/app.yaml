@@ -22,6 +22,9 @@ vm: true
 runtime_config:  # Optional
   jdk: openjdk8
   server: jetty9
+
+manual_scaling:
+  instances: 1
 # [END_EXCLUDE]
 
 beta_settings:
@@ -31,9 +34,4 @@ handlers:
 - url: /.*
   script: this field is required, but ignored
   secure: always  # Require HTTPS
-
-# [START_EXCLUDE]
-manual_scaling:
-  instances: 1
-# [END_EXCLUDE]
 # [END runtime]
