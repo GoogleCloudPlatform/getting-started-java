@@ -14,20 +14,26 @@
 # limitations under the License.
 # [END_EXCLUDE]
 
+# [START runtime]
 runtime: java
 vm: true
 
+# [START_EXCLUDE]
 runtime_config:  # Optional
   jdk: openjdk8
   server: jetty9
+# [END_EXCLUDE]
+
+beta_settings:
+  java_quickstart: true
 
 handlers:
 - url: /.*
   script: this field is required, but ignored
   secure: always  # Require HTTPS
 
+# [START_EXCLUDE]
 manual_scaling:
   instances: 1
-
-beta_settings:
-  java_quickstart: true
+# [END_EXCLUDE]
+# [END runtime]
