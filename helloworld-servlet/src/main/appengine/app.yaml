@@ -18,9 +18,6 @@
 runtime: java
 vm: true
 
-beta_settings:
-  java_quickstart: true
-
 handlers:
 - url: /.*
   script: this field is required, but ignored
