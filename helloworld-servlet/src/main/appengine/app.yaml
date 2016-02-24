@@ -18,15 +18,6 @@
 runtime: java
 vm: true
 
-# [START_EXCLUDE]
-runtime_config:  # Optional
-  jdk: openjdk8
-  server: jetty9
-
-manual_scaling:
-  instances: 1
-# [END_EXCLUDE]
-
 beta_settings:
   java_quickstart: true
 
@@ -35,3 +26,12 @@ handlers:
   script: this field is required, but ignored
   secure: always  # Require HTTPS
 # [END runtime]
+
+# [START_EXCLUDE]
+runtime_config:  # Optional
+  jdk: openjdk8
+  server: jetty9
+
+manual_scaling:
+  instances: 1
+# [END_EXCLUDE]
