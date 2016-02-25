@@ -52,15 +52,16 @@ public class CreateBookServlet extends DatastoreHttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
+    String sessionId = getCookieValue(req, "bookshelfSessionId");
     CloudStorageHelper storageHelper =
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
     String imageUrl = storageHelper.getImageUrl(req, resp);
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (listSessionVariables(req.getSession().getId()).contains("token")) {
-      createdByString = getSessionVariable(req.getSession().getId(), "userEmail");
-      createdByIdString = getSessionVariable(req.getSession().getId(), "userId");
+    if (listSessionVariables(sessionId).contains("token")) {
+      createdByString = getSessionVariable(sessionId, "userEmail");
+      createdByIdString = getSessionVariable(sessionId, "userId");
     }
     Book book = new Book.Builder()
         .author(req.getParameter("author"))

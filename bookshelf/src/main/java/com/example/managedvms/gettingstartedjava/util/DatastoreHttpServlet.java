@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,12 +54,26 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
     }
   }
 
+  protected String getCookieValue(HttpServletRequest req, String cookieName) {
+    Cookie[] cookies = req.getCookies();
+    for (Cookie cookie : cookies) {
+      if (cookie.getName().equals(cookieName)) {
+        return cookie.getValue();
+      }
+    }
+    logger.log(Level.WARNING, "Cookie with name " + cookieName + " was not found.");
+    return "";
+  }
 
   /**
    * Delete a value stored in the project's datastore.
    * @param sessionId Request from which the session is extracted.
    */
   protected void deleteSessionVariable(String sessionId, String... varNames) {
+    if (sessionId.equals("")) {
+      logger.log(Level.INFO, "Session Id was empty");
+      return;
+    }
     Key key = keyFactory.newKey(sessionId);
     Transaction transaction = datastore.newTransaction();
     try {
@@ -79,6 +94,10 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
   }
 
   protected void deleteSession(String sessionId) {
+    if (sessionId.equals("")) {
+      logger.log(Level.INFO, "Session Id was empty");
+      return;
+    }
     Key key = keyFactory.newKey(sessionId);
     Transaction transaction = datastore.newTransaction();
     try {
@@ -118,6 +137,10 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
    */
   protected String getSessionVariable(String sessionId, String varName)
       throws ServletException {
+    if (sessionId.equals("")) {
+      logger.log(Level.INFO, "Session Id was empty");
+      return "";
+    }
     Key key = keyFactory.newKey(sessionId);
     try {
       Entity stateEntity = datastore.get(key);
@@ -141,6 +164,10 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
    */
   protected void setSessionVariable(String sessionId, String varName, String varValue)
       throws ServletException {
+    if (sessionId.equals("")) {
+      logger.log(Level.INFO, "Session Id was empty");
+      return;
+    }
     Key key = keyFactory.newKey(sessionId);
     Transaction transaction = datastore.newTransaction();
     DateTime dt = DateTime.now(DateTimeZone.UTC);
@@ -169,6 +196,10 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
    * @return a set of all session variable names
    */
   protected Set<String> listSessionVariables(String sessionId) throws ServletException {
+    if (sessionId.equals("")) {
+      logger.log(Level.INFO, "Session Id was empty");
+      return new HashSet<>();
+    }
     Key key = keyFactory.newKey(sessionId);
     Entity stateEntity = datastore.get(key);
     // if the datastore state entity doesn't exist, create it before proceeding
@@ -183,7 +214,11 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
    * @param req Request from which to extract session.
    */
   protected void loadSessionVariables(HttpServletRequest req) throws ServletException {
-    String sessionId = req.getSession().getId();
+    String sessionId = getCookieValue(req, "bookshelfSessionId");
+    if (sessionId.equals("")) {
+      logger.log(Level.INFO, "Session Id was empty");
+      return;
+    }
     Key key = keyFactory.newKey(sessionId);
     Entity stateEntity = datastore.get(key);
     // if the datastore state entity doesn't exist, create it before proceeding

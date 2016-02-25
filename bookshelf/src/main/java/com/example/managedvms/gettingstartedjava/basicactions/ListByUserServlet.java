@@ -41,7 +41,8 @@ public class ListByUserServlet extends DatastoreHttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
         ServletException {
-    if (!listSessionVariables(req.getSession().getId()).contains("token")) {
+    String sessionId = getCookieValue(req, "bookshelfSessionId");
+    if (!listSessionVariables(sessionId).contains("token")) {
       logger.log(Level.INFO, "token not detected, setting loginDestination to /books/mine");
       req.setAttribute("loginDestination", "/books/mine");
       req.getRequestDispatcher("/login").forward(req, resp);
@@ -53,7 +54,7 @@ public class ListByUserServlet extends DatastoreHttpServlet {
     String endCursor = null;
     try {
       Result<Book> result =
-          dao.listBooksByUser(getSessionVariable(req.getSession().getId(), "userId"), startCursor);
+          dao.listBooksByUser(getSessionVariable(sessionId, "userId"), startCursor);
       books = result.result;
       endCursor = result.cursor;
     } catch (Exception e) {

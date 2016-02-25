@@ -44,11 +44,11 @@ public class ListBookServlet extends DatastoreHttpServlet {
   private static final Logger logger = Logger.getLogger(ListBookServlet.class.getName());
 
   /**
-   * Creates the dao based on the user choice and store it in the session.
+   * Initializes the storage DAO and creates a session identification cookie.
    */
   @Override
   public void init() throws ServletException {
-    super.init();
+    // Creates the DAO based on the environment variable
     String storageType = System.getenv("STORAGETYPE");
     BookDao dao = null;
     switch (storageType) {
@@ -69,6 +69,7 @@ public class ListBookServlet extends DatastoreHttpServlet {
     this.getServletContext().setAttribute("dao", dao);
     CloudStorageHelper storageHelper = new CloudStorageHelper();
     this.getServletContext().setAttribute("storageHelper", storageHelper);
+
   }
 
   @Override

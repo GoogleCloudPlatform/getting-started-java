@@ -144,7 +144,7 @@ public class DatastoreDao implements BookDao {
       resultBooks.add(book);
     }
     Cursor cursor = resultList.cursorAfter();
-    if(cursor != null && bookCount == 10) {
+    if (cursor != null && bookCount == 10) {
       String cursorString = cursor.toUrlSafe();
       return new Result<>(resultBooks, cursorString);
     } else {
@@ -193,7 +193,7 @@ public class DatastoreDao implements BookDao {
       resultBooks.add(book);
     }
     Cursor cursor = resultList.cursorAfter();
-    if(cursor != null && bookCount == 10) {
+    if (cursor != null && bookCount == 10) {
       String cursorString = cursor.toUrlSafe();
       return new Result<>(resultBooks, cursorString);
     } else {
