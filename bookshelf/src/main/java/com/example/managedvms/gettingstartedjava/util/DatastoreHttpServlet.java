@@ -40,12 +40,11 @@ public abstract class DatastoreHttpServlet extends HttpServlet {
   static {
     datastore = DatastoreOptions.defaultInstance().service();
     keyFactory = datastore.newKeyFactory().kind("SessionVariable");
-    // Delete all sessions unmodified for over two days.
+    // Delete all sessions unmodified for over two days
     DateTime dt = DateTime.now(DateTimeZone.UTC);
-    dt.minusDays(2);
     Query<Entity> query = Query.entityQueryBuilder()
         .kind("SessionVariable")
-        .filter(PropertyFilter.le("lastModified", dt.toString(dtf)))
+        .filter(PropertyFilter.le("lastModified", dt.minusDays(2).toString(dtf)))
         .build();
     QueryResults<Entity> resultList = datastore.run(query);
     while (resultList.hasNext()) {

@@ -121,7 +121,11 @@ public class DatastoreDao implements BookDao {
         .build();
     QueryResults<Entity> resultList = datastore.run(query);
     List<Book> resultBooks = new ArrayList<>();
+    // Keep count of the books so that you know when there are no more books.
+    // Currently no good solution if total books is a multiple of 10.
+    int bookCount = 0;
     while (resultList.hasNext()) {
+      bookCount++;
       Entity bookEntity = resultList.next();
       Book book = new Book.Builder()
           .author(bookEntity.getString(Book.AUTHOR))
@@ -139,7 +143,13 @@ public class DatastoreDao implements BookDao {
           .build();
       resultBooks.add(book);
     }
-    return new Result<>(resultBooks);
+    Cursor cursor = resultList.cursorAfter();
+    if(cursor != null && bookCount == 10) {
+      String cursorString = cursor.toUrlSafe();
+      return new Result<>(resultBooks, cursorString);
+    } else {
+      return new Result<>(resultBooks);
+    }
   }
 // [END listbooks]
 // [START listbyuser]
@@ -160,7 +170,11 @@ public class DatastoreDao implements BookDao {
         .build();
     QueryResults<Entity> resultList = datastore.run(query);
     List<Book> resultBooks = new ArrayList<>();
+    // Keep count of the books so that you know when there are no more books.
+    // Currently no good solution if total books is a multiple of 10.
+    int bookCount = 0;
     while (resultList.hasNext()) {
+      bookCount++;
       Entity bookEntity = resultList.next();
       Book book = new Book.Builder()
           .author(bookEntity.getString(Book.AUTHOR))
@@ -178,7 +192,13 @@ public class DatastoreDao implements BookDao {
           .build();
       resultBooks.add(book);
     }
-    return new Result<>(resultBooks);
+    Cursor cursor = resultList.cursorAfter();
+    if(cursor != null && bookCount == 10) {
+      String cursorString = cursor.toUrlSafe();
+      return new Result<>(resultBooks, cursorString);
+    } else {
+      return new Result<>(resultBooks);
+    }
   }
 // [END listbyuser]
 }
