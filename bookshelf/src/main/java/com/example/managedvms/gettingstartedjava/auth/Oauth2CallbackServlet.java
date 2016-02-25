@@ -59,16 +59,17 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
       ServletException {
     // Ensure that this is no request forgery going on, and that the user
     // sending us this connect request is the user that was supposed to.
-    Set<String> names = listSessionVariables(req);
+    Set<String> names = listSessionVariables(req.getSession().getId());
     if (
-        !names.contains("state") ||
-        !req.getParameter("state").equals(getSessionVariable(req, "state"))) {
+        !names.contains("state")
+        || !req.getParameter("state").equals(
+            getSessionVariable(req.getSession().getId(), "state"))) {
       resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       resp.getWriter().print("Invalid state parameter.");
       return;
     }
     // remove one-time use state
-    deleteSessionVariable(req, "state");
+    deleteSessionVariable(req.getSession().getId(), "state");
     flow =
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
@@ -83,7 +84,7 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
         .execute();
 
     // keep track of the token
-    setSessionVariable(req, "token", tokenResponse.toString());
+    setSessionVariable(req.getSession().getId(), "token", tokenResponse.toString());
     final Credential credential = flow.createAndStoreCredential(tokenResponse, null);
     final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
     // Make an authenticated request
@@ -96,10 +97,10 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
     HashMap<String, String> userIdResult =
         new ObjectMapper().readValue(jsonIdentity, HashMap.class);
     // from this map, extract the relevant profile info and store it in the session
-    setSessionVariable(req, "userEmail", userIdResult.get("email"));
-    setSessionVariable(req, "userId", userIdResult.get("id"));
-    setSessionVariable(req, "userImageUrl", userIdResult.get("picture"));
-    resp.sendRedirect(getSessionVariable(req, "loginDestination"));
+    setSessionVariable(req.getSession().getId(), "userEmail", userIdResult.get("email"));
+    setSessionVariable(req.getSession().getId(), "userId", userIdResult.get("id"));
+    setSessionVariable(req.getSession().getId(), "userImageUrl", userIdResult.get("picture"));
+    resp.sendRedirect(getSessionVariable(req.getSession().getId(), "loginDestination"));
   }
 }
 // [END example]

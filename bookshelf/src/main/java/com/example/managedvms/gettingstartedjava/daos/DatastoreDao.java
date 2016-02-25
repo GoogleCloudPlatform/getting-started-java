@@ -110,18 +110,18 @@ public class DatastoreDao implements BookDao {
   @Override
   public Result<Book> listBooks(String startCursorString) {
     Cursor startCursor = null;
-    if(startCursorString != null && !startCursorString.equals("")) {
+    if (startCursorString != null && !startCursorString.equals("")) {
       startCursor = Cursor.fromUrlSafe(startCursorString);
     }
-    Query<Entity> q = Query.entityQueryBuilder()
+    Query<Entity> query = Query.entityQueryBuilder()
         .kind("Book")
         .limit(10)
         .startCursor(startCursor)
         .orderBy(OrderBy.asc("title"))
         .build();
-    QueryResults<Entity> resultList = datastore.run(q);
+    QueryResults<Entity> resultList = datastore.run(query);
     List<Book> resultBooks = new ArrayList<>();
-    while(resultList.hasNext()) {
+    while (resultList.hasNext()) {
       Entity bookEntity = resultList.next();
       Book book = new Book.Builder()
           .author(bookEntity.getString(Book.AUTHOR))
@@ -144,12 +144,12 @@ public class DatastoreDao implements BookDao {
 // [END listbooks]
 // [START listbyuser]
   @Override
-  public Result<Book> listBooksByUser(String userId, String startCursorString) throws Exception {
+  public Result<Book> listBooksByUser(String userId, String startCursorString) {
     Cursor startCursor = null;
-    if(startCursorString != null && !startCursorString.equals("")) {
-          startCursor = Cursor.fromUrlSafe(startCursorString);
+    if (startCursorString != null && !startCursorString.equals("")) {
+      startCursor = Cursor.fromUrlSafe(startCursorString);
     }
-    Query<Entity> q = Query.entityQueryBuilder()
+    Query<Entity> query = Query.entityQueryBuilder()
         .kind("Book")
         .filter(PropertyFilter.eq(Book.CREATED_BY_ID, userId))
         .limit(10)
@@ -158,9 +158,9 @@ public class DatastoreDao implements BookDao {
         // but ordering by another
         .orderBy(OrderBy.asc(Book.TITLE))
         .build();
-    QueryResults<Entity> resultList = datastore.run(q);
+    QueryResults<Entity> resultList = datastore.run(query);
     List<Book> resultBooks = new ArrayList<>();
-    while(resultList.hasNext()) {
+    while (resultList.hasNext()) {
       Entity bookEntity = resultList.next();
       Book book = new Book.Builder()
           .author(bookEntity.getString(Book.AUTHOR))

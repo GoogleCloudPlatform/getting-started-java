@@ -19,18 +19,20 @@ package com.example.managedvms.gettingstartedjava.daos;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
 
+import java.sql.SQLException;
+
 // [START example]
 public interface BookDao {
-  public Long createBook(Book book) throws Exception;
+  Long createBook(Book book) throws SQLException;
 
-  public Book readBook(Long bookId) throws Exception;
+  Book readBook(Long bookId) throws SQLException;
 
-  public void updateBook(Book book) throws Exception;
+  void updateBook(Book book) throws SQLException;
 
-  public void deleteBook(Long bookId) throws Exception;
+  void deleteBook(Long bookId) throws SQLException;
 
-  public Result<Book> listBooks(String startCursor) throws Exception;
+  Result<Book> listBooks(String startCursor) throws SQLException;
 
-  public Result<Book> listBooksByUser(String userId, String startCursor) throws Exception;
+  Result<Book> listBooksByUser(String userId, String startCursor) throws SQLException;
 }
 // [END example]

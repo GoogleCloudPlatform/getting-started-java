@@ -62,12 +62,16 @@ public class LoginServlet extends DatastoreHttpServlet {
             SCOPE)
         .build();
     String state = new BigInteger(130, new SecureRandom()).toString(32);
-    setSessionVariable(req, "state", state);
-    if(req.getAttribute("loginDestination") != null) {
-      setSessionVariable(req, "loginDestination", (String) req.getAttribute("loginDestination"));
-      logger.log(Level.INFO, "logging destination " + (String) req.getAttribute("loginDestination"));
+    setSessionVariable(req.getSession().getId(), "state", state);
+    if (req.getAttribute("loginDestination") != null) {
+      setSessionVariable(
+          req.getSession().getId(),
+          "loginDestination",
+          (String) req.getAttribute("loginDestination"));
+      logger.log(
+          Level.INFO, "logging destination " + (String) req.getAttribute("loginDestination"));
     } else {
-      setSessionVariable(req, "loginDestination", "/books");
+      setSessionVariable(req.getSession().getId(), "loginDestination", "/books");
       logger.log(Level.INFO, "logging destination /books");
     }
     // callback url should be the one registered in Google Developers Console
