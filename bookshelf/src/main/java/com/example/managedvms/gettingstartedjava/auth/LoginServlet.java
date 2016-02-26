@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,6 +54,12 @@ public class LoginServlet extends DatastoreHttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
+    // Create a unique identifier and store it in a cookie
+    String sessionNum = new BigInteger(130, new SecureRandom()).toString(32);
+    Cookie session = new Cookie("bookshelfSessionId", sessionNum);
+    session.setPath("/");
+    resp.addCookie(session);
+
     flow =
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
@@ -62,12 +69,16 @@ public class LoginServlet extends DatastoreHttpServlet {
             SCOPE)
         .build();
     String state = new BigInteger(130, new SecureRandom()).toString(32);
-    setSessionVariable(req, "state", state);
-    if(req.getAttribute("loginDestination") != null) {
-      setSessionVariable(req, "loginDestination", (String) req.getAttribute("loginDestination"));
-      logger.log(Level.INFO, "logging destination " + (String) req.getAttribute("loginDestination"));
+    setSessionVariable(sessionNum, "state", state);
+    if (req.getAttribute("loginDestination") != null) {
+      setSessionVariable(
+          sessionNum,
+          "loginDestination",
+          (String) req.getAttribute("loginDestination"));
+      logger.log(
+          Level.INFO, "logging destination " + (String) req.getAttribute("loginDestination"));
     } else {
-      setSessionVariable(req, "loginDestination", "/books");
+      setSessionVariable(sessionNum, "loginDestination", "/books");
       logger.log(Level.INFO, "logging destination /books");
     }
     // callback url should be the one registered in Google Developers Console
