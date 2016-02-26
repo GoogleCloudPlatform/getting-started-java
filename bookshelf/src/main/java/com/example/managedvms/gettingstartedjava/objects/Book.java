@@ -40,15 +40,15 @@ public class Book {
 // [END keys]
 // [START constructor]
   // We use a Builder pattern here to simplify and standardize construction of Book objects.
-  private Book(Builder b) {
-    this.title = b.title;
-    this.author = b.author;
-    this.createdBy = b.createdBy;
-    this.createdById = b.createdById;
-    this.publishedDate = b.publishedDate;
-    this.description = b.description;
-    this.id = b.id;
-    this.imageUrl = b.imageUrl;
+  private Book(Builder builder) {
+    this.title = builder.title;
+    this.author = builder.author;
+    this.createdBy = builder.createdBy;
+    this.createdById = builder.createdById;
+    this.publishedDate = builder.publishedDate;
+    this.description = builder.description;
+    this.id = builder.id;
+    this.imageUrl = builder.imageUrl;
   }
 // [END constructor]
 // [START builder]

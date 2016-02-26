@@ -19,8 +19,6 @@ package com.example.managedvms.gettingstartedjava.auth;
 import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,18 +30,12 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class LogoutServlet extends DatastoreHttpServlet {
 
-  private Logger logger = Logger.getLogger(this.getClass().getName());
-
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
     // you can also make an authenticated request to logout, but here we choose to
     // simply delete the session variables for simplicity
-    try {
-      deleteSessionVariable(req, "token", "userEmail", "userId", "userImageUrl");
-    } catch (NullPointerException e) {
-      logger.log(Level.INFO, "the requested session variables are already null");
-    }
+    deleteSession(getCookieValue(req, "bookshelfSessionId"));
     req.getRequestDispatcher("/books").forward(req, resp);
   }
 }

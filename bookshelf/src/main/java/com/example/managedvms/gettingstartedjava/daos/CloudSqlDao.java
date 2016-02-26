@@ -16,10 +16,9 @@
 
 package com.example.managedvms.gettingstartedjava.daos;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +33,9 @@ public class CloudSqlDao implements BookDao {
 // [START constructor]
   private static final BasicDataSource dataSource = new BasicDataSource();
 
+  /**
+   * A data access object for Bookshelf using a Google Cloud SQL server for storage. 
+   */
   public CloudSqlDao() throws SQLException {
     final String url = System.getenv("SQL_DATABASE_URL");
     dataSource.setUrl(url);
@@ -168,7 +170,7 @@ public class CloudSqlDao implements BookDao {
 // [END listbooks]
 // [START listbyuser]
   @Override
-  public Result<Book> listBooksByUser(String userId, String startCursor) throws Exception {
+  public Result<Book> listBooksByUser(String userId, String startCursor) throws SQLException {
     int offset = 0;
     if (startCursor != null && !startCursor.equals("")) {
       offset = Integer.parseInt(startCursor);

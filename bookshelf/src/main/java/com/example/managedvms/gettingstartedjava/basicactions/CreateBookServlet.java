@@ -37,9 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "create", value = "/create")
 public class CreateBookServlet extends DatastoreHttpServlet {
 
-  private final Logger logger =
-      Logger.getLogger(
-         com.example.managedvms.gettingstartedjava.basicactions.CreateBookServlet.class.getName());
+  private static final Logger logger = Logger.getLogger(CreateBookServlet.class.getName());
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
@@ -54,15 +52,16 @@ public class CreateBookServlet extends DatastoreHttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
+    String sessionId = getCookieValue(req, "bookshelfSessionId");
     CloudStorageHelper storageHelper =
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
     String imageUrl = storageHelper.getImageUrl(req, resp);
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (listSessionVariables(req).contains("token")) {
-      createdByString = getSessionVariable(req, "userEmail");
-      createdByIdString = getSessionVariable(req, "userId");
+    if (listSessionVariables(sessionId).contains("token")) {
+      createdByString = getSessionVariable(sessionId, "userEmail");
+      createdByIdString = getSessionVariable(sessionId, "userId");
     }
     Book book = new Book.Builder()
         .author(req.getParameter("author"))
@@ -76,7 +75,7 @@ public class CreateBookServlet extends DatastoreHttpServlet {
     try {
       Long id = dao.createBook(book);
       logger.log(Level.INFO, "Created book {0}", book);
-      resp.sendRedirect("/read?id="+id.toString());
+      resp.sendRedirect("/read?id=" + id.toString());
     } catch (Exception e) {
       throw new ServletException("Error creating book", e);
     }
