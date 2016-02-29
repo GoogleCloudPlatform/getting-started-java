@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-runtime: java
-vm: true
-runtime_config:
-  jdk: openjdk8
-  server: jetty9
+indexes:
 
-# [START env_variables]
-env_variables:
-  JAVA_OPTS: -djetty.systemPropertiesFile=/app/WEB-INF/bookshelf.properties
-# [END env_variables]
+- kind: Book
+  ancestor: false
+  properties:
+  - name: createdById
+    direction: asc
+  - name: title
+    direction: asc

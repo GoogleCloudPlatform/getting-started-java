@@ -49,7 +49,7 @@ public class ListBookServlet extends DatastoreHttpServlet {
   @Override
   public void init() throws ServletException {
     // Creates the DAO based on the environment variable
-    String storageType = System.getenv("STORAGETYPE");
+    String storageType = System.getProperty("bookshelf.storageType");
     BookDao dao = null;
     switch (storageType) {
       case "datastore":
@@ -64,7 +64,7 @@ public class ListBookServlet extends DatastoreHttpServlet {
         break;
       default:
         throw new IllegalStateException(
-            "Invalid storage type. Check if environment variable is set.");
+            "Invalid storage type. Check if bookshelf.storageType property is set.");
     }
     this.getServletContext().setAttribute("dao", dao);
     CloudStorageHelper storageHelper = new CloudStorageHelper();

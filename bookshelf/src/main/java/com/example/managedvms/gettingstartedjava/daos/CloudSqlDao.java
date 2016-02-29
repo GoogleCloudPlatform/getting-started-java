@@ -34,10 +34,10 @@ public class CloudSqlDao implements BookDao {
   private static final BasicDataSource dataSource = new BasicDataSource();
 
   /**
-   * A data access object for Bookshelf using a Google Cloud SQL server for storage. 
+   * A data access object for Bookshelf using a Google Cloud SQL server for storage.
    */
   public CloudSqlDao() throws SQLException {
-    final String url = System.getenv("SQL_DATABASE_URL");
+    final String url = System.getProperty("sql.url");
     dataSource.setUrl(url);
     final String createTableSql = "CREATE TABLE IF NOT EXISTS books ( id INT NOT NULL "
         + "AUTO_INCREMENT, author VARCHAR(255), createdBy VARCHAR(255), createdById VARCHAR(255), "

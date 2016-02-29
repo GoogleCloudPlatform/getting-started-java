@@ -75,13 +75,13 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
             JSON_FACTORY,
-            System.getenv("CLIENT_ID"),
-            System.getenv("CLIENT_SECRET"),
+            System.getProperty("bookshelf.clientID"),
+            System.getProperty("bookshelf.clientSecret"),
             SCOPE)
         .build();
     final TokenResponse tokenResponse =
         flow.newTokenRequest(req.getParameter("code"))
-        .setRedirectUri(System.getenv("CALLBACK_URL"))
+        .setRedirectUri(System.getProperty("bookshelf.callback"))
         .execute();
 
     // keep track of the token
