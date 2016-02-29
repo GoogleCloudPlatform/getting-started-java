@@ -15,14 +15,14 @@
  limitations under the License.
 -->
 <!-- [START pom] -->
-<project>                            <!-- REQUIRED -->
+<project>                               <!-- REQUIRED -->
 
-  <modelVersion>4.0.0</modelVersion> <!-- REQUIRED -->
-  <packaging>war</packaging>         <!-- REQUIRED -->
+  <modelVersion>4.0.0</modelVersion>    <!-- REQUIRED -->
+  <packaging>war</packaging>            <!-- REQUIRED -->
 
-  <groupId>com.example.appengine.gettingstartedjava</groupId>
+  <groupId>com.example.managedvms.helloworld</groupId>
   <artifactId>helloworld-servlet</artifactId> <!-- Name of your project -->
-  <version>1.0-SNAPSHOT</version> <!-- xx.xx.xx -SNAPSHOT means development -->
+  <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
     
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
@@ -31,32 +31,31 @@
     <failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
   </properties>
   
-  <prerequisites>         <!-- Optional, but suggested -->
-    <maven>3.3.9</maven>  <!-- recommended minimum maven version -->
+  <prerequisites>                       <!-- Optional, but suggested -->
+    <maven>3.3.9</maven>                <!-- recommended minimum maven version -->
   </prerequisites>
 
   <dependencies>
-    <dependency>                       <!-- REQUIRED -->
-      <groupId>javax.servlet</groupId> <!-- Java Servlet API -->
+    <dependency>                        <!-- REQUIRED -->
+      <groupId>javax.servlet</groupId>  <!-- Java Servlet API -->
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
-      <scope>provided</scope>  <!-- it's part of the Jetty -->
+      <scope>provided</scope>           <!-- it's part of the Jetty -->
     </dependency>
   </dependencies>
 
   <build>
     <!-- for hot reload of the web application when using an IDE Eclipse / IDEA -->
-
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 
     <plugins>
-      <plugin>      <!-- used for Deploying -->
+      <plugin>                          <!-- used for Deploying -->
         <groupId>com.google.appengine</groupId>
         <artifactId>gcloud-maven-plugin</artifactId>
         <version>2.0.9.95.v20160203</version> <!-- version changes often -->
       </plugin>
 
-      <plugin>     <!-- Used for local debugging -->
+      <plugin>                          <!-- Used for local debugging -->
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.3.7.v20160115</version>
