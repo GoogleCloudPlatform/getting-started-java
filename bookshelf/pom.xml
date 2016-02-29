@@ -125,7 +125,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.3.7.v20160115</version>
         <configuration>
-          <systemPropertiesFile>src/main/webapps/WEB-INF/bookshelf.properties</systemPropertiesFile>
+          <systemPropertiesFile>${project.basedir}/src/main/webapp/WEB-INF/bookshelf.properties</systemPropertiesFile>
         </configuration>
       </plugin>
 
