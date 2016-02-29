@@ -14,9 +14,15 @@
 
 runtime: java
 vm: true
+
 runtime_config:
   jdk: openjdk8
   server: jetty9
+
+handlers:
+- url: /.*
+  script: this field is required, but ignored
+  secure: always  # Require HTTPS
 
 # [START env_variables]
 env_variables:
