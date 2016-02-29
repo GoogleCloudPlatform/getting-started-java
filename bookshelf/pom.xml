@@ -110,7 +110,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
   </dependencies>
 
   <build>
-    <!-- for hot reload of the web application when using an IDE Eclipse / IDEA -->
+    <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
     <plugins>
 
@@ -124,6 +124,9 @@ Copyright 2015 Google Inc. All Rights Reserved.
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.3.7.v20160115</version>
+        <configuration>
+          <systemPropertiesFile>src/main/webapps/WEB-INF/bookshelf.properties</systemPropertiesFile>
+        </configuration>
       </plugin>
 
     </plugins>

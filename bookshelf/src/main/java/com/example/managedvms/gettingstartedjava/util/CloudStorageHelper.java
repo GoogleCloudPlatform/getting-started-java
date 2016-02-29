@@ -60,7 +60,8 @@ public class CloudStorageHelper {
     DateTime dt = DateTime.now(DateTimeZone.UTC);
     String dtString = dt.toString(dtf);
     final String fileName = filePart.getSubmittedFileName() + dtString;
-    final String bucketName = System.getenv("BUCKET_NAME");
+    final String bucketName = System.getProperty("bookshelf.bucket");
+
     // the inputstream is closed by default, so we don't need to close it here
     BlobInfo blobInfo =
         storage.create(

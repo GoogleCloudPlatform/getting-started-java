@@ -64,8 +64,8 @@ public class LoginServlet extends DatastoreHttpServlet {
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
             JSON_FACTORY,
-            System.getenv("CLIENT_ID"),
-            System.getenv("CLIENT_SECRET"),
+            System.getProperty("bookshelf.clientID"),
+            System.getProperty("bookshelf.clientSecret"),
             SCOPE)
         .build();
     String state = new BigInteger(130, new SecureRandom()).toString(32);
@@ -84,7 +84,7 @@ public class LoginServlet extends DatastoreHttpServlet {
     // callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()
-        .setRedirectUri(System.getenv("CALLBACK_URL"))
+        .setRedirectUri(System.getProperty("bookshelf.callback"))
         .setState(state)
         .build();
     resp.sendRedirect(url);
