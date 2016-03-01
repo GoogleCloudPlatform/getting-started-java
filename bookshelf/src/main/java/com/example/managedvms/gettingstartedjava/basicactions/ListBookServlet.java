@@ -17,21 +17,17 @@
 package com.example.managedvms.gettingstartedjava.basicactions;
 
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
-import com.example.managedvms.gettingstartedjava.daos.CloudSqlDao;
-import com.example.managedvms.gettingstartedjava.daos.DatastoreDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
-import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
-import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,38 +35,9 @@ import javax.servlet.http.HttpServletResponse;
 // a url pattern of "" makes this servlet the root servlet
 @WebServlet(name = "list", urlPatterns = { "", "/books" }, loadOnStartup = 1)
 @SuppressWarnings("serial")
-public class ListBookServlet extends DatastoreHttpServlet {
+public class ListBookServlet extends HttpServlet {
 
   private static final Logger logger = Logger.getLogger(ListBookServlet.class.getName());
-
-  /**
-   * Initializes the storage DAO and creates a session identification cookie.
-   */
-  @Override
-  public void init() throws ServletException {
-    // Creates the DAO based on the environment variable
-    String storageType = System.getProperty("bookshelf.storageType");
-    BookDao dao = null;
-    switch (storageType) {
-      case "datastore":
-        dao = new DatastoreDao();
-        break;
-      case "cloudsql":
-        try {
-          dao = new CloudSqlDao();
-        } catch (SQLException e) {
-          throw new ServletException("SQL error", e);
-        }
-        break;
-      default:
-        throw new IllegalStateException(
-            "Invalid storage type. Check if bookshelf.storageType property is set.");
-    }
-    this.getServletContext().setAttribute("dao", dao);
-    CloudStorageHelper storageHelper = new CloudStorageHelper();
-    this.getServletContext().setAttribute("storageHelper", storageHelper);
-
-  }
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
@@ -90,7 +57,7 @@ public class ListBookServlet extends DatastoreHttpServlet {
     req.getSession().getServletContext().setAttribute("books", books);
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list");
-    loadSessionVariables(req);
+//    loadSessionVariables(req);
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }

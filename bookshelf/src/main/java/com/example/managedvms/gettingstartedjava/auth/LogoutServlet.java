@@ -36,7 +36,7 @@ public class LogoutServlet extends DatastoreHttpServlet {
     // you can also make an authenticated request to logout, but here we choose to
     // simply delete the session variables for simplicity
     deleteSession(getCookieValue(req, "bookshelfSessionId"));
-    req.getRequestDispatcher("/books").forward(req, resp);
+    resp.sendRedirect("/books");
   }
 }
 // [END example]

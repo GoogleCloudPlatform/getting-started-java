@@ -18,7 +18,6 @@ package com.example.managedvms.gettingstartedjava.basicactions;
 
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
-import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -26,13 +25,14 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
 @WebServlet(name = "read", value = "/read")
-public class ReadBookServlet extends DatastoreHttpServlet {
+public class ReadBookServlet extends HttpServlet {
 
   private final Logger logger =
       Logger.getLogger(
@@ -48,7 +48,7 @@ public class ReadBookServlet extends DatastoreHttpServlet {
       logger.log(Level.INFO, "Read book with id {0}", id);
       req.setAttribute("book", book);
       req.setAttribute("page", "view");
-      loadSessionVariables(req);
+//      loadSessionVariables(req);
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error reading book", e);

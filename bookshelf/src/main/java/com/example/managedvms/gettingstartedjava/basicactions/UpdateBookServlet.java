@@ -19,13 +19,13 @@ package com.example.managedvms.gettingstartedjava.basicactions;
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
-import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 @MultipartConfig
 @WebServlet(name = "update", value = "/update")
-public class UpdateBookServlet extends DatastoreHttpServlet {
+public class UpdateBookServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
@@ -45,7 +45,7 @@ public class UpdateBookServlet extends DatastoreHttpServlet {
       req.setAttribute("action", "Edit");
       req.setAttribute("destination", "update");
       req.setAttribute("page", "form");
-      loadSessionVariables(req);
+//      loadSessionVariables(req);
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error loading book for editing", e);
