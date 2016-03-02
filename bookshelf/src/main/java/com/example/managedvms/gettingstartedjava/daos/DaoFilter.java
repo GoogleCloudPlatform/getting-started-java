@@ -15,7 +15,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-@WebFilter( "/*")
+@WebFilter(filterName = "DaoFilter", value = "/*")
 public class DaoFilter implements Filter {
 
   private static final Logger logger = Logger.getLogger(DaoFilter.class.getName());

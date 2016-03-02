@@ -26,5 +26,5 @@ handlers:
 
 # [START env_variables]
 env_variables:
-  JAVA_OPTS: -djetty.systemPropertiesFile=/app/WEB-INF/bookshelf.properties
+  JAVA_OPTS: -Djetty.systemPropertiesFile=/app/WEB-INF/bookshelf.properties
 # [END env_variables]

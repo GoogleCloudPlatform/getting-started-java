@@ -56,7 +56,6 @@ public class CreateBookServlet extends HttpServlet {
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
     String imageUrl = storageHelper.getImageUrl(req, resp);
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
-    // TODO use a filter??
     String createdByString = "";
     String createdByIdString = "";
     if (req.getAttribute("token") != null) {

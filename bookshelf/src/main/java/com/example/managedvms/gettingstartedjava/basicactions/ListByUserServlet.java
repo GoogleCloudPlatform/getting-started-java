@@ -22,8 +22,6 @@ import com.example.managedvms.gettingstartedjava.objects.Result;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,39 +30,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START example]
-// TODO use a filter for this part
 @SuppressWarnings("serial")
 @WebServlet(name = "listbyuser", value = "/books/mine")
 public class ListByUserServlet extends HttpServlet {
 
-  private static final Logger logger = Logger.getLogger(ListByUserServlet.class.getName());
-
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
         ServletException {
-    // TODO use a filter for this part
-    if (req.getAttribute("token") == null) {
-      logger.log(Level.INFO, "token not detected, setting loginDestination to /books/mine");
-      req.setAttribute("loginDestination", "/books/mine");
-      req.getRequestDispatcher("/login").forward(req, resp);
-      return;
-    }
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String startCursor = req.getParameter("cursor");
     List<Book> books = null;
     String endCursor = null;
     try {
       Result<Book> result =
-          dao.listBooksByUser((String) req.getAttribute("userId"), startCursor);
+          dao.listBooksByUser((String) req.getSession().getAttribute("userId"), startCursor);
       books = result.result;
       endCursor = result.cursor;
     } catch (Exception e) {
       throw new ServletException("Error listing books", e);
     }
     req.getSession().getServletContext().setAttribute("books", books);
-    req.setAttribute("cursor", endCursor);
-    req.setAttribute("page", "list");
-//    loadSessionVariables(req);
+    req.getSession().setAttribute("cursor", endCursor);
+    req.getSession().setAttribute("page", "list");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }
