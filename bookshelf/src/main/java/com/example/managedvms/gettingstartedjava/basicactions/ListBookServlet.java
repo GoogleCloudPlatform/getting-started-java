@@ -57,7 +57,6 @@ public class ListBookServlet extends HttpServlet {
     req.getSession().getServletContext().setAttribute("books", books);
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list");
-//    loadSessionVariables(req);
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }

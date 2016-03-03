@@ -45,7 +45,6 @@ public class UpdateBookServlet extends HttpServlet {
       req.setAttribute("action", "Edit");
       req.setAttribute("destination", "update");
       req.setAttribute("page", "form");
-//      loadSessionVariables(req);
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error loading book for editing", e);

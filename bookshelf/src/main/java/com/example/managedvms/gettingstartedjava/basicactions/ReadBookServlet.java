@@ -48,7 +48,6 @@ public class ReadBookServlet extends HttpServlet {
       logger.log(Level.INFO, "Read book with id {0}", id);
       req.setAttribute("book", book);
       req.setAttribute("page", "view");
-//      loadSessionVariables(req);
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error reading book", e);

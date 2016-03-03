@@ -45,7 +45,6 @@ public class CreateBookServlet extends HttpServlet {
     req.setAttribute("action", "Add");
     req.setAttribute("destination", "create");
     req.setAttribute("page", "form");
-//    loadSessionVariables(req);
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 
