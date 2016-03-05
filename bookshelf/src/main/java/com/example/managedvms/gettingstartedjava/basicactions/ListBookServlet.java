@@ -24,20 +24,19 @@ import com.example.managedvms.gettingstartedjava.objects.Result;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 // [START example]
 // a url pattern of "" makes this servlet the root servlet
-@WebServlet(name = "list", urlPatterns = { "", "/books" }, loadOnStartup = 1)
+@WebServlet(name = "list", urlPatterns = {"", "/books" }, loadOnStartup = 1)
 @SuppressWarnings("serial")
 public class ListBookServlet extends DatastoreHttpServlet {
 
@@ -49,7 +48,8 @@ public class ListBookServlet extends DatastoreHttpServlet {
   @Override
   public void init() throws ServletException {
     // Creates the DAO based on the environment variable
-    String storageType = System.getProperty("bookshelf.storageType");
+    String storageType = getServletContext().getInitParameter("bookshelf.storageType");
+
     BookDao dao = null;
     switch (storageType) {
       case "datastore":
@@ -57,7 +57,7 @@ public class ListBookServlet extends DatastoreHttpServlet {
         break;
       case "cloudsql":
         try {
-          dao = new CloudSqlDao();
+          dao = new CloudSqlDao(getServletContext().getInitParameter("sql.url"));
         } catch (SQLException e) {
           throw new ServletException("SQL error", e);
         }

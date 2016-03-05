@@ -36,8 +36,8 @@ public class CloudSqlDao implements BookDao {
   /**
    * A data access object for Bookshelf using a Google Cloud SQL server for storage.
    */
-  public CloudSqlDao() throws SQLException {
-    final String url = System.getProperty("sql.url");
+  public CloudSqlDao(final String url) throws SQLException {
+
     dataSource.setUrl(url);
     final String createTableSql = "CREATE TABLE IF NOT EXISTS books ( id INT NOT NULL "
         + "AUTO_INCREMENT, author VARCHAR(255), createdBy VARCHAR(255), createdById VARCHAR(255), "

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0">
+    <context-param>
+        <param-name>bookshelf.storageType</param-name>
+        <param-value>${bookshelf.storageType}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>bookshelf.bucket</param-name>
+        <param-value>${bookshelf.bucket}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>bookshelf.clientID</param-name>
+        <param-value>${bookshelf.clientID}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>bookshelf.clientSecret</param-name>
+        <param-value>${bookshelf.clientSecret}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>sql.url</param-name>
+        <param-value>jdbc:mysql://${sql.host}:3306/${sql.dbName}?user=${sql.userName}&amp;password=${sql.password}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>bookshelf.callback</param-name>
+        <param-value>${bookshelf.callback}</param-value>
+    </context-param>
+
+    <welcome-file-list>
+        <welcome-file>/books</welcome-file>
+    </welcome-file-list>
+</web-app>
