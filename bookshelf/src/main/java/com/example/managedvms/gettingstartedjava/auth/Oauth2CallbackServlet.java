@@ -1,12 +1,12 @@
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,7 +16,6 @@
 
 package com.example.managedvms.gettingstartedjava.auth;
 
-import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
@@ -32,20 +31,23 @@ import com.google.api.services.plus.PlusScopes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // [START example]
 @WebServlet(name = "oauth2callback", value = "/oauth2callback")
 @SuppressWarnings("serial")
-public class Oauth2CallbackServlet extends DatastoreHttpServlet {
+public class Oauth2CallbackServlet extends HttpServlet {
 
   private GoogleAuthorizationCodeFlow flow;
+  private static final Logger logger = Logger.getLogger(Oauth2CallbackServlet.class.getName());
   private static final Collection<String> SCOPE =
       Arrays.asList(PlusScopes.USERINFO_EMAIL, PlusScopes.PLUS_LOGIN);
   private static final String LOGIN_API_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
@@ -55,20 +57,19 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {
-    String sessionId = getCookieValue(req, "bookshelfSessionId");
     // Ensure that this is no request forgery going on, and that the user
     // sending us this connect request is the user that was supposed to.
-    Set<String> names = listSessionVariables(sessionId);
-    if (
-        !names.contains("state")
-        || !req.getParameter("state").equals(
-            getSessionVariable(sessionId, "state"))) {
+    if (req.getSession().getAttribute("state") == null
+        || !req.getParameter("state").equals((String) req.getSession().getAttribute("state"))) {
       resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      resp.getWriter().print("Invalid state parameter.");
-      return;
+      logger.log(
+          Level.WARNING,
+          "Invalid state parameter, expected " + (String) req.getSession().getAttribute("state")
+              + " got " + req.getParameter("state"));
+      resp.sendRedirect((String) req.getSession().getAttribute("loginDestination"));
     }
     // remove one-time use state
-    deleteSessionVariable(sessionId, "state");
+    req.getSession().removeAttribute("state");
     flow =
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
@@ -76,14 +77,14 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
             getServletContext().getInitParameter("bookshelf.clientID"),
             getServletContext().getInitParameter("bookshelf.clientSecret"),
             SCOPE)
-        .build();
+            .build();
     final TokenResponse tokenResponse =
         flow.newTokenRequest(req.getParameter("code"))
-        .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
-        .execute();
+            .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
+            .execute();
 
     // keep track of the token
-    setSessionVariable(sessionId, "token", tokenResponse.toString());
+    req.getSession().setAttribute("token", tokenResponse.toString());
     final Credential credential = flow.createAndStoreCredential(tokenResponse, null);
     final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
     // Make an authenticated request
@@ -96,10 +97,10 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
     HashMap<String, String> userIdResult =
         new ObjectMapper().readValue(jsonIdentity, HashMap.class);
     // from this map, extract the relevant profile info and store it in the session
-    setSessionVariable(sessionId, "userEmail", userIdResult.get("email"));
-    setSessionVariable(sessionId, "userId", userIdResult.get("id"));
-    setSessionVariable(sessionId, "userImageUrl", userIdResult.get("picture"));
-    resp.sendRedirect(getSessionVariable(sessionId, "loginDestination"));
+    req.getSession().setAttribute("userEmail", userIdResult.get("email"));
+    req.getSession().setAttribute("userId", userIdResult.get("id"));
+    req.getSession().setAttribute("userImageUrl", userIdResult.get("picture"));
+    resp.sendRedirect((String) req.getSession().getAttribute("loginDestination"));
   }
 }
 // [END example]

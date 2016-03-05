@@ -19,11 +19,11 @@ package com.example.managedvms.gettingstartedjava.basicactions;
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
-import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 @SuppressWarnings("serial")
 @MultipartConfig
 @WebServlet(name = "create", value = "/create")
-public class CreateBookServlet extends DatastoreHttpServlet {
+public class CreateBookServlet extends HttpServlet {
 
   private static final Logger logger = Logger.getLogger(CreateBookServlet.class.getName());
 
@@ -44,23 +44,21 @@ public class CreateBookServlet extends DatastoreHttpServlet {
     req.setAttribute("action", "Add");
     req.setAttribute("destination", "create");
     req.setAttribute("page", "form");
-    loadSessionVariables(req);
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-    String sessionId = getCookieValue(req, "bookshelfSessionId");
     CloudStorageHelper storageHelper =
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
     String imageUrl = storageHelper.getImageUrl(req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (listSessionVariables(sessionId).contains("token")) {
-      createdByString = getSessionVariable(sessionId, "userEmail");
-      createdByIdString = getSessionVariable(sessionId, "userId");
+    if (req.getAttribute("token") != null) {
+      createdByString = (String) req.getAttribute("userEmail");
+      createdByIdString = (String) req.getAttribute("userId");
     }
     Book book = new Book.Builder()
         .author(req.getParameter("author"))

@@ -16,7 +16,6 @@
 
 package com.example.managedvms.gettingstartedjava.auth;
 
-import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -26,7 +25,7 @@ import com.google.api.services.plus.PlusScopes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -40,7 +39,7 @@ import java.util.logging.Logger;
 // [START example]
 @WebServlet(name = "login", value = "/login")
 @SuppressWarnings("serial")
-public class LoginServlet extends DatastoreHttpServlet {
+public class LoginServlet extends HttpServlet {
 
   private GoogleAuthorizationCodeFlow flow;
   private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -52,12 +51,6 @@ public class LoginServlet extends DatastoreHttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
-    // Create a unique identifier and store it in a cookie
-    String sessionNum = new BigInteger(130, new SecureRandom()).toString(32);
-    Cookie session = new Cookie("bookshelfSessionId", sessionNum);
-    session.setPath("/");
-    resp.addCookie(session);
-
     flow =
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
@@ -67,19 +60,18 @@ public class LoginServlet extends DatastoreHttpServlet {
             SCOPE)
         .build();
     String state = new BigInteger(130, new SecureRandom()).toString(32);
-    setSessionVariable(sessionNum, "state", state);
+    req.getSession().setAttribute("state", state);
     if (req.getAttribute("loginDestination") != null) {
-      setSessionVariable(
-          sessionNum,
-          "loginDestination",
-          (String) req.getAttribute("loginDestination"));
+      req
+          .getSession()
+          .setAttribute("loginDestination", (String) req.getAttribute("loginDestination"));
       logger.log(
           Level.INFO, "logging destination " + (String) req.getAttribute("loginDestination"));
     } else {
-      setSessionVariable(sessionNum, "loginDestination", "/books");
+      req.getSession().setAttribute("loginDestination", "/books");
       logger.log(Level.INFO, "logging destination /books");
     }
-    // callback url should be the one registered in Google Developers Console
+    // Callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()
         .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
