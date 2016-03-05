@@ -16,6 +16,8 @@
 
 package com.example.managedvms.gettingstartedjava.auth;
 
+import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
@@ -28,19 +30,15 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.plus.PlusScopes;
 
-import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @WebServlet(name = "oauth2callback", value = "/oauth2callback")
@@ -75,13 +73,13 @@ public class Oauth2CallbackServlet extends DatastoreHttpServlet {
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
             JSON_FACTORY,
-            System.getProperty("bookshelf.clientID"),
-            System.getProperty("bookshelf.clientSecret"),
+            getServletContext().getInitParameter("bookshelf.clientID"),
+            getServletContext().getInitParameter("bookshelf.clientSecret"),
             SCOPE)
         .build();
     final TokenResponse tokenResponse =
         flow.newTokenRequest(req.getParameter("code"))
-        .setRedirectUri(System.getProperty("bookshelf.callback"))
+        .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
         .execute();
 
     // keep track of the token

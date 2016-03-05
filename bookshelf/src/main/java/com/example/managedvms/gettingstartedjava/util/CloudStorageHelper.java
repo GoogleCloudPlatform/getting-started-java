@@ -22,22 +22,20 @@ import com.google.gcloud.storage.Acl.User;
 import com.google.gcloud.storage.BlobInfo;
 import com.google.gcloud.storage.Storage;
 import com.google.gcloud.storage.StorageOptions;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 // [START example]
 public class CloudStorageHelper {
@@ -55,12 +53,11 @@ public class CloudStorageHelper {
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
    */
-  public String uploadFile(Part filePart) throws IOException {
+  public String uploadFile(Part filePart, final String bucketName) throws IOException {
     DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
     DateTime dt = DateTime.now(DateTimeZone.UTC);
     String dtString = dt.toString(dtf);
     final String fileName = filePart.getSubmittedFileName() + dtString;
-    final String bucketName = System.getProperty("bookshelf.bucket");
 
     // the inputstream is closed by default, so we don't need to close it here
     BlobInfo blobInfo =
@@ -82,8 +79,8 @@ public class CloudStorageHelper {
    * Extracts the file payload from an HttpServletRequest, checks that the file extension
    * is supported and uploads the file to Google Cloud Storage.
    */
-  public String getImageUrl(HttpServletRequest req, HttpServletResponse resp) throws IOException,
-      ServletException {
+  public String getImageUrl(HttpServletRequest req, HttpServletResponse resp,
+                            final String bucket) throws IOException, ServletException {
     Part filePart = req.getPart("file");
     final String fileName = filePart.getSubmittedFileName();
     String imageUrl = req.getParameter("imageUrl");
@@ -93,7 +90,7 @@ public class CloudStorageHelper {
       String[] allowedExt = { "jpg", "jpeg", "png", "gif" };
       for (String s : allowedExt) {
         if (extension.equals(s)) {
-          return this.uploadFile(filePart);
+          return this.uploadFile(filePart, bucket);
         }
       }
       throw new ServletException("file must be an image");

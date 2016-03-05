@@ -21,13 +21,12 @@ import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 import com.example.managedvms.gettingstartedjava.util.DatastoreHttpServlet;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 // [START example]
 @SuppressWarnings("serial")
@@ -57,7 +56,7 @@ public class UpdateBookServlet extends DatastoreHttpServlet {
       IOException {
     CloudStorageHelper storageHelper =
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
-    String imageUrl = storageHelper.getImageUrl(req, resp);
+    String imageUrl = storageHelper.getImageUrl(req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     try {
       Book oldBook = dao.readBook(Long.decode(req.getParameter("id")));

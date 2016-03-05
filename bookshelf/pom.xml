@@ -23,14 +23,39 @@ Copyright 2015 Google Inc. All Rights Reserved.
   <version>1.0-SNAPSHOT</version>
 
   <properties>
+
+    <!-- datastore or cloudsql -->
+    <bookshelf.storageType>STORAGETYPE</bookshelf.storageType>
+    <bookshelf.bucket>BUCKET</bookshelf.bucket>
+
+    <!-- longish, but it's still a good idea to pass via the command line -->
+    <bookshelf.clientID>CLIENTID</bookshelf.clientID>
+    <bookshelf.clientSecret>CLIENTSECRET</bookshelf.clientSecret>
+
+    <!-- "http" for local, "https" for the cloud -->
+    <callback.method>http</callback.method>
+
+    <!-- Typically projectname.appspot.com -->
+    <callback.host>localhost:8080</callback.host>
+
+    <!-- Registered in DevConsole -->
+    <bookshelf.callback>${callback.method}://${callback.host}/oauth2callback</bookshelf.callback>
+
+    <!-- Good idea to pass via mvn -Dsql.userName=blah -Dsql.password=blahblah -->
+    <sql.host>HOST-IP</sql.host>
+    <sql.dbName>DatabaseName</sql.dbName>
+    <sql.userName>USERNAME</sql.userName>
+    <sql.password>PASSWORD</sql.password>
+
     <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
     <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
+    <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
   </properties>
 
   <prerequisites>                       <!-- Optional, but suggested -->
-    <maven>3.3.9</maven>                <!-- recommended minimum maven version -->
+    <maven>3.3.9</maven>                <!-- Recommended minimum maven version -->
   </prerequisites>
 
   <dependencies>
@@ -38,7 +63,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
       <groupId>javax.servlet</groupId>  <!-- Java Servlet API -->
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
-      <scope>provided</scope>           <!-- it's part of the Jetty -->
+      <scope>provided</scope>           <!-- It's part of the Jetty -->
     </dependency>
 
     <dependency>                        <!-- Java Server Pages -->
@@ -124,9 +149,6 @@ Copyright 2015 Google Inc. All Rights Reserved.
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.3.7.v20160115</version>
-        <configuration>
-          <systemPropertiesFile>${project.basedir}/src/main/webapp/WEB-INF/bookshelf.properties</systemPropertiesFile>
-        </configuration>
       </plugin>
 
     </plugins>

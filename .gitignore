@@ -3,5 +3,9 @@
 .classpath
 .settings
 
+# Intellij Idea
+.Idea
+*.iml
+
 # Target folders
 target/
