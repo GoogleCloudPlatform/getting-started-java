@@ -23,6 +23,11 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.plus.PlusScopes;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -30,12 +35,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @WebServlet(name = "login", value = "/login")
@@ -56,8 +55,8 @@ public class LoginServlet extends HttpServlet {
         new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT,
             JSON_FACTORY,
-            System.getProperty("bookshelf.clientID"),
-            System.getProperty("bookshelf.clientSecret"),
+            getServletContext().getInitParameter("bookshelf.clientID"),
+            getServletContext().getInitParameter("bookshelf.clientSecret"),
             SCOPE)
         .build();
     String state = new BigInteger(130, new SecureRandom()).toString(32);
@@ -75,7 +74,7 @@ public class LoginServlet extends HttpServlet {
     // Callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()
-        .setRedirectUri(System.getProperty("bookshelf.callback"))
+        .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
         .setState(state)
         .build();
     resp.sendRedirect(url);

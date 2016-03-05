@@ -1,26 +1,56 @@
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
-<!-- [START_EXCLUDE] -->
-<!--
-Copyright 2015 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-       http://www.apache.org/licenses/LICENSE-2.0
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
--->
-<!-- [END_EXCLUDE] -->
-<!--
-A web.xml is needed to explicitly set the order in which filters process requests. Any filters
-not included in web.xml will be loaded after filters listed below.
--->
-  <filter-mapping>
-    <filter-name>DatastoreSessionFilter</filter-name>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>DaoFilter</filter-name>
-  </filter-mapping>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0">
+    <!-- [START_EXCLUDE] -->
+    <!--
+     Copyright 2015 Google Inc. All Rights Reserved.
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+           http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+    -->
+    <!-- [END_EXCLUDE] -->
+    <!--
+      A web.xml is needed to explicitly set the order in which filters process requests. Any filters
+      not included in web.xml will be loaded after filters listed below.
+    -->
+    <filter-mapping>
+        <filter-name>DatastoreSessionFilter</filter-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DaoFilter</filter-name>
+    </filter-mapping>
+
+    <context-param>
+        <param-name>bookshelf.storageType</param-name>
+        <param-value>${bookshelf.storageType}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>bookshelf.bucket</param-name>
+        <param-value>${bookshelf.bucket}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>bookshelf.clientID</param-name>
+        <param-value>${bookshelf.clientID}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>bookshelf.clientSecret</param-name>
+        <param-value>${bookshelf.clientSecret}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>sql.url</param-name>
+        <param-value>jdbc:mysql://${sql.host}:3306/${sql.dbName}?user=${sql.userName}&amp;password=${sql.password}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>bookshelf.callback</param-name>
+        <param-value>${bookshelf.callback}</param-value>
+    </context-param>
+
+    <welcome-file-list>
+        <welcome-file>/books</welcome-file>
+    </welcome-file-list>
 </web-app>

@@ -2,18 +2,12 @@ package com.example.managedvms.gettingstartedjava.daos;
 
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 
 @WebFilter(filterName = "DaoFilter", value = "/*")
 public class DaoFilter implements Filter {
@@ -25,15 +19,16 @@ public class DaoFilter implements Filter {
     logger.log(Level.INFO, "DaoFilter is initializing");
     BookDao dao = null;
     CloudStorageHelper storageHelper = new CloudStorageHelper();
-    // Creates the DAO based on the system property 
-    String storageType = System.getProperty("bookshelf.storageType");
+
+    // Creates the DAO based on the Context Parameters
+    String storageType = config.getServletContext().getInitParameter("bookshelf.storageType");
     switch (storageType) {
       case "datastore":
         dao = new DatastoreDao();
         break;
       case "cloudsql":
         try {
-          dao = new CloudSqlDao();
+          dao = new CloudSqlDao(config.getServletContext().getInitParameter("sql.url"));
         } catch (SQLException e) {
           throw new ServletException("SQL error", e);
         }
