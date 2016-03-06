@@ -2,7 +2,6 @@
 ## Completed Application
 
 ## Known Issues
-* Login on deployed version fails.
 * TODO(): SQL needs to be based on the SQLv2 SQL Proxy
 
 ## Requirements
