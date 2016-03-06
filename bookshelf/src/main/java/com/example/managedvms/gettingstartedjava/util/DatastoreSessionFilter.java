@@ -122,9 +122,11 @@ public class DatastoreSessionFilter implements Filter {
 
   protected String getCookieValue(HttpServletRequest req, String cookieName) {
     Cookie[] cookies = req.getCookies();
-    for (Cookie cookie : cookies) {
-      if (cookie.getName().equals(cookieName)) {
-        return cookie.getValue();
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if (cookie.getName().equals(cookieName)) {
+          return cookie.getValue();
+        }
       }
     }
     logger.log(Level.WARNING, "Cookie with name " + cookieName + " was not found.");
