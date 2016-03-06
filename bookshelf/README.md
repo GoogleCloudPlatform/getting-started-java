@@ -71,6 +71,6 @@ you need to build the app can be set there.  It should look something like:
 
 ## Deploy to AppEngine Managed VMs
 
-* `../makeBookshelf local`
+* `../makeBookshelf deploy`
 * Visit `http://PROJECTID.appspot.com`.
 
