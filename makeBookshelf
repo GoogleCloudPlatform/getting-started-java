@@ -1,0 +1,85 @@
+#!/bin/bash
+#
+#    Copyright 2015 Google, Inc.
+# 
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+# 
+#        http://www.apache.org/licenses/LICENSE-2.0
+# 
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.set -x -e
+
+# command: run | deploy
+
+# datastore | cloudsql
+STORAGETYPE=datastore
+BUCKET=
+
+# typically projectID.appspot.com
+HOST=
+
+# from: https://cloud.google.com/console  API Manager > Credentials > Create Credentials
+CLIENTID=
+CLIENTSECRET=
+
+SQLHOST=
+SQLDBNAME=
+SQLUSER=
+SQLPW=
+
+function print_usage() {
+  echo "Usage: ${0} run | deploy"
+  echo ""
+  echo "This command is useful as a place to let you easily move back and forth between running or"
+  echo "deploying the bookshelf app.  You may add all your configuration here, so you don't need"
+  echo "to change them in every version of this application."
+}
+
+if [ $# = 0 ]; then
+  print_usage
+  exit
+fi
+
+COMMAND=$1
+
+case $COMMAND in
+  # usage flags
+  --help|-help|-h)
+    print_usage
+    exit
+    ;;
+
+run)
+  mvn clean jetty:run-exploded \
+    -Dbookshelf.storageType=${STORAGETYPE} \
+    -Dbookshelf.bucket=${BUCKET} \
+    -Dbookshelf.clientID=${CLIENTID} \
+    -Dbookshelf.clientSecret=${CLIENTSECRET} \
+    -Dcallback.method=http \
+    -Dcallback.host=localhost:8080 \
+    -Dsql.host=${SQLHOST} \
+    -Dsql.dbName=${SQLDBNAME} \
+    -Dsql.userName=${SQLUSER} \
+    -Dsql.password=${SQLPW}
+  ;;
+
+deploy)
+  mvn clean gcloud:deploy \
+    -Dbookshelf.storageType=${STORAGETYPE} \
+    -Dbookshelf.bucket=${BUCKET} \
+    -Dbookshelf.clientID=${CLIENTID} \
+    -Dbookshelf.clientSecret=${CLIENTSECRET} \
+    -Dcallback.method=https \
+    -Dcallback.host=${HOST} \
+    -Dsql.host=${SQLHOST} \
+    -Dsql.dbName=${SQLDBNAME} \
+    -Dsql.userName=${SQLUSER} \
+    -Dsql.password=${SQLPW}
+  ;;
+
+esac
