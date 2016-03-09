@@ -16,17 +16,20 @@
 
 # command: run | deploy
 
+# [START config] 
+# typically projectID.appspot.com
+HOST=
+
 # datastore | cloudsql
 STORAGETYPE=datastore
 BUCKET=
 
-# typically projectID.appspot.com
-HOST=
-
 # from: https://cloud.google.com/console  API Manager > Credentials > Create Credentials
 CLIENTID=
 CLIENTSECRET=
+# [END config]
 
+# Not used for now
 SQLHOST=
 SQLDBNAME=
 SQLUSER=
