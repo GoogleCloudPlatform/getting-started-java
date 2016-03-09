@@ -30,7 +30,13 @@ Copyright 2015 Google Inc. All Rights Reserved.
     <relativePath>..</relativePath>
   </parent>
 
+  <!-- [START config] -->
   <properties>
+    <!-- "http" for local, "https" for the cloud -->
+    <callback.method>http</callback.method>
+
+    <!-- Typically projectname.appspot.com -->
+    <callback.host>localhost:8080</callback.host>
 
     <!-- datastore or cloudsql -->
     <bookshelf.storageType>STORAGETYPE</bookshelf.storageType>
@@ -40,15 +46,9 @@ Copyright 2015 Google Inc. All Rights Reserved.
     <bookshelf.clientID>CLIENTID</bookshelf.clientID>
     <bookshelf.clientSecret>CLIENTSECRET</bookshelf.clientSecret>
 
-    <!-- "http" for local, "https" for the cloud -->
-    <callback.method>http</callback.method>
-
-    <!-- Typically projectname.appspot.com -->
-    <callback.host>localhost:8080</callback.host>
-
     <!-- Registered in DevConsole -->
     <bookshelf.callback>${callback.method}://${callback.host}/oauth2callback</bookshelf.callback>
-
+    <!-- [END config] -->
     <!-- Good idea to pass via mvn -Dsql.userName=blah -Dsql.password=blahblah -->
     <sql.host>HOST-IP</sql.host>
     <sql.dbName>DatabaseName</sql.dbName>
