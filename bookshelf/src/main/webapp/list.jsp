@@ -1,6 +1,3 @@
-<!-- [START list] -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- [START_EXCLUDE] -->
 <!--
 Copyright 2015 Google Inc. All Rights Reserved.
@@ -18,6 +15,9 @@ Copyright 2015 Google Inc. All Rights Reserved.
  limitations under the License.
 -->
 <!-- [END_EXCLUDE] -->
+<!-- [START list] -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <div class="container">
   <h3>Books</h3>
   <a href="/create" class="btn btn-success btn-sm">
