@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- [START webxml] -->
 <web-app version="3.0">
     <!-- [START_EXCLUDE] -->
     <!--
@@ -58,3 +59,4 @@
     </welcome-file-list>
     <!-- [END welcome] -->
 </web-app>
+<!-- [END webxml] -->
