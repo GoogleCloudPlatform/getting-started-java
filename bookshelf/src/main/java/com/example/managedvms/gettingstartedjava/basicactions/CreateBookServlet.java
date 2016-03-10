@@ -32,12 +32,14 @@ import java.util.logging.Logger;
 
 // [START example]
 @SuppressWarnings("serial")
+// [START annotations]
 @MultipartConfig
 @WebServlet(name = "create", value = "/create")
 public class CreateBookServlet extends HttpServlet {
-
+// [END annotations]
   private static final Logger logger = Logger.getLogger(CreateBookServlet.class.getName());
 
+  // [START setup]
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
@@ -46,7 +48,9 @@ public class CreateBookServlet extends HttpServlet {
     req.setAttribute("page", "form");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
+  // [END setup]
 
+  // [START formpost]
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
@@ -77,5 +81,6 @@ public class CreateBookServlet extends HttpServlet {
       throw new ServletException("Error creating book", e);
     }
   }
+  // [END formpost]
 }
 // [END example]
