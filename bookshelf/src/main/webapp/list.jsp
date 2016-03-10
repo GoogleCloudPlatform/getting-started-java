@@ -1,3 +1,4 @@
+<!-- [START list] -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- [START_EXCLUDE] -->
@@ -51,3 +52,4 @@ Copyright 2015 Google Inc. All Rights Reserved.
   </c:otherwise>
   </c:choose>
 </div>
+<!-- [END list] -->

@@ -1,3 +1,4 @@
+<!-- [START base] -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -56,3 +57,4 @@ Copyright 2015 Google Inc. All Rights Reserved.
     <c:import url="/${page}.jsp" />
   </body>
 </html>
+<!-- [END base]-->
