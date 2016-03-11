@@ -19,10 +19,13 @@
       not included in web.xml will be loaded after filters listed below.
     -->
     <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>DatastoreSessionFilter</filter-name>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>DaoFilter</filter-name>
+        <filter-name>ListByUserFilter</filter-name>
     </filter-mapping>
 
     <context-param>

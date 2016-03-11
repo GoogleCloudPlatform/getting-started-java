@@ -39,19 +39,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName = "DatastoreSessionFilter", value = "/*")
+@WebFilter(filterName = "DatastoreSessionFilter",
+    urlPatterns = {"",
+        "/books",
+        "/books/mine",
+        "/create",
+        "/delete",
+        "/login",
+        "/logout",
+        "/oauth2callback",
+        "/read",
+        "/update"})
 public class DatastoreSessionFilter implements Filter {
 
   private static Datastore datastore;
   private static KeyFactory keyFactory;
-  private static Map<String, String> datastoreMap;
   private static final DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMddHHmmssSSS");
   private static final Logger logger = Logger.getLogger(DatastoreSessionFilter.class.getName());
 
   @Override
   public void init(FilterConfig config) throws ServletException {
     // initialize local copy of datastore session variables
-    datastoreMap = new HashMap<>();
 
     datastore = DatastoreOptions.defaultInstance().service();
     keyFactory = datastore.newKeyFactory().kind("SessionVariable");
@@ -74,6 +82,12 @@ public class DatastoreSessionFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) servletReq;
     HttpServletResponse resp = (HttpServletResponse) servletResp;
 
+    String instanceId =
+        System.getenv().containsKey("GAE_MODULE_INSTANCE")
+            ? System.getenv("GAE_MODULE_INSTANCE") : "-1";
+    logger.log(Level.INFO, "DatastoreSessionFilter processing new request for path: "
+            + req.getRequestURI() + " and instance: " + instanceId);
+
     // Check if the session cookie is there, if not there, make a session cookie using a unique
     // identifier.
     String sessionId = getCookieValue(req, "bookshelfSessionId");
@@ -85,7 +99,7 @@ public class DatastoreSessionFilter implements Filter {
     }
 
     // load session variables into the request
-    loadSessionVariables(req);
+    Map<String,String> datastoreMap = loadSessionVariables(req);
 
     // Allow the servlet to process the request and response
     chain.doFilter(servletReq, servletResp);
@@ -98,6 +112,9 @@ public class DatastoreSessionFilter implements Filter {
       String attrName = attrNames.nextElement();
       sessionMap.put(attrName, (String) session.getAttribute(attrName));
     }
+    logger.log(Level.INFO, " SessionMap is: " + mapToString(sessionMap));
+
+    logger.log(Level.INFO, "Datastore Map after chain.doFilter is: " + mapToString(datastoreMap));
 
     // Create a diff between the new session variables and the existing session variables
     // to minimize datastore access
@@ -110,9 +127,14 @@ public class DatastoreSessionFilter implements Filter {
     deleteSessionVariables(
         sessionId,
         FluentIterable.from(deleteMap.keySet()).toArray(String.class));
+  }
 
-    // Update the local copy of the datastore session variable map
-    datastoreMap = sessionMap;
+  public String mapToString(Map<String, String> map) {
+    StringBuffer names = new StringBuffer();
+    for (String name : map.keySet()) {
+      names.append(name + " ");
+    }
+    return names.toString();
   }
 
   @Override
@@ -129,7 +151,8 @@ public class DatastoreSessionFilter implements Filter {
         }
       }
     }
-    logger.log(Level.WARNING, "Cookie with name " + cookieName + " was not found.");
+    logger.log(Level.WARNING, "A cookie with name " + cookieName + " was not found."
+        + " The request path was: " + req.getRequestURI());
     return "";
   }
 
@@ -147,10 +170,12 @@ public class DatastoreSessionFilter implements Filter {
     try {
       Entity stateEntity = transaction.get(key);
       Entity.Builder builder = Entity.builder(stateEntity);
+      StringBuilder delNames = new StringBuilder();
       for (String varName : varNames) {
-        logger.log(Level.INFO, "removing session var name: " + varName);
+        delNames.append(varName + " ");
         builder = builder.remove(varName);
       }
+      logger.log(Level.INFO, "Removed session vars: " + delNames.toString());
       datastore.update(builder.build());
     } catch (NullPointerException e) {
       logger.log(Level.WARNING, "Did not find a session for id " + sessionId, e);
@@ -208,6 +233,7 @@ public class DatastoreSessionFilter implements Filter {
       for (String varName : setMap.keySet()) {
         seBuilder.set(varName, setMap.get(varName));
       }
+      logger.log(Level.INFO, "Set session variables: " + mapToString(setMap));
       transaction.put(seBuilder.set("lastModified", dt.toString(dtf)).build());
       transaction.commit();
     } finally {
@@ -220,26 +246,35 @@ public class DatastoreSessionFilter implements Filter {
   /**
    * Take an HttpServletRequest, and copy all of the current session variables over to it
    * @param req Request from which to extract session.
+   * @return a map of strings containing all the session variables loaded or an empty map.
    */
-  protected void loadSessionVariables(HttpServletRequest req) throws ServletException {
+  protected Map<String, String> loadSessionVariables(HttpServletRequest req) throws ServletException {
+    Map<String, String> datastoreMap = new HashMap<>();
     String sessionId = getCookieValue(req, "bookshelfSessionId");
     if (sessionId.equals("")) {
       logger.log(Level.INFO, "Session Id was empty");
-      return;
-    }
-    if (datastoreMap.keySet().size() == 0) {
-      logger.log(Level.INFO, "size of datastoreMap: " + datastoreMap.keySet().size());
-      return;
+      return datastoreMap;
     }
     Key key = keyFactory.newKey(sessionId);
-    Entity stateEntity = datastore.get(key);
-    if (stateEntity != null) {
-      for (String varName : stateEntity.names()) {
-        req.getSession().setAttribute(varName, stateEntity.getString(varName));
+    Transaction transaction = datastore.newTransaction();
+    try {
+      Entity stateEntity = transaction.get(key);
+      StringBuilder logNames = new StringBuilder();
+      if (stateEntity != null) {
+        for (String varName : stateEntity.names()) {
+          req.getSession().setAttribute(varName, stateEntity.getString(varName));
+          datastoreMap.put(varName, stateEntity.getString(varName));
+          logNames.append(varName + " ");
+        }
+      } else {
+        logger.log(Level.INFO, "datastore state entity was empty before get");
       }
-    } else {
-      logger.log(Level.INFO, "datastore state entity was empty before get");
-      return;
+      logger.log(Level.INFO, "Loaded these session variables: " + logNames.toString());
+    } finally {
+      if (transaction.active()) {
+        transaction.rollback();
+      }
     }
+    return datastoreMap;
   }
 }

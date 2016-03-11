@@ -22,6 +22,8 @@ import com.example.managedvms.gettingstartedjava.objects.Result;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +35,8 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 @WebServlet(name = "listbyuser", value = "/books/mine")
 public class ListByUserServlet extends HttpServlet {
+
+  private static final Logger logger = Logger.getLogger(ListByUserServlet.class.getName());
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
@@ -50,6 +54,12 @@ public class ListByUserServlet extends HttpServlet {
       throw new ServletException("Error listing books", e);
     }
     req.getSession().getServletContext().setAttribute("books", books);
+    StringBuilder bookNames = new StringBuilder();
+    for (Book book : books) {
+      bookNames.append(book.getTitle() + " ");
+    }
+    logger.log(Level.INFO, "Loaded books: " + bookNames.toString()
+        + " for user " + (String) req.getSession().getAttribute("userId"));
     req.getSession().setAttribute("cursor", endCursor);
     req.getSession().setAttribute("page", "list");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
