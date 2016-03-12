@@ -61,7 +61,7 @@ you need to build the app can be set there.  It should look something like:
 ## Running locally
 
 * In the same directory as this `README.md` file
-  `../makeBookshelf local`
+  `../makeBookshelf run`
 
   Which actually hides the following commands
   `mvn clean jetty:run-exploded` with lots of -D defines on it.

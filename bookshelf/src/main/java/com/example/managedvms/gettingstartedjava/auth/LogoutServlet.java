@@ -41,7 +41,6 @@ public class LogoutServlet extends HttpServlet {
     }
     // rebuild session
     req.getSession();
-    resp.sendRedirect("/books");
   }
 }
 // [END example]

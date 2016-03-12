@@ -20,15 +20,16 @@ import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 // [START example]
 @SuppressWarnings("serial")
@@ -60,9 +61,9 @@ public class CreateBookServlet extends HttpServlet {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (req.getAttribute("token") != null) {
-      createdByString = (String) req.getAttribute("userEmail");
-      createdByIdString = (String) req.getAttribute("userId");
+    if (req.getSession().getAttribute("token") != null) {
+      createdByString = (String) req.getSession().getAttribute("userEmail");
+      createdByIdString = (String) req.getSession().getAttribute("userId");
     }
     Book book = new Book.Builder()
         .author(req.getParameter("author"))

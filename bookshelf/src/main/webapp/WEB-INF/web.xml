@@ -21,10 +21,13 @@
     -->
     <!-- [START filters] -->
     <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>DatastoreSessionFilter</filter-name>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>DaoFilter</filter-name>
+        <filter-name>ListByUserFilter</filter-name>
     </filter-mapping>
     <!-- [END filters] -->
     <!-- [START config] -->

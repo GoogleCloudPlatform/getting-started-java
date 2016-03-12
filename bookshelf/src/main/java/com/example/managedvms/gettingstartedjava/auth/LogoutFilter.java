@@ -14,8 +14,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName = "ListByUserFilter", value = "/books/mine")
-public class ListByUserFilter implements Filter {
+@WebFilter(filterName = "LogoutFilter",
+    urlPatterns = { "/logout" })
+public class LogoutFilter implements Filter {
 
   private static final Logger logger = Logger.getLogger(ListByUserFilter.class.getName());
 
@@ -28,24 +29,17 @@ public class ListByUserFilter implements Filter {
       throws IOException, ServletException {
     HttpServletRequest req = (HttpServletRequest) servletReq;
     HttpServletResponse resp = (HttpServletResponse) servletResp;
+    String path = req.getRequestURI();
 
-    String instanceId =
-        System.getenv().containsKey("GAE_MODULE_INSTANCE")
-            ? System.getenv("GAE_MODULE_INSTANCE") : "-1";
-    logger.log(Level.INFO, "ListByUserFilter processing new request for path: " + req.getRequestURI()
-        + " and instance: " + instanceId);
+    chain.doFilter(servletReq, servletResp);
 
-    if (req.getSession().getAttribute("token") == null && req.getSession().getAttribute("state") == null) {
-      logger.log(Level.INFO, "token not detected, setting loginDestination to /books/mine");
-      req.setAttribute("loginDestination", "/books/mine");
-      resp.sendRedirect("/login");
-    } else {
-      chain.doFilter(servletReq, servletResp);
+    if (path.startsWith("/logout")) {
+      resp.sendRedirect("/books");
     }
   }
 
   @Override
   public void destroy() {
-    logger.log(Level.INFO, "ListByUserFilter is de-initializing");
+    logger.log(Level.INFO, "destroy called in LogoutFilter");
   }
 }

@@ -17,18 +17,23 @@
 package com.example.managedvms.gettingstartedjava.basicactions;
 
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
+import com.example.managedvms.gettingstartedjava.daos.CloudSqlDao;
+import com.example.managedvms.gettingstartedjava.daos.DatastoreDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
+import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 // [START example]
 // a url pattern of "" makes this servlet the root servlet
@@ -37,6 +42,32 @@ import java.util.logging.Logger;
 public class ListBookServlet extends HttpServlet {
 
   private static final Logger logger = Logger.getLogger(ListBookServlet.class.getName());
+
+  @Override
+  public void init() throws ServletException {
+    BookDao dao = null;
+    CloudStorageHelper storageHelper = new CloudStorageHelper();
+
+    // Creates the DAO based on the Context Parameters
+    String storageType = this.getServletContext().getInitParameter("bookshelf.storageType");
+    switch (storageType) {
+      case "datastore":
+        dao = new DatastoreDao();
+        break;
+      case "cloudsql":
+        try {
+          dao = new CloudSqlDao(this.getServletContext().getInitParameter("sql.url"));
+        } catch (SQLException e) {
+          throw new ServletException("SQL error", e);
+        }
+        break;
+      default:
+        throw new IllegalStateException(
+            "Invalid storage type. Check if bookshelf.storageType property is set.");
+    }
+    this.getServletContext().setAttribute("dao", dao);
+    this.getServletContext().setAttribute("storageHelper", storageHelper);
+  }
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
@@ -54,6 +85,11 @@ public class ListBookServlet extends HttpServlet {
       throw new ServletException("Error listing books", e);
     }
     req.getSession().getServletContext().setAttribute("books", books);
+    StringBuilder bookNames = new StringBuilder();
+    for (Book book : books) {
+      bookNames.append(book.getTitle() + " ");
+    }
+    logger.log(Level.INFO, "Loaded books: " + bookNames.toString());
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);

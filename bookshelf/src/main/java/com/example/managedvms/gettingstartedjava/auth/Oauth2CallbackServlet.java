@@ -66,7 +66,8 @@ public class Oauth2CallbackServlet extends HttpServlet {
           Level.WARNING,
           "Invalid state parameter, expected " + (String) req.getSession().getAttribute("state")
               + " got " + req.getParameter("state"));
-      resp.sendRedirect((String) req.getSession().getAttribute("loginDestination"));
+      resp.sendRedirect("/books");
+      return;
     }
     // remove one-time use state
     req.getSession().removeAttribute("state");
@@ -100,6 +101,8 @@ public class Oauth2CallbackServlet extends HttpServlet {
     req.getSession().setAttribute("userEmail", userIdResult.get("email"));
     req.getSession().setAttribute("userId", userIdResult.get("id"));
     req.getSession().setAttribute("userImageUrl", userIdResult.get("picture"));
+    logger.log(Level.INFO, "Login successful, redirecting to "
+        + (String) req.getSession().getAttribute("loginDestination"));
     resp.sendRedirect((String) req.getSession().getAttribute("loginDestination"));
   }
 }
