@@ -20,12 +20,10 @@ Copyright 2015 Google Inc. All Rights Reserved.
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div class="container">
   <h3>
-    <c:out value="${action}" />
-    book
+    <c:out value="${action}" /> book
   </h3>
 
-  <form method="POST" action="${destination}"
-    enctype="multipart/form-data">
+  <form method="POST" action="${destination}" enctype="multipart/form-data">
 
     <div class="form-group">
       <label for="title">Title</label>
