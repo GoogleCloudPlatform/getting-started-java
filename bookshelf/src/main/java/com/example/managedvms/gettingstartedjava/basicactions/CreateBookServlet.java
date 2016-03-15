@@ -20,22 +20,21 @@ import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // [START example]
 @SuppressWarnings("serial")
 // [START annotations]
 @MultipartConfig
-@WebServlet(name = "create", value = "/create")
+@WebServlet(name = "create", urlPatterns = {"/create"})
 public class CreateBookServlet extends HttpServlet {
 // [END annotations]
   private static final Logger logger = Logger.getLogger(CreateBookServlet.class.getName());
@@ -44,9 +43,9 @@ public class CreateBookServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-    req.setAttribute("action", "Add");
-    req.setAttribute("destination", "create");
-    req.setAttribute("page", "form");
+    req.setAttribute("action", "Add");          // Part of the Header in form.jsp
+    req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
+    req.setAttribute("page", "form");           // Tells base.jsp to include form.jsp
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
   // [END setup]
@@ -61,12 +60,12 @@ public class CreateBookServlet extends HttpServlet {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (req.getSession().getAttribute("token") != null) {
+    if (req.getSession().getAttribute("token") != null) {  // Does the user have a logged in session?
       createdByString = (String) req.getSession().getAttribute("userEmail");
       createdByIdString = (String) req.getSession().getAttribute("userId");
     }
     Book book = new Book.Builder()
-        .author(req.getParameter("author"))
+        .author(req.getParameter("author"))   // form parameter
         .createdBy(createdByString)
         .createdById(createdByIdString)
         .description(req.getParameter("description"))
@@ -77,7 +76,7 @@ public class CreateBookServlet extends HttpServlet {
     try {
       Long id = dao.createBook(book);
       logger.log(Level.INFO, "Created book {0}", book);
-      resp.sendRedirect("/read?id=" + id.toString());
+      resp.sendRedirect("/read?id=" + id.toString());   // read what we just wrote
     } catch (Exception e) {
       throw new ServletException("Error creating book", e);
     }
