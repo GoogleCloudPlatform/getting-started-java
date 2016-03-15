@@ -68,7 +68,7 @@ public class DatastoreDao implements BookDao {
   @Override
   public Book readBook(Long bookId) {
     Entity bookEntity = datastore.get(keyFactory.newKey(bookId)); // Load an Entity for Key(id)
-    return new Book.Builder()                                     // Convert to our form
+    return new Book.Builder()                                     // Convert to Book form
         .author(bookEntity.getString(Book.AUTHOR))
         .createdBy(bookEntity.contains(Book.CREATED_BY) ? bookEntity.getString(Book.CREATED_BY) : "")
         .createdById(
@@ -85,7 +85,7 @@ public class DatastoreDao implements BookDao {
   @Override
   public void updateBook(Book book) {
     Key key = keyFactory.newKey(book.getId());  // From a book, create a Key
-    Entity entity = Entity.builder(key)         // Convert our Book to an Entity
+    Entity entity = Entity.builder(key)         // Convert Book to an Entity
         .set(Book.AUTHOR, book.getAuthor())
         .set(Book.CREATED_BY, book.getCreatedBy())
         .set(Book.CREATED_BY_ID, book.getCreatedById())
@@ -107,8 +107,8 @@ public class DatastoreDao implements BookDao {
 // [START entitiesToBooks]
   public List<Book> entitiesToBooks(QueryResults<Entity> resultList) {
     List<Book> resultBooks = new ArrayList<>();
-    while (resultList.hasNext()) {
-      Entity bookEntity = resultList.next();
+    while (resultList.hasNext()) {  // We still have data
+      Entity bookEntity = resultList.next();  // Retrieve next Entity
       Book book = new Book.Builder()
           .author(bookEntity.getString(Book.AUTHOR))
           .createdBy(
@@ -123,7 +123,7 @@ public class DatastoreDao implements BookDao {
           .imageUrl(
               bookEntity.contains(Book.IMAGE_URL) ? bookEntity.getString(Book.IMAGE_URL) : null)
           .build();
-      resultBooks.add(book);
+      resultBooks.add(book);      // Add the Book to the List
     }
     return resultBooks;
   }
@@ -133,19 +133,19 @@ public class DatastoreDao implements BookDao {
   public Result<Book> listBooks(String startCursorString) {
     Cursor startCursor = null;
     if (startCursorString != null && !startCursorString.equals("")) {
-      startCursor = Cursor.fromUrlSafe(startCursorString);
+      startCursor = Cursor.fromUrlSafe(startCursorString);    // Where we left off
     }
-    Query<Entity> query = Query.entityQueryBuilder()
-        .kind("Book")
-        .limit(10)
-        .startCursor(startCursor)
-        .orderBy(OrderBy.asc("title"))
+    Query<Entity> query = Query.entityQueryBuilder()          // Build the Query
+        .kind("Book")                                         // We only care about Books
+        .limit(10)                                            // Only show 10 at a time
+        .startCursor(startCursor)                             // Where we left off
+        .orderBy(OrderBy.asc(Book.TITLE))                     // Use default Index "title"
         .build();
     QueryResults<Entity> resultList = datastore.run(query);   // Run the query
     List<Book> resultBooks = entitiesToBooks(resultList);     // Retrieve and convert Entities
-    Cursor cursor = resultList.cursorAfter();
-    if (cursor != null && resultBooks.size() == 10) {         // Handle paging
-      String cursorString = cursor.toUrlSafe();
+    Cursor cursor = resultList.cursorAfter();                 // Where to start next time
+    if (cursor != null && resultBooks.size() == 10) {         // Are we paging? Save Cursor
+      String cursorString = cursor.toUrlSafe();               // Cursors are WebSafe
       return new Result<>(resultBooks, cursorString);
     } else {
       return new Result<>(resultBooks);
@@ -157,22 +157,22 @@ public class DatastoreDao implements BookDao {
   public Result<Book> listBooksByUser(String userId, String startCursorString) {
     Cursor startCursor = null;
     if (startCursorString != null && !startCursorString.equals("")) {
-      startCursor = Cursor.fromUrlSafe(startCursorString);
+      startCursor = Cursor.fromUrlSafe(startCursorString);    // Where we left off
     }
-    Query<Entity> query = Query.entityQueryBuilder()
-        .kind("Book")
-        .filter(PropertyFilter.eq(Book.CREATED_BY_ID, userId))  // Only for this user
-        .limit(10)
-        .startCursor(startCursor)
+    Query<Entity> query = Query.entityQueryBuilder()          // Build the Query
+        .kind("Book")                                         // We only care about Books
+        .filter(PropertyFilter.eq(Book.CREATED_BY_ID, userId))// Only for this user
+        .limit(10)                                            // Only show 10 at a time
+        .startCursor(startCursor)                             // Where we left off
         // a custom datastore index is required since you are filtering by one property
         // but ordering by another
         .orderBy(OrderBy.asc(Book.TITLE))
         .build();
-    QueryResults<Entity> resultList = datastore.run(query);
-    List<Book> resultBooks = entitiesToBooks(resultList);
-    Cursor cursor = resultList.cursorAfter();
-    if (cursor != null && resultBooks.size() == 10) {
-      String cursorString = cursor.toUrlSafe();
+    QueryResults<Entity> resultList = datastore.run(query);   // Run the Query
+    List<Book> resultBooks = entitiesToBooks(resultList);     // Retrieve and convert Entities
+    Cursor cursor = resultList.cursorAfter();                 // Where to start next time
+    if (cursor != null && resultBooks.size() == 10) {         // Are we paging? Save Cursor
+      String cursorString = cursor.toUrlSafe();               // Cursors are WebSafe
       return new Result<>(resultBooks, cursorString);
     } else {
       return new Result<>(resultBooks);
