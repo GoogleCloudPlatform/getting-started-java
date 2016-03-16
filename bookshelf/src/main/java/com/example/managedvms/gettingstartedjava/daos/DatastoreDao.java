@@ -47,6 +47,21 @@ public class DatastoreDao implements BookDao {
     keyFactory = datastore.newKeyFactory().kind("Book"); // Is used for creating keys later
   }
 // [END constructor]
+  // [START entityToBook]
+public Book entityToBook(Entity entity) {
+  return new Book.Builder()                                     // Convert to Book form
+      .author(entity.getString(Book.AUTHOR))
+      .createdBy(entity.contains(Book.CREATED_BY) ? entity.getString(Book.CREATED_BY) : "")
+      .createdById(
+          entity.contains(Book.CREATED_BY_ID) ? entity.getString(Book.CREATED_BY_ID) : "")
+      .description(entity.getString(Book.DESCRIPTION))
+      .id(entity.key().id())
+      .publishedDate(entity.getString(Book.PUBLISHED_DATE))
+      .title(entity.getString(Book.TITLE))
+      .imageUrl(entity.contains(Book.IMAGE_URL) ? entity.getString(Book.IMAGE_URL) : null)
+      .build();
+}
+  // [END entityToBook]
 // [START create]
   @Override
   public Long createBook(Book book) {
@@ -68,17 +83,7 @@ public class DatastoreDao implements BookDao {
   @Override
   public Book readBook(Long bookId) {
     Entity bookEntity = datastore.get(keyFactory.newKey(bookId)); // Load an Entity for Key(id)
-    return new Book.Builder()                                     // Convert to Book form
-        .author(bookEntity.getString(Book.AUTHOR))
-        .createdBy(bookEntity.contains(Book.CREATED_BY) ? bookEntity.getString(Book.CREATED_BY) : "")
-        .createdById(
-            bookEntity.contains(Book.CREATED_BY_ID) ? bookEntity.getString(Book.CREATED_BY_ID) : "")
-        .description(bookEntity.getString(Book.DESCRIPTION))
-        .id(bookEntity.key().id())
-        .publishedDate(bookEntity.getString(Book.PUBLISHED_DATE))
-        .title(bookEntity.getString(Book.TITLE))
-        .imageUrl(bookEntity.contains(Book.IMAGE_URL) ? bookEntity.getString(Book.IMAGE_URL) : null)
-        .build();
+    return entityToBook(bookEntity);
   }
 // [END read]
 // [START update]
@@ -108,22 +113,7 @@ public class DatastoreDao implements BookDao {
   public List<Book> entitiesToBooks(QueryResults<Entity> resultList) {
     List<Book> resultBooks = new ArrayList<>();
     while (resultList.hasNext()) {  // We still have data
-      Entity bookEntity = resultList.next();  // Retrieve next Entity
-      Book book = new Book.Builder()
-          .author(bookEntity.getString(Book.AUTHOR))
-          .createdBy(
-              bookEntity.contains(Book.CREATED_BY) ? bookEntity.getString(Book.CREATED_BY) : "")
-          .createdById(
-              bookEntity.contains(
-                  Book.CREATED_BY_ID) ? bookEntity.getString(Book.CREATED_BY_ID) : "")
-          .description(bookEntity.getString(Book.DESCRIPTION))
-          .id(bookEntity.key().id())
-          .publishedDate(bookEntity.getString(Book.PUBLISHED_DATE))
-          .title(bookEntity.getString(Book.TITLE))
-          .imageUrl(
-              bookEntity.contains(Book.IMAGE_URL) ? bookEntity.getString(Book.IMAGE_URL) : null)
-          .build();
-      resultBooks.add(book);      // Add the Book to the List
+      resultBooks.add(entityToBook(resultList.next()));      // Add the Book to the List
     }
     return resultBooks;
   }
