@@ -48,7 +48,7 @@ public class DatastoreDao implements BookDao {
   }
 // [END constructor]
   // [START entityToBook]
-public Book entityToBook(Entity entity) {
+  public Book entityToBook(Entity entity) {
   return new Book.Builder()                                     // Convert to Book form
       .author(entity.getString(Book.AUTHOR))
       .createdBy(entity.contains(Book.CREATED_BY) ? entity.getString(Book.CREATED_BY) : "")
