@@ -16,11 +16,7 @@
 
 # [START runtime]
 runtime: java
-vm: true
-
-runtime_config:
-  jdk: openjdk8
-  server: jetty9
+vm:      true
 
 handlers:
 - url: /.*
@@ -28,8 +24,12 @@ handlers:
   secure: always  # Require HTTPS
 
 # [START env_variables]
-env_variables:
+env_variables:    # Logging options
   JAVA_OPTS: >-
     -D.level=INFO
 # [END env_variables]
 # [END runtime]
+
+runtime_config:   # Optional
+  jdk: openjdk8
+  server: jetty9
