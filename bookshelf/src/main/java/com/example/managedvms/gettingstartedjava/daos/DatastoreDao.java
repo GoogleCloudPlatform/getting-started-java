@@ -16,7 +16,16 @@
 
 package com.example.managedvms.gettingstartedjava.daos;
 
-import com.google.gcloud.datastore.*;
+import com.google.gcloud.datastore.Cursor;
+import com.google.gcloud.datastore.Datastore;
+import com.google.gcloud.datastore.DatastoreOptions;
+import com.google.gcloud.datastore.Entity;
+import com.google.gcloud.datastore.FullEntity;
+import com.google.gcloud.datastore.IncompleteKey;
+import com.google.gcloud.datastore.Key;
+import com.google.gcloud.datastore.KeyFactory;
+import com.google.gcloud.datastore.Query;
+import com.google.gcloud.datastore.QueryResults;
 import com.google.gcloud.datastore.StructuredQuery.OrderBy;
 import com.google.gcloud.datastore.StructuredQuery.PropertyFilter;
 
