@@ -40,15 +40,16 @@ import java.util.logging.Logger;
 // [START example]
 public class CloudStorageHelper {
 
-  private final Logger logger =
-      Logger.getLogger(
-         com.example.managedvms.gettingstartedjava.util.CloudStorageHelper.class.getName());
+  private final Logger logger = Logger.getLogger(CloudStorageHelper.class.getName());
   private static Storage storage = null;
 
+  // [START init]
   static {
     storage = StorageOptions.defaultInstance().service();
   }
+  // [END init]
 
+  // [START uploadFile]
   /**
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
@@ -74,7 +75,9 @@ public class CloudStorageHelper {
     // return the public download link
     return blobInfo.mediaLink();
   }
+  // [END uploadFile]
 
+  // [START getImageUrl]
   /**
    * Extracts the file payload from an HttpServletRequest, checks that the file extension
    * is supported and uploads the file to Google Cloud Storage.
@@ -97,5 +100,6 @@ public class CloudStorageHelper {
     }
     return imageUrl;
   }
+  // [END getImageUrl]
 }
 // [END example]
