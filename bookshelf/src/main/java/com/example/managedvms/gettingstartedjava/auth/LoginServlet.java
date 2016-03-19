@@ -1,12 +1,12 @@
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson.JacksonFactory;
-import com.google.api.services.plus.PlusScopes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,23 +40,22 @@ import java.util.logging.Logger;
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
 
-  private GoogleAuthorizationCodeFlow flow;
   private Logger logger = Logger.getLogger(this.getClass().getName());
-  private static final Collection<String> SCOPE =
-      Arrays.asList(PlusScopes.USERINFO_EMAIL, PlusScopes.PLUS_LOGIN);
+  private static final Collection<String> SCOPES = Arrays.asList("email", "profile");
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
   private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+
+  private GoogleAuthorizationCodeFlow flow;
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
-    flow =
-        new GoogleAuthorizationCodeFlow.Builder(
-            HTTP_TRANSPORT,
-            JSON_FACTORY,
-            getServletContext().getInitParameter("bookshelf.clientID"),
-            getServletContext().getInitParameter("bookshelf.clientSecret"),
-            SCOPE)
+    flow = new GoogleAuthorizationCodeFlow.Builder(
+        HTTP_TRANSPORT,
+        JSON_FACTORY,
+        getServletContext().getInitParameter("bookshelf.clientID"),
+        getServletContext().getInitParameter("bookshelf.clientSecret"),
+        SCOPES)
         .build();
     String state = new BigInteger(130, new SecureRandom()).toString(32);
     req.getSession().setAttribute("state", state);
@@ -71,14 +69,14 @@ public class LoginServlet extends HttpServlet {
       req.getSession().setAttribute("loginDestination", "/books");
       logger.log(Level.INFO, "logging destination /books");
     }
+
     // Callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()
-        .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
-        .setState(state)
-        .build();
+            .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
+            .setState(state)
+            .build();
     resp.sendRedirect(url);
   }
-
 }
 // [END example]
