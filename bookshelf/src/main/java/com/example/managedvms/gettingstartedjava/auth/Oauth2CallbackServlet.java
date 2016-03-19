@@ -27,7 +27,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson.JacksonFactory;
-import com.google.api.services.plus.PlusScopes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,13 +45,13 @@ import java.util.logging.Logger;
 @SuppressWarnings("serial")
 public class Oauth2CallbackServlet extends HttpServlet {
 
-  private GoogleAuthorizationCodeFlow flow;
   private static final Logger logger = Logger.getLogger(Oauth2CallbackServlet.class.getName());
-  private static final Collection<String> SCOPE =
-      Arrays.asList(PlusScopes.USERINFO_EMAIL, PlusScopes.PLUS_LOGIN);
+  private static final Collection<String> SCOPES = Arrays.asList("email", "profile");
   private static final String LOGIN_API_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
   private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+
+  private GoogleAuthorizationCodeFlow flow;
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
@@ -69,27 +68,26 @@ public class Oauth2CallbackServlet extends HttpServlet {
       resp.sendRedirect("/books");
       return;
     }
-    // remove one-time use state
-    req.getSession().removeAttribute("state");
-    flow =
-        new GoogleAuthorizationCodeFlow.Builder(
-            HTTP_TRANSPORT,
-            JSON_FACTORY,
-            getServletContext().getInitParameter("bookshelf.clientID"),
-            getServletContext().getInitParameter("bookshelf.clientSecret"),
-            SCOPE)
-            .build();
+
+    req.getSession().removeAttribute("state");     // remove one-time use state
+
+    flow = new GoogleAuthorizationCodeFlow.Builder(
+        HTTP_TRANSPORT,
+        JSON_FACTORY,
+        getServletContext().getInitParameter("bookshelf.clientID"),
+        getServletContext().getInitParameter("bookshelf.clientSecret"),
+        SCOPES).build();
+
     final TokenResponse tokenResponse =
         flow.newTokenRequest(req.getParameter("code"))
             .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
             .execute();
 
-    // keep track of the token
-    req.getSession().setAttribute("token", tokenResponse.toString());
+    req.getSession().setAttribute("token", tokenResponse.toString()); // keep track of the token
     final Credential credential = flow.createAndStoreCredential(tokenResponse, null);
     final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
-    // Make an authenticated request
-    final GenericUrl url = new GenericUrl(LOGIN_API_URL);
+
+    final GenericUrl url = new GenericUrl(LOGIN_API_URL);         // Make an authenticated request
     final HttpRequest request = requestFactory.buildGetRequest(url);
     request.getHeaders().setContentType("application/json");
 
