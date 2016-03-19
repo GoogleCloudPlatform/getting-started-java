@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+// [START init]
 @WebFilter(filterName = "DatastoreSessionFilter",
     urlPatterns = {"",
         "/books",
@@ -75,6 +76,7 @@ public class DatastoreSessionFilter implements Filter {
       datastore.delete(stateEntity.key());
     }
   }
+// [END init]
 
   @Override
   public void doFilter(ServletRequest servletReq, ServletResponse servletResp, FilterChain chain)
@@ -98,14 +100,11 @@ public class DatastoreSessionFilter implements Filter {
       resp.addCookie(session);
     }
 
-    // load session variables into the request
-    Map<String,String> datastoreMap = loadSessionVariables(req);
+    Map<String,String> datastoreMap = loadSessionVariables(req);  // session variables for request
 
-    // Allow the servlet to process the request and response
-    chain.doFilter(servletReq, servletResp);
+    chain.doFilter(servletReq, servletResp);  // Allow the servlet to process request and response
 
-    // Create session map
-    HttpSession session = req.getSession();
+    HttpSession session = req.getSession();   // Create session map
     Map<String, String> sessionMap = new HashMap<>();
     Enumeration<String> attrNames = session.getAttributeNames();
     while (attrNames.hasMoreElements()) {
@@ -113,7 +112,6 @@ public class DatastoreSessionFilter implements Filter {
       sessionMap.put(attrName, (String) session.getAttribute(attrName));
     }
     logger.log(Level.INFO, " SessionMap is: " + mapToString(sessionMap));
-
     logger.log(Level.INFO, "Datastore Map after chain.doFilter is: " + mapToString(datastoreMap));
 
     // Create a diff between the new session variables and the existing session variables
@@ -156,6 +154,7 @@ public class DatastoreSessionFilter implements Filter {
     return "";
   }
 
+  // [START deleteSessionVariables]
   /**
    * Delete a value stored in the project's datastore.
    * @param sessionId Request from which the session is extracted.
@@ -185,6 +184,7 @@ public class DatastoreSessionFilter implements Filter {
       }
     }
   }
+  // [END deleteSessionVariables]
 
   protected void deleteSessionWithValue(String varName, String varValue) {
     Transaction transaction = datastore.newTransaction();
@@ -206,6 +206,7 @@ public class DatastoreSessionFilter implements Filter {
     }
   }
 
+  // [START setSessionVariables]
   /**
    * Stores the state value in each key-value pair in the project's datastore.
    * @param sessionId Request from which to extract session.
@@ -242,7 +243,9 @@ public class DatastoreSessionFilter implements Filter {
       }
     }
   }
+  // [END setSessionVariables]
 
+  // [START loadSessionVariables]
   /**
    * Take an HttpServletRequest, and copy all of the current session variables over to it
    * @param req Request from which to extract session.
@@ -277,4 +280,5 @@ public class DatastoreSessionFilter implements Filter {
     }
     return datastoreMap;
   }
+  // [END loadSessionVariables]
 }
