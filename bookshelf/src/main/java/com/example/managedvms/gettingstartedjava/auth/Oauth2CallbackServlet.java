@@ -56,6 +56,7 @@ public class Oauth2CallbackServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {
+
     // Ensure that this is no request forgery going on, and that the user
     // sending us this connect request is the user that was supposed to.
     if (req.getSession().getAttribute("state") == null

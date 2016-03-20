@@ -51,8 +51,9 @@ public class LoginServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
 
-    String state = new BigInteger(130, new SecureRandom()).toString(32);
+    String state = new BigInteger(130, new SecureRandom()).toString(32);  // prevent request forgery
     req.getSession().setAttribute("state", state);
+
     if (req.getAttribute("loginDestination") != null) {
       req
           .getSession()
@@ -76,7 +77,7 @@ public class LoginServlet extends HttpServlet {
     String url =
         flow.newAuthorizationUrl()
             .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
-            .setState(state)
+            .setState(state)            // Prevent request forgery
             .build();
     resp.sendRedirect(url);
   }
