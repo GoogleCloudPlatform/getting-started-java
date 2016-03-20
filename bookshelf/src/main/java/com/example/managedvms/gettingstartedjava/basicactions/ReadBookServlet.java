@@ -19,25 +19,23 @@ package com.example.managedvms.gettingstartedjava.basicactions;
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // [START example]
 @SuppressWarnings("serial")
 @WebServlet(name = "read", value = "/read")
 public class ReadBookServlet extends HttpServlet {
-
-  private final Logger logger =
-      Logger.getLogger(
-         com.example.managedvms.gettingstartedjava.basicactions.ReadBookServlet.class.getName());
-
+// [START init]
+  private final Logger logger = Logger.getLogger(ReadBookServlet.class.getName());
+// [END init]
+  
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {
@@ -45,7 +43,9 @@ public class ReadBookServlet extends HttpServlet {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     try {
       Book book = dao.readBook(id);
+      // [START log]
       logger.log(Level.INFO, "Read book with id {0}", id);
+      // [END log]
       req.setAttribute("book", book);
       req.setAttribute("page", "view");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
