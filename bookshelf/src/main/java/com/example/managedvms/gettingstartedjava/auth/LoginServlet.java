@@ -50,15 +50,10 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
-    flow = new GoogleAuthorizationCodeFlow.Builder(
-        HTTP_TRANSPORT,
-        JSON_FACTORY,
-        getServletContext().getInitParameter("bookshelf.clientID"),
-        getServletContext().getInitParameter("bookshelf.clientSecret"),
-        SCOPES)
-        .build();
-    String state = new BigInteger(130, new SecureRandom()).toString(32);
+
+    String state = new BigInteger(130, new SecureRandom()).toString(32);  // prevent request forgery
     req.getSession().setAttribute("state", state);
+
     if (req.getAttribute("loginDestination") != null) {
       req
           .getSession()
@@ -70,11 +65,19 @@ public class LoginServlet extends HttpServlet {
       logger.log(Level.INFO, "logging destination /books");
     }
 
+    flow = new GoogleAuthorizationCodeFlow.Builder(
+        HTTP_TRANSPORT,
+        JSON_FACTORY,
+        getServletContext().getInitParameter("bookshelf.clientID"),
+        getServletContext().getInitParameter("bookshelf.clientSecret"),
+        SCOPES)
+        .build();
+
     // Callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()
             .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
-            .setState(state)
+            .setState(state)            // Prevent request forgery
             .build();
     resp.sendRedirect(url);
   }
