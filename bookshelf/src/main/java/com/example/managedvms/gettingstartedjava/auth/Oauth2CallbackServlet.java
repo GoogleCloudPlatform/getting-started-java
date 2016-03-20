@@ -47,7 +47,7 @@ public class Oauth2CallbackServlet extends HttpServlet {
 
   private static final Logger logger = Logger.getLogger(Oauth2CallbackServlet.class.getName());
   private static final Collection<String> SCOPES = Arrays.asList("email", "profile");
-  private static final String LOGIN_API_URL
+  private static final String USERINFO_ENDPOINT
       = "https://www.googleapis.com/plus/v1/people/me/openIdConnect";
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
   private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -89,7 +89,7 @@ public class Oauth2CallbackServlet extends HttpServlet {
     final Credential credential = flow.createAndStoreCredential(tokenResponse, null);
     final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
 
-    final GenericUrl url = new GenericUrl(LOGIN_API_URL);         // Make an authenticated request
+    final GenericUrl url = new GenericUrl(USERINFO_ENDPOINT);         // Make an authenticated request
     final HttpRequest request = requestFactory.buildGetRequest(url);
     request.getHeaders().setContentType("application/json");
 
