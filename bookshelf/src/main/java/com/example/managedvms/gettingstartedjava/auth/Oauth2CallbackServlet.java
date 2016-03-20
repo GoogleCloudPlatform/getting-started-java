@@ -47,7 +47,8 @@ public class Oauth2CallbackServlet extends HttpServlet {
 
   private static final Logger logger = Logger.getLogger(Oauth2CallbackServlet.class.getName());
   private static final Collection<String> SCOPES = Arrays.asList("email", "profile");
-  private static final String LOGIN_API_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
+  private static final String LOGIN_API_URL
+      = "https://www.googleapis.com/plus/v1/people/me/openIdConnect";
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
   private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
@@ -98,7 +99,7 @@ public class Oauth2CallbackServlet extends HttpServlet {
         new ObjectMapper().readValue(jsonIdentity, HashMap.class);
     // from this map, extract the relevant profile info and store it in the session
     req.getSession().setAttribute("userEmail", userIdResult.get("email"));
-    req.getSession().setAttribute("userId", userIdResult.get("id"));
+    req.getSession().setAttribute("userId", userIdResult.get("sub"));
     req.getSession().setAttribute("userImageUrl", userIdResult.get("picture"));
     logger.log(Level.INFO, "Login successful, redirecting to "
         + (String) req.getSession().getAttribute("loginDestination"));
