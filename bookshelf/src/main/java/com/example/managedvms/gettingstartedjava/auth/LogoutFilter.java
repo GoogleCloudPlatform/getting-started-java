@@ -8,12 +8,13 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// [START init]
 @WebFilter(filterName = "LogoutFilter",
     urlPatterns = { "/logout" })
 public class LogoutFilter implements Filter {
 
   private static final Logger logger = Logger.getLogger(ListByUserFilter.class.getName());
-
+// [END init]
   @Override
   public void init(FilterConfig config) throws ServletException { }
 
