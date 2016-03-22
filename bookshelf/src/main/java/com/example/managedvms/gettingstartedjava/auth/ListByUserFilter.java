@@ -32,10 +32,13 @@ public class ListByUserFilter implements Filter {
     String instanceId =
         System.getenv().containsKey("GAE_MODULE_INSTANCE")
             ? System.getenv("GAE_MODULE_INSTANCE") : "-1";
-    logger.log(Level.INFO, "ListByUserFilter processing new request for path: " + req.getRequestURI()
-        + " and instance: " + instanceId);
+    logger.log(
+        Level.INFO,
+        "ListByUserFilter processing new request for path: " + req.getRequestURI()
+            + " and instance: " + instanceId);
 
-    if (req.getSession().getAttribute("token") == null && req.getSession().getAttribute("state") == null) {
+    if (req.getSession().getAttribute("token") == null
+        && req.getSession().getAttribute("state") == null) {
       logger.log(Level.INFO, "token not detected, setting loginDestination to /books/mine");
       req.setAttribute("loginDestination", "/books/mine");
       resp.sendRedirect("/login");

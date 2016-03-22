@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,15 +20,16 @@ import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 // [START example]
 @SuppressWarnings("serial")
@@ -56,11 +57,13 @@ public class CreateBookServlet extends HttpServlet {
       IOException {
     CloudStorageHelper storageHelper =
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
-    String imageUrl = storageHelper.getImageUrl(req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
+    String imageUrl =
+        storageHelper.getImageUrl(
+            req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     String createdByString = "";
     String createdByIdString = "";
-    if (req.getSession().getAttribute("token") != null) {  // Does the user have a logged in session?
+    if (req.getSession().getAttribute("token") != null) { // Does the user have a logged in session?
       createdByString = (String) req.getSession().getAttribute("userEmail");
       createdByIdString = (String) req.getSession().getAttribute("userId");
     }

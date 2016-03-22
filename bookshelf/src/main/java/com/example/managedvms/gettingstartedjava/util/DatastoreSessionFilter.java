@@ -127,7 +127,7 @@ public class DatastoreSessionFilter implements Filter {
         FluentIterable.from(deleteMap.keySet()).toArray(String.class));
   }
 
-  public String mapToString(Map<String, String> map) {
+  private String mapToString(Map<String, String> map) {
     StringBuffer names = new StringBuffer();
     for (String name : map.keySet()) {
       names.append(name + " ");
@@ -251,7 +251,8 @@ public class DatastoreSessionFilter implements Filter {
    * @param req Request from which to extract session.
    * @return a map of strings containing all the session variables loaded or an empty map.
    */
-  protected Map<String, String> loadSessionVariables(HttpServletRequest req) throws ServletException {
+  protected Map<String, String> loadSessionVariables(HttpServletRequest req)
+      throws ServletException {
     Map<String, String> datastoreMap = new HashMap<>();
     String sessionId = getCookieValue(req, "bookshelfSessionId");
     if (sessionId.equals("")) {
