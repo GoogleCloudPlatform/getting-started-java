@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,24 +43,24 @@ public class DatastoreDao implements BookDao {
   private KeyFactory keyFactory;
 
   public DatastoreDao() {
-    datastore = DatastoreOptions.defaultInstance().service();  // Authorized Datastore service object
+    datastore = DatastoreOptions.defaultInstance().service(); // Authorized Datastore service object
     keyFactory = datastore.newKeyFactory().kind("Book"); // Is used for creating keys later
   }
 // [END constructor]
   // [START entityToBook]
   public Book entityToBook(Entity entity) {
-  return new Book.Builder()                                     // Convert to Book form
-      .author(entity.getString(Book.AUTHOR))
-      .createdBy(entity.contains(Book.CREATED_BY) ? entity.getString(Book.CREATED_BY) : "")
-      .createdById(
-          entity.contains(Book.CREATED_BY_ID) ? entity.getString(Book.CREATED_BY_ID) : "")
-      .description(entity.getString(Book.DESCRIPTION))
-      .id(entity.key().id())
-      .publishedDate(entity.getString(Book.PUBLISHED_DATE))
-      .title(entity.getString(Book.TITLE))
-      .imageUrl(entity.contains(Book.IMAGE_URL) ? entity.getString(Book.IMAGE_URL) : null)
-      .build();
-}
+    return new Book.Builder()                                     // Convert to Book form
+        .author(entity.getString(Book.AUTHOR))
+        .createdBy(entity.contains(Book.CREATED_BY) ? entity.getString(Book.CREATED_BY) : "")
+        .createdById(
+            entity.contains(Book.CREATED_BY_ID) ? entity.getString(Book.CREATED_BY_ID) : "")
+        .description(entity.getString(Book.DESCRIPTION))
+        .id(entity.key().id())
+        .publishedDate(entity.getString(Book.PUBLISHED_DATE))
+        .title(entity.getString(Book.TITLE))
+        .imageUrl(entity.contains(Book.IMAGE_URL) ? entity.getString(Book.IMAGE_URL) : null)
+        .build();
+  }
   // [END entityToBook]
 // [START create]
   @Override
