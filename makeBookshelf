@@ -108,7 +108,7 @@ gce)
 
   gcloud compute instances create my-app-instance \
     --machine-type=g1-small \
-    --scopes cloud-platform \
+    --scopes https://www.googleapis.com/auth/cloud-platform,datastore,userinfo-email,logging-write,storage-full \
     --metadata-from-file startup-script=gce/startup-script.sh \
     --zone us-central1-f \
     --tags http-server \
