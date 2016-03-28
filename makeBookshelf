@@ -123,7 +123,7 @@ gce)
     -Dbookshelf.clientID=${CLIENTID} \
     -Dbookshelf.clientSecret=${CLIENTSECRET} \
     -Dcallback.method=http \
-    -Dcallback.host=localhost:8080 \
+    -Dcallback.host=localhost \
     -Dsql.host=${SQLHOST} \
     -Dsql.dbName=${SQLDBNAME} \
     -Dsql.userName=${SQLUSER} \
