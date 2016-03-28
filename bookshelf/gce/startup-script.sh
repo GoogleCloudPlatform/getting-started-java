@@ -59,9 +59,9 @@ cp /opt/jetty/bin/jetty.sh /etc/init.d/jetty
 echo "JETTY_HOME=/opt/jetty" > /etc/default/jetty
 echo "JETTY_BASE=/opt/jetty" >> /etc/default/jetty
 echo "TMPDIR=/opt/jetty/temp" >> /etc/default/jetty
-echo "JETTY_ARGS=jetty.http.port=80 jetty.logging.dir=/var/logs/jetty" >> /etc/default/jetty
+echo "JETTY_ARGS=jetty.http.port=80 jetty.logging.dir=/var/log/jetty" >> /etc/default/jetty
 echo "JETTY_USER=jetty" >> /etc/default/jetty
-echo "JETTY_LOGS=/var/logs/jetty" >> /etc/default/jetty
+echo "JETTY_LOGS=/var/log/jetty" >> /etc/default/jetty
 
 # -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.JavaUtilLog
 
