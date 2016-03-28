@@ -123,7 +123,7 @@ gce)
     -Dbookshelf.clientID=${CLIENTID} \
     -Dbookshelf.clientSecret=${CLIENTSECRET} \
     -Dcallback.method=http \
-    -Dcallback.host=localhost:8080 \
+    -Dcallback.host=localhost \
     -Dsql.host=${SQLHOST} \
     -Dsql.dbName=${SQLDBNAME} \
     -Dsql.userName=${SQLUSER} \
@@ -139,18 +139,11 @@ gce)
     --tags=${TAGS} \
     --image=${IMAGE} \
     --metadata BUCKET=${BUCKET}
-
-  gcloud compute firewall-rules create default-allow-http-8080 \
-      --allow tcp:8080 \
-      --source-ranges 0.0.0.0/0 \
-      --target-tags http-server \
-      --description "Allow port 8080 access to http-server"
 # [END gce-single]
   ;;
 
 down)
   gcloud compute instances delete my-app-instance --zone=${ZONE}
-  gcloud compute firewall-rules delete default-allow-http-8080
   ;;
 
 gce-many)
@@ -182,13 +175,6 @@ gce-many)
     --zone $ZONE 
 # [END create_group]
 
-# [START create_named_port]
-  gcloud compute instance-groups managed set-named-ports \
-      $GROUP \
-      --named-port http:8080 \
-      --zone $ZONE
-# [END create_named_port]
-
 #
 # Load Balancer Setup
 #
@@ -212,7 +198,7 @@ gce-many)
 # [START create_health_check]
   gcloud compute http-health-checks create ah-health-check \
     --request-path /_ah/health \
-    --port 8080
+    --port 80
 # [END create_health_check]
 
 # Create a backend service, associate it with the health check and instance group.
@@ -221,7 +207,7 @@ gce-many)
 # [START create_backend_service]
   gcloud compute backend-services create $SERVICE \
     --http-health-check ah-health-check
-# [END create_backend-service]
+# [END create_backend_service]
 
 # [START add_backend_service]
   gcloud compute backend-services add-backend $SERVICE \
@@ -262,14 +248,6 @@ gce-many)
     --zone $ZONE 
 # [END set_autoscaling]
 
-# [START create_firewall]
-  gcloud compute firewall-rules create default-allow-http-8080 \
-      --allow tcp:8080 \
-      --source-ranges 0.0.0.0/0 \
-      --target-tags http-server \
-      --description "Allow port 8080 access to http-server"
-# [END create_firewall]
-
   ;;
 
 down-many)
@@ -281,7 +259,6 @@ down-many)
   gcloud compute http-health-checks delete ah-health-check
   gcloud compute instance-groups managed delete $GROUP
   gcloud compute instance-templates delete $TEMPLATE
-  gcloud compute firewall-rules delete default-allow-http-8080
 
   ;;
 esac

@@ -38,7 +38,7 @@ mkdir -p /var/log/jetty
 
 # Get Jetty
 curl -L http://eclipse.org/downloads/download.php?file=/jetty/stable-9/dist/jetty-distribution-9.3.8.v20160314.tar.gz\&r=1 -o jetty9.tgz
-tar xvf jetty9.tgz  --strip-components=1 -C /opt/jetty
+tar xf jetty9.tgz  --strip-components=1 -C /opt/jetty
 
 # Add a Jetty User
 useradd --user-group --shell /bin/false --home-dir /opt/jetty/temp jetty
@@ -59,8 +59,7 @@ cp /opt/jetty/bin/jetty.sh /etc/init.d/jetty
 echo "JETTY_HOME=/opt/jetty" > /etc/default/jetty
 echo "JETTY_BASE=/opt/jetty" >> /etc/default/jetty
 echo "TMPDIR=/opt/jetty/temp" >> /etc/default/jetty
-echo "JETTY_ARGS=jetty.http.port=80 jetty.logging.dir=/var/log/jetty" >> /etc/default/jetty
-echo "JETTY_USER=jetty" >> /etc/default/jetty
+echo "JAVA_OPTIONS=-Djetty.http.port=80" >> /etc/default/jetty
 echo "JETTY_LOGS=/var/log/jetty" >> /etc/default/jetty
 
 # -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.JavaUtilLog
