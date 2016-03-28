@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#    Copyright 2015 Google, Inc.
+#    Copyright 2016 Google, Inc.
 # 
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 # typically projectID.appspot.com
 HOST=
 
-# datastore | cloudsql
+# datastore | cloudsql -- Only use datastore for now.
 STORAGETYPE=datastore
 BUCKET=
 
@@ -35,12 +35,18 @@ SQLDBNAME=
 SQLUSER=
 SQLPW=
 
+WAR=bookshelf-1.0-SNAPSHOT.war
+
 function print_usage() {
-  echo "Usage: ${0} run | deploy"
+  echo "Usage: ${0} run | deploy | gce"
   echo ""
   echo "This command is useful as a place to let you easily move back and forth between running or"
   echo "deploying the bookshelf app.  You may add all your configuration here, so you don't need"
   echo "to change them in every version of this application."
+  echo ""
+  echo "run    - mvn jetty:run-exploded - runs locally with all the variables set"
+  echo "deploy - mvn jetty:deploy - deploy's to App Engine Flexible with all values set"
+  echo "gce    - mvn package; gsutil cp; gcloud compute instances create ...; - deploys to Compute Engine"
 }
 
 if [ $# = 0 ]; then
@@ -83,6 +89,31 @@ deploy)
     -Dsql.dbName=${SQLDBNAME} \
     -Dsql.userName=${SQLUSER} \
     -Dsql.password=${SQLPW}
+  ;;
+
+gce)
+  mvn clean package \
+    -Dbookshelf.storageType=${STORAGETYPE} \
+    -Dbookshelf.bucket=${BUCKET} \
+    -Dbookshelf.clientID=${CLIENTID} \
+    -Dbookshelf.clientSecret=${CLIENTSECRET} \
+    -Dcallback.method=http \
+    -Dcallback.host=localhost:8080 \
+    -Dsql.host=${SQLHOST} \
+    -Dsql.dbName=${SQLDBNAME} \
+    -Dsql.userName=${SQLUSER} \
+    -Dsql.password=${SQLPW}
+
+  gsutil cp -r target/${WAR} gce/* gs://${BUCKET}/gce/
+
+  gcloud compute instances create my-app-instance \
+    --machine-type=g1-small \
+    --scopes https://www.googleapis.com/auth/cloud-platform,datastore,userinfo-email,logging-write,storage-full \
+    --metadata-from-file startup-script=gce/startup-script.sh \
+    --zone us-central1-f \
+    --tags http-server \
+    --image debian-8 \
+    --metadata BUCKET=${BUCKET},HOST=${HOST},WAR=${WAR}
   ;;
 
 esac
