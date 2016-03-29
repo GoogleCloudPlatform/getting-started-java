@@ -48,7 +48,7 @@ public class CreateBookServlet extends HttpServlet {
       IOException {
     req.setAttribute(
         "isCloudStorageConfigured",             // Hide upload when Cloud Storage is not configured.
-       	!Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
+        !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
     req.setAttribute("action", "Add");          // Part of the Header in form.jsp
     req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
     req.setAttribute("page", "form");           // Tells base.jsp to include form.jsp

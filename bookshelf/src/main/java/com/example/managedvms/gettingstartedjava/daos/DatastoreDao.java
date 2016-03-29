@@ -16,6 +16,9 @@
 
 package com.example.managedvms.gettingstartedjava.daos;
 
+import com.example.managedvms.gettingstartedjava.objects.Book;
+import com.example.managedvms.gettingstartedjava.objects.Result;
+
 import com.google.gcloud.datastore.Cursor;
 import com.google.gcloud.datastore.Datastore;
 import com.google.gcloud.datastore.DatastoreOptions;
@@ -28,9 +31,6 @@ import com.google.gcloud.datastore.Query;
 import com.google.gcloud.datastore.QueryResults;
 import com.google.gcloud.datastore.StructuredQuery.OrderBy;
 import com.google.gcloud.datastore.StructuredQuery.PropertyFilter;
-
-import com.example.managedvms.gettingstartedjava.objects.Book;
-import com.example.managedvms.gettingstartedjava.objects.Result;
 
 import java.util.ArrayList;
 import java.util.List;
