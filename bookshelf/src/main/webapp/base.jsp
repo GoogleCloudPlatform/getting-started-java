@@ -34,9 +34,11 @@ Copyright 2015 Google Inc. All Rights Reserved.
         </div>
         <ul class="nav navbar-nav">
           <li><a href="/">Books</a></li>
-          <li><a href="/books/mine">My Books</a></li>
+          <div class="form-group ${isAuthConfigured ? '' : 'hidden'}">
+            <li><a href="/books/mine">My Books</a></li>
+          </div>
         </ul>
-        <p class="navbar-text navbar-right">
+        <div class="form-group ${isAuthConfigured ? '' : 'hidden'}"><p class="navbar-text navbar-right">
           <c:choose>
           <c:when test="${not empty token}">
           <!-- using pageContext requires jsp-api artifact in pom.xml -->
@@ -51,7 +53,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
           <a href="/login">Login</a>
           </c:otherwise>
           </c:choose>
-        </p>
+        </p></div>
       </div>
     </div>
     <c:import url="/${page}.jsp" />

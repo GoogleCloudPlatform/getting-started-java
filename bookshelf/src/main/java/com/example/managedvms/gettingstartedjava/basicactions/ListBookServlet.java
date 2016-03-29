@@ -23,6 +23,8 @@ import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
+import com.google.common.base.Strings;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -67,6 +69,12 @@ public class ListBookServlet extends HttpServlet {
     }
     this.getServletContext().setAttribute("dao", dao);
     this.getServletContext().setAttribute("storageHelper", storageHelper);
+    this.getServletContext().setAttribute(
+        "isAuthConfigured",             // Hide login when auth is not configured.
+            !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.clientID")));
+    this.getServletContext().setAttribute(
+        "isCloudStorageConfigured",             // Hide upload when Cloud Storage is not configured.
+        !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
   }
 
   @Override
