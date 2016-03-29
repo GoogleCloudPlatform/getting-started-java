@@ -16,14 +16,14 @@
 
 package com.example.managedvms.gettingstartedjava.basicactions;
 
-import com.google.common.base.Strings;
-
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.daos.CloudSqlDao;
 import com.example.managedvms.gettingstartedjava.daos.DatastoreDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.objects.Result;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
+
+import com.google.common.base.Strings;
 
 import java.io.IOException;
 import java.sql.SQLException;
