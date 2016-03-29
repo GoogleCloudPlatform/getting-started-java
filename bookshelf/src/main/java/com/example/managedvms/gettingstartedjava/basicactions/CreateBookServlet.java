@@ -20,6 +20,8 @@ import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
+import com.google.common.base.Strings;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +46,9 @@ public class CreateBookServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
+    req.setAttribute(
+        "isCloudStorageConfigured",             // Hide upload when Cloud Storage is not configured.
+        !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
     req.setAttribute("action", "Add");          // Part of the Header in form.jsp
     req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
     req.setAttribute("page", "form");           // Tells base.jsp to include form.jsp
