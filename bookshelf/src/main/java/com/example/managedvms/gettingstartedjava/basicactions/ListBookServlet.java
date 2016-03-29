@@ -16,6 +16,8 @@
 
 package com.example.managedvms.gettingstartedjava.basicactions;
 
+import com.google.common.base.Strings;
+
 import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.daos.CloudSqlDao;
 import com.example.managedvms.gettingstartedjava.daos.DatastoreDao;
@@ -67,6 +69,12 @@ public class ListBookServlet extends HttpServlet {
     }
     this.getServletContext().setAttribute("dao", dao);
     this.getServletContext().setAttribute("storageHelper", storageHelper);
+    this.getServletContext().setAttribute(
+        "isAuthConfigured",             // Hide login when auth is not configured.
+            !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.clientID")));
+    this.getServletContext().setAttribute(
+        "isCloudStorageConfigured",             // Hide upload when Cloud Storage is not configured.
+        !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
   }
 
   @Override
