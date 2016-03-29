@@ -20,6 +20,8 @@ import com.example.managedvms.gettingstartedjava.daos.BookDao;
 import com.example.managedvms.gettingstartedjava.objects.Book;
 import com.example.managedvms.gettingstartedjava.util.CloudStorageHelper;
 
+import com.google.common.base.Strings;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -41,6 +43,9 @@ public class UpdateBookServlet extends HttpServlet {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     try {
       Book book = dao.readBook(Long.decode(req.getParameter("id")));
+      req.setAttribute(
+          "isCloudStorageConfigured",           // Hide upload when Cloud Storage is not configured.
+          !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
       req.setAttribute("book", book);
       req.setAttribute("action", "Edit");
       req.setAttribute("destination", "update");

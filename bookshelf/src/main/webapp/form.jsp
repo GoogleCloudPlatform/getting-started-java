@@ -45,7 +45,8 @@ Copyright 2015 Google Inc. All Rights Reserved.
       <textarea name="description" id="description" class="form-control">${fn:escapeXml(book.description)}</textarea>
     </div>
 
-    <div class="form-group">
+    
+    <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
       <label for="image">Cover Image</label>
       <input type="file" name="file" id="file" class="form-control" />
     </div>
