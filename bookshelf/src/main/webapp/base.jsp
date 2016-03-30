@@ -34,7 +34,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
         </div>
         <ul class="nav navbar-nav">
           <li><a href="/">Books</a></li>
-          <li><a href="/books/mine">My Books</a></li>
+	  <c:if test="${isAuthConfigured}"><li><a href="/books/mine">My Books</a></li></c:if>
         </ul>
         <p class="navbar-text navbar-right">
           <c:choose>
@@ -47,9 +47,9 @@ Copyright 2015 Google Inc. All Rights Reserved.
             ${fn:escapeXml(userEmail)}
           </a>
           </c:when>
-          <c:otherwise>
+	  <c:when test="${isAuthConfigured}">
           <a href="/login">Login</a>
-          </c:otherwise>
+          </c:when>
           </c:choose>
         </p>
       </div>
