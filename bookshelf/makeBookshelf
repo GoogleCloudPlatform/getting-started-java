@@ -16,6 +16,8 @@
 
 set -ex
 
+BUCKET=
+
 # [START useful]
 ZONE=us-central1-f
 
