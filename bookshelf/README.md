@@ -8,13 +8,16 @@
 * Java JDK 8
 * [Apache Maven](http://maven.apache.org) 3.3.9 or greater
 * [Install the Cloud SDK](https://cloud.google.com/sdk/)
+* `gcloud components update app-engine-java`
 
 ## Before you begin
 * Create a cloud Project using [Cloud Developer Console](https://console.google.com)
   * Enable Billing
 * Initialize the SDK
   * `gcloud auth login`
-  * Be sure to set the correct project ID
+* Be sure to set the correct project ID
+  * `gcloud config list`
+  * `gcloud config set project <projectID>`
 * Create a Bucket for Image Storage
   * `gsutil mb gs://<your-project-id>-images`
   * `gsutil defacl set public-read gs://<your-project-id>-images`
@@ -51,11 +54,6 @@ you need to build the app can be set there.  It should look something like:
     # from: https://cloud.google.com/console  API Manager > Credentials > Create Credentials
     CLIENTID=7558782700000-xxxxxxxxxupctce1c28enpcrr50vfo1.apps.googleusercontent.com
     CLIENTSECRET=F3ucaXXXXXaJQBuxxxxxF4U
-
-    SQLHOST=
-    SQLDBNAME=
-    SQLUSER=
-    SQLPW=
     ```
 
 ## Running locally

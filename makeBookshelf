@@ -84,6 +84,7 @@ case $COMMAND in
     ;;
 
 run)
+  set -v
 # [START run-local]
   mvn clean jetty:run-exploded \
     -Dbookshelf.storageType=${STORAGETYPE} \
@@ -100,6 +101,7 @@ run)
   ;;
 
 deploy)
+  set -v
 # [START deploy-flex]
   mvn clean gcloud:deploy \
     -Dbookshelf.storageType=${STORAGETYPE} \
@@ -116,6 +118,7 @@ deploy)
   ;;
 
 gce)
+  set -v
 # [START gce-single]
   mvn clean package \
     -Dbookshelf.storageType=${STORAGETYPE} \
@@ -143,10 +146,12 @@ gce)
   ;;
 
 down)
+  set -v
   gcloud compute instances delete my-app-instance --zone=${ZONE}
   ;;
 
 gce-many)
+  set -v
 #
 # Instance group setup
 #
@@ -251,6 +256,8 @@ gce-many)
   ;;
 
 down-many)
+  set -v
+# [START stop-gce]
   gcloud compute instance-groups managed stop-autoscaling $GROUP --zone $ZONE
   gcloud compute forwarding-rules delete $SERVICE-http-rule --global
   gcloud compute target-http-proxies delete $SERVICE-proxy
@@ -259,6 +266,7 @@ down-many)
   gcloud compute http-health-checks delete ah-health-check
   gcloud compute instance-groups managed delete $GROUP
   gcloud compute instance-templates delete $TEMPLATE
-
+# [END stop-gce]
   ;;
 esac
+set +v
