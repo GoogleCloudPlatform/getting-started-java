@@ -41,13 +41,13 @@
 * Edit [pom.xml](pom.xml) It should look something like:
     ```xml
     <properties>
-      <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
-      <bookshelf.bucket></bookshelf.bucket>                      <! -- bucket you created earlier -->
+      <bookshelf.storageType>datastore</bookshelf.storageType> <!-- datastore or cloudsql -->
+      <bookshelf.bucket></bookshelf.bucket>                    <!-- bucket you created earlier -->
 
-      <callback.host>PROJECTID.appspot.com</callback.host>  <!-- Typically projectname.appspot.com -->
+      <callback.host>PROJECTID.appspot.com</callback.host>     <!-- Typically projectname.appspot.com -->
 
-      <bookshelf.clientID></bookshelf.clientID>             <!-- for User Authentication -->
-      <bookshelf.clientSecret></bookshelf.clientSecret>     <!-- from g.co/cloud/console -->
+      <bookshelf.clientID></bookshelf.clientID>                <!-- for User Authentication -->
+      <bookshelf.clientSecret></bookshelf.clientSecret>        <!-- from g.co/cloud/console -->
 
     </properties>
     ```
@@ -66,4 +66,3 @@
     mvn clean gcloud:deploy
 
 * Visit `http://PROJECTID.appspot.com`.
-
