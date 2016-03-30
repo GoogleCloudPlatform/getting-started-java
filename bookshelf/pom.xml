@@ -32,17 +32,16 @@ Copyright 2015 Google Inc. All Rights Reserved.
 
   <!-- [START config] -->
   <properties>
-    <callback.method>http</callback.method>       <!-- "http" for local, "https" for the cloud -->
-    <callback.host>localhost:8080</callback.host> <!-- Typically projectname.appspot.com -->
-
     <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
-    <bookshelf.bucket>BUCKET</bookshelf.bucket>
+    <bookshelf.bucket></bookshelf.bucket>
 
-    <bookshelf.clientID>CLIENTID</bookshelf.clientID>             <!-- for User Authentication -->
-    <bookshelf.clientSecret>CLIENTSECRET</bookshelf.clientSecret> <!-- from g.co/cloud/console -->
+    <callback.host>PROJECTID.appspot.com</callback.host> <!-- Typically projectname.appspot.com -->
+
+    <bookshelf.clientID></bookshelf.clientID>             <!-- for User Authentication -->
+    <bookshelf.clientSecret></bookshelf.clientSecret> <!-- from g.co/cloud/console -->
 
     <!-- Register in g.co/cloud/console -->
-    <bookshelf.callback>${callback.method}://${callback.host}/oauth2callback</bookshelf.callback>
+    <bookshelf.callback>https://${callback.host}/oauth2callback</bookshelf.callback>
     <!-- [END config] -->
 
     <sql.host>HOST-IP</sql.host>
@@ -60,6 +59,17 @@ Copyright 2015 Google Inc. All Rights Reserved.
   <prerequisites>                       <!-- Optional, but suggested -->
     <maven>3.3.9</maven>                <!-- Recommended minimum maven version -->
   </prerequisites>
+
+  <profiles>
+    <profile>
+      <id>local</id>
+      <properties>
+        <callback.method>http</callback.method>       <!-- "http" for local, "https" for the cloud -->
+        <callback.host>localhost:8080</callback.host> <!-- Typically projectname.appspot.com -->
+        <bookshelf.callback>http://localhost:8080/oauth2callback</bookshelf.callback>
+      </properties>
+    </profile>
+  </profiles>
 
   <dependencies>
     <dependency>                        <!-- REQUIRED -->
