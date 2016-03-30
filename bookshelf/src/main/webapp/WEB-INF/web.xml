@@ -21,6 +21,9 @@
     -->
     <!-- [START filters] -->
     <filter-mapping>
+        <filter-name>DatastoreSessionFilter</filter-name>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>ListByUserFilter</filter-name>
     </filter-mapping>
     <!-- [END filters] -->
