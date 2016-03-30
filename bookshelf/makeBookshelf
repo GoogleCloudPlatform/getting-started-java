@@ -16,25 +16,6 @@
 
 set -ex
 
-# [START config] 
-# typically projectID.appspot.com
-HOST=
-
-# datastore | cloudsql -- Only use datastore for now.
-STORAGETYPE=datastore
-BUCKET=
-
-# from: https://cloud.google.com/console  API Manager > Credentials > Create Credentials
-CLIENTID=
-CLIENTSECRET=
-# [END config]
-
-# Not used for now
-SQLHOST=
-SQLDBNAME=
-SQLUSER=
-SQLPW=
-
 # [START useful]
 ZONE=us-central1-f
 
@@ -55,14 +36,12 @@ WAR=bookshelf-1.0-SNAPSHOT.war
 # [END useful]
 
 function print_usage() {
-  echo "Usage: ${0} run | deploy | gce | gce-many | down"
+  echo "Usage: ${0} gce | gce-many | down"
   echo ""
   echo "This command is useful as a place to let you easily move back and forth between running or"
   echo "deploying the bookshelf app.  You may add all your configuration here, so you don't need"
   echo "to change them in every version of this application."
   echo ""
-  echo "run      - mvn jetty:run-exploded - runs locally with all the variables set"
-  echo "deploy   - mvn jetty:deploy - deploy's to App Engine Flexible with all values set"
   echo "gce      - mvn package; gsutil cp; gcloud compute instances create ...; - deploys to Compute Engine"
   echo "down     - tears down a single instance group"
   echo "gce-many - deploys a managed instance group"
@@ -86,51 +65,21 @@ case $COMMAND in
 run)
   set -v
 # [START run-local]
-  mvn clean jetty:run-exploded \
-    -Dbookshelf.storageType=${STORAGETYPE} \
-    -Dbookshelf.bucket=${BUCKET} \
-    -Dbookshelf.clientID=${CLIENTID} \
-    -Dbookshelf.clientSecret=${CLIENTSECRET} \
-    -Dcallback.method=http \
-    -Dcallback.host=localhost:8080 \
-    -Dsql.host=${SQLHOST} \
-    -Dsql.dbName=${SQLDBNAME} \
-    -Dsql.userName=${SQLUSER} \
-    -Dsql.password=${SQLPW}
-# [START run-local]
+  mvn -Plocal clean jetty:run-exploded 
+# [END run-local]
   ;;
 
 deploy)
   set -v
 # [START deploy-flex]
-  mvn clean gcloud:deploy \
-    -Dbookshelf.storageType=${STORAGETYPE} \
-    -Dbookshelf.bucket=${BUCKET} \
-    -Dbookshelf.clientID=${CLIENTID} \
-    -Dbookshelf.clientSecret=${CLIENTSECRET} \
-    -Dcallback.method=https \
-    -Dcallback.host=${HOST} \
-    -Dsql.host=${SQLHOST} \
-    -Dsql.dbName=${SQLDBNAME} \
-    -Dsql.userName=${SQLUSER} \
-    -Dsql.password=${SQLPW}
+  mvn clean gcloud:deploy
 # [END deploy-flex]
   ;;
 
 gce)
   set -v
 # [START gce-single]
-  mvn clean package \
-    -Dbookshelf.storageType=${STORAGETYPE} \
-    -Dbookshelf.bucket=${BUCKET} \
-    -Dbookshelf.clientID=${CLIENTID} \
-    -Dbookshelf.clientSecret=${CLIENTSECRET} \
-    -Dcallback.method=http \
-    -Dcallback.host=localhost \
-    -Dsql.host=${SQLHOST} \
-    -Dsql.dbName=${SQLDBNAME} \
-    -Dsql.userName=${SQLUSER} \
-    -Dsql.password=${SQLPW}
+  mvn clean package
 
   gsutil cp -r target/${WAR} gce/base gs://${BUCKET}/gce/
 
@@ -155,6 +104,9 @@ gce-many)
 #
 # Instance group setup
 #
+  mvn clean package
+
+  gsutil cp -r target/${WAR} gce/base gs://${BUCKET}/gce/
 
 # First we have to create an instance template.
 # This template will be used by the instance group

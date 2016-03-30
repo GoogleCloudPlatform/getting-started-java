@@ -38,36 +38,32 @@
     * `https://PROJECTID.appspot.com/oauth2callback`
     * `http://localhost:8080/oauth2callback`
   * Be sure to get both the ClientID and ClientSecret.
-* There is a helpful bash command line tool [makeBookshelf](../makeBookshelf) at the root of all
-these projects. It's a good place to store all of the information we gathered earlier.
-you need to build the app can be set there.  It should look something like:
-    ```sh
-    # command: run | deploy
+* Edit [pom.xml](pom.xml) It should look something like:
+    ```xml
+    <properties>
+      <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
+      <bookshelf.bucket></bookshelf.bucket>                      <! -- bucket you created earlier -->
 
-    # datastore | cloudsql          USE DATASTORE FOR NOW
-    STORAGETYPE=datastore
-    BUCKET=myproject-9345-324-images
+      <callback.host>PROJECTID.appspot.com</callback.host>  <!-- Typically projectname.appspot.com -->
 
-    # typically projectID.appspot.com
-    HOST=myproject-9345-324.appspot.com
+      <bookshelf.clientID></bookshelf.clientID>             <!-- for User Authentication -->
+      <bookshelf.clientSecret></bookshelf.clientSecret>     <!-- from g.co/cloud/console -->
 
-    # from: https://cloud.google.com/console  API Manager > Credentials > Create Credentials
-    CLIENTID=7558782700000-xxxxxxxxxupctce1c28enpcrr50vfo1.apps.googleusercontent.com
-    CLIENTSECRET=F3ucaXXXXXaJQBuxxxxxF4U
+    </properties>
     ```
 
 ## Running locally
 
 * In the same directory as this `README.md` file
-  `../makeBookshelf run`
 
-  Which actually hides the following commands
-  `mvn clean jetty:run-exploded` with lots of -D defines on it.
+    mvn -Plocal clean jetty:run-exploded
+
 * Visit `http://localhost:8080`
 
 
 ## Deploy to AppEngine Managed VMs
 
-* `../makeBookshelf deploy`
+    mvn clean gcloud:deploy
+
 * Visit `http://PROJECTID.appspot.com`.
 
