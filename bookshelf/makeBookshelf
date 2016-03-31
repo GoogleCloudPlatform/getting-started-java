@@ -85,6 +85,12 @@ gce)
 
   gsutil cp -r target/${WAR} gce/base gs://${BUCKET}/gce/
 
+  gcloud compute firewall-rules create allow-http \
+    --allow tcp:80 \
+    --source-ranges 0.0.0.0/0 \
+    --target-tags http-server \
+    --description "Allow port 80 access to instances tagged with http-server"
+
   gcloud compute instances create my-app-instance \
     --machine-type=${MACHINE_TYPE} \
     --scopes=${SCOPES} \
