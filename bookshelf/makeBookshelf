@@ -85,11 +85,11 @@ gce)
 
   gsutil cp -r target/${WAR} gce/base gs://${BUCKET}/gce/
 
-  gcloud compute firewall-rules create allow-http \
+  gcloud compute firewall-rules create allow-http-bookshelf \
     --allow tcp:80 \
     --source-ranges 0.0.0.0/0 \
-    --target-tags http-server \
-    --description "Allow port 80 access to instances tagged with http-server"
+    --target-tags ${TAGS} \
+    --description "Allow port 80 access to instances tagged with ${TAGS}"
 
   gcloud compute instances create my-app-instance \
     --machine-type=${MACHINE_TYPE} \
@@ -105,6 +105,7 @@ gce)
 down)
   set -v
   gcloud compute instances delete my-app-instance --zone=${ZONE}
+  gcloud compute firewall-rules delete allow-http-bookshelf
   ;;
 
 gce-many)
@@ -126,8 +127,17 @@ gce-many)
     --machine-type $MACHINE_TYPE \
     --scopes $SCOPES \
     --metadata-from-file startup-script=$STARTUP_SCRIPT \
-    --tags $TAGS
+    --tags $TAGS \
+    --metadata BUCKET=${BUCKET}
 # [END create_template]
+
+# Add a firewall rule so that we can connect directly to
+# the compute instances in the group.
+  gcloud compute firewall-rules create allow-http-bookshelf \
+    --allow tcp:80 \
+    --source-ranges 0.0.0.0/0 \
+    --target-tags ${TAGS} \
+    --description "Allow port 80 access to instances tagged with ${TAGS}"
 
 # Create the managed instance group.
 
@@ -225,6 +235,7 @@ down-many)
   gcloud compute backend-services delete $SERVICE
   gcloud compute http-health-checks delete ah-health-check
   gcloud compute instance-groups managed delete $GROUP
+  gcloud compute firewall-rules delete allow-http-bookshelf
   gcloud compute instance-templates delete $TEMPLATE
 # [END stop-gce]
   ;;
