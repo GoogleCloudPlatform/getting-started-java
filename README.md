@@ -1,7 +1,7 @@
 # Getting started on Google Cloud Platform for Java® 
 
 The code for the samples is contained in individual folders on this repository.
-Follow the instructions at [Getting Started on Google Cloud Platform for Java](http://cloud.google.com/java/getting-started) or the README files in each folder for instructions on how to run locally and deploy.
+Follow the instructions at [Getting Started on Google Cloud Platform for Java](https://cloud.google.com/java/) or the README files in each folder for instructions on how to run locally and deploy.
 
 Managed VMs on Google Cloud Platform use the [Java Servlets](http://www.oracle.com/technetwork/java/overview-137084.html) & [Java Server Pages](http://www.oracle.com/technetwork/java/index-jsp-138231.html) on [Jetty](http://www.eclipse.org/jetty/).
 
