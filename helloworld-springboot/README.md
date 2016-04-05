@@ -11,7 +11,7 @@ id of your application.
 2. Run `mvn spring-boot:run`
 4. Visit http://localhost:8080
 
-## Deploy to AppEngine Managed VMs
+## Deploy to AppEngine Flexible Environment
 
 5. `mvn gcloud:deploy`
 6. Visit `http://YOUR_PROJECT.appspot.com`.
