@@ -16,12 +16,12 @@
 
 package com.example.managedvms.gettingstartedjava.util;
 
-import com.google.gcloud.storage.Acl;
-import com.google.gcloud.storage.Acl.Role;
-import com.google.gcloud.storage.Acl.User;
-import com.google.gcloud.storage.BlobInfo;
-import com.google.gcloud.storage.Storage;
-import com.google.gcloud.storage.StorageOptions;
+import com.google.cloud.storage.Acl;
+import com.google.cloud.storage.Acl.Role;
+import com.google.cloud.storage.Acl.User;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;

@@ -98,9 +98,9 @@ Copyright 2015 Google Inc. All Rights Reserved.
     </dependency>
 
     <dependency>                        <!-- Google Cloud Client Library for Java -->
-      <groupId>com.google.gcloud</groupId>
+      <groupId>com.google.cloud</groupId>
       <artifactId>gcloud-java</artifactId>
-      <version>0.1.7</version>
+      <version>0.2.0</version>
     </dependency>
 
     <dependency>                        <!-- Google API client - for stuff that's not in gcloud-->
