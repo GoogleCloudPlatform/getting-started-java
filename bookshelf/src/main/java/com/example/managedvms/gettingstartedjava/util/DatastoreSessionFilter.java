@@ -1,17 +1,17 @@
 package com.example.managedvms.gettingstartedjava.util;
 
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.Key;
+import com.google.cloud.datastore.KeyFactory;
+import com.google.cloud.datastore.Query;
+import com.google.cloud.datastore.QueryResults;
+import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
+import com.google.cloud.datastore.Transaction;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
-import com.google.gcloud.datastore.Datastore;
-import com.google.gcloud.datastore.DatastoreOptions;
-import com.google.gcloud.datastore.Entity;
-import com.google.gcloud.datastore.Key;
-import com.google.gcloud.datastore.KeyFactory;
-import com.google.gcloud.datastore.Query;
-import com.google.gcloud.datastore.QueryResults;
-import com.google.gcloud.datastore.StructuredQuery.PropertyFilter;
-import com.google.gcloud.datastore.Transaction;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
