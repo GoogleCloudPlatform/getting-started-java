@@ -58,7 +58,11 @@ public class ListBookServlet extends HttpServlet {
         break;
       case "cloudsql":
         try {
-          dao = new CloudSqlDao(this.getServletContext().getInitParameter("sql.url"));
+          if (System.getenv().containsKey("GAE_MODULE_INSTANCE")) {
+            dao = new CloudSqlDao(this.getServletContext().getInitParameter("sql.urlRemote"));
+          } else {
+            dao = new CloudSqlDao(this.getServletContext().getInitParameter("sql.urlLocal"));
+          }
         } catch (SQLException e) {
           throw new ServletException("SQL error", e);
         }

@@ -44,10 +44,10 @@ Copyright 2015 Google Inc. All Rights Reserved.
     <bookshelf.callback>https://${callback.host}/oauth2callback</bookshelf.callback>
     <!-- [END config] -->
 
-    <sql.host>HOST-IP</sql.host>
-    <sql.dbName>DatabaseName</sql.dbName>
-    <sql.userName>USERNAME</sql.userName>
-    <sql.password>PASSWORD</sql.password>
+    <sql.instanceName></sql.instanceName>
+    <sql.dbName></sql.dbName>
+    <sql.userName></sql.userName>
+    <sql.password></sql.password>
 
     <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
     <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
@@ -144,6 +144,12 @@ Copyright 2015 Google Inc. All Rights Reserved.
       <artifactId>commons-dbcp2</artifactId>
       <version>2.1.1</version>
     </dependency>
+
+    <dependency>
+    <groupId>com.google.cloud.sql</groupId>
+    <artifactId>mysql-socket-factory</artifactId>
+    <version>1.0.0</version>
+</dependency>
 
   </dependencies>
 

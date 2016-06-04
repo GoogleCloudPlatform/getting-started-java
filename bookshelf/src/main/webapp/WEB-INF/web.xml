@@ -50,8 +50,12 @@
     </context-param>
     <!-- [END config] -->
     <context-param>
-        <param-name>sql.url</param-name>
-        <param-value>jdbc:mysql://${sql.host}:3306/${sql.dbName}?user=${sql.userName}&amp;password=${sql.password}</param-value>
+        <param-name>sql.urlRemote</param-name>
+        <param-value>jdbc:mysql://google/${sql.dbName}?cloudSqlInstance=${sql.instanceName}&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=${sql.userName}&amp;password=${sql.password}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>sql.urlLocal</param-name>
+        <param-value>jdbc:mysql://localhost/${sql.dbName?user=${sql.userName}&amp;password=${sql.password}&amp;useSSL=false</param-value>
     </context-param>
     <!-- [START welcome] -->
     <welcome-file-list>
