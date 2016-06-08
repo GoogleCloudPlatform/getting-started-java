@@ -59,15 +59,23 @@
       <plugin>                          <!-- Used for Deploying -->
         <groupId>com.google.appengine</groupId>
         <artifactId>gcloud-maven-plugin</artifactId>
-        <version>2.0.9.101.v20160316</version> <!-- Version changes often - update to latest -->
+        <version>2.0.9.111.v20160525</version> <!-- Version changes often - update to latest -->
       </plugin>
 
       <plugin>                          <!-- Used for local debugging -->
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.3.7.v20160115</version>
+        <version>9.3.9.v20160517</version>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3</version>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
