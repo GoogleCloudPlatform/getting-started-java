@@ -1,5 +1,8 @@
 # Getting started on Google Cloud Platform for Java® 
 
+[![Build Status](https://travis-ci.org/GoogleCloudPlatform/getting-started-java.svg?branch=master)](https://travis-ci.org/GoogleCloudPlatform/getting-started-java)
+[![Coverage Status](https://codecov.io/gh/GoogleCloudPlatform/getting-started-java/branch/master/graph/badge.svg)](https://codecov.io/gh/GoogleCloudPlatform/getting-started-java)
+
 The code for the samples is contained in individual folders on this repository.
 Follow the instructions at [Getting Started on Google Cloud Platform for Java](https://cloud.google.com/java/) or the README files in each folder for instructions on how to run locally and deploy.
 
