@@ -11,13 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+codecov:
+  branch: master
 
-language: java
-jdk:
-  - oraclejdk8
-script: mvn --batch-mode clean verify | egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-branches:
-  only:
+comment:
+  branches:
   - master
