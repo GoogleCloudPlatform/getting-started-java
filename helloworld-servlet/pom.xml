@@ -67,15 +67,6 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.3.9.v20160517</version>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3</version>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 </project>
