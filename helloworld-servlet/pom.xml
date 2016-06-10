@@ -25,8 +25,8 @@
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
-    <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
+    <maven.compiler.source>1.7</maven.compiler.source> <!-- REQUIRED -->
+    <maven.compiler.target>1.7</maven.compiler.target> <!-- REQUIRED -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
   </properties>
@@ -65,7 +65,7 @@
       <plugin>                          <!-- Used for local debugging -->
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.3.9.v20160517</version>
+        <version>9.2.17.v20160517</version>
       </plugin>
     </plugins>
   </build>
