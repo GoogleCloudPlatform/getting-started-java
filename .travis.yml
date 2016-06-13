@@ -15,7 +15,16 @@
 language: java
 jdk:
   - oraclejdk8
-script: mvn --batch-mode clean verify | egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
+addons:
+  apt:
+    packages:
+    - expect
+# Skip the install step, since Maven will download the dependencies we need
+# when the test build runs.
+# http://stackoverflow.com/q/31945809/101923
+# https://docs.travis-ci.com/user/customizing-the-build/#Skipping-the-Installation-Step
+install: true
+script: ./travis.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 branches:
