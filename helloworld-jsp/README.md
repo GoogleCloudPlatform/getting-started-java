@@ -10,7 +10,7 @@
 
 1. Set the correct Cloud SDK project via `gcloud config set project YOUR_PROJECT`
 id of your application.
-2. Run `mvn gcloud:run`
+2. Run `mvn jetty:run-exploded`
 4. Visit http://localhost:8080
 
 ## Deploy to AppEngine Managed VMs
