@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2016 Google Inc. All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<project>                               <!-- REQUIRED -->
+
+  <modelVersion>4.0.0</modelVersion>    <!-- REQUIRED -->
+  <packaging>war</packaging>            <!-- REQUIRED -->
+
+  <groupId>com.example.flex.gettingstarted</groupId>
+  <artifactId>bookshelf-3</artifactId>    <!-- Name of your project -->
+  <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
+
+  <properties>
+    <!-- [START config] -->
+    <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
+    <bookshelf.bucket></bookshelf.bucket>
+    <sql.instanceName></sql.instanceName>
+    <sql.dbName></sql.dbName>
+    <sql.userName></sql.userName>
+    <sql.password></sql.password> 
+    <!-- [END config] -->
+
+    <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
+    <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
+    <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
+  </properties>
+
+  <prerequisites>                       <!-- Optional, but suggested -->
+    <maven>3.3.9</maven>                <!-- Recommended minimum maven version -->
+  </prerequisites>
+
+  <dependencies>
+    <dependency>                        <!-- REQUIRED -->
+      <groupId>javax.servlet</groupId>  <!-- Java Servlet API -->
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>           <!-- Provided by the Jetty Servlet engine -->
+    </dependency>
+
+    <dependency>                        <!-- Java Server Pages -->
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+
+    <dependency>                        <!-- JSP standard tag library -->
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+    <dependency>                        <!-- Apache Taglibs -->
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.1.2</version>
+    </dependency>
+
+    <dependency>                        <!-- Google Cloud Client Library for Java -->
+      <groupId>com.google.cloud</groupId>
+      <artifactId>gcloud-java</artifactId>
+      <version>0.2.3</version>
+    </dependency>
+
+    <dependency>                        <!-- Google API client - for stuff that's not in gcloud-->
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client</artifactId>
+      <version>1.22.0</version>
+    </dependency>
+
+    <dependency>                        <!-- Google+ API Client Library for Java -->
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-plus</artifactId>
+      <version>v1-rev395-1.22.0</version>
+    </dependency>
+
+    <dependency>                        <!-- https://github.com/FasterXML/jackson-databind -->
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.7.4</version>
+    </dependency>
+
+    <dependency>                        <!-- Google Core Libraries for Java -->
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
+        <version>19.0</version>
+    </dependency>
+
+    <dependency>                        <!-- http://www.joda.org/joda-time/ -->
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.9.4</version>
+    </dependency>
+
+    <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>6.0.3</version>
+    </dependency>
+
+    <dependency>                        <!-- Apache Database Connection Pool API -->
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.cloud.sql</groupId>
+      <artifactId>mysql-socket-factory</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->
+    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+    <plugins>
+
+      <plugin>
+        <groupId>com.google.appengine</groupId>
+        <artifactId>gcloud-maven-plugin</artifactId>
+        <version>2.0.9.111.v20160525</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.3.7.v20160115</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>
