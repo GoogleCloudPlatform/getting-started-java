@@ -2,6 +2,8 @@
 
 [![Build
 Status](https://travis-ci.org/GoogleCloudPlatform/java-repo-tools.svg?branch=master)](https://travis-ci.org/GoogleCloudPlatform/java-repo-tools)
+[![Coverage
+Status](https://codecov.io/gh/GoogleCloudPlatform/java-repo-tools/branch/master/graph/badge.svg)](https://codecov.io/gh/GoogleCloudPlatform/java-repo-tools)
 
 This is a collection of common tools used to maintain and test Java repositories
 in the [GoogleCloudPlaftorm](https://github.com/GoogleCloudPlatform)
@@ -135,18 +137,9 @@ The first time using the `subtree` command, we may need to use the `--rejoin`
 argument.
 
 ```
-git subtree split --prefix=java-repo-tools -b java-repo-tools-update-from-java-docs-samples
-git checkout java-repo-tools-update-from-java-docs-samples
-git push java-repo-tools java-repo-tools-update-from-java-docs-samples
-```
-
-After you have committed all the changes you want to your `java-repo-tools`
-branch, you can push to the upstream `java-repo-tools` repository with the
-following command. (Replace `name-for-remote-branch` with the name you'd like to
-give the branch on the `java-repo-tools` repository.)
-
-```
-git push java-repo-tools java-repo-tools:name-for-remote-branch
+git subtree split --prefix=java-repo-tools -b ${USER}-push-java-repo-tools
+git checkout ${USER}-push-java-repo-tools
+git push java-repo-tools ${USER}-push-java-repo-tools
 ```
 
 Then, you can send a pull request to the `java-repo-tools` repository.
