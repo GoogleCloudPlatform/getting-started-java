@@ -1,9 +1,6 @@
 # Bookshelf - Shows Authentication and CRUD
 ## Completed Application
 
-## Known Issues
-* TODO(): SQL needs to be based on the SQLv2 SQL Proxy
-
 ## Requirements
 * Java JDK 8
 * [Apache Maven](http://maven.apache.org) 3.3.9 or greater
@@ -13,11 +10,8 @@
 ## Before you begin
 * Create a cloud Project using [Cloud Developer Console](https://console.google.com)
   * Enable Billing
-* Initialize the SDK
-  * `gcloud auth login`
-* Be sure to set the correct project ID
-  * `gcloud config list`
-  * `gcloud config set project <projectID>`
+* Initialize the SDK; Be sure to set the correct project ID
+  * `gcloud init`
 * Create a Bucket for Image Storage
   * `gsutil mb gs://<your-project-id>-images`
   * `gsutil defacl set public-read gs://<your-project-id>-images`
