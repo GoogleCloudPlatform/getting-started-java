@@ -64,7 +64,7 @@ import javax.servlet.http.HttpServletResponse;
                      // down.  This can be useful for cleaning up resources and
                      // finishing data transactions.
                      //
-                     // To acheive a similar result with Google Compute Engine,
+                     // To achieve a similar result with Google Compute Engine,
                      // a shutdown script
                      //     https://g.co/cloud/compute/docs/shutdownscript
                      // can be used.
