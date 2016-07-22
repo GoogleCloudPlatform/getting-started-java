@@ -17,6 +17,7 @@ set -e
 set -x
 # Set pipefail so that `egrep` does not eat the exit code.
 set -o pipefail
+shopt -s globstar
 
 mvn --batch-mode clean verify | egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
@@ -24,9 +25,19 @@ mvn --batch-mode clean verify | egrep -v "(^\[INFO\] Download|^\[INFO\].*skippin
 if [[ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]]; then
   # The bookshelf sample requires Cloud Datastore access. Enable when
   # credentials are available (such as branch PRs).
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf -- -Plocal
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/2-structured-data -- -Plocal
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/3-binary-data -- -Plocal
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/4-auth -- -Plocal
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/5-logging -- -Plocal
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/6-gce -- -Plocal
+else
+  # only run unit tests and lint on external PRs
+  echo 'External PR: skipping integration tests.'
 fi
 ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-jsp
 ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-servlet
 ./java-repo-tools/scripts/test-localhost.sh spring-boot helloworld-springboot
 
+# Check that all shell scripts in this repo (including this one) pass the
+# Shell Check linter.
+shellcheck ./**/*.sh
