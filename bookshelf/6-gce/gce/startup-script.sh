@@ -23,7 +23,7 @@ BUCKET=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/at
 echo "Project ID: ${PROJECTID}  Bucket: ${BUCKET}"
 
 # get our file(s)
-gsutil cp gs://${BUCKET}/gce/** .
+gsutil cp "gs://${BUCKET}/gce/"** .
 
 # Install dependencies from apt
 apt-get update
@@ -57,10 +57,12 @@ chown --recursive jetty /opt/jetty
 # Configure the default paths for the Jetty service
 cp /opt/jetty/bin/jetty.sh /etc/init.d/jetty
 echo "JETTY_HOME=/opt/jetty" > /etc/default/jetty
-echo "JETTY_BASE=/opt/jetty" >> /etc/default/jetty
-echo "TMPDIR=/opt/jetty/temp" >> /etc/default/jetty
-echo "JAVA_OPTIONS=-Djetty.http.port=80" >> /etc/default/jetty
-echo "JETTY_LOGS=/var/log/jetty" >> /etc/default/jetty
+{
+  echo "JETTY_BASE=/opt/jetty"
+  echo "TMPDIR=/opt/jetty/temp"
+  echo "JAVA_OPTIONS=-Djetty.http.port=80"
+  echo "JETTY_LOGS=/var/log/jetty"
+} >> /etc/default/jetty
 
 # -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.JavaUtilLog
 
