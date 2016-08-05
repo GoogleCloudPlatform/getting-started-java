@@ -21,11 +21,13 @@
 #   https://cloud.google.com/container-engine/docs/load-balancer
 apiVersion: v1
 kind: Service
+
 metadata:
   name: bookshelf-frontend
   labels:
     app: bookshelf
     tier: frontend
+
 spec:
   type: LoadBalancer
   ports:
@@ -34,3 +36,4 @@ spec:
   selector:
     app: bookshelf
     tier: frontend
+

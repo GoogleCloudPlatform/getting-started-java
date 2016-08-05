@@ -21,27 +21,34 @@ metadata:
   name: bookshelf-frontend
   labels:
     app: bookshelf
+
 # The bookshelf frontend replica set ensures that at least 3
 # instances of the bookshelf app are running on the cluster.
 # For more info about Pods see:
 #   https://cloud.google.com/container-engine/docs/pods/
 spec:
   replicas: 3
+
   template:
     metadata:
       labels:
         app: bookshelf
         tier: frontend
+
     spec:
       containers:
       - name: bookshelf-app
+
         # Replace [GCLOUD_PROJECT] with your project ID or use `make template`.
         image: gcr.io/[GCLOUD_PROJECT]/bookshelf
+
         # This setting makes nodes pull the docker image every time before
         # starting the pod. This is useful when debugging, but should be turned
         # off in production.
         imagePullPolicy: Always
+
         # The bookshelf process listens on port 8080 for web traffic by default.
         ports:
         - name: http-server
           containerPort: 8080
+

@@ -17,10 +17,12 @@
 
 apiVersion: extensions/v1beta1
 kind: Deployment
+
 metadata:
   name: bookshelf-worker
   labels:
     app: bookshelf
+
 # The bookshelf worker replica set ensures that at least 2 instances of the
 # bookshelf worker pod are running on the cluster.
 # For more info about Pods see:
@@ -41,3 +43,4 @@ spec:
         # starting the pod. This is useful when debugging, but should be turned
         # off in production.
         imagePullPolicy: Always
+
