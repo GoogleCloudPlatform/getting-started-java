@@ -14,6 +14,7 @@
 # limitations under the License.
 
 # [START script]
+set -e
 set -v
 
 # Talk to the metadata server to get the project id
