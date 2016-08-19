@@ -5,13 +5,31 @@
 * JDK 8 in order to run
 * [Cloud SDK for Managed VMs](https://cloud.google.com/appengine/docs/managed-vms/)
 
-## Run the Application locally
-1. Set the correct Cloud SDK project via `gcloud config set project YOUR_PROJECT`
-id of your application.
-2. Run `mvn jetty:run-exploded`
-4. Visit http://localhost:8080
+## Setup
 
-## Deploy to AppEngine Managed VMs
+Use either:
 
-5. `mvn gcloud:deploy`
-6. Visit `http://YOUR_PROJECT.appspot.com`.
+* `gcloud init`
+* `gcloud beta auth application-default login`
+
+We support building with [Maven](), [Gradle](https://gradle.org), [Intelij Idea](https://cloud.google.com/tools/intellij/docs/), or [Eclipse]().
+The samples have files to support both Maven and Gradle.  To use the IDE plugins, see the documentation pages above.
+
+## Maven
+### Running locally
+
+    $ mvn jetty:run-exploded
+  
+### Deploying
+
+    $ mvn appengine:deploy
+
+## Gradle
+### Running locally
+
+    $ gradle jettyRun
+
+### Deploying
+
+    $ gradle appengineDeploy
+
