@@ -56,17 +56,24 @@
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 
     <plugins>
-      <plugin>                          <!-- Used for Deploying -->
-        <groupId>com.google.appengine</groupId>
-        <artifactId>gcloud-maven-plugin</artifactId>
-        <version>2.0.9.120.v20160803</version> <!-- Version changes often - update to latest -->
-      </plugin>
 
       <plugin>                          <!-- Used for local debugging -->
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.3.9.v20160517</version>
       </plugin>
+
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>0.1.1-beta</version>
+        <configuration>
+          <!-- deploy configuration -->
+          <deploy.promote>true</deploy.promote>                           <!-- DEFAULT value -->
+          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>   <!-- DEFAULT value -->
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 </project>
