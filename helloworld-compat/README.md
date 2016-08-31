@@ -1,4 +1,4 @@
-# Google App Engine Standard Environment Hello World Sample
+# Google App Engine Flex Environment "compat" Hello World Sample
 
 This sample demonstrates how to deploy an application on Google App Engine.
 
