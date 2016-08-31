@@ -35,7 +35,8 @@ else
   echo 'External PR: skipping integration tests.'
 fi
 ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-jsp
-./java-repo-tools/scripts/test-localhost.sh jetty helloworld-servlet
+# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-servlet
+# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-compat
 ./java-repo-tools/scripts/test-localhost.sh spring-boot helloworld-springboot
 
 # Check that all shell scripts in this repo (including this one) pass the
