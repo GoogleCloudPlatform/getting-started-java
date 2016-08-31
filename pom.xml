@@ -35,6 +35,7 @@ limitations under the License.
         <releases><enabled>false</enabled></releases>
         <snapshots><enabled>true</enabled></snapshots>
       </repository>
+<!-- 
       <repository>
         <releases>
           <enabled>true</enabled>
@@ -51,9 +52,18 @@ limitations under the License.
         <url>https://maven-central.storage.googleapis.com</url>
         <layout>default</layout>
       </repository>
+ -->
     </repositories>
 
     <pluginRepositories>
+      <pluginRepository>
+        <id>snapshots-repo</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        <releases><enabled>false</enabled></releases>
+        <snapshots><enabled>true</enabled></snapshots>
+         <layout>default</layout>
+     </pluginRepository>
+<!-- 
       <pluginRepository>
         <releases>
           <enabled>true</enabled>
@@ -70,6 +80,7 @@ limitations under the License.
         <url>https://maven-central.storage.googleapis.com</url>
         <layout>default</layout>
       </pluginRepository>
+ -->
     </pluginRepositories>
 
     <prerequisites>
@@ -83,6 +94,7 @@ limitations under the License.
         <module>bookshelf/5-logging</module>
         <module>bookshelf/6-gce</module>
         <module>bookshelf/optional-container-engine</module>
+        <module>helloworld-compat</module>
         <module>helloworld-jsp</module>
         <module>helloworld-servlet</module>
         <module>helloworld-springboot</module>
