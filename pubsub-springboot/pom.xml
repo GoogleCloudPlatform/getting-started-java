@@ -53,9 +53,9 @@
       <version>${appengine.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.google.api-client</groupId>
-      <artifactId>google-api-client-appengine</artifactId>
-      <version>${google-api-client.version}</version>
+      <groupId>com.travellazy.google.pubsub</groupId>
+      <artifactId>client</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.google.apis</groupId>

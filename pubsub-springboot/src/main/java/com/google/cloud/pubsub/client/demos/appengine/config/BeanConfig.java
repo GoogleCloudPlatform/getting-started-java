@@ -1,18 +1,19 @@
 package com.google.cloud.pubsub.client.demos.appengine.config;
 
-import com.google.api.services.pubsub.Pubsub;
 import com.google.appengine.api.appidentity.AppIdentityService;
 import com.google.appengine.api.appidentity.AppIdentityServiceFactory;
 import com.google.apphosting.api.ApiProxy;
 import com.google.cloud.pubsub.client.demos.appengine.controllers.DefaultMessagesService;
 import com.google.cloud.pubsub.client.demos.appengine.controllers.MessagesService;
-import com.google.cloud.pubsub.client.demos.appengine.util.PubsubUtils;
+import com.travellazy.google.pubsub.util.GCloudClientPubSub;
+import com.travellazy.google.pubsub.util.GloudPubSubClientWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 
 import static com.google.cloud.pubsub.client.demos.appengine.controllers.PubSubController.ASYNC_ENDPOINT;
 
@@ -28,9 +29,7 @@ public class BeanConfig {
     private static final String APPLICATION_TOPIC_NAME = "topic-pubsub-api-appengine-sample";
 
     private String pushEndpoint;
-//    private String appSubscriptionName;
     private String deploymentUrl;
-//    private String appEndpointUrl;
     private String fullTopicName;
     private String fullSubscriptionName;
 
@@ -38,16 +37,16 @@ public class BeanConfig {
     MessagesService messagesService;
 
     @Bean
-    public Pubsub buildPubsubClient() {
-        return new PubsubUtils(APPLICATION_NAME).getClient();
-    }
-
-    @Bean
-    public MessagesService buildMessagesService(Pubsub pubsub,TopicBean topicBean) {
+    public MessagesService buildMessagesService(GCloudClientPubSub pubsub,TopicBean topicBean) {
         return new DefaultMessagesService(pubsub,topicBean);
     }
 
     private TopicBean topicBean = new TopicBean();
+
+    @Bean
+    public GCloudClientPubSub getPubSub(){
+        return new GloudPubSubClientWrapper(APPLICATION_NAME);
+    }
 
     @Bean
     public TopicBean buildTopicBean(){
@@ -56,14 +55,18 @@ public class BeanConfig {
 
     @PostConstruct
     public void init() {
-        String url = getEnv();
-        if (!url.contains("localhost")) {
+//        String url = getEnv();
+//        if (!url.contains("localhost")) {
             AppIdentityService identityService = AppIdentityServiceFactory.getAppIdentityService();
             // The project ID associated to an app engine application is the same as the app ID.
             projectId = identityService.parseFullAppId(ApiProxy.getCurrentEnvironment().getAppId()).getId();
-        }
+            deploymentUrl = "https://" + projectId + ".appspot.com";
+//        }
+//        else{
+//            deploymentUrl = "http://localhost:8080";
+//
+//        }
 
-        deploymentUrl = "https://" + projectId + ".appspot.com";
         pushEndpoint = deploymentUrl + ASYNC_ENDPOINT;
 
         final String topicPrefix = "projects/"+ projectId + "/topics/";
@@ -73,31 +76,32 @@ public class BeanConfig {
         fullSubscriptionName = "projects/" + projectId + "/subscriptions/subscription-" + projectId;
 
 
-  //      String subscriptionUniqueToken = System.getProperty(BASE_PACKAGE + ".subscriptionUniqueToken");
- //       appEndpointUrl = deploymentUrl + "/_ah/push-handlers/receive_message" + "?token=" + subscriptionUniqueToken;
-
         System.out.println("=========================");
         System.out.println("fullTopicName = " + fullTopicName);//projects/quixotic-tesla-142120/topics/topic-pubsub-api-appengine-sample
         System.out.println("fullSubscriptionName = " + fullSubscriptionName);
         System.out.println("=========================");
 
         //create the first.
-        messagesService.createAsyncCallbackURLForTopic(pushEndpoint,fullTopicName,fullSubscriptionName);
-
-    }
-
-    private static String getEnv() {
-        String hostUrl;
-        String environment = System.getProperty("com.google.appengine.runtime.environment");
-        if ("Production".equals(environment)) {
-            String applicationId = System.getProperty("com.google.appengine.application.id");
-            String version = System.getProperty("com.google.appengine.application.version");
-            hostUrl = "http://" + version + "." + applicationId + ".appspot.com/";
-        } else {
-            hostUrl = "http://localhost:8888";
+        try {
+            messagesService.createAsyncCallbackURLForTopic(pushEndpoint,fullTopicName,fullSubscriptionName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return hostUrl;
+
     }
+
+//    private static String getEnv() {
+//        String hostUrl;
+//        String environment = System.getProperty("com.google.appengine.runtime.environment");
+//        if ("Production".equals(environment)) {
+//            String applicationId = System.getProperty("com.google.appengine.application.id");
+//            String version = System.getProperty("com.google.appengine.application.version");
+//            hostUrl = "http://" + version + "." + applicationId + ".appspot.com/";
+//        } else {
+//            hostUrl = "http://localhost:8888";
+//        }
+//        return hostUrl;
+//    }
 
 
 

@@ -1,17 +1,13 @@
 package com.google.cloud.pubsub.client.demos.appengine.controllers;
 
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.HttpStatusCodes;
 import com.google.api.client.util.Base64;
-import com.google.api.services.pubsub.Pubsub;
-import com.google.api.services.pubsub.model.*;
+import com.google.api.services.pubsub.model.PubsubMessage;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.cloud.pubsub.client.demos.appengine.Constants;
 import com.google.cloud.pubsub.client.demos.appengine.config.TopicBean;
-import com.google.common.collect.ImmutableList;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.travellazy.google.pubsub.util.GCloudClientPubSub;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,11 +18,11 @@ import static com.google.appengine.api.datastore.Query.SortDirection.DESCENDING;
 
 public class DefaultMessagesService implements MessagesService {
 
-    private final Pubsub client;
+    private final GCloudClientPubSub client;
 
     private final TopicBean topicBean;
 
-    public DefaultMessagesService(final Pubsub client, final TopicBean topicBean) {
+    public DefaultMessagesService(final GCloudClientPubSub client, final TopicBean topicBean) {
         this.client = client;
         this.topicBean = topicBean;
     }
@@ -34,21 +30,9 @@ public class DefaultMessagesService implements MessagesService {
     @Override
     public void createAsyncCallbackURLForTopic(final String fullCallbackUrlEndpoint,
                                                final String fullTopicName,
-                                               final String fullSubscriptionName){
-        try {
-            createTopicIfDoesntExist(fullTopicName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                                               final String fullSubscriptionName) throws IOException {
 
-        try {
-            setupSubscription(fullCallbackUrlEndpoint, fullSubscriptionName, fullTopicName);
-        }catch(IOException e){
-            throw new RuntimeException(e);
-        }
-
-        System.out.println("Created: " + fullSubscriptionName);
-
+        client.createAsyncCallbackURLForTopic(fullCallbackUrlEndpoint,fullTopicName,fullSubscriptionName);
     }
 
     @Override
@@ -94,16 +78,11 @@ public class DefaultMessagesService implements MessagesService {
     @Override
     public void sendMessage(String relativeTopicName, String message) throws IOException {
 
-        PubsubMessage pubsubMessage = new PubsubMessage();
-        pubsubMessage.encodeData(message.getBytes("UTF-8"));
-        PublishRequest publishRequest = new PublishRequest();
-        publishRequest.setMessages(ImmutableList.of(pubsubMessage));
-
         String fullTopicName = topicBean.topicPrefix + relativeTopicName;
 
         System.out.println("about to send to topic " + fullTopicName);
 
-        client.projects().topics().publish(fullTopicName, publishRequest).execute();
+        client.sendMessage(fullTopicName,message);
 
         System.out.println("message sent to topic " + fullTopicName);
     }
@@ -141,66 +120,6 @@ public class DefaultMessagesService implements MessagesService {
 
             // Acknowledge the message by returning a success code
 //        }
-    }
-
-
-
-    /**
-     * Creates a Cloud Pub/Sub topic if it doesn't exist.
-     * @throws IOException when API calls to Cloud Pub/Sub fails.
-     */
-    private void createTopicIfDoesntExist(String fullTopicName) throws IOException {
-        try {
-            client.projects().topics().get(fullTopicName).execute();
-        } catch (GoogleJsonResponseException e) {
-            if (e.getStatusCode() == HttpStatusCodes.STATUS_CODE_NOT_FOUND) {
-                // Create the topic if it doesn't exist
-                client.projects().topics().create(fullTopicName, new Topic()).execute();
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    /**
-     * Creates a Cloud Pub/Sub subscription if it doesn't exist.
-     * @throws IOException when API calls to Cloud Pub/Sub fails.
-     */
-    private void setupSubscription(final String fullCallbackUrlEndpoint, final String fullSubscriptionName, final String fullTopicName) throws IOException {
-        try {
-            client.projects().subscriptions().get(fullSubscriptionName).execute();
-        } catch (GoogleJsonResponseException e) {
-            if (e.getStatusCode() == HttpStatusCodes.STATUS_CODE_NOT_FOUND) {
-                // Create the subscription if it doesn't exist
-                createNewAsyncCallbackSubscription(fullCallbackUrlEndpoint,fullSubscriptionName,fullTopicName);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    /**
-     *
-     * @param fullCallbackUrlEndpoint like https://<projectId>.appspot.com/messages/async
-     * @param fullSubscriptionName
-     * @param fullTopicName
-     * @throws IOException
-     */
-    private void createNewAsyncCallbackSubscription(final String fullCallbackUrlEndpoint,
-                                                    final String fullSubscriptionName,
-                                                    final String fullTopicName) throws IOException {
-
-        PushConfig pushConfig = new PushConfig().setPushEndpoint(fullCallbackUrlEndpoint);
-
-
-        Subscription subscription = new Subscription()
-                                        .setTopic(fullTopicName)
-                                        .setAckDeadlineSeconds(10)
-                                        .setPushConfig(pushConfig);
-
-        client.projects().subscriptions()
-                                        .create(fullSubscriptionName, subscription)
-                                        .execute();
     }
 
 }

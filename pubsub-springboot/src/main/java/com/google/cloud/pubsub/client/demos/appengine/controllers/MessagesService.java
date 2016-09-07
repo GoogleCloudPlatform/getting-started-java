@@ -8,7 +8,7 @@ import java.util.List;
 public interface MessagesService {
     void createAsyncCallbackURLForTopic(String fullCallbackUrlEndpoint,
                                         String fullTopicName,
-                                        String fullSubscriptionName);
+                                        String fullSubscriptionName) throws IOException;
 
     List<String> getAllMessages();
 
