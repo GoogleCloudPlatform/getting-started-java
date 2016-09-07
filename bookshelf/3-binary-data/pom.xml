@@ -85,7 +85,7 @@ Copyright 2016 Google Inc. All Rights Reserved.
     <dependency>                        <!-- Google+ API Client Library for Java -->
       <groupId>com.google.apis</groupId>
       <artifactId>google-api-services-plus</artifactId>
-      <version>v1-rev436-1.22.0</version>
+      <version>v1-rev437-1.22.0</version>
     </dependency>
 
     <dependency>                        <!-- https://github.com/FasterXML/jackson-databind -->
@@ -109,7 +109,7 @@ Copyright 2016 Google Inc. All Rights Reserved.
     <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>6.0.3</version>
+      <version>6.0.4</version>
     </dependency>
 
     <dependency>                        <!-- Apache Database Connection Pool API -->
