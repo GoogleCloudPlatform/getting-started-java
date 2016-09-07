@@ -55,17 +55,18 @@ public class BeanConfig {
 
     @PostConstruct
     public void init() {
-//        String url = getEnv();
-//        if (!url.contains("localhost")) {
+        String url = getEnv();
+        if (!url.contains("localhost")) {
             AppIdentityService identityService = AppIdentityServiceFactory.getAppIdentityService();
+            if(identityService != null && ApiProxy.getCurrentEnvironment() !=null){
+                projectId = identityService.parseFullAppId(ApiProxy.getCurrentEnvironment().getAppId()).getId();
+                deploymentUrl = "https://" + projectId + ".appspot.com";
+            }
             // The project ID associated to an app engine application is the same as the app ID.
-            projectId = identityService.parseFullAppId(ApiProxy.getCurrentEnvironment().getAppId()).getId();
-            deploymentUrl = "https://" + projectId + ".appspot.com";
-//        }
-//        else{
-//            deploymentUrl = "http://localhost:8080";
-//
-//        }
+        }
+        else{
+            deploymentUrl = "http://localhost:8080";
+        }
 
         pushEndpoint = deploymentUrl + ASYNC_ENDPOINT;
 
@@ -79,6 +80,7 @@ public class BeanConfig {
         System.out.println("=========================");
         System.out.println("fullTopicName = " + fullTopicName);//projects/quixotic-tesla-142120/topics/topic-pubsub-api-appengine-sample
         System.out.println("fullSubscriptionName = " + fullSubscriptionName);
+        System.out.println("pushEndpoint = " + pushEndpoint);
         System.out.println("=========================");
 
         //create the first.
@@ -90,18 +92,18 @@ public class BeanConfig {
 
     }
 
-//    private static String getEnv() {
-//        String hostUrl;
-//        String environment = System.getProperty("com.google.appengine.runtime.environment");
-//        if ("Production".equals(environment)) {
-//            String applicationId = System.getProperty("com.google.appengine.application.id");
-//            String version = System.getProperty("com.google.appengine.application.version");
-//            hostUrl = "http://" + version + "." + applicationId + ".appspot.com/";
-//        } else {
-//            hostUrl = "http://localhost:8888";
-//        }
-//        return hostUrl;
-//    }
+    private static String getEnv() {
+        String hostUrl;
+        String environment = System.getProperty("com.google.appengine.runtime.environment");
+        if ("Production".equals(environment)) {
+            String applicationId = System.getProperty("com.google.appengine.application.id");
+            String version = System.getProperty("com.google.appengine.application.version");
+            hostUrl = "http://" + version + "." + applicationId + ".appspot.com/";
+        } else {
+            hostUrl = "http://localhost:8080";
+        }
+        return hostUrl;
+    }
 
 
 
