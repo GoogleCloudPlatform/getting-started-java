@@ -28,6 +28,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
 <!-- [END compiler] -->
     <appengine.maven.plugin>0.1.2</appengine.maven.plugin>
     <appengine.version>1.9.42</appengine.version>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
 
   <parent>
@@ -45,6 +46,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
+  
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>

@@ -1,13 +1,9 @@
 # Google App Engine Flex Environment "compat" Hello World Sample
 
-This sample demonstrates how to deploy an application on Google App Engine.
-
-See the [Google App Engine standard environment documentation][ae-docs] for more
-detailed instructions.
-
-[ae-docs]: https://cloud.google.com/appengine/docs/java/
-
 ## Setup
+* [Google Cloud SDK](https://cloud.google.com/sdk/)
+* `gcloud components install app-engine-java`
+* `gcloud components update`
 
 Use either:
 
