@@ -16,6 +16,7 @@
   <application>your-project-id</application>
   <vm>true</vm>
   <threadsafe>true</threadsafe>
+
   <beta-settings>
     <setting name="java_quickstart" value="true"/>
   </beta-settings>
