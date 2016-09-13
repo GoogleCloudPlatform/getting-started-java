@@ -46,7 +46,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
-  
+
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
@@ -71,8 +71,10 @@ Copyright 2015 Google Inc. All Rights Reserved.
           <devserver.port>8080</devserver.port>
           -->
           <!-- deploy configuration -->
+<!--  defaults
           <deploy.promote>true</deploy.promote>
           <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
+ -->
         </configuration>
       </plugin>
     </plugins>
