@@ -72,8 +72,10 @@
         <version>${appengine.maven.plugin}</version>
         <configuration>
           <!-- deploy configuration -->
-          <deploy.promote>true</deploy.promote>                           <!-- DEFAULT value -->
-          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>   <!-- DEFAULT value -->
+<!--
+          <deploy.promote>true</deploy.promote>                           <!~~ DEFAULT value ~~>
+          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>   <!~~ DEFAULT value ~~>
+ -->
         </configuration>
       </plugin>
 

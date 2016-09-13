@@ -55,7 +55,7 @@
 
   <build>
     <!-- For hot reload of the web application when using an IDE Eclipse / IDEA -->
-    <outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory> 
+    <outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
     <plugins>
 
       <plugin>
@@ -69,11 +69,12 @@
           <devserver.port>8080</devserver.port>
           -->
           <!-- deploy configuration -->
+<!--  Defaults
           <deploy.promote>true</deploy.promote>
           <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
+ -->
         </configuration>
       </plugin>
-    </plugins>
 
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
