@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-	<application>YOUR_PROJECT_ID</application>
-	<version>1</version>
+	<application>itaxibookqa</application>
+	<version>3</version>
   	<threadsafe>true</threadsafe>
 
     <system-properties>
         <property name="DEPLOY_ENV" value="PROD"/>
     </system-properties>
+
+    <manual-scaling>
+        <instances>1</instances>
+      </manual-scaling>
 </appengine-web-app>

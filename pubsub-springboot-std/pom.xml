@@ -21,7 +21,7 @@
         <target.webapp.dir>${project.build.directory}/${project.build.finalName}</target.webapp.dir>
         <src.webapp.dir>${basedir}/src/main/webapp</src.webapp.dir>
         <app.version>${project.version}</app.version>
-        <app.url>http://YOUR_PROJECT_ID.appspot.com</app.url>
+        <app.url>http://itaxibookqa.appspot.com</app.url>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <start-class>com.example.std.gettingstarted.Application</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

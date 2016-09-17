@@ -30,11 +30,11 @@ public class VersionController {
     }
 
     @ApiOperation(value = "val",
-            consumes = "application/json", produces = "application/json", httpMethod = "GET", response = Map.class)
+            consumes = "text/html", produces = "application/json", httpMethod = "GET", response = Map.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Invalid data"),
     })
-    @RequestMapping(value = "/api/version", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/api/version", method = RequestMethod.GET, consumes = "text/html", produces = "application/json")
     public Map getVersion() {
         return m;
     }

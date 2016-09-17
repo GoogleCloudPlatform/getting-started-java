@@ -1,7 +1,6 @@
 package com.example.std.gettingstarted.config;
 
 import com.example.std.gettingstarted.util.IPLookupHelper;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,7 @@ public class Config {
 
         String hostUrl;
         String environment = System.getProperty("com.google.appengine.runtime.environment");
-        if (StringUtils.equals("Production", environment)) {
+        if ("Production".equalsIgnoreCase(environment)) {
             String applicationId = System.getProperty("com.google.appengine.application.id");
             String version = System.getProperty("com.google.appengine.application.version");
             hostUrl = "http://"+version+"."+applicationId+".appspot.com";
