@@ -23,11 +23,15 @@ buildscript {      // Configuration for building
   }
 }
 
-repositories {   // repositories for Jar's you access in your code
-  maven { 
+repositories {   // repositories for JARs you access in your code
+  maven {
     url 'https://maven-central.storage.googleapis.com'             // Google's mirror of Maven Central
-//   url 'https://oss.sonatype.org/content/repositories/snapshots' // SNAPSHOT Reposiotry (if needed)
   }
+
+//maven {
+//  url 'https://oss.sonatype.org/content/repositories/snapshots' // SNAPSHOT repository if needed
+//}
+
   jcenter()
   mavenCentral()
 }
@@ -68,6 +72,6 @@ model {
 group = 'com.example.appengine.helloworld-jsp'   // Generated output GroupId
 version = '1.0-SNAPSHOT'          // Version in generated output
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 // [END gradle]
