@@ -21,6 +21,11 @@ shopt -s globstar
 
 mvn --batch-mode clean verify | egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
+# The testing scripts are stored in a submodule. This allows us to carefully
+# update the testing scripts, since submodules are tied to a specific commit.
+git submodule init
+git submodule update
+
 # Test running samples on localhost.
 if [[ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]]; then
   # The bookshelf sample requires Cloud Datastore access. Enable when
