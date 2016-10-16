@@ -27,7 +27,7 @@ Copyright 2015 Google Inc. All Rights Reserved.
     <maven.compiler.source>1.8</maven.compiler.source>
 <!-- [END compiler] -->
     <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
-    <appengine.version>1.9.42</appengine.version>
+    <appengine.version>1.9.44</appengine.version>
     <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
 
