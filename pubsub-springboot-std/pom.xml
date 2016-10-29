@@ -39,38 +39,42 @@
         <!--<servlet-api.version>3.1.0</servlet-api.version>-->
     </properties>
 
-   <dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <dependency>
-          <groupId>com.travellazy.google.pubsub</groupId>
-          <artifactId>client</artifactId>
-          <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-           <groupId>com.google.apis</groupId>
-           <artifactId>google-api-services-pubsub</artifactId>
-           <version>${google-api-pubsub.version}</version>
-         </dependency>
-        <!-- not sure if this is needed -->
-         <dependency>
-           <groupId>org.codehaus.jackson</groupId>
-           <artifactId>jackson-mapper-asl</artifactId>
-           <version>1.9.13</version>
-         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jetty</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+
         </dependency>
+        <dependency>
+            <groupId>com.travellazy.google.pubsub</groupId>
+            <artifactId>client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-pubsub</artifactId>
+            <version>${google-api-pubsub.version}</version>
+        </dependency>
+        <!-- not sure if this is needed -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+
+
+        <dependency>
+           <groupId>org.eclipse.jetty.orbit</groupId>
+           <artifactId>javax.servlet</artifactId>
+           <version>2.5.0.v201103041518</version>
+           <scope>provided</scope>
+         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -141,11 +145,10 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-               <groupId>com.google.appengine</groupId>
-               <artifactId>gcloud-maven-plugin</artifactId>
-               <version>2.0.9.120.v20160803</version>
-             </plugin>
-
+                <groupId>com.google.appengine</groupId>
+                <artifactId>gcloud-maven-plugin</artifactId>
+                <version>2.0.9.120.v20160803</version>
+            </plugin>
 
 
         </plugins>

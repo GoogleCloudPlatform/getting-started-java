@@ -62,18 +62,7 @@ public class GcloudConfig
 
     @PostConstruct
     public void init() {
-        String url = getEnv();
-        if (!url.contains("localhost")) {
-            AppIdentityService identityService = AppIdentityServiceFactory.getAppIdentityService();
-            if(identityService != null && ApiProxy.getCurrentEnvironment() !=null){
-                projectId = identityService.parseFullAppId(ApiProxy.getCurrentEnvironment().getAppId()).getId();
-                deploymentUrl = "https://" + projectId + ".appspot.com";
-            }
-            // The project ID associated to an app engine application is the same as the app ID.
-        }
-        else{
-            deploymentUrl = "http://localhost:8080";
-        }
+        setProjectIdAndDeploymentUrl();
 
         pushEndpoint = deploymentUrl + ASYNC_ENDPOINT;
 
@@ -96,8 +85,24 @@ public class GcloudConfig
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void setProjectIdAndDeploymentUrl(){
+        String url = getEnv();
+        if (!url.contains("localhost")) {
+            AppIdentityService identityService = AppIdentityServiceFactory.getAppIdentityService();
+            if(identityService != null && ApiProxy.getCurrentEnvironment() !=null){
+                projectId = identityService.parseFullAppId(ApiProxy.getCurrentEnvironment().getAppId()).getId();
+                deploymentUrl = "https://" + projectId + ".appspot.com";
+            }
+            // The project ID associated to an app engine application is the same as the app ID.
+        }
+        else{
+            deploymentUrl = "http://localhost:8080";
+        }
 
     }
+
 
     private static String getEnv() {
         String hostUrl;

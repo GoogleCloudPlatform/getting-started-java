@@ -24,7 +24,7 @@ public class Config {
     @Autowired
     private Environment env;
 
-    @Value("${app.url}")
+    @Value("${env.app.url}")
     public String appUrl;
 
     @Value("${server.port}")
@@ -33,7 +33,7 @@ public class Config {
     @Value("${app.env}")
     public String appEnv;
 
-    @Value("${app.version}")
+    @Value("${env.app.version}")
     public String MAVEN_VERSION;
 
     private static String environment = "LOCAL";
