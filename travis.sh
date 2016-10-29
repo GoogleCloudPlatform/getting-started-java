@@ -21,6 +21,11 @@ shopt -s globstar
 
 mvn --batch-mode clean verify | egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
+# The testing scripts are stored in a submodule. This allows us to carefully
+# update the testing scripts, since submodules are tied to a specific commit.
+git submodule init
+git submodule update
+
 # Test running samples on localhost.
 if [[ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]]; then
   # The bookshelf sample requires Cloud Datastore access. Enable when
@@ -34,10 +39,10 @@ else
   # only run unit tests and lint on external PRs
   echo 'External PR: skipping integration tests.'
 fi
-./java-repo-tools/scripts/test-localhost.sh jetty helloworld-jsp
+# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-jsp
 # ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-servlet
 # ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-compat
-./java-repo-tools/scripts/test-localhost.sh spring-boot helloworld-springboot
+# ./java-repo-tools/scripts/test-localhost.sh spring-boot helloworld-springboot
 
 # Check that all shell scripts in this repo (including this one) pass the
 # Shell Check linter.
