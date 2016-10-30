@@ -31,12 +31,10 @@ public class GcloudConfig
     @Value("${appengine.projectId}")
     private String projectId;
 
-    private static final String APPLICATION_NAME = "google-cloud-pubsub-appengine-sample/1.0";
     private static final String APPLICATION_TOPIC_NAME = "topic-pubsub-api-appengine-sample";
 
     private String pushEndpoint;
     private String deploymentUrl;
-    private String fullTopicName;
     private String fullSubscriptionName;
 
     @Autowired
@@ -52,7 +50,8 @@ public class GcloudConfig
 
     @Bean
     public GCloudClientPubSub getPubSub(){
-        return new GloudPubSubClientWrapper(APPLICATION_NAME);
+        return new GloudPubSubClientWrapper(projectId);
+//        return new GloudPubSubClientWrapper(APPLICATION_NAME);
     }
 
     @Bean
@@ -66,22 +65,23 @@ public class GcloudConfig
 
         pushEndpoint = deploymentUrl + ASYNC_ENDPOINT;
 
-        final String topicPrefix = "projects/"+ projectId + "/topics/";
-        topicBean.topicPrefix = topicPrefix;
-
-        fullTopicName = topicPrefix + APPLICATION_TOPIC_NAME;
+        String topicName = APPLICATION_TOPIC_NAME;
         fullSubscriptionName = "projects/" + projectId + "/subscriptions/subscription-" + projectId;
 
 
         log.info("=========================");
-        log.info("fullTopicName = " + fullTopicName);//projects/quixotic-tesla-142120/topics/topic-pubsub-api-appengine-sample
+        log.info("topicName = " + APPLICATION_TOPIC_NAME);//projects/quixotic-tesla-142120/topics/topic-pubsub-api-appengine-sample
         log.info("fullSubscriptionName = " + fullSubscriptionName);
         log.info("pushEndpoint = " + pushEndpoint);
         log.info("=========================");
 
+
         //create the first.
         try {
-            messagesService.createAsyncCallbackURLForTopic(pushEndpoint,fullTopicName,fullSubscriptionName);
+            String fullTopic = messagesService.createTopic(topicName);
+            log.info("fullTopic = " + fullTopic);
+
+            messagesService.createAsyncCallbackURLForTopic(pushEndpoint,topicName,fullSubscriptionName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

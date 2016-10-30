@@ -17,40 +17,33 @@ import java.util.Set;
 
 import static com.google.appengine.api.datastore.Query.SortDirection.DESCENDING;
 
-public class DefaultMessagesService implements MessagesService
-{
+public class DefaultMessagesService implements MessagesService {
     private static final Logger log = LoggerFactory.getLogger(DefaultMessagesService.class);
     private final GCloudClientPubSub client;
 
     private final TopicBean topicBean;
 
-    public DefaultMessagesService(final GCloudClientPubSub client, final TopicBean topicBean)
-    {
+    public DefaultMessagesService(final GCloudClientPubSub client, final TopicBean topicBean) {
         this.client = client;
         this.topicBean = topicBean;
     }
 
     @Override
-    public void createAsyncCallbackURLForTopic(final String fullCallbackUrlEndpoint, final String fullTopicName, final String fullSubscriptionName) throws IOException
-    {
-
-        client.createAsyncCallbackURLForTopic(fullCallbackUrlEndpoint, fullTopicName, fullSubscriptionName);
+    public void createAsyncCallbackURLForTopic(final String fullCallbackUrlEndpoint, final String topicName, final String fullSubscriptionName) throws IOException {
+        client.createAsyncCallbackURLForTopic(fullCallbackUrlEndpoint, topicName, fullSubscriptionName);
     }
 
     @Override
-    public List<String> getAllMessages()
-    {
+    public List<String> getAllMessages() {
         MemcacheService memcacheService = MemcacheServiceFactory.getMemcacheService();
         List<String> messages = (List<String>) memcacheService.get(Constants.MESSAGE_CACHE_KEY);
-        if (messages == null)
-        {
+        if (messages == null) {
             messages = new ArrayList<>();
             // If no messages in the memcache, look for the datastore
             DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
             PreparedQuery query = datastore.prepare(new Query("PubsubMessage").addSort("receipt-time", DESCENDING));
 
-            for (Entity entity : query.asIterable(FetchOptions.Builder.withLimit(Constants.MAX_COUNT)))
-            {
+            for (Entity entity : query.asIterable(FetchOptions.Builder.withLimit(Constants.MAX_COUNT))) {
                 String message = (String) entity.getProperty("message");
                 messages.add(message);
             }
@@ -61,16 +54,14 @@ public class DefaultMessagesService implements MessagesService
     }
 
     @Override
-    public void receiveMessage(PubsubMessage pubsubMessage) throws IOException
-    {
+    public void receiveMessage(PubsubMessage pubsubMessage) throws IOException {
 
         log.info("rawMessage = " + pubsubMessage.toPrettyString());
 
         Map<String, Object> map = (Map) pubsubMessage.get("message");
 
         Set<String> keys = map.keySet();
-        for (String k : keys)
-        {
+        for (String k : keys) {
             log.info("key,val =" + k + " " + map.get(k));
         }
 
@@ -84,8 +75,7 @@ public class DefaultMessagesService implements MessagesService
 
 
     @Override
-    public void sendMessage(String relativeTopicName, String message) throws IOException
-    {
+    public void sendMessage(String relativeTopicName, String message) throws IOException {
 
         String fullTopicName = topicBean.topicPrefix + relativeTopicName;
 
@@ -96,9 +86,13 @@ public class DefaultMessagesService implements MessagesService
         log.info("message sent to topic " + fullTopicName);
     }
 
+    @Override
+    public String createTopic(String fullTopicName) throws IOException {
+        return client.createTopic(fullTopicName);
+    }
 
-    private void receiveMessages() throws IOException
-    {
+
+    private void receiveMessages() throws IOException {
         // Validating unique subscription token before processing the message
         String subscriptionToken = System.getProperty(Constants.BASE_PACKAGE + ".subscriptionUniqueToken");
         //            if (!subscriptionToken.equals(req.getParameter("token"))) {

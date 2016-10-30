@@ -1,6 +1,7 @@
 package com.example.std.gettingstarted.controllers;
 
 import com.example.std.gettingstarted.pubsub.MessagesService;
+import com.example.std.gettingstarted.pubsub.TopicBean;
 import com.example.std.gettingstarted.requests.SubscriberRequest;
 import com.google.api.services.pubsub.model.PubsubMessage;
 import io.swagger.annotations.ApiOperation;
@@ -61,6 +62,8 @@ public class PubSubController
         return new ResponseEntity(HttpStatus.OK);
     }
 
+
+
     @RequestMapping(value = "/messages/async/other", method = POST, produces = "application/json")
     public ResponseEntity receiveAsyncMessage(@RequestBody PubsubMessage map){
 
@@ -80,6 +83,18 @@ public class PubSubController
             messagesService.receiveMessage(map);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/topic", method = POST, produces = "application/json")
+    public ResponseEntity createTopic(@RequestBody TopicBean topicBean){
+        try {
+            messagesService.createTopic(topicBean.topicPrefix);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity(HttpStatus.OK);

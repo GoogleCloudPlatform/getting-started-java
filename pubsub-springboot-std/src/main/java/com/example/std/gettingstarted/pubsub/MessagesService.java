@@ -14,4 +14,12 @@ public interface MessagesService
     void receiveMessage(PubsubMessage message) throws IOException;
 
     void sendMessage(String topic, String message) throws IOException;
+
+    /**
+     *
+     * @param topicName
+     * @return  the full topic name created
+     * @throws IOException
+     */
+    String createTopic(String topicName) throws IOException;
 }
