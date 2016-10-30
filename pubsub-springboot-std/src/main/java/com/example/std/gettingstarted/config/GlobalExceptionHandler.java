@@ -1,5 +1,6 @@
 package com.example.std.gettingstarted.config;
 
+import com.example.std.gettingstarted.exceptions.NoTopicFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -29,9 +30,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleGeneralInternal(final Exception ex, final WebRequest request) {
         logger.error("500 Exception General" + exceptionStackTraceToString(ex));
-
-
         return handleExceptionInternal(ex, "internal error happened", new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({NoTopicFoundException.class})
+    public ResponseEntity<Object> handleNoTopicFoundException(final NoTopicFoundException ex, final WebRequest request) {
+        logger.error(exceptionStackTraceToString(ex));
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     private static String exceptionStackTraceToString(Exception e)

@@ -7,20 +7,20 @@ package com.example.std.gettingstarted.requests;
  */
 
 public class SubscriberRequest {
-    public String getSubscriber() {
-        return subscriber;
+    public String getSubscriberKey() {
+        return subscriberKey;
     }
 
-    public void setSubscriber(String subscriber) {
-        this.subscriber = subscriber;
+    public void setSubscriberKey(String subscriberKey) {
+        this.subscriberKey = subscriberKey;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getTopicKey() {
+        return topicKey;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setTopicKey(String topicKey) {
+        this.topicKey = topicKey;
     }
 
     public String getCallback() {
@@ -31,16 +31,16 @@ public class SubscriberRequest {
         this.callback = callback;
     }
 
-    private String subscriber;
-    private String topic;
+    private String subscriberKey;
+    private String topicKey;
     private String callback;
 
 
     @Override
     public String toString() {
         return "SubscriberRequest{" +
-                "subscriber='" + subscriber + '\'' +
-                ", topic='" + topic + '\'' +
+                "subscriber='" + subscriberKey + '\'' +
+                ", topic='" + topicKey + '\'' +
                 ", callback='" + callback + '\'' +
                 '}';
     }
