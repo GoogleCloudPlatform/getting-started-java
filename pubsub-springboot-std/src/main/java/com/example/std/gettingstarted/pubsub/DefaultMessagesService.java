@@ -1,56 +1,42 @@
 package com.example.std.gettingstarted.pubsub;
 
+import com.example.std.gettingstarted.exceptions.NoTopicFoundException;
 import com.google.api.client.util.Base64;
-import com.google.api.services.pubsub.model.PubsubMessage;
+import com.google.api.services.pubsub.Pubsub;
+import com.google.api.services.pubsub.model.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.travellazy.google.pubsub.util.GCloudClientPubSub;
+import com.travellazy.google.pubsub.util.SubscriptionValue;
+import com.travellazy.google.pubsub.util.TopicValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.appengine.api.datastore.Query.SortDirection.DESCENDING;
 
-public class DefaultMessagesService implements MessagesService
-{
+public class DefaultMessagesService implements MessagesService {
     private static final Logger log = LoggerFactory.getLogger(DefaultMessagesService.class);
     private final GCloudClientPubSub client;
 
-    private final TopicBean topicBean;
-
-    public DefaultMessagesService(final GCloudClientPubSub client, final TopicBean topicBean)
-    {
+    public DefaultMessagesService(final GCloudClientPubSub client) {
         this.client = client;
-        this.topicBean = topicBean;
     }
 
     @Override
-    public void createAsyncCallbackURLForTopic(final String fullCallbackUrlEndpoint, final String fullTopicName, final String fullSubscriptionName) throws IOException
-    {
-
-        client.createAsyncCallbackURLForTopic(fullCallbackUrlEndpoint, fullTopicName, fullSubscriptionName);
-    }
-
-    @Override
-    public List<String> getAllMessages()
-    {
+    public List<String> getAllMessages() {
         MemcacheService memcacheService = MemcacheServiceFactory.getMemcacheService();
         List<String> messages = (List<String>) memcacheService.get(Constants.MESSAGE_CACHE_KEY);
-        if (messages == null)
-        {
+        if (messages == null) {
             messages = new ArrayList<>();
             // If no messages in the memcache, look for the datastore
             DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
             PreparedQuery query = datastore.prepare(new Query("PubsubMessage").addSort("receipt-time", DESCENDING));
 
-            for (Entity entity : query.asIterable(FetchOptions.Builder.withLimit(Constants.MAX_COUNT)))
-            {
+            for (Entity entity : query.asIterable(FetchOptions.Builder.withLimit(Constants.MAX_COUNT))) {
                 String message = (String) entity.getProperty("message");
                 messages.add(message);
             }
@@ -61,16 +47,14 @@ public class DefaultMessagesService implements MessagesService
     }
 
     @Override
-    public void receiveMessage(PubsubMessage pubsubMessage) throws IOException
-    {
+    public void receiveMessage(PubsubMessage pubsubMessage) throws IOException {
 
         log.info("rawMessage = " + pubsubMessage.toPrettyString());
 
         Map<String, Object> map = (Map) pubsubMessage.get("message");
 
         Set<String> keys = map.keySet();
-        for (String k : keys)
-        {
+        for (String k : keys) {
             log.info("key,val =" + k + " " + map.get(k));
         }
 
@@ -84,21 +68,70 @@ public class DefaultMessagesService implements MessagesService
 
 
     @Override
-    public void sendMessage(String relativeTopicName, String message) throws IOException
-    {
+    public void sendMessage(String topicName, String message) throws IOException, NoTopicFoundException {
+        client.sendMessage(topicName, message);
+    }
 
-        String fullTopicName = topicBean.topicPrefix + relativeTopicName;
+    @Override
+    public TopicValue createOrFindTopic(String topicKey) throws IOException {
+        return client.createTopic(topicKey);
+    }
 
-        log.info("about to send to topic " + fullTopicName);
+    @Override
+    public SubscriptionValue createSubscription(TopicValue topicValue, String subscriptionName, String urlCallback) throws IOException {
+        return client.createSubscriptionForTopic(topicValue, subscriptionName, urlCallback);
+    }
 
-        client.sendMessage(fullTopicName, message);
+    @Override
+    public Collection<String> getAllTopics() throws IOException {
+        List<String> topicNames = extractTopicNames();
+        return topicNames;
+    }
 
-        log.info("message sent to topic " + fullTopicName);
+    List<String> extractTopicNames() throws IOException {
+        List<String> topicNames = new ArrayList<>();
+        Pubsub.Projects.Topics.List listMethod = client.listTopics();
+        String nextPageToken = null;
+        do {
+            if (nextPageToken != null) {
+                listMethod.setPageToken(nextPageToken);
+            }
+            ListTopicsResponse response = listMethod.execute();
+            if (!response.isEmpty()) {
+                for (Topic topic : response.getTopics()) {
+                    topicNames.add(topic.getName());
+                }
+            }
+            nextPageToken = response.getNextPageToken();
+        } while (nextPageToken != null);
+
+        return topicNames;
+    }
+
+    @Override
+    public Collection<String> getAllSubscriptions() throws IOException {
+        List<String> subscriptionNames = new ArrayList<>();
+        Pubsub.Projects.Subscriptions.List listMethod = client.listSubscriptions();
+        String nextPageToken = null;
+        do {
+            if (nextPageToken != null) {
+                listMethod.setPageToken(nextPageToken);
+            }
+            ListSubscriptionsResponse response = listMethod.execute();
+            if (!response.isEmpty()) {
+                for (Subscription subscription : response.getSubscriptions()) {
+                    subscriptionNames.add(subscription.toPrettyString());
+                }
+            }
+            nextPageToken = response.getNextPageToken();
+        } while (nextPageToken != null);
+
+
+        return subscriptionNames;
     }
 
 
-    private void receiveMessages() throws IOException
-    {
+    private void receiveMessages() throws IOException {
         // Validating unique subscription token before processing the message
         String subscriptionToken = System.getProperty(Constants.BASE_PACKAGE + ".subscriptionUniqueToken");
         //            if (!subscriptionToken.equals(req.getParameter("token"))) {
