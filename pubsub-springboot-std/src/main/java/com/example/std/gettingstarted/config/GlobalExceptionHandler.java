@@ -43,8 +43,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     {
         StackTraceElement[] traces =  e.getStackTrace();
         StringBuilder sb = new StringBuilder();
-        for(StackTraceElement traceElement : traces)
-        {
+        for(StackTraceElement traceElement : traces){
             sb.append(traceElement.toString() + "\n");
         }
         return sb.toString();

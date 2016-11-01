@@ -84,6 +84,11 @@ public class DefaultMessagesService implements MessagesService {
 
     @Override
     public Collection<String> getAllTopics() throws IOException {
+        List<String> topicNames = extractTopicNames();
+        return topicNames;
+    }
+
+    List<String> extractTopicNames() throws IOException {
         List<String> topicNames = new ArrayList<>();
         Pubsub.Projects.Topics.List listMethod = client.listTopics();
         String nextPageToken = null;

@@ -1,11 +1,5 @@
 package com.example.std.gettingstarted.requests;
 
-/**
- * Author: wge
- * Date: 28/10/2016
- * Time: 22:34
- */
-
 public class SubscriberRequest {
     public String getSubscriberKey() {
         return subscriberKey;

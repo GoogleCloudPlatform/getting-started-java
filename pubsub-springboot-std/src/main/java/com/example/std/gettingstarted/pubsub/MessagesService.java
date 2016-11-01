@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface MessagesService
 {
-//    void createAsyncCallbackURLForTopic(String fullCallbackUrlEndpoint, String fullTopicName, String fullSubscriptionName) throws IOException;
-
     List<String> getAllMessages();
 
     void receiveMessage(PubsubMessage message) throws IOException;
@@ -21,11 +19,11 @@ public interface MessagesService
 
     /**
      *
-     * @param topicName
-     * @return  the full topic name created
+     * @param topicKey the name of the topic to be created or found
+     * @return  the immutable Topic object encapsulating the topic with its full url
      * @throws IOException
      */
-    TopicValue createOrFindTopic(String topicName) throws IOException;
+    TopicValue createOrFindTopic(String topicKey) throws IOException;
 
     SubscriptionValue createSubscription(TopicValue topicValue, String subscriptionKey, String urlCallback) throws IOException;
 
