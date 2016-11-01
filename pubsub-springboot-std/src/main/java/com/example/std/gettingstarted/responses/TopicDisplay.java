@@ -1,8 +1,4 @@
-package com.example.std.gettingstarted.responses;/**
- * Author: wge
- * Date: 30/10/2016
- * Time: 17:52
- */
+package com.example.std.gettingstarted.responses;
 
 import com.travellazy.google.pubsub.util.TopicValue;
 

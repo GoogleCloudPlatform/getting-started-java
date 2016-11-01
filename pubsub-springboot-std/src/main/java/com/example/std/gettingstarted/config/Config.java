@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
+import static com.example.std.gettingstarted.config.CoreConnection.appUrl;
 
 
 @Configuration
@@ -24,14 +25,9 @@ public class Config {
     @Autowired
     private Environment env;
 
-    @Value("${env.app.url}")
-    public String appUrl;
-
     @Value("${server.port}")
     public String port;
 
-    @Value("${app.env}")
-    public String appEnv;
 
     @Value("${env.app.version}")
     public String MAVEN_VERSION;
@@ -56,7 +52,6 @@ public class Config {
         CoreConnection.maven_version = MAVEN_VERSION;
 
         if (deployEnv != null && deployEnv.equalsIgnoreCase("PROD")) {
-            CoreConnection.appUrl = appUrl;
             CoreConnection.port = "";
         }
 
@@ -69,7 +64,7 @@ public class Config {
 
 
     private static String asString() {
-        return (" env = " + environment) + " maven_version = " + CoreConnection.maven_version + " appUrl  = " + CoreConnection.appUrl;
+        return (" env = " + environment) + " maven_version = " + CoreConnection.maven_version + " appUrl  = " + appUrl;
     }
 
 
