@@ -102,7 +102,7 @@ Copyright 2016 Google Inc. All Rights Reserved.
     <dependency>                        <!-- Google+ API Client Library for Java -->
       <groupId>com.google.apis</groupId>
       <artifactId>google-api-services-plus</artifactId>
-      <version>v1-rev464-1.22.0</version>
+      <version>v1-rev467-1.22.0</version>
     </dependency>
 
     <dependency>                        <!-- https://github.com/FasterXML/jackson-databind -->
@@ -114,7 +114,7 @@ Copyright 2016 Google Inc. All Rights Reserved.
     <dependency>                        <!-- Google Core Libraries for Java -->
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-        <version>19.0</version>
+        <version>20.0</version>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
