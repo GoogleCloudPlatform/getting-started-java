@@ -1,6 +1,7 @@
 package com.example.std.gettingstarted.pubsub;
 
-import com.example.std.gettingstarted.exceptions.NoTopicFoundException;
+import com.example.std.gettingstarted.CallbackHook;
+import com.example.std.gettingstarted.MessageSender;
 import com.google.api.services.pubsub.model.PubsubMessage;
 import com.travellazy.google.pubsub.util.SubscriptionValue;
 import com.travellazy.google.pubsub.util.TopicValue;
@@ -11,11 +12,13 @@ import java.util.List;
 
 public interface MessagesService
 {
+    void setMessageSender(MessageSender messageSender);
+
     List<String> getAllMessages();
 
     void receiveMessage(PubsubMessage message) throws IOException;
 
-    void sendMessage(String topicKey, String message) throws IOException, NoTopicFoundException;
+    void sendMessage(String topicKey, String message) throws Exception;
 
     /**
      *
@@ -30,4 +33,6 @@ public interface MessagesService
     Collection<String> getAllTopics() throws IOException;
 
     Collection<String> getAllSubscriptions() throws IOException;
+
+    void setCallbackHook(CallbackHook callbackHook);
 }

@@ -1,5 +1,7 @@
 package com.example.std.gettingstarted.pubsub;
 
+import com.example.std.gettingstarted.CallbackHook;
+import com.example.std.gettingstarted.MessageSender;
 import com.example.std.gettingstarted.exceptions.NoTopicFoundException;
 import com.google.api.client.util.Base64;
 import com.google.api.services.pubsub.Pubsub;
@@ -24,6 +26,11 @@ public class DefaultMessagesService implements MessagesService {
 
     public DefaultMessagesService(final GCloudClientPubSub client) {
         this.client = client;
+    }
+
+    @Override
+    public void setMessageSender(MessageSender messageSender) {
+
     }
 
     @Override
@@ -128,6 +135,11 @@ public class DefaultMessagesService implements MessagesService {
 
 
         return subscriptionNames;
+    }
+
+    @Override
+    public void setCallbackHook(CallbackHook callbackHook) {
+
     }
 
 

@@ -1,6 +1,5 @@
 package com.example.std.gettingstarted.controllers;
 
-import com.example.std.gettingstarted.exceptions.NoTopicFoundException;
 import com.example.std.gettingstarted.pubsub.MessagesService;
 import com.example.std.gettingstarted.pubsub.TopicBean;
 import com.example.std.gettingstarted.requests.SubscriberRequest;
@@ -73,8 +72,9 @@ public class PubSubController {
     }
 
     @RequestMapping(value = ASYNC_ENDPOINT, method = POST, produces = "application/json")
-    public ResponseEntity receiveMessage(@RequestBody PubsubMessage map) throws IOException {
-        messagesService.receiveMessage(map);
+    public ResponseEntity receiveMessage(@RequestBody PubsubMessage pubsubMessage) throws IOException {
+        log.info("heard message");
+        messagesService.receiveMessage(pubsubMessage);
         return OK;
     }
 
@@ -100,7 +100,7 @@ public class PubSubController {
 
 
     @RequestMapping(value = "/send/{topic}/{message}", method = GET, produces = "application/json")
-    public ResponseEntity sendMessage(@PathVariable String topic, @PathVariable String message) throws IOException, NoTopicFoundException {
+    public ResponseEntity sendMessage(@PathVariable String topic, @PathVariable String message) throws Exception {
         messagesService.sendMessage(topic, message);
         return OK;
     }
