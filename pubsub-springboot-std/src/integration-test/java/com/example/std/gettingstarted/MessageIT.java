@@ -6,6 +6,7 @@ package com.example.std.gettingstarted;/**
 
 import com.example.std.gettingstarted.config.CoreConnection;
 import com.example.std.gettingstarted.pubsub.MessagesService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.services.pubsub.model.PubsubMessage;
 import com.travellazy.google.pubsub.util.TopicValue;
@@ -78,6 +79,31 @@ public class MessageIT extends GAETest implements CallbackHook, MessageSender {
         System.out.println("received "  + message.toString());
 
     }
+
+    @Test
+    public void sendTestPost()  {
+         ObjectMapper mapper = new ObjectMapper();
+
+         Map<String,Object> map = new HashMap();
+         map.put("question","Favourite programming language?");
+         map.put("choices", Arrays.asList("Swift",
+             "Python",
+             "Objective-C",
+             "Ruby"));
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(map);
+            HttpHeaders headers = new HttpHeaders();
+             headers.setContentType(MediaType.APPLICATION_JSON);
+             HttpEntity<String> entity = new HttpEntity<>(json,headers);
+
+             ResponseEntity<String> response =  restTemplate.postForEntity("http://polls.apiblueprint.org/questions",entity,String.class);
+             log.info(response.getBody());
+
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+        }
+     }
 
     @Override
     public void sendPublishMessage(String endpoint, PubsubMessage message) throws Exception {
