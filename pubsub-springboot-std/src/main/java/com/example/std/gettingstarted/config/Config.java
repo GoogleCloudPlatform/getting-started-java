@@ -65,7 +65,7 @@ public class Config {
 
         log.info("result ====" + result);
 
-        sendTestPost();
+//        sendTestPost();
 
         log.info("Running at location " + getAppUrl());
 

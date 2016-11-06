@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -46,6 +47,8 @@ public class MessageIT extends GAETest implements CallbackHook, MessageSender {
 
     @Autowired
     RestTemplate restTemplate;
+
+    TestRestTemplate testRestTemplate = new TestRestTemplate();
 
     @Test
     public void testVersion() throws Exception {
@@ -97,7 +100,7 @@ public class MessageIT extends GAETest implements CallbackHook, MessageSender {
              headers.setContentType(MediaType.APPLICATION_JSON);
              HttpEntity<String> entity = new HttpEntity<>(json,headers);
 
-             ResponseEntity<String> response =  restTemplate.postForEntity("http://polls.apiblueprint.org/questions",entity,String.class);
+             ResponseEntity<String> response =  testRestTemplate.postForEntity("http://polls.apiblueprint.org/questions",entity,String.class);
              log.info(response.getBody());
 
         } catch (JsonProcessingException e) {
