@@ -23,15 +23,21 @@ Copyright 2016 Google Inc.
   <artifactId>bookshelf-2</artifactId>    <!-- Name of your project -->
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
+  <parent> <!-- Only used for testing - NOT REQUIRED -->
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.1</version>
+  </parent>
+
   <properties>
     <!-- [START config] -->
-    <bookshelf.storageType>cloudsql</bookshelf.storageType>   <!-- datastore or cloudsql -->
+    <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
 
 <!-- Instance Connection Name - project:region:dbName or "localhost" for a local MySQL instance -->
-    <sql.instanceName>lesv-005:us-central1:bookshelf</sql.instanceName>
+    <sql.instanceName>MyProjectId:us-central1:bookshelf</sql.instanceName>
     <sql.dbName>bookshelf</sql.dbName>
     <sql.userName>root</sql.userName>
-    <sql.password>xyzzy993321</sql.password>
+    <sql.password>myRootPassword</sql.password>
     <!-- [END config] -->
 
     <appengine.maven.plugin>1.0.0</appengine.maven.plugin>

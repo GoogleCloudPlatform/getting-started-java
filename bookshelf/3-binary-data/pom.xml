@@ -25,15 +25,15 @@ Copyright 2016 Google Inc.
 
   <properties>
     <!-- [START config] -->
-    <bookshelf.bucket>lesv-005</bookshelf.bucket> <!-- bucket w/o gs:// -->
+    <bookshelf.bucket>MyBucketName</bookshelf.bucket> <!-- bucket w/o gs:// -->
 
-    <bookshelf.storageType>cloudsql</bookshelf.storageType>   <!-- datastore or cloudsql -->
+    <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
 
 <!-- Instance Connection Name - project:region:dbName or "localhost" for a local MySQL instance -->
-    <sql.instanceName>lesv-005:us-central1:bookshelf</sql.instanceName>
+    <sql.instanceName>MyProjectId:us-central1:bookshelf</sql.instanceName>
     <sql.dbName>bookshelf</sql.dbName>
     <sql.userName>root</sql.userName>
-    <sql.password>xyzzy993321</sql.password>
+    <sql.password>myRootPassword</sql.password>
     <!-- [END config] -->
 
     <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
