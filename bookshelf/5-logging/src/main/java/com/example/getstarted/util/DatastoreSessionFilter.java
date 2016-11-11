@@ -169,14 +169,15 @@ public class DatastoreSessionFilter implements Filter {
     Transaction transaction = datastore.newTransaction();
     try {
       Entity stateEntity = transaction.get(key);
-      Entity.Builder builder = Entity.newBuilder(stateEntity);
-      StringBuilder delNames = new StringBuilder();
-      for (String varName : varNames) {
-        delNames.append(varName + " ");
-        builder = builder.remove(varName);
+      if (stateEntity != null) {
+        Entity.Builder builder = Entity.newBuilder(stateEntity);
+        StringBuilder delNames = new StringBuilder();
+        for (String varName : varNames) {
+          delNames.append(varName + " ");
+          builder = builder.remove(varName);
+        }
+        datastore.update(builder.build());
       }
-      datastore.update(builder.build());
-    } catch (NullPointerException e) {
     } finally {
       if (transaction.isActive()) {
         transaction.rollback();
@@ -265,7 +266,6 @@ public class DatastoreSessionFilter implements Filter {
           datastoreMap.put(varName, stateEntity.getString(varName));
           logNames.append(varName + " ");
         }
-      } else {
       }
     } finally {
       if (transaction.isActive()) {

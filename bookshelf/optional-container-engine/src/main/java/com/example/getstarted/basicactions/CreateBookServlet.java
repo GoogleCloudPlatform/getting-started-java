@@ -60,7 +60,6 @@ public class CreateBookServlet extends HttpServlet {
     String imageUrl =
         storageHelper.getImageUrl(
             req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
-    BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
 
     String createdByString = "";
     String createdByIdString = "";
@@ -68,6 +67,8 @@ public class CreateBookServlet extends HttpServlet {
       createdByString = (String) req.getSession().getAttribute("userEmail");
       createdByIdString = (String) req.getSession().getAttribute("userId");
     }
+
+    BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
 
     Book book = new Book.Builder()
         .author(req.getParameter("author"))   // form parameter

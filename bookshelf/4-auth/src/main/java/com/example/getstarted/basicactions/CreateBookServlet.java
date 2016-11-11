@@ -56,26 +56,33 @@ public class CreateBookServlet extends HttpServlet {
     String imageUrl =
         storageHelper.getImageUrl(
             req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
-    BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
 
+// [START createdBy]
     String createdByString = "";
     String createdByIdString = "";
     if (req.getSession().getAttribute("token") != null) { // Does the user have a logged in session?
       createdByString = (String) req.getSession().getAttribute("userEmail");
       createdByIdString = (String) req.getSession().getAttribute("userId");
     }
+// [END createdBy]
 
+    BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
+
+// [START bookBuilder]
     Book book = new Book.Builder()
         .author(req.getParameter("author"))   // form parameter
 
+// [START auth]
         .createdBy(createdByString)
         .createdById(createdByIdString)
+// [END auth]
 
         .description(req.getParameter("description"))
         .publishedDate(req.getParameter("publishedDate"))
         .title(req.getParameter("title"))
         .imageUrl(imageUrl)
         .build();
+// [END bookBuilder]
     try {
       Long id = dao.createBook(book);
       resp.sendRedirect("/read?id=" + id.toString());   // read what we just wrote

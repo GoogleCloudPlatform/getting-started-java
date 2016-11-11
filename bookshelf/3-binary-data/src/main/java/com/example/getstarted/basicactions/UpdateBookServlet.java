@@ -53,13 +53,17 @@ public class UpdateBookServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
+
+// [START storageHelper]
     CloudStorageHelper storageHelper =
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
     String imageUrl =
         storageHelper.getImageUrl(
             req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
+// [END storageHelper]
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     try {
+// [START bookBuilder]
       Book book = new Book.Builder()
           .author(req.getParameter("author"))
           .description(req.getParameter("description"))
@@ -68,6 +72,7 @@ public class UpdateBookServlet extends HttpServlet {
           .title(req.getParameter("title"))
           .imageUrl(imageUrl)
           .build();
+// [END bookBuilder]
       dao.updateBook(book);
       resp.sendRedirect("/read?id=" + req.getParameter("id"));
     } catch (Exception e) {

@@ -60,7 +60,7 @@ public class UpdateBookServlet extends HttpServlet {
             req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     try {
-
+// [START bookBuilder]
       Book oldBook = dao.readBook(Long.decode(req.getParameter("id")));
 
       Book book = new Book.Builder()
@@ -75,6 +75,7 @@ public class UpdateBookServlet extends HttpServlet {
           .title(req.getParameter("title"))
           .imageUrl(imageUrl)
           .build();
+// [END bookBuilder]
       dao.updateBook(book);
       resp.sendRedirect("/read?id=" + req.getParameter("id"));
     } catch (Exception e) {

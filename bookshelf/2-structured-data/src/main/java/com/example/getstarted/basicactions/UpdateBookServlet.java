@@ -54,6 +54,7 @@ public class UpdateBookServlet extends HttpServlet {
       IOException {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     try {
+// [START bookBuilder]
       Book book = new Book.Builder()
           .author(req.getParameter("author"))
           .description(req.getParameter("description"))
@@ -61,6 +62,7 @@ public class UpdateBookServlet extends HttpServlet {
           .publishedDate(req.getParameter("publishedDate"))
           .title(req.getParameter("title"))
           .build();
+// [END bookBuilder]
       dao.updateBook(book);
       resp.sendRedirect("/read?id=" + req.getParameter("id"));
     } catch (Exception e) {

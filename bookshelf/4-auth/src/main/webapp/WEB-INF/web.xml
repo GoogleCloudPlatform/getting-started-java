@@ -44,6 +44,7 @@
         <param-name>sql.urlLocal</param-name>
         <param-value>jdbc:mysql://localhost/${sql.dbName}?user=${sql.userName}&amp;password=${sql.password}&amp;useSSL=false</param-value>
     </context-param>
+    <!-- [START auth] -->
     <context-param>
         <param-name>bookshelf.callback</param-name>
         <param-value>${bookshelf.callback}</param-value>
@@ -56,6 +57,7 @@
         <param-name>bookshelf.clientSecret</param-name>
         <param-value>${bookshelf.clientSecret}</param-value>
     </context-param>
+      <!-- [END auth] -->
     <!-- [END config] -->
 </web-app>
 <!-- [END webxml] -->

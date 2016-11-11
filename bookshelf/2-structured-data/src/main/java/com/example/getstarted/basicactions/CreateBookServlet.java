@@ -51,6 +51,7 @@ public class CreateBookServlet extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
+// [START bookBuilder]
     Book book = new Book.Builder()
         .author(req.getParameter("author"))   // form parameter
         .description(req.getParameter("description"))
@@ -58,6 +59,7 @@ public class CreateBookServlet extends HttpServlet {
         .title(req.getParameter("title"))
         .imageUrl(null)
         .build();
+// [END bookBuilder]
     try {
       Long id = dao.createBook(book);
       resp.sendRedirect("/read?id=" + id.toString());   // read what we just wrote

@@ -15,14 +15,14 @@
 
 package com.example.getstarted.basicactions;
 
-import com.google.common.base.Strings;
-
 import com.example.getstarted.daos.BookDao;
 import com.example.getstarted.daos.CloudSqlDao;
 import com.example.getstarted.daos.DatastoreDao;
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
+
+import com.google.common.base.Strings;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -72,14 +72,14 @@ public class ListBookServlet extends HttpServlet {
     }
     this.getServletContext().setAttribute("dao", dao);
     this.getServletContext().setAttribute("storageHelper", storageHelper);
-
-    this.getServletContext().setAttribute(
-        "isAuthConfigured",            // Hide login when auth is not configured.
-        !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.clientID")));
-
     this.getServletContext().setAttribute(
         "isCloudStorageConfigured",    // Hide upload when Cloud Storage is not configured.
         !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
+ // [START authConfigured]
+    this.getServletContext().setAttribute(
+        "isAuthConfigured",            // Hide login when auth is not configured.
+        !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.clientID")));
+// [END authConfigured]
   }
 
   @Override

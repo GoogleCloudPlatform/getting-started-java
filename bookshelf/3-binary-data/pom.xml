@@ -23,17 +23,25 @@ Copyright 2016 Google Inc.
   <artifactId>bookshelf-3</artifactId>    <!-- Name of your project -->
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
+  <parent> <!-- Only used for testing - NOT REQUIRED -->
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.1</version>
+  </parent>
+
   <properties>
     <!-- [START config] -->
-    <bookshelf.bucket>MyBucketName</bookshelf.bucket> <!-- bucket w/o gs:// -->
+    <projectID>myProjectID</projectID> <!-- set w/ -DprojectID=myProjectID on command line -->
 
     <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
 
 <!-- Instance Connection Name - project:region:dbName or "localhost" for a local MySQL instance -->
-    <sql.instanceName>MyProjectId:us-central1:bookshelf</sql.instanceName>
-    <sql.dbName>bookshelf</sql.dbName>
-    <sql.userName>root</sql.userName>
-    <sql.password>myRootPassword</sql.password>
+    <sql.instanceName>${projectID}:us-central1:bookshelf</sql.instanceName>
+    <sql.dbName>bookshelf</sql.dbName>                        <!-- A reasonable default -->
+    <sql.userName>root</sql.userName>                         <!-- A reasonable default -->
+    <sql.password>myRootPassword1234</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
+
+    <bookshelf.bucket>${projectID}</bookshelf.bucket> <!-- bucket w/o gs:// -->
     <!-- [END config] -->
 
     <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
@@ -138,7 +146,7 @@ Copyright 2016 Google Inc.
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
     <plugins>
 
-      <plugin>
+      <plugin>                          <!-- Used for local debugging -->
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${jetty.maven.plugin}</version>
@@ -148,13 +156,6 @@ Copyright 2016 Google Inc.
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
         <version>${appengine.maven.plugin}</version>
-        <configuration>
-          <!-- deploy configuration -->
-<!--
-          <deploy.promote>true</deploy.promote>                           <!~~ DEFAULT value ~~>
-          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>   <!~~ DEFAULT value ~~>
- -->
-        </configuration>
       </plugin>
     </plugins>
   </build>

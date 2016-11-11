@@ -15,6 +15,9 @@
 
 package com.example.getstarted.daos;
 
+import com.example.getstarted.objects.Book;
+import com.example.getstarted.objects.Result;
+
 import com.google.cloud.datastore.Cursor;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
@@ -28,9 +31,6 @@ import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery.OrderBy;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 
-import com.example.getstarted.objects.Book;
-import com.example.getstarted.objects.Result;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +42,8 @@ public class DatastoreDao implements BookDao {
   private KeyFactory keyFactory;
 
   public DatastoreDao() {
-    datastore = DatastoreOptions.getDefaultInstance().getService(); // Authorized Datastore service object
-    keyFactory = datastore.newKeyFactory().setKind("Book4"); // Is used for creating keys later
+    datastore = DatastoreOptions.getDefaultInstance().getService(); // Authorized Datastore service
+    keyFactory = datastore.newKeyFactory().setKind("Book4");      // Is used for creating keys later
   }
   // [END constructor]
   // [START entityToBook]
@@ -142,7 +142,7 @@ public class DatastoreDao implements BookDao {
     if (startCursorString != null && !startCursorString.equals("")) {
       startCursor = Cursor.fromUrlSafe(startCursorString);    // Where we left off
     }
-    Query<Entity> query = Query.entityQueryBuilder()             // Build the Query
+    Query<Entity> query = Query.newEntityQueryBuilder()          // Build the Query
         .setKind("Book4")                                        // We only care about Books
         .setFilter(PropertyFilter.eq(Book.CREATED_BY_ID, userId))// Only for this user
         .setLimit(10)                                            // Only show 10 at a time
@@ -153,7 +153,7 @@ public class DatastoreDao implements BookDao {
         .build();
     QueryResults<Entity> resultList = datastore.run(query);   // Run the Query
     List<Book> resultBooks = entitiesToBooks(resultList);     // Retrieve and convert Entities
-    Cursor cursor = resultList.cursorAfter();                 // Where to start next time
+    Cursor cursor = resultList.getCursorAfter();              // Where to start next time
     if (cursor != null && resultBooks.size() == 10) {         // Are we paging? Save Cursor
       String cursorString = cursor.toUrlSafe();               // Cursors are WebSafe
       return new Result<>(resultBooks, cursorString);

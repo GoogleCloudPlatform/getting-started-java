@@ -15,14 +15,14 @@
 
 package com.example.getstarted.basicactions;
 
-import com.google.common.base.Strings;
-
 import com.example.getstarted.daos.BookDao;
 import com.example.getstarted.daos.CloudSqlDao;
 import com.example.getstarted.daos.DatastoreDao;
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
+
+import com.google.common.base.Strings;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -43,7 +43,10 @@ public class ListBookServlet extends HttpServlet {
   @Override
   public void init() throws ServletException {
     BookDao dao = null;
+
+// [START storageHelper]
     CloudStorageHelper storageHelper = new CloudStorageHelper();
+// [END storageHelper]
 
     // Creates the DAO based on the Context Parameters
     String storageType = this.getServletContext().getInitParameter("bookshelf.storageType");
@@ -67,10 +70,13 @@ public class ListBookServlet extends HttpServlet {
             "Invalid storage type. Check if bookshelf.storageType property is set.");
     }
     this.getServletContext().setAttribute("dao", dao);
+
+// [START save_storage]
     this.getServletContext().setAttribute("storageHelper", storageHelper);
     this.getServletContext().setAttribute(
         "isCloudStorageConfigured",    // Hide upload when Cloud Storage is not configured.
         !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
+// [END save_storage]
   }
 
   @Override

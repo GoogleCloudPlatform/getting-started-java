@@ -32,10 +32,12 @@
         <param-name>bookshelf.storageType</param-name>
         <param-value>${bookshelf.storageType}</param-value>
     </context-param>
+<!-- [START bucket] -->
     <context-param>
         <param-name>bookshelf.bucket</param-name>
         <param-value>${bookshelf.bucket}</param-value>
     </context-param>
+<!-- [END bucket] -->
     <context-param>
         <param-name>sql.urlRemote</param-name>
         <param-value>jdbc:mysql://google/${sql.dbName}?cloudSqlInstance=${sql.instanceName}&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=${sql.userName}&amp;password=${sql.password}</param-value>

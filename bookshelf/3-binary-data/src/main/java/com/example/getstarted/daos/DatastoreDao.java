@@ -15,6 +15,9 @@
 
 package com.example.getstarted.daos;
 
+import com.example.getstarted.objects.Book;
+import com.example.getstarted.objects.Result;
+
 import com.google.cloud.datastore.Cursor;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
@@ -27,9 +30,6 @@ import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery.OrderBy;
 
-import com.example.getstarted.objects.Book;
-import com.example.getstarted.objects.Result;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +41,8 @@ public class DatastoreDao implements BookDao {
   private KeyFactory keyFactory;
 
   public DatastoreDao() {
-    datastore = DatastoreOptions.getDefaultInstance().getService(); // Authorized Datastore service object
-    keyFactory = datastore.newKeyFactory().setKind("Book3"); // Is used for creating keys later
+    datastore = DatastoreOptions.getDefaultInstance().getService(); // Authorized Datastore service
+    keyFactory = datastore.newKeyFactory().setKind("Book3");      // Is used for creating keys later
   }
   // [END constructor]
   // [START entityToBook]
