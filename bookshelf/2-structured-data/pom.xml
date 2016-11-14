@@ -35,9 +35,10 @@ Copyright 2016 Google Inc.
 
     <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
 
-<!-- Instance Connection Name - project:region:dbName or "localhost" for a local MySQL instance -->
-    <sql.instanceName>${projectID}:us-central1:bookshelf</sql.instanceName>
     <sql.dbName>bookshelf</sql.dbName>                        <!-- A reasonable default -->
+<!-- Instance Connection Name - project:region:dbName -->
+<!-- -Dsql.instanceName=localhost to use a local MySQL server -->
+    <sql.instanceName>${projectID}:us-central1:${sql.dbName}</sql.instanceName>
     <sql.userName>root</sql.userName>                         <!-- A reasonable default -->
     <sql.password>myRootPassword1234</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
     <!-- [END config] -->
@@ -45,11 +46,12 @@ Copyright 2016 Google Inc.
     <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
     <jetty.maven.plugin>9.3.8.v20160314</jetty.maven.plugin>
 
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
     <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+    <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+    <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
   </properties>
 
@@ -135,6 +137,12 @@ Copyright 2016 Google Inc.
       <groupId>com.google.cloud.sql</groupId>
       <artifactId>mysql-socket-factory-connector-j-6</artifactId>
       <version>1.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+      <version>4.0.1</version>
     </dependency>
 
   </dependencies>

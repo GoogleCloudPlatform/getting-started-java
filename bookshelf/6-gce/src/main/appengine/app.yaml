@@ -16,7 +16,7 @@
 
 # [START runtime]
 runtime: java
-vm:      true
+env:    flex
 
 handlers:
 - url: /.*
