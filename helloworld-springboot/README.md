@@ -75,7 +75,7 @@ gcloud components update
 
 ## Deploy to App Engine flexible environment
 
-1. `mvn gcloud:deploy`
+1. `mvn appengine:deploy`
 1. Visit `http://YOUR_PROJECT.appspot.com`.
 
 
