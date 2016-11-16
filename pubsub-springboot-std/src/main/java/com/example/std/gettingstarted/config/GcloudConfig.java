@@ -6,9 +6,6 @@ import com.google.apphosting.api.ApiProxy;
 import com.travellazy.google.pubsub.service.CallbackHook;
 import com.travellazy.google.pubsub.service.MessageAPI;
 import com.travellazy.google.pubsub.service.MessageService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -16,34 +13,14 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
-import static com.example.std.gettingstarted.controllers.PubSubController.ASYNC_ENDPOINT;
-
 
 @Configuration
 public class GcloudConfig
 {
-    private static final Logger log = LoggerFactory.getLogger(GcloudConfig.class);
-
     @Value("${appengine.projectId}")
     private String projectId;
 
-    private String pushEndpoint;
     private String deploymentUrl;
-
-    @Autowired
-    MessageService messageService;
-
-
-//    @Bean
-//    @ConditionalOnMissingBean
-//    public MessageService buildMessagesService(GCloudClientPubSub pubsub) {
-//        return new DefaultMessageService(pubsub);
-//    }
-
-//    @Bean
-//    public GCloudClientPubSub getPubSub(){
-//        return new GloudPubSubClientWrapper(projectId);
-//    }
 
     @Bean
     @ConditionalOnMissingBean
@@ -59,25 +36,7 @@ public class GcloudConfig
 
     @PostConstruct
     public void init() {
-
-
-
         setProjectIdAndDeploymentUrl();
-
-
-        pushEndpoint = deploymentUrl + ASYNC_ENDPOINT;
-
-        //create the first topic and subscription to it.
-//        try {
-//            TopicValue fullTopic = messageService.createOrFindTopic("topic-pubsub-api-appengine-sample");
-//            log.info("fullTopic = " + fullTopic.toString());
-//
-//            SubscriptionValue subscriptionValue = messageService.createSubscription(fullTopic,"subscription-" + projectId,pushEndpoint);
-//            log.info("subsciption = " + subscriptionValue.toString());
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     private void setProjectIdAndDeploymentUrl(){
