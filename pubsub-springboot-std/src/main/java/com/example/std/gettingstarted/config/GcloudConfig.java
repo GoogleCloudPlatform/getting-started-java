@@ -1,14 +1,11 @@
 package com.example.std.gettingstarted.config;
 
-import com.example.std.gettingstarted.pubsub.DefaultMessagesService;
-import com.example.std.gettingstarted.pubsub.MessagesService;
 import com.google.appengine.api.appidentity.AppIdentityService;
 import com.google.appengine.api.appidentity.AppIdentityServiceFactory;
 import com.google.apphosting.api.ApiProxy;
-import com.travellazy.google.pubsub.util.GCloudClientPubSub;
-import com.travellazy.google.pubsub.util.GloudPubSubClientWrapper;
-import com.travellazy.google.pubsub.util.SubscriptionValue;
-import com.travellazy.google.pubsub.util.TopicValue;
+import com.travellazy.google.pubsub.service.CallbackHook;
+import com.travellazy.google.pubsub.service.MessageAPI;
+import com.travellazy.google.pubsub.service.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 
 import static com.example.std.gettingstarted.controllers.PubSubController.ASYNC_ENDPOINT;
 
@@ -35,37 +31,53 @@ public class GcloudConfig
     private String deploymentUrl;
 
     @Autowired
-    MessagesService messagesService;
+    MessageService messageService;
 
+
+//    @Bean
+//    @ConditionalOnMissingBean
+//    public MessageService buildMessagesService(GCloudClientPubSub pubsub) {
+//        return new DefaultMessageService(pubsub);
+//    }
+
+//    @Bean
+//    public GCloudClientPubSub getPubSub(){
+//        return new GloudPubSubClientWrapper(projectId);
+//    }
 
     @Bean
     @ConditionalOnMissingBean
-    public MessagesService buildMessagesService(GCloudClientPubSub pubsub) {
-        return new DefaultMessagesService(pubsub);
+    public CallbackHook buildReceiveMessageCallback(){
+        return new ReceiveMessageCallback();
     }
 
     @Bean
-    public GCloudClientPubSub getPubSub(){
-        return new GloudPubSubClientWrapper(projectId);
+    @ConditionalOnMissingBean
+    public MessageService getMessagesService(CallbackHook callbackHook){
+        return MessageAPI.getMessageFactory(projectId,callbackHook).getMessageService();
     }
 
     @PostConstruct
     public void init() {
+
+
+
         setProjectIdAndDeploymentUrl();
+
 
         pushEndpoint = deploymentUrl + ASYNC_ENDPOINT;
 
         //create the first topic and subscription to it.
-        try {
-            TopicValue fullTopic = messagesService.createOrFindTopic("topic-pubsub-api-appengine-sample");
-            log.info("fullTopic = " + fullTopic.toString());
-
-            SubscriptionValue subscriptionValue = messagesService.createSubscription(fullTopic,"subscription-" + projectId,pushEndpoint);
-            log.info("subsciption = " + subscriptionValue.toString());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            TopicValue fullTopic = messageService.createOrFindTopic("topic-pubsub-api-appengine-sample");
+//            log.info("fullTopic = " + fullTopic.toString());
+//
+//            SubscriptionValue subscriptionValue = messageService.createSubscription(fullTopic,"subscription-" + projectId,pushEndpoint);
+//            log.info("subsciption = " + subscriptionValue.toString());
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     private void setProjectIdAndDeploymentUrl(){

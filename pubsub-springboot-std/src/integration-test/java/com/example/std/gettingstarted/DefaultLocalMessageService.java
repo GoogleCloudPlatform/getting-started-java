@@ -4,55 +4,56 @@ package com.example.std.gettingstarted;/**
  * Time: 22:47
  */
 
-import com.example.std.gettingstarted.pubsub.MessagesService;
+import com.example.std.gettingstarted.util.IdGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.services.pubsub.model.PubsubMessage;
 import com.travellazy.google.pubsub.util.State;
 import com.travellazy.google.pubsub.util.SubscriptionValue;
 import com.travellazy.google.pubsub.util.TopicValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DefaultLocalMessagesService implements MessagesService {
+public class DefaultLocalMessageService implements com.travellazy.google.pubsub.service.MessageService {
 
     private Map<String, TopicValue> topicKeyToTopicValueMap = new ConcurrentHashMap<>();
     private Map<TopicValue, Set<String>> subscribers = new ConcurrentHashMap<>();
     private Map<String, String> subscriber2EndpointMap = new ConcurrentHashMap<>();
-    private Logger log = LoggerFactory.getLogger(DefaultLocalMessagesService.class);
-
-    @Override
-    public void setMessageSender(MessageSender messageSender) {
-        this.messageSender = messageSender;
-    }
-
-    private MessageSender messageSender;
-
-    @Override
-    public List<String> getAllMessages() {
-        return Collections.EMPTY_LIST;
-    }
-
-    private CallbackHook callback;
-
-    @Override
-    public void receiveMessage(PubsubMessage message) throws IOException {
-        //ignore ?
-        callback.recieveMessage(message);
-    }
-
+    private Logger log = LoggerFactory.getLogger(DefaultLocalMessageService.class);
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final HttpHeaders headers = new HttpHeaders();
+    private ObjectMapper mapper = new ObjectMapper();
     private IdGenerator idGenerator = new IdGenerator();
 
-    class IdGenerator {
-        public String next() {
-            return UUID.randomUUID().toString().replace("-", "");
-        }
+    public DefaultLocalMessageService(com.travellazy.google.pubsub.service.CallbackHook callback) {
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        this.callback = callback;
     }
 
+
+
+    private com.travellazy.google.pubsub.service.CallbackHook callback;
+
     @Override
-    public void sendMessage(String topicKey, String message) throws Exception {
+    public void receiveMessage(PubsubMessage message)  {
+        callback.receiveMessage(message);
+    }
+
+
+    @Override
+    public void broadcastMessage(String topicKey, String message) throws IOException {
         TopicValue topicValue = new TopicValue("projects/myprojectId/topics", topicKey, State.CREATED);
         Set<String> subscribers = this.subscribers.get(topicValue);
         for (String subscriber : subscribers) {
@@ -65,9 +66,19 @@ public class DefaultLocalMessagesService implements MessagesService {
             pubsubMsg.setPublishTime(System.currentTimeMillis() + "");
             pubsubMsg.setData(message);
 
-            messageSender.sendPublishMessage(endpoint, pubsubMsg);
+            sendPublishMessage(endpoint,pubsubMsg);
         }
     }
+
+
+
+
+    private ResponseEntity<String> sendPublishMessage(String endpoint, PubsubMessage message) throws JsonProcessingException {
+         String json = mapper.writeValueAsString(message);
+         HttpEntity<String> entity = new HttpEntity<>(json, headers);
+         return restTemplate.postForEntity(endpoint, entity, String.class);
+    }
+
 
     @Override
     public TopicValue createOrFindTopic(String topicKey) throws IOException {
@@ -102,7 +113,7 @@ public class DefaultLocalMessagesService implements MessagesService {
 
     @Override
     public Collection<String> getAllTopics() throws IOException {
-        return null;
+        return topicKeyToTopicValueMap.keySet();
     }
 
     @Override
@@ -110,8 +121,5 @@ public class DefaultLocalMessagesService implements MessagesService {
         return subscriber2EndpointMap.keySet();
     }
 
-    @Override
-    public void setCallbackHook(CallbackHook callbackHook) {
-        this.callback = callbackHook;
-    }
+
 }

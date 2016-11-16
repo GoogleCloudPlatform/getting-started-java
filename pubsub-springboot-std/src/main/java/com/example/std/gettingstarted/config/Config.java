@@ -14,7 +14,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
@@ -23,11 +22,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.std.gettingstarted.config.CoreConnection.appUrl;
-
 
 @Configuration
-//@EnableAutoConfiguration
 public class Config {
     private static final Logger log = LoggerFactory.getLogger(Config.class);
 
@@ -58,15 +54,6 @@ public class Config {
     @PostConstruct
     public void start() {
 
-        String url = "https://jsonplaceholder.typicode.com/posts/1";
-        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-        // Make the HTTP GET request, marshaling the response to a String
-        String result = restTemplate.getForObject("http://services.groupkt.com/country/get/all", String.class, new Object());
-
-        log.info("result ====" + result);
-
-//        sendTestPost();
-
         log.info("Running at location " + getAppUrl());
 
         String deployEnv = env.getProperty("DEPLOY_ENV");
@@ -76,6 +63,8 @@ public class Config {
 
         if (deployEnv != null && deployEnv.equalsIgnoreCase("PROD")) {
             CoreConnection.port = "";
+        }else{
+            CoreConnection.port = port;
         }
 
         log.info("=============================================");
@@ -84,7 +73,7 @@ public class Config {
     }
 
     private static String asString() {
-        return (" env = " + environment) + " maven_version = " + CoreConnection.maven_version + " appUrl  = " + appUrl;
+        return (" env = " + environment) + " maven_version = " + CoreConnection.maven_version + CoreConnection.asString();
     }
 
     private String getAppUrl(){
