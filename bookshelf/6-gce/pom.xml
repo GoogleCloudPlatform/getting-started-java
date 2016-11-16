@@ -119,7 +119,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google+ API Client Library for Java -->
       <groupId>com.google.apis</groupId>
       <artifactId>google-api-services-plus</artifactId>
-      <version>v1-rev473-1.22.0</version>
+      <version>v1-rev475-1.22.0</version>
     </dependency>
 
     <dependency>                        <!-- https://github.com/FasterXML/jackson-databind -->
