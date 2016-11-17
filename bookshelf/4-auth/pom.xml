@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2016 Google Inc. All Rights Reserved.
+Copyright 2016 Google Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -23,26 +23,45 @@ Copyright 2016 Google Inc. All Rights Reserved.
   <artifactId>bookshelf-4</artifactId>    <!-- Name of your project -->
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
+  <parent> <!-- Only used for testing - NOT REQUIRED -->
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.1</version>
+  </parent>
+
   <properties>
     <!-- [START config] -->
-    <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
-    <bookshelf.bucket></bookshelf.bucket>
-    <sql.instanceName></sql.instanceName>
-    <sql.dbName></sql.dbName>
-    <sql.userName></sql.userName>
-    <sql.password></sql.password> 
+    <projectID>myProjectID</projectID> <!-- set w/ -DprojectID=myProjectID on command line -->
 
+    <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
+
+    <sql.dbName>bookshelf</sql.dbName>                        <!-- A reasonable default -->
+<!-- Instance Connection Name - project:region:dbName -->
+<!-- -Dsql.instanceName=localhost to use a local MySQL server -->
+    <sql.instanceName>${projectID}:us-central1:${sql.dbName}</sql.instanceName>
+    <sql.userName>root</sql.userName>                         <!-- A reasonable default -->
+    <sql.password>myRootPassword1234</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
+
+    <bookshelf.bucket>${projectID}</bookshelf.bucket> <!-- bucket w/o gs:// -->
+
+<!-- [START auth] -->
     <callback.host></callback.host> <!-- Typically projectname.appspot.com -->
     <bookshelf.clientID></bookshelf.clientID>             <!-- for User Authentication -->
     <bookshelf.clientSecret></bookshelf.clientSecret> <!-- from g.co/cloud/console -->
     <!-- Register in g.co/cloud/console -->
     <bookshelf.callback>https://${callback.host}/oauth2callback</bookshelf.callback>
+<!-- [END auth] -->
     <!-- [END config] -->
 
+    <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
+    <jetty.maven.plugin>9.3.8.v20160314</jetty.maven.plugin>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
     <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
+    <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+    <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+    <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
   </properties>
 
@@ -89,8 +108,8 @@ Copyright 2016 Google Inc. All Rights Reserved.
 
     <dependency>                        <!-- Google Cloud Client Library for Java -->
       <groupId>com.google.cloud</groupId>
-      <artifactId>gcloud-java</artifactId>
-      <version>0.2.8</version>
+      <artifactId>google-cloud</artifactId>
+      <version>0.6.0</version>
     </dependency>
 
     <dependency>                        <!-- Google API client - for stuff that's not in gcloud-->
@@ -102,31 +121,31 @@ Copyright 2016 Google Inc. All Rights Reserved.
     <dependency>                        <!-- Google+ API Client Library for Java -->
       <groupId>com.google.apis</groupId>
       <artifactId>google-api-services-plus</artifactId>
-      <version>v1-rev433-1.22.0</version>
+      <version>v1-rev475-1.22.0</version>
     </dependency>
 
     <dependency>                        <!-- https://github.com/FasterXML/jackson-databind -->
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.8.2</version>
+      <version>2.8.5</version>
     </dependency>
 
     <dependency>                        <!-- Google Core Libraries for Java -->
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-        <version>19.0</version>
+        <version>20.0</version>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
-      <version>2.9.4</version>
+      <version>2.9.6</version>
     </dependency>
 
     <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>6.0.3</version>
+      <version>6.0.5</version>
     </dependency>
 
     <dependency>                        <!-- Apache Database Connection Pool API -->
@@ -137,8 +156,14 @@ Copyright 2016 Google Inc. All Rights Reserved.
 
     <dependency>
       <groupId>com.google.cloud.sql</groupId>
-      <artifactId>mysql-socket-factory</artifactId>
-      <version>1.0.1</version>
+      <artifactId>mysql-socket-factory-connector-j-6</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+      <version>4.0.2</version>
     </dependency>
 
   </dependencies>
@@ -148,16 +173,16 @@ Copyright 2016 Google Inc. All Rights Reserved.
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
     <plugins>
 
-      <plugin>
-        <groupId>com.google.appengine</groupId>
-        <artifactId>gcloud-maven-plugin</artifactId>
-        <version>2.0.9.120.v20160803</version>
+      <plugin>                          <!-- Used for local debugging -->
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty.maven.plugin}</version>
       </plugin>
 
       <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.3.7.v20160115</version>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>${appengine.maven.plugin}</version>
       </plugin>
     </plugins>
   </build>

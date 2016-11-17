@@ -20,7 +20,7 @@
     * Google Cloud Datastore API
     * Google Cloud Pub/Sub API
     * Google Cloud Storage JSON API
-    * Google Cloud Logging API
+    * Stackdriver Logging API
     * Google+ API
 * Create Web Credentials (To be changed later)
   * Cloud Console > API Manager > Credentials > OAuth Client ID

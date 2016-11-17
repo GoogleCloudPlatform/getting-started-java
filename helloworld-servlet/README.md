@@ -2,8 +2,9 @@
 
 ## Requirements
 * [Apache Maven](http://maven.apache.org) 3.3.9 or greater
-* JDK 8 in order to run
-* [Cloud SDK for Managed VMs](https://cloud.google.com/appengine/docs/managed-vms/)
+* [Google Cloud SDK](https://cloud.google.com/sdk/)
+* `gcloud components install app-engine-java`
+* `gcloud components update`
 
 ## Setup
 

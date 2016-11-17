@@ -9,6 +9,8 @@
 
 # Target folders
 target/
+build/
+out/
 
 ## Vim ##
 # swap

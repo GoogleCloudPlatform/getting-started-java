@@ -28,7 +28,10 @@
     <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
     <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     <failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
+    <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
+    <jetty.maven.plugin>9.3.8.v20160314</jetty.maven.plugin>
   </properties>
 
   <parent>                              <!-- Get parameters and allow bulk testing -->
@@ -60,17 +63,19 @@
       <plugin>                          <!-- Used for local debugging -->
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.3.9.v20160517</version>
+        <version>${jetty.maven.plugin}</version>
       </plugin>
 
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>0.1.1-beta</version>
+        <version>${appengine.maven.plugin}</version>
         <configuration>
           <!-- deploy configuration -->
-          <deploy.promote>true</deploy.promote>                           <!-- DEFAULT value -->
-          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>   <!-- DEFAULT value -->
+<!--
+          <deploy.promote>true</deploy.promote>                           <!~~ DEFAULT value ~~>
+          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>   <!~~ DEFAULT value ~~>
+ -->
         </configuration>
       </plugin>
 

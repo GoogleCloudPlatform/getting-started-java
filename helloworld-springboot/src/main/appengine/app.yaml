@@ -14,7 +14,7 @@
 # limitations under the License.
 # [END_EXCLUDE]
 runtime: java
-vm: true
+env: flex
 
 runtime_config:  # Optional
   jdk: openjdk8
