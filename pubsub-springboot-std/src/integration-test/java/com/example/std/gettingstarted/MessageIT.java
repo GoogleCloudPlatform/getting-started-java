@@ -36,8 +36,8 @@ public class MessageIT extends GAETest {
 
     @Test
     public void testVersion() throws Exception {
-        String sr = fireGET(CoreConnection.buildUrl("/api/version"));
-        assertTrue(sr.contains("0.7.5-SNAPSHOT"));
+        String sr = fireTextHtmlGET(CoreConnection.buildUrl("/api/version"));
+        assertTrue(sr.contains("0.0.1-SNAPSHOT"));
     }
 
     @Test

@@ -81,6 +81,15 @@ public abstract class GAETest  {
 
     }
 
+    public  String fireTextHtmlGET( String url) throws Exception {
+        MvcResult result = mockMvc.perform(get(url).contentType(MediaType.TEXT_HTML))
+//                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        return result.getResponse().getContentAsString();
+
+    }
+
     public  String fireGETWithHeader( String url, String token) throws Exception {
         MvcResult result = mockMvc.perform(get(url).
                         contentType(MediaType.APPLICATION_JSON).header(ITB_AUTH_HEADER_KEY,token)
