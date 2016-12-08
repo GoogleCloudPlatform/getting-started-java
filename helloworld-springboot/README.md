@@ -66,14 +66,13 @@ gcloud components update
 
 ### Configure the `app.yaml` descriptor
 
-The [`app.yaml`][app-yaml] descriptor is optional, and is used to describe
-URL dispatch and resource requirements.  We recommend that you initially
-configure [`manual_scaling`][manual-scaling] and disable 
-[health-checks][health-checking].
+The [`app.yaml`][app-yaml] descriptor is used to describe URL
+dispatch and resource requirements.  This example sets
+[`manual_scaling`][manual-scaling] to 1 to minimize possible costs.
+These settings should be revisited for production use.
 
 [app-yaml]: https://cloud.google.com/appengine/docs/flexible/java/configuring-your-app-with-app-yaml
 [manual-scaling]: https://cloud.google.com/appengine/docs/flexible/java/configuring-your-app-with-app-yaml#manual-scaling
-[health-checking]: https://cloud.google.com/appengine/docs/flexible/java/configuring-your-app-with-app-yaml#health_checks
 
 ## Run the application locally
 
@@ -88,8 +87,8 @@ configure [`manual_scaling`][manual-scaling] and disable
 1. `mvn appengine:deploy`
 1. Visit `http://YOUR_PROJECT.appspot.com`.
 
-Note that Flex deployment requires the new [`com.google.cloud.tools:appengine-maven-plugin`
-plugin][new-maven-plugin].
+Note that deployment to the App Engine flexible environment requires the new
+[`com.google.cloud.tools:appengine-maven-plugin` plugin][new-maven-plugin].
 
 [new-maven-plugin]: https://cloud.google.com/appengine/docs/flexible/java/using-maven
 
