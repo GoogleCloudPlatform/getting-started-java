@@ -20,7 +20,7 @@ Copyright 2016 Google Inc.
   <packaging>war</packaging>            <!-- REQUIRED -->
 
   <groupId>com.example.flex.gettingstarted</groupId>
-  <artifactId>bookshelf-6</artifactId>    <!-- Name of your project -->
+  <artifactId>bookshelf</artifactId>    <!-- Name of your project -->
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <parent> <!-- Only used for testing - NOT REQUIRED -->
