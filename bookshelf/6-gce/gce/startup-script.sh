@@ -38,7 +38,7 @@ mkdir -p /opt/jetty/temp
 mkdir -p /var/log/jetty
 
 # Get Jetty
-curl -L http://eclipse.org/downloads/download.php?file=/jetty/stable-9/dist/jetty-distribution-9.3.8.v20160314.tar.gz\&r=1 -o jetty9.tgz
+curl -L https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.3.8.v20160314/jetty-distribution-9.3.8.v20160314.tar.gz -o jetty9.tgz
 tar xf jetty9.tgz  --strip-components=1 -C /opt/jetty
 
 # Add a Jetty User
@@ -67,14 +67,14 @@ echo "JETTY_HOME=/opt/jetty" > /etc/default/jetty
 
 # -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.JavaUtilLog
 
-
-# Help with debugging
-service jetty status
+# Reload daemon to pick up new service
+systemctl daemon-reload
 
 # Install logging monitor. The monitor will automatically pickup logs sent to syslog.
 curl -s "https://storage.googleapis.com/signals-agents/logging/google-fluentd-install.sh" | bash
 service google-fluentd restart &
 
+service jetty status
 service jetty start
 service jetty check
 
