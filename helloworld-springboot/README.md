@@ -64,6 +64,15 @@ gcloud components update app-engine-java
 gcloud components update
 ```
 
+### Configure the `app.yaml` descriptor
+
+The [`app.yaml`][app-yaml] descriptor is used to describe URL
+dispatch and resource requirements.  This example sets
+[`manual_scaling`][manual-scaling] to 1 to minimize possible costs.
+These settings should be revisited for production use.
+
+[app-yaml]: https://cloud.google.com/appengine/docs/flexible/java/configuring-your-app-with-app-yaml
+[manual-scaling]: https://cloud.google.com/appengine/docs/flexible/java/configuring-your-app-with-app-yaml#manual-scaling
 
 ## Run the application locally
 
@@ -78,6 +87,10 @@ gcloud components update
 1. `mvn appengine:deploy`
 1. Visit `http://YOUR_PROJECT.appspot.com`.
 
+Note that deployment to the App Engine flexible environment requires the new
+[`com.google.cloud.tools:appengine-maven-plugin` plugin][new-maven-plugin].
+
+[new-maven-plugin]: https://cloud.google.com/appengine/docs/flexible/java/using-maven
 
 Java is a registered trademark of Oracle Corporation and/or its affiliates.
 
