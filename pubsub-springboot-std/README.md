@@ -1,22 +1,9 @@
 # Getting started on Google Cloud Platform for Java® 
 
-##This is a demo for STANDARD AppEngine and google pubsub
-To run this, you need to first get the code for a library wrapper:
-
-> git clone https://github.com/willedwards/google-pubsub-clientwrapper
-
-> cd google-pubsub-clientwrapper
+##This is a demo for STANDARD AppEngine and google pubsub ![Build Status](https://travis-ci.org/willedwards/pubsub-springboot-std.svg?branch=master)
 
 >mvn clean install
 
-Next, you need to get the following jar and install it into your own m2 repo
-
-https://github.com/willedwards/spring-boot-legacy-jar/blob/master/spring-boot-legacy-1.1.2.BUILD-SNAPSHOT.jar
-
-Go to ~/Downloads, then run the following command:
-
-mvn install:install-file -Dfile=spring-boot-legacy-1.1.2.BUILD-SNAPSHOT.jar -DgroupId=org.springframework.boot \
-    -DartifactId=spring-boot-legacy -Dversion=1.1.2.BUILD-SNAPSHOT -Dpackaging=jar
 
 You now need to replace YOUR_PROJECT_ID in the following files:
 
