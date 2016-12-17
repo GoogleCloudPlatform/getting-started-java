@@ -5,6 +5,7 @@
 
 # Intellij Idea
 .Idea
+.idea
 *.iml
 
 # Target folders
