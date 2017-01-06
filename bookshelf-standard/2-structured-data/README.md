@@ -9,7 +9,7 @@ Most users can get this running by updating the parameters in `pom.xml`.
 
 ### Running Locally
 
-    mvn clean appengine:run
+    mvn -Plocal clean appengine:run
 
 ### Deploying to App Engine Standard
 
