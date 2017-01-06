@@ -36,9 +36,9 @@ Copyright 2016 Google Inc.
     <sql.dbName>bookshelf</sql.dbName>                        <!-- A reasonable default -->
 <!-- Instance Connection Name - project:region:dbName -->
 <!-- -Dsql.instanceName=localhost to use a local MySQL server -->
-    <sql.instanceName>Your database connectionName here. See `gcloud sql instances describe [instanceName]`</sql.instanceName>
+    <sql.instanceName>DATABASE-connectionName-HERE</sql.instanceName> <!-- See `gcloud sql instances describe [instanceName]` -->
     <sql.userName>root</sql.userName>                         <!-- A reasonable default -->
-    <sql.password>Your mysql root password here.</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
+    <sql.password>MYSQL-ROOT-PASSWORD-HERE</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
     <!-- [END config] -->
 
     <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
