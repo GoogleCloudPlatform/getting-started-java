@@ -9,14 +9,13 @@ Most users can get this running by updating the parameters in `pom.xml`.
 
 ### Running Locally
 
-    mvn -Plocal clean appengine:run
+    mvn -Plocal clean appengine:devserver
 
 ### Deploying to App Engine Standard
 
-* Initialize the [Google Cloud SDK](https://g.co/cloud/sdk)
-
-    `gcloud init`
-
 * Deploy your App
 
-    `mvn clean appengine:deploy`
+    mvn clean appengine:update -Dappengine.appId=<your-project-id> \
+        -Dappengine.version=bookshelf
+
+Visit it at http://bookshelf.<your-project-id>.appspot.com

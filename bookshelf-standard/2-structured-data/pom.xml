@@ -41,8 +41,6 @@ Copyright 2016 Google Inc.
     <sql.password>MYSQL-ROOT-PASSWORD-HERE</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
     <!-- [END config] -->
 
-    <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source> <!-- REQUIRED -->
     <maven.compiler.target>1.7</maven.compiler.target> <!-- REQUIRED -->
@@ -132,9 +130,9 @@ Copyright 2016 Google Inc.
     <plugins>
 
       <plugin>
-        <groupId>com.google.cloud.tools</groupId>
+        <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>${appengine.maven.plugin}</version>
+        <version>1.9.48</version>
       </plugin>
     </plugins>
   </build>
