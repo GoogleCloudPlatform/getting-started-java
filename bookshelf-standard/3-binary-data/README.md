@@ -16,6 +16,7 @@ Most users can get this running by updating the parameters in `pom.xml`.
 * Deploy your App
 
     mvn clean appengine:update -Dappengine.appId=<your-project-id> \
-        -Dappengine.version=bookshelf
+        -Dappengine.version=bookshelf \
+        -Dbookshelf.bucket=<your-project-id>.appspot.com
 
 Visit it at http://bookshelf.<your-project-id>.appspot.com
