@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="true">
+    <datastore-index kind="Book4" ancestor="false" source="auto">
+        <property name="createdById" direction="asc"/>
+        <property name="title" direction="asc"/>
+    </datastore-index>
+</datastore-indexes>
