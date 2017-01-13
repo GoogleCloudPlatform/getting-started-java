@@ -48,7 +48,7 @@
 
 ## Running locally
 
-* In the same directory as this `README.md` file
+* In one of the subdirectories to this `README.md` file
 
     mvn -Plocal clean jetty:run-exploded
 

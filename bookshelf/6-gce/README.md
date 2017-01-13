@@ -15,8 +15,8 @@ Most users can get this running by updating the parameters in `pom.xml`.
 
 * Initialize the [Google Cloud SDK]()
 
-    `gcloud init`
+        gcloud init
 
 * Deploy your App
 
-
+        ./makeBookshelf gce
