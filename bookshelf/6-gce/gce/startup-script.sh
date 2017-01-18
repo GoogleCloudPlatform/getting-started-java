@@ -74,7 +74,6 @@ systemctl daemon-reload
 curl -s "https://storage.googleapis.com/signals-agents/logging/google-fluentd-install.sh" | bash
 service google-fluentd restart &
 
-service jetty status
 service jetty start
 service jetty check
 
