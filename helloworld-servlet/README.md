@@ -1,4 +1,4 @@
-# Servlet based Hello World app for App Engine Flexible
+# Servlet based Hello World app for App Engine Flexible environment
 
 ## Requirements
 * [Apache Maven](http://maven.apache.org) 3.3.9 or greater
@@ -13,7 +13,7 @@ Use either:
 * `gcloud init`
 * `gcloud beta auth application-default login`
 
-We support building with [Maven](http://maven.apache.org/), [Gradle](https://gradle.org), and [Intelij Idea](https://cloud.google.com/tools/intellij/docs/).
+We support building with [Maven](http://maven.apache.org/), [Gradle](https://gradle.org), and [IntelliJ IDEA](https://cloud.google.com/tools/intellij/docs/).
 The samples have files to support both Maven and Gradle.  To use the IDE plugins, see the documentation pages above.
 
 ## Maven
