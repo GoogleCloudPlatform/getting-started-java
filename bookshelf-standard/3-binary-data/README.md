@@ -9,7 +9,7 @@ Most users can get this running by updating the parameters in `pom.xml`.
 
 ### Running Locally
 
-    mvn -Plocal clean appengine:devserver
+    mvn -Plocal clean appengine:devserver -Dbookshelf.bucket=MY-BUCKET.appspot.com
 
 ### Deploying to App Engine Standard
 
