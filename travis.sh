@@ -41,6 +41,12 @@ fi
 # ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-compat
 # ./java-repo-tools/scripts/test-localhost.sh spring-boot helloworld-springboot
 
+# App engine standard bookshelf
+./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/2-structured-data -- -Plocal
+./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/3-binary-data -- -Plocal
+./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/4-auth -- -Plocal
+./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/5-logging -- -Plocal
+
 # Check that all shell scripts in this repo (including this one) pass the
 # Shell Check linter.
 shellcheck ./**/*.sh
