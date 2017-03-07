@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2016 Google Inc.
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!-- [START webxml] -->
+<web-app version="3.0">
+    <!--
+      A web.xml is needed to explicitly set the order in which filters process requests. Any filters
+      not included in web.xml will be loaded after filters listed below.
+    -->
+    <filter>
+      <filter-name>DatastoreSessionFilter</filter-name>
+      <filter-class>com.example.getstarted.util.DatastoreSessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+      <filter-name>DatastoreSessionFilter</filter-name>
+      <url-pattern>/</url-pattern>
+      <url-pattern>/books</url-pattern>
+      <url-pattern>/books/mine</url-pattern>
+      <url-pattern>/create</url-pattern>
+      <url-pattern>/delete</url-pattern>
+      <url-pattern>/login</url-pattern>
+      <url-pattern>/logout</url-pattern>
+      <url-pattern>/oauth2callback</url-pattern>
+      <url-pattern>/read</url-pattern>
+      <url-pattern>/update</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+      <servlet-name>list</servlet-name>
+      <servlet-class>com.example.getstarted.basicactions.ListBookServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>list</servlet-name>
+      <url-pattern>/</url-pattern>
+      <url-pattern>/books</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>create</servlet-name>
+      <servlet-class>com.example.getstarted.basicactions.CreateBookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>create</servlet-name>
+      <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>update</servlet-name>
+      <servlet-class>com.example.getstarted.basicactions.UpdateBookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>update</servlet-name>
+      <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>read</servlet-name>
+      <servlet-class>com.example.getstarted.basicactions.ReadBookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>read</servlet-name>
+      <url-pattern>/read</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>delete</servlet-name>
+      <servlet-class>com.example.getstarted.basicactions.DeleteBookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>delete</servlet-name>
+      <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+    <!-- [START config] -->
+    <context-param>
+        <param-name>bookshelf.storageType</param-name>
+        <param-value>${bookshelf.storageType}</param-value>
+    </context-param>
+
+<!-- [START bucket] -->
+    <context-param>
+        <param-name>bookshelf.bucket</param-name>
+        <param-value>${bookshelf.bucket}</param-value>
+    </context-param>
+<!-- [END bucket] -->
+
+    <context-param>
+        <param-name>sql.urlRemoteGAE</param-name>
+        <param-value>jdbc:google:mysql://${sql.instanceName}/${sql.dbName}?user=${sql.userName}&amp;password=${sql.password}</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>sql.urlRemote</param-name>
+        <param-value>jdbc:mysql://google/${sql.dbName}?cloudSqlInstance=${sql.instanceName}&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=${sql.userName}&amp;password=${sql.password}</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>sql.urlLocal</param-name>
+        <param-value>jdbc:mysql://localhost/${sql.dbName}?user=${sql.userName}&amp;password=${sql.password}&amp;useSSL=false</param-value>
+    </context-param>
+    <!-- [END config] -->
+</web-app>
+<!-- [END webxml] -->

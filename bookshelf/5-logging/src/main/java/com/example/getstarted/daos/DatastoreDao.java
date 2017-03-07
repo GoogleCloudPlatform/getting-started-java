@@ -55,6 +55,8 @@ public class DatastoreDao implements BookDao {
         .publishedDate(entity.getString(Book.PUBLISHED_DATE))
         .title(entity.getString(Book.TITLE))
         .imageUrl(entity.contains(Book.IMAGE_URL) ? entity.getString(Book.IMAGE_URL) : null)
+        .createdBy(entity.getString(Book.CREATED_BY))
+        .createdById(entity.getString(Book.CREATED_BY_ID))
         .build();
   }
   // [END entityToBook]
@@ -68,6 +70,8 @@ public class DatastoreDao implements BookDao {
         .set(Book.PUBLISHED_DATE, book.getPublishedDate())
         .set(Book.TITLE, book.getTitle())
         .set(Book.IMAGE_URL, book.getImageUrl())
+        .set(Book.CREATED_BY, book.getCreatedBy())
+        .set(Book.CREATED_BY_ID, book.getCreatedById())
         .build();
     Entity bookEntity = datastore.add(incBookEntity); // Save the Entity
     return bookEntity.getKey().getId();                     // The ID of the Key
@@ -90,6 +94,8 @@ public class DatastoreDao implements BookDao {
         .set(Book.PUBLISHED_DATE, book.getPublishedDate())
         .set(Book.TITLE, book.getTitle())
         .set(Book.IMAGE_URL, book.getImageUrl())
+        .set(Book.CREATED_BY, book.getCreatedBy())
+        .set(Book.CREATED_BY_ID, book.getCreatedById())
         .build();
     datastore.update(entity);                   // Update the Entity
   }
