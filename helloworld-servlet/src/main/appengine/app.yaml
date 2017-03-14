@@ -21,7 +21,6 @@ env: flex
 handlers:
 - url: /.*
   script: this field is required, but ignored
-  secure: always  # Require HTTPS
 
 runtime_config:  # Optional
   jdk: openjdk8
