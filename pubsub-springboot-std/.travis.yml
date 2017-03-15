@@ -1,4 +1,3 @@
-before_script : cd pubsub-springboot-std
 language: java
 sudo: false
 script: mvn clean verify

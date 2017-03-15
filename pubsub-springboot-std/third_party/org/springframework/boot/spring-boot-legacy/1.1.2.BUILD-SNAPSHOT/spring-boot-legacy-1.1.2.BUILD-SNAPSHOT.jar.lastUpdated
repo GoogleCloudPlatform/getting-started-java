@@ -1,0 +1,14 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Sep 22 21:25:42 BST 2014
+https\://oss.sonatype.org/content/repositories/snapshots/.error=
+http\://nexus.katchup.com/content/groups/katchup/.lastUpdated=1411417540075
+http\://repo.spring.io/snapshot/.lastUpdated=1411417542379
+http\://mvnrepository.com/.error=
+http\://repo.spring.io/snapshot/.error=
+https\://oss.sonatype.org/content/repositories/google-releases/.error=
+http\://mvnrepository.com/.lastUpdated=1411417540578
+https\://oss.sonatype.org/content/repositories/snapshots/.lastUpdated=1411417542263
+https\://oss.sonatype.org/content/repositories/google-releases/.lastUpdated=1411417541436
+https\://code.lds.org/nexus/content/groups/main-repo/.error=
+https\://code.lds.org/nexus/content/groups/main-repo/.lastUpdated=1411417540348
+http\://nexus.katchup.com/content/groups/katchup/.error=
