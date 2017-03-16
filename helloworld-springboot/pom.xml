@@ -26,14 +26,16 @@
 
   <parent>                              <!-- Get parameters and allow bulk testing -->
     <artifactId>getting-started-java</artifactId>
-    <groupId>com.example.flex</groupId>
+    <groupId>com.example</groupId>
     <version>1.0.0</version>
     <relativePath>..</relativePath>
   </parent>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source> <!-- REQUIRED -->
+    <maven.compiler.target>${java.version}</maven.compiler.target> <!-- REQUIRED -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
   </properties>
 

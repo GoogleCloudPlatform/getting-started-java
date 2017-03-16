@@ -24,9 +24,10 @@ Copyright 2016 Google Inc.
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <parent> <!-- Only used for testing - NOT REQUIRED -->
-    <groupId>com.google.cloud.samples</groupId>
-    <artifactId>shared-configuration</artifactId>
-    <version>1.0.1</version>
+    <groupId>com.example.standard.gettingstarted</groupId>
+    <artifactId>bookshelf-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../</relativePath>
   </parent>
 
   <properties>
