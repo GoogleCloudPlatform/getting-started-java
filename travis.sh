@@ -20,7 +20,7 @@ set -o pipefail
 shopt -s globstar
 
 mvn --batch-mode clean verify \
-  -Dwebdriver.chrome.driver=/opt/webdriver/chromedriver \
+  -Dwebdriver.chrome.driver="${chromedriver_path-/opt/webdriver/chromedriver}" \
   -Dwebdriver.gecko.driver=/opt/webdriver/geckodriver | \
   egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 

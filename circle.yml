@@ -1,21 +1,18 @@
 machine:
   java:
     version: oraclejdk8
+  environment:
+    chromedriver_path: /usr/local/bin/chromedriver
+dependencies:
+  cache_directories:
+    - /opt/
   pre:
     - sudo mkdir /opt/webdriver/
     - curl -LO https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
       && sudo tar -zxf geckodriver-*.tar.gz -C /opt/webdriver/
-      # Get chromedriver, for selenium
-    - curl -LO https://chromedriver.storage.googleapis.com/2.28/chromedriver_linux64.zip
-      && sudo unzip -d "/opt/webdriver/" chromedriver_linux64.zip
-      # chromedriver 2.28 depends on chromium >= 55.0.2883.0, in default location
-      # v55.0.2883.0 is build 423768, via instructions from
-      # https://www.chromium.org/getting-involved/download-chromium
-    - curl -LO https://chromium-browser-snapshots.storage.googleapis.com/Linux_x64/423768/chrome-linux.zip
-      && sudo unzip -d "/opt/" chrome-linux.zip
-      && sudo chmod -R a+rX /opt/chrome-linux/
-      && sudo update-alternatives --force --install /usr/bin/chromium-browser
-      chromium-browser /opt/chrome-linux/chrome 1
+    - sudo apt-add-repository "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe"
+    - sudo apt-get update
+    - sudo apt-get install -t trusty-backports shellcheck
 test:
   override:
     - bash ./travis.sh

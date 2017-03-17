@@ -1,6 +1,7 @@
 # Getting started on Google Cloud Platform for Java® 
 
-[![Build Status](https://travis-ci.org/GoogleCloudPlatform/getting-started-java.svg?branch=master)](https://travis-ci.org/GoogleCloudPlatform/getting-started-java)
+[![Travis Build Status](https://travis-ci.org/GoogleCloudPlatform/getting-started-java.svg?branch=master)](https://travis-ci.org/GoogleCloudPlatform/getting-started-java)
+[![CircleCI Build Status](https://circleci.com/gh/GoogleCloudPlatform/getting-started-java.svg?style=shield&circle-token=117b41ead030b212fc7d519519ee9262c4f3480b)](https://travis-ci.org/GoogleCloudPlatform/getting-started-java)
 [![Coverage Status](https://codecov.io/gh/GoogleCloudPlatform/getting-started-java/branch/master/graph/badge.svg)](https://codecov.io/gh/GoogleCloudPlatform/getting-started-java)
 
 The code for the samples is contained in individual folders on this repository.
