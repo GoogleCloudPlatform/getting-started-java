@@ -38,7 +38,7 @@
 
   <parent>                              <!-- Get parameters and allow bulk testing -->
     <artifactId>getting-started-java</artifactId>
-    <groupId>com.example.flex</groupId>
+    <groupId>com.example</groupId>
     <version>1.0.0</version>
     <relativePath>..</relativePath>
   </parent>

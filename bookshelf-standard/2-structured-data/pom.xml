@@ -24,9 +24,10 @@ Copyright 2016 Google Inc.
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <parent> <!-- Only used for testing - NOT REQUIRED -->
-    <groupId>com.google.cloud.samples</groupId>
-    <artifactId>shared-configuration</artifactId>
-    <version>1.0.1</version>
+    <groupId>com.example.standard.gettingstarted</groupId>
+    <artifactId>bookshelf-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../</relativePath>
   </parent>
 
   <properties>
@@ -48,6 +49,8 @@ Copyright 2016 Google Inc.
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
+    <appengine-maven.version>1.9.48</appengine-maven.version>
+    <guava.version>21.0</guava.version>
   </properties>
 
   <prerequisites>                       <!-- Optional, but suggested -->
@@ -113,13 +116,26 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Core Libraries for Java -->
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-        <version>20.0</version>
+        <version>${guava.version}</version>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
       <version>2.9.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-firefox-driver</artifactId>
     </dependency>
 
   </dependencies>
@@ -132,7 +148,7 @@ Copyright 2016 Google Inc.
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>1.9.48</version>
+        <version>${appengine-maven.version}</version>
       </plugin>
     </plugins>
   </build>

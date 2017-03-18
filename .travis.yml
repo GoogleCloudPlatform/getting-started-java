@@ -22,13 +22,8 @@ git:
   submodules: false
 addons:
   apt:
-    sources:
-    # Grab shellcheck from the Debian repo.
-    # https://github.com/koalaman/shellcheck/wiki/TravisCI
-    - debian-sid
     packages:
     - expect
-    - shellcheck
 before_install:
 - openssl aes-256-cbc -K $encrypted_b476ddd2cec9_key -iv
   $encrypted_b476ddd2cec9_iv -in client-secret.json.enc -out client-secret.json
@@ -36,11 +31,36 @@ before_install:
   && export GOOGLE_APPLICATION_CREDENTIALS=$TRAVIS_BUILD_DIR/client-secret.json
   && GCLOUD_PROJECT=getting-started-java-tests
   || true
+  # Get geckodriver, for selenium
+- sudo mkdir /opt/webdriver/
+- curl -LO https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
+  && sudo tar -zxf geckodriver-*.tar.gz -C /opt/webdriver/
+  # Get chromedriver, for selenium
+- curl -LO https://chromedriver.storage.googleapis.com/2.28/chromedriver_linux64.zip
+  && sudo unzip -d "/opt/webdriver/" chromedriver_linux64.zip
+  # chromedriver 2.28 depends on chromium >= 55.0.2883.0, in default location
+  # v55.0.2883.0 is build 423768, via instructions from
+  # https://www.chromium.org/getting-involved/download-chromium
+- curl -LO https://chromium-browser-snapshots.storage.googleapis.com/Linux_x64/423768/chrome-linux.zip
+  && sudo unzip -d "/opt/" chrome-linux.zip
+  && sudo chmod -R a+rX /opt/chrome-linux/
+  && sudo update-alternatives --force --install /usr/bin/chromium-browser
+  chromium-browser /opt/chrome-linux/chrome 1
+  # Install shellcheck, without having to use all of debian sid
+- curl -LO http://http.us.debian.org/debian/pool/main/s/shellcheck/shellcheck_0.4.4-4_amd64.deb
+  && md5sum shellcheck*.deb | grep -q '^9b3e7cbb9aeb454b6ec3d2495b7de7f6 '
+  && sudo dpkg -i shellcheck*.deb
+
 # Skip the install step, since Maven will download the dependencies we need
 # when the test build runs.
 # http://stackoverflow.com/q/31945809/101923
 # https://docs.travis-ci.com/user/customizing-the-build/#Skipping-the-Installation-Step
 install: true
+# For selenium - setup a headless X11 framebuffer
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3 # give xvfb some time to start
 script: ./travis.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)

@@ -16,7 +16,7 @@ limitations under the License.
 <project>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
-    <groupId>com.example.flex</groupId>
+    <groupId>com.example</groupId>
     <artifactId>getting-started-java</artifactId>
     <packaging>pom</packaging>
 
@@ -24,7 +24,7 @@ limitations under the License.
     <parent>
         <groupId>com.google.cloud.samples</groupId>
         <artifactId>shared-configuration</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
     <repositories>
@@ -93,6 +93,10 @@ limitations under the License.
         <module>bookshelf/5-logging</module>
         <module>bookshelf/6-gce</module>
         <module>bookshelf/optional-container-engine</module>
+        <module>bookshelf-standard/2-structured-data</module>
+        <module>bookshelf-standard/3-binary-data</module>
+        <module>bookshelf-standard/4-auth</module>
+        <module>bookshelf-standard/5-logging</module>
         <module>helloworld-jsp</module>
         <module>helloworld-servlet</module>
         <module>helloworld-springboot</module>
@@ -107,4 +111,38 @@ limitations under the License.
             </plugin>
         </plugins>
     </reporting>
+
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.12</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+          <version>2.7.13</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>com.jcabi</groupId>
+          <artifactId>jcabi-matchers</artifactId>
+          <version>1.4</version>
+        </dependency>
+        <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-server</artifactId>
+          <version>3.3.1</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-firefox-driver</artifactId>
+          <version>3.3.1</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 </project>

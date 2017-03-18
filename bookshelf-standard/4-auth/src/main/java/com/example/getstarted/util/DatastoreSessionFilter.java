@@ -162,6 +162,7 @@ public class DatastoreSessionFilter implements Filter {
       datastore.put(transaction, stateEntity);
       transaction.commit();
     } catch (EntityNotFoundException e) {
+      // Ignore - if there's no session, there's nothing to delete.
     } finally {
       if (transaction.isActive()) {
         transaction.rollback();
@@ -248,6 +249,7 @@ public class DatastoreSessionFilter implements Filter {
       }
       transaction.commit();
     } catch (EntityNotFoundException e) {
+      // Ignore - if there's no session, there's nothing to delete.
     } finally {
       if (transaction.isActive()) {
         transaction.rollback();

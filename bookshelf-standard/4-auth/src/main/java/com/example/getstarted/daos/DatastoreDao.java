@@ -151,7 +151,8 @@ public class DatastoreDao implements BookDao {
     }
     Query query = new Query(BOOK_KIND) // We only care about Books
         // Only for this user
-        .setFilter(new Query.FilterPredicate(Book.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+        .setFilter(new Query.FilterPredicate(
+            Book.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
         // a custom datastore index is required since you are filtering by one property
         // but ordering by another
         .addSort(Book.TITLE, SortDirection.ASCENDING);

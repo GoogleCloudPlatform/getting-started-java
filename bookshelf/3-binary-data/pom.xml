@@ -24,9 +24,10 @@ Copyright 2016 Google Inc.
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <parent> <!-- Only used for testing - NOT REQUIRED -->
-    <groupId>com.google.cloud.samples</groupId>
-    <artifactId>shared-configuration</artifactId>
-    <version>1.0.1</version>
+    <artifactId>bookshelf-flexible</artifactId>
+    <groupId>com.example.flex.gettingstarted</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../</relativePath>
   </parent>
 
   <properties>
@@ -158,6 +159,11 @@ Copyright 2016 Google Inc.
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${jetty.maven.plugin}</version>
+        <configuration>
+          <webApp>
+            <overrideDescriptor>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</overrideDescriptor>
+          </webApp>
+        </configuration>
       </plugin>
 
       <plugin>

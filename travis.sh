@@ -19,7 +19,10 @@ set -x
 set -o pipefail
 shopt -s globstar
 
-mvn --batch-mode clean verify | egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
+mvn --batch-mode clean verify \
+  -Dwebdriver.chrome.driver="${chromedriver_path-/opt/webdriver/chromedriver}" \
+  -Dwebdriver.gecko.driver=/opt/webdriver/geckodriver | \
+  egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
 # Test running samples on localhost.
 git clone https://github.com/GoogleCloudPlatform/java-repo-tools.git
