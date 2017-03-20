@@ -4,8 +4,6 @@ machine:
   environment:
     chromedriver_path: /usr/local/bin/chromedriver
 dependencies:
-  cache_directories:
-    - /opt/
   pre:
     - sudo mkdir /opt/webdriver/
     - curl -LO https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
