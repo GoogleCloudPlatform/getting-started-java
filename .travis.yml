@@ -56,12 +56,8 @@ before_install:
 # http://stackoverflow.com/q/31945809/101923
 # https://docs.travis-ci.com/user/customizing-the-build/#Skipping-the-Installation-Step
 install: true
-# For selenium - setup a headless X11 framebuffer
-before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
-script: ./travis.sh
+# For selenium - run the script in a headless X11 framebuffer
+script: xvfb-run ./travis.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 branches:
