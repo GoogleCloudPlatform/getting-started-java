@@ -125,6 +125,7 @@ Copyright 2016 Google Inc.
       <version>2.9.4</version>
     </dependency>
 
+    <!-- Test dependencies -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

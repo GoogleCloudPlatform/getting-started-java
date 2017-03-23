@@ -146,6 +146,17 @@ public class UserJourneyTestIT {
         .indexOf("Anonymous") > 0);
   }
 
+  private void checkBookList(String title, String author, String datePublished, String description)
+      throws Exception {
+    List<WebElement> media = driver.findElements(By.cssSelector("div.media"));
+    assertEquals(1, media.size());
+
+    WebElement book = media.get(0);
+
+    assertEquals(title, book.findElement(By.tagName("h4")).getText());
+    assertEquals(author, book.findElement(By.tagName("p")).getText());
+  }
+
   @Test
   public void userJourney() throws Exception {
     driver.get("http://localhost:8080");
@@ -162,6 +173,12 @@ public class UserJourneyTestIT {
       (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
       checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
+
+      // Now check the list of books for the one we just submitted
+      driver.findElement(By.linkText("Books")).click();
+      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/$"));
+
+      checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
     } catch (ComparisonFailure e) {
       throw new RuntimeException(driver.getPageSource(), e);
     }
