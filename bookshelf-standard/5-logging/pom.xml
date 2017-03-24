@@ -51,6 +51,8 @@ Copyright 2016 Google Inc.
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
+    <appengine-maven.version>1.9.48</appengine-maven.version>
+    <guava.version>21.0</guava.version>
   </properties>
 
   <prerequisites>                       <!-- Optional, but suggested -->
@@ -122,7 +124,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Core Libraries for Java -->
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-        <version>20.0</version>
+        <version>${guava.version}</version>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
@@ -147,7 +149,7 @@ Copyright 2016 Google Inc.
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>1.9.48</version>
+        <version>${appengine-maven.version}</version>
       </plugin>
     </plugins>
   </build>
