@@ -148,15 +148,15 @@ public class UserJourneyTestIT {
         .startsWith(title));
   }
 
-  private void checkBookList(String title, String author, String datePublished, String description, String imageFilename)
-      throws Exception {
+  private void checkBookList(String title, String author, String datePublished, String description,
+      String imageFilename) throws Exception {
     List<WebElement> media = driver.findElements(By.cssSelector("div.media"));
     assertEquals(1, media.size());
 
     WebElement book = media.get(0);
 
     assertEquals(title, book.findElement(By.tagName("h4")).getText());
-    assertTrue(driver.findElement(By.cssSelector("img.book-image")).getAttribute("src")
+    assertTrue(driver.findElement(By.cssSelector(".media img")).getAttribute("src")
         .indexOf(imageFilename) > 0);
   }
 
