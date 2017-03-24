@@ -14,17 +14,18 @@
 # limitations under the License.
 
 set -e
-set -x
-# Set pipefail so that `egrep` does not eat the exit code.
-set -o pipefail
-shopt -s globstar
 
-# Setup GCP application default credentials
+# Setup GCP application default credentials before `set -x` echos everything out
 if [[ $GCLOUD_SERVICE_KEY ]]; then
   echo "$GCLOUD_SERVICE_KEY" | \
     base64 --decode --ignore-garbage > "${HOME}/google-cloud-service-key.json"
   export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/google-cloud-service-key.json"
 fi
+
+set -x
+# Set pipefail so that `egrep` does not eat the exit code.
+set -o pipefail
+shopt -s globstar
 
 mvn --batch-mode clean verify \
   -Dbookshelf.bucket="${GCS_BUCKET-GCS_BUCKET envvar is unset}" | \
@@ -36,25 +37,25 @@ git clone https://github.com/GoogleCloudPlatform/java-repo-tools.git
 if [[ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]]; then
   # The bookshelf sample requires Cloud Datastore access. Enable when
   # credentials are available (such as branch PRs).
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/2-structured-data -- -Plocal
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/3-binary-data -- -Plocal
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/4-auth -- -Plocal
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/5-logging -- -Plocal
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/6-gce -- -Plocal
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/2-structured-data -- -Plocal -DskipTests=true
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/3-binary-data -- -Plocal -DskipTests=true
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/4-auth -- -Plocal -DskipTests=true
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/5-logging -- -Plocal -DskipTests=true
+  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/6-gce -- -Plocal -DskipTests=true
+
+  # App engine standard bookshelf
+  #./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/2-structured-data -- -Plocal -DskipTests=true
+  #./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/3-binary-data -- -Plocal -DskipTests=true
+  ./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/4-auth -- -Plocal -DskipTests=true
+  ./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/5-logging -- -Plocal -DskipTests=true
 else
   # only run unit tests and lint on external PRs
   echo 'External PR: skipping integration tests.'
 fi
-# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-jsp
-# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-servlet
-# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-compat
-# ./java-repo-tools/scripts/test-localhost.sh spring-boot helloworld-springboot
-
-# App engine standard bookshelf
-./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/2-structured-data -- -Plocal
-./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/3-binary-data -- -Plocal
-./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/4-auth -- -Plocal
-./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/5-logging -- -Plocal
+# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-jsp -- -DskipTests=true
+# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-servlet -- -DskipTests=true
+# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-compat -- -DskipTests=true
+# ./java-repo-tools/scripts/test-localhost.sh spring-boot helloworld-springboot -- -DskipTests=true
 
 # Check that all shell scripts in this repo (including this one) pass the
 # Shell Check linter.
