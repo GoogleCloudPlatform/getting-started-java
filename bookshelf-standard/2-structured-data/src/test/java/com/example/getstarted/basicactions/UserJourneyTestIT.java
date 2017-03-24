@@ -23,7 +23,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -179,8 +178,9 @@ public class UserJourneyTestIT {
       (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/$"));
 
       checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-    } catch (ComparisonFailure e) {
-      throw new RuntimeException(driver.getPageSource(), e);
+    } catch (Exception e) {
+      System.err.println(driver.getPageSource());
+      throw e;
     }
   }
 }

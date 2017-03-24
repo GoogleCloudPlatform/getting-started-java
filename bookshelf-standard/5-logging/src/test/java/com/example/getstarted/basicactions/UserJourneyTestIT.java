@@ -19,12 +19,6 @@ package com.example.getstarted.basicactions;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.google.cloud.Page;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,10 +37,13 @@ import org.openqa.selenium.remote.service.DriverService;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * I can't figure out how to test server-side logging in a selenium test, so just sanity-check that
+ * it hasn't broken anything.
+ */
 @RunWith(JUnit4.class)
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
 public class UserJourneyTestIT {
@@ -55,11 +52,10 @@ public class UserJourneyTestIT {
   private static final String AUTHOR = "myauthor";
   private static final String PUBLISHED_DATE = "1984-02-27";
   private static final String DESCRIPTION = "mydescription";
-  private static final String IMAGE_FILENAME = "appengine.png";
+  private static final String EMAIL = "userjourneytest@example.com";
 
   private static DriverService service;
   private WebDriver driver;
-  private String filePath;
 
   @BeforeClass
   public static void setupClass() throws Exception {
@@ -70,22 +66,12 @@ public class UserJourneyTestIT {
 
   @AfterClass
   public static void tearDownClass() {
-    // Delete any objects in the bucket
-    Storage storage = StorageOptions.getDefaultInstance().getService();
-    Page<Blob> blobs = storage.list(System.getProperty("bookshelf.bucket"));
-    Iterator<Blob> blobIterator = blobs.iterateAll();
-    List<BlobId> blobIds = new ArrayList<BlobId>();
-    while (blobIterator.hasNext()) {
-      blobIds.add(blobIterator.next().getBlobId());
-    }
-    storage.delete(blobIds);
     service.stop();
   }
 
   @Before
   public void setup() {
     driver = new RemoteWebDriver(service.getUrl(), DesiredCapabilities.chrome());
-    filePath = this.getClass().getResource(IMAGE_FILENAME).getPath();
   }
 
   @After
@@ -95,7 +81,27 @@ public class UserJourneyTestIT {
 
   private WebElement checkLandingPage() throws Exception {
     WebElement button = driver.findElement(By.cssSelector("a.btn"));
+    assertEquals("Add book", button.getText());
+
+    WebElement heading = driver.findElement(By.cssSelector("body>.container h3"));
+    assertEquals("Books", heading.getText());
+
+    WebElement list = driver.findElement(By.cssSelector("body>.container p"));
+    assertEquals("No books found", list.getText());
+
+    WebElement loginButton = driver.findElement(By.linkText("Login"));
+    return loginButton;
+  }
+
+  private WebElement checkLandingPage(String email) throws Exception {
+    WebElement logout = driver.findElement(By.linkText(email));
+    assertTrue(null != logout);
+
+    WebElement button = driver.findElement(By.cssSelector("a.btn"));
     assertEquals("Add book", button.getText().trim());
+
+    WebElement heading = driver.findElement(By.cssSelector("body>.container h3"));
+    assertEquals("Books", heading.getText());
 
     WebElement list = driver.findElement(By.cssSelector("body>.container p"));
     assertEquals("No books found", list.getText());
@@ -106,8 +112,14 @@ public class UserJourneyTestIT {
   private void checkAddBookPage() throws Exception {
     List<WebElement> inputContainers = driver.findElements(By.cssSelector("form .form-group"));
     assertTrue("Should have more than 5 inputs", inputContainers.size() > 5);
-    assertEquals("Fifth input should be Cover Image",
-        "Cover Image", inputContainers.get(4).findElement(By.tagName("label")).getText());
+    assertEquals("First input should be Title",
+        "Title", inputContainers.get(0).findElement(By.tagName("label")).getText());
+    assertEquals("Second input should be Author",
+        "Author", inputContainers.get(1).findElement(By.tagName("label")).getText());
+    assertEquals("Third input should be Date Published",
+        "Date Published", inputContainers.get(2).findElement(By.tagName("label")).getText());
+    assertEquals("Fourth input should be Description",
+        "Description", inputContainers.get(3).findElement(By.tagName("label")).getText());
 
     // The rest should be hidden
     for (Iterator<WebElement> iter = inputContainers.listIterator(5); iter.hasNext();) {
@@ -116,39 +128,42 @@ public class UserJourneyTestIT {
     }
   }
 
-  private void submitForm(String title, String author, String datePublished, String description,
-      String filePath)
+  private void submitForm(String title, String author, String datePublished, String description)
       throws Exception {
-    WebElement titleEl = driver.findElement(By.cssSelector("[name=title]"));
-    titleEl.sendKeys(title);
-    WebElement authorEl = driver.findElement(By.cssSelector("[name=author]"));
-    authorEl.sendKeys(author);
-    WebElement datePublishedEl = driver.findElement(By.cssSelector("[name=publishedDate]"));
-    datePublishedEl.sendKeys(datePublished);
-    WebElement descriptionEl = driver.findElement(By.cssSelector("[name=description]"));
-    descriptionEl.sendKeys(description);
-
-    WebElement fileEl = driver.findElement(By.cssSelector("[name=file]"));
-    fileEl.sendKeys(filePath);
+    driver.findElement(By.cssSelector("[name=title]")).sendKeys(title);
+    driver.findElement(By.cssSelector("[name=author]")).sendKeys(author);
+    driver.findElement(By.cssSelector("[name=publishedDate]")).sendKeys(datePublished);
+    driver.findElement(By.cssSelector("[name=description]")).sendKeys(description);
 
     driver.findElement(By.cssSelector("button[type=submit]")).submit();
   }
 
   private void checkReadPage(String title, String author, String datePublished, String description,
-      String imageFilename)
-      throws Exception {
+      String addedBy) throws Exception {
     WebElement heading = driver.findElement(By.cssSelector("h3"));
     assertEquals("Book", heading.getText());
 
-    // Should be the thumbnail
+    List<WebElement> buttons = driver.findElements(By.cssSelector("a.btn"));
+    assertEquals(2, buttons.size());
+    assertEquals("Edit book", buttons.get(0).getText());
+    assertEquals("Delete book", buttons.get(1).getText());
+
+    // Should be a cat thumbnail
     assertTrue(driver.findElement(By.cssSelector("img.book-image")).getAttribute("src")
-        .indexOf(imageFilename) > 0);
+        .indexOf("placekitten") > 0);
     assertTrue("Should show title",
         driver.findElement(By.cssSelector(".book-title")).getText()
         .startsWith(title));
+    assertEquals("Should show author",
+        "By " + author, driver.findElement(By.cssSelector(".book-author")).getText());
+    assertEquals("Should show description",
+        description, driver.findElement(By.cssSelector(".book-description")).getText());
+
+    assertTrue(driver.findElement(By.cssSelector(".book-added-by")).getText()
+        .indexOf(addedBy) > 0);
   }
 
-  private void checkBookList(String title, String author, String datePublished, String description, String imageFilename)
+  private void checkBookList(String title, String author, String datePublished, String description)
       throws Exception {
     List<WebElement> media = driver.findElements(By.cssSelector("div.media"));
     assertEquals(1, media.size());
@@ -156,8 +171,19 @@ public class UserJourneyTestIT {
     WebElement book = media.get(0);
 
     assertEquals(title, book.findElement(By.tagName("h4")).getText());
-    assertTrue(driver.findElement(By.cssSelector("img.book-image")).getAttribute("src")
-        .indexOf(imageFilename) > 0);
+    assertEquals(author, book.findElement(By.tagName("p")).getText());
+  }
+
+  private void login(String email) {
+    WebElement input = driver.findElement(By.cssSelector("input[type=text]"));
+    input.clear();
+    input.sendKeys(email);
+    input.submit();
+  }
+
+  private void logout(String email) {
+    WebElement button = driver.findElement(By.linkText(email));
+    button.click();
   }
 
   @Test
@@ -165,23 +191,29 @@ public class UserJourneyTestIT {
     driver.get("http://localhost:8080");
 
     try {
-      WebElement button = checkLandingPage();
+      WebElement loginButton = checkLandingPage();
+
+      loginButton.click();
+      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches("login"));
+
+      login(EMAIL);
+      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches("/books"));
+
+      WebElement button = checkLandingPage(EMAIL);
 
       button.click();
       (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/create$"));
 
       checkAddBookPage();
 
-      submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, filePath);
+      submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
       (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
-      checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, IMAGE_FILENAME);
+      checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, EMAIL);
 
-      // Now check the list of books for the one we just submitted
-      driver.findElement(By.linkText("Books")).click();
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/$"));
-
-      checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, IMAGE_FILENAME);
+      logout(EMAIL);
+      (new WebDriverWait(driver, 10)).until(
+          ExpectedConditions.presenceOfElementLocated(By.linkText("Login")));
     } catch (Exception e) {
       System.err.println(driver.getPageSource());
       throw e;
