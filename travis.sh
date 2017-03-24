@@ -19,9 +19,15 @@ set -x
 set -o pipefail
 shopt -s globstar
 
+# Setup GCP application default credentials
+if [[ $GCLOUD_SERVICE_KEY ]]; then
+  echo "$GCLOUD_SERVICE_KEY" | \
+    base64 --decode --ignore-garbage > "${HOME}/google-cloud-service-key.json"
+  export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/google-cloud-service-key.json"
+fi
+
 mvn --batch-mode clean verify \
-  -Dwebdriver.chrome.driver="${chromedriver_path-/opt/webdriver/chromedriver}" \
-  -Dwebdriver.gecko.driver=/opt/webdriver/geckodriver | \
+  -Dbookshelf.bucket="${GCS_BUCKET-GCS_BUCKET envvar is unset}" | \
   egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
 # Test running samples on localhost.
