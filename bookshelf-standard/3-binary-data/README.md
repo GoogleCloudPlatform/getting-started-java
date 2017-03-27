@@ -5,11 +5,15 @@ Contains the code for using Cloud Datastore and Cloud SQL v2.
 
 This is part of a [Bookshelf tutorial](https://cloud.google.com/java/getting-started/tutorial-app).
 
-Most users can get this running by updating the parameters in `pom.xml`.
+Most users can get this running by updating the parameters in `pom.xml`. You'll
+also need to [create a bucket][create-bucket] in Google Cloud Storage, referred
+to below as `MY-BUCKET`.
+
+[create-bucket]: https://cloud.google.com/storage/docs/creating-buckets
 
 ### Running Locally
 
-    mvn -Plocal clean appengine:devserver -Dbookshelf.bucket=MY-BUCKET.appspot.com
+    mvn -Plocal clean appengine:devserver -Dbookshelf.bucket=MY-BUCKET
 
 ### Deploying to App Engine Standard
 
@@ -17,6 +21,6 @@ Most users can get this running by updating the parameters in `pom.xml`.
 
     mvn clean appengine:update -Dappengine.appId=<your-project-id> \
         -Dappengine.version=bookshelf \
-        -Dbookshelf.bucket=<your-project-id>.appspot.com
+        -Dbookshelf.bucket=MY-BUCKET
 
 Visit it at http://bookshelf.<your-project-id>.appspot.com

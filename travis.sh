@@ -42,12 +42,6 @@ if [[ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]]; then
   ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/4-auth -- -Plocal -DskipTests=true
   ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/5-logging -- -Plocal -DskipTests=true
   ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/6-gce -- -Plocal -DskipTests=true
-
-  # App engine standard bookshelf
-  #./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/2-structured-data -- -Plocal -DskipTests=true
-  #./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/3-binary-data -- -Plocal -DskipTests=true
-  ./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/4-auth -- -Plocal -DskipTests=true
-  ./java-repo-tools/scripts/test-localhost.sh appengine bookshelf-standard/5-logging -- -Plocal -DskipTests=true
 else
   # only run unit tests and lint on external PRs
   echo 'External PR: skipping integration tests.'

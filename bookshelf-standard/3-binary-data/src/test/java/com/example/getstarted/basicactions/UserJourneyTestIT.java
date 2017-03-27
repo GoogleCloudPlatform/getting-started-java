@@ -29,7 +29,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -135,40 +134,30 @@ public class UserJourneyTestIT {
     driver.findElement(By.cssSelector("button[type=submit]")).submit();
   }
 
-  private void checkReadPage(String title, String author, String datePublished, String description)
+  private void checkReadPage(String title, String author, String datePublished, String description,
+      String imageFilename)
       throws Exception {
     WebElement heading = driver.findElement(By.cssSelector("h3"));
     assertEquals("Book", heading.getText());
 
-    List<WebElement> buttons = driver.findElements(By.cssSelector("a.btn"));
-    assertEquals(2, buttons.size());
-    assertEquals("Edit book", buttons.get(0).getText());
-    assertEquals("Delete book", buttons.get(1).getText());
-
-    // Should be a cat thumbnail
+    // Should be the thumbnail
     assertTrue(driver.findElement(By.cssSelector("img.book-image")).getAttribute("src")
-        .indexOf(IMAGE_FILENAME) > 0);
+        .indexOf(imageFilename) > 0);
     assertTrue("Should show title",
         driver.findElement(By.cssSelector(".book-title")).getText()
         .startsWith(title));
-    assertEquals("Should show author",
-        "By " + author, driver.findElement(By.cssSelector(".book-author")).getText());
-    assertEquals("Should show description",
-        description, driver.findElement(By.cssSelector(".book-description")).getText());
-
-    assertTrue(driver.findElement(By.cssSelector(".book-added-by")).getText()
-        .indexOf("Anonymous") > 0);
   }
 
-  private void checkBookList(String title, String author, String datePublished, String description)
-      throws Exception {
+  private void checkBookList(String title, String author, String datePublished, String description,
+      String imageFilename) throws Exception {
     List<WebElement> media = driver.findElements(By.cssSelector("div.media"));
     assertEquals(1, media.size());
 
     WebElement book = media.get(0);
 
     assertEquals(title, book.findElement(By.tagName("h4")).getText());
-    assertEquals(author, book.findElement(By.tagName("p")).getText());
+    assertTrue(driver.findElement(By.cssSelector(".media img")).getAttribute("src")
+        .indexOf(imageFilename) > 0);
   }
 
   @Test
@@ -186,15 +175,16 @@ public class UserJourneyTestIT {
       submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, filePath);
       (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
-      checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
+      checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, IMAGE_FILENAME);
 
       // Now check the list of books for the one we just submitted
       driver.findElement(By.linkText("Books")).click();
       (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/$"));
 
-      checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-    } catch (ComparisonFailure e) {
-      throw new RuntimeException(driver.getPageSource(), e);
+      checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, IMAGE_FILENAME);
+    } catch (Exception e) {
+      System.err.println(driver.getPageSource());
+      throw e;
     }
   }
 }
