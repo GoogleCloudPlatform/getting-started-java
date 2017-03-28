@@ -41,6 +41,27 @@ Copyright 2016 Google Inc.
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${jetty.maven.plugin}</version>
+        <configuration>
+          <stopKey>stopPlzKThxBai</stopKey>
+          <stopPort>9283</stopPort>
+          <stopWait>60</stopWait>
+        </configuration>
+        <executions>
+          <execution>
+            <id>start-gae</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>stop-gae</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

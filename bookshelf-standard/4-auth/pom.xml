@@ -150,7 +150,7 @@ Copyright 2016 Google Inc.
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-firefox-driver</artifactId>
+      <artifactId>selenium-chrome-driver</artifactId>
     </dependency>
   </dependencies>
 
