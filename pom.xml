@@ -137,12 +137,6 @@ limitations under the License.
           <version>3.3.1</version>
           <scope>test</scope>
         </dependency>
-        <dependency>
-          <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>selenium-firefox-driver</artifactId>
-          <version>3.3.1</version>
-          <scope>test</scope>
-        </dependency>
       </dependencies>
     </dependencyManagement>
 </project>
