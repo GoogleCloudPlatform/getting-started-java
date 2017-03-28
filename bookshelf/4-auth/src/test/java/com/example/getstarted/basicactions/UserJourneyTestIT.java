@@ -16,6 +16,9 @@
 
 package com.example.getstarted.basicactions;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.google.cloud.datastore.Batch;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
@@ -32,11 +35,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.service.DriverService;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 @RunWith(JUnit4.class)
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
@@ -54,6 +61,7 @@ public class UserJourneyTestIT {
   public static void setupClass() throws Exception {
     service = ChromeDriverService.createDefaultService();
     service.start();
+
   }
 
   @AfterClass
@@ -81,8 +89,31 @@ public class UserJourneyTestIT {
     driver.quit();
   }
 
+  private WebElement checkLandingPage() throws Exception {
+    WebElement button = driver.findElement(By.linkText("Login"));
+    assertTrue(null != button);
+
+    WebElement list = driver.findElement(By.cssSelector("body>.container p"));
+    assertEquals("No books found", list.getText());
+
+    return button;
+  }
+
   @Test
   public void userJourney() throws Exception {
     driver.get("http://localhost:8080");
+
+    try {
+      WebElement loginButton = checkLandingPage();
+
+      loginButton.click();
+      (new WebDriverWait(driver, 10)).until(
+          ExpectedConditions.urlMatches("https://accounts.google.com"));
+
+      // ...aaaaand that's about as far as I can test without a Real Account.
+    } catch (Exception e) {
+      System.err.println(driver.getPageSource());
+      throw e;
+    }
   }
 }
