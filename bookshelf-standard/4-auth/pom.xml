@@ -148,6 +148,10 @@ Copyright 2016 Google Inc.
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-server</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

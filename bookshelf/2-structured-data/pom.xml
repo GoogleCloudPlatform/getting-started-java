@@ -161,12 +161,10 @@ Copyright 2016 Google Inc.
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-server</artifactId>
     </dependency>
-    <!-- selenium / guava chokes without this for some reason. -->
-   <dependency>
-       <groupId>org.apache.httpcomponents</groupId>
-       <artifactId>httpclient</artifactId>
-       <version>4.3.5</version>
-   </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

@@ -53,7 +53,7 @@ Copyright 2016 Google Inc.
     <!-- [END config] -->
 
     <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
-    <jetty.maven.plugin>9.3.8.v20160314</jetty.maven.plugin>
+    <jetty.maven.plugin>9.4.3.v20170317</jetty.maven.plugin>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
@@ -115,6 +115,12 @@ Copyright 2016 Google Inc.
       <groupId>com.google.api-client</groupId>
       <artifactId>google-api-client</artifactId>
       <version>1.22.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava-jdk5</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>                        <!-- Google+ API Client Library for Java -->
@@ -130,9 +136,9 @@ Copyright 2016 Google Inc.
     </dependency>
 
     <dependency>                        <!-- Google Core Libraries for Java -->
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-        <version>21.0</version>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
+      <version>21.0</version>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
@@ -165,6 +171,19 @@ Copyright 2016 Google Inc.
       <version>4.1.0</version>
     </dependency>
 
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
