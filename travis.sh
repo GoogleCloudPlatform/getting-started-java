@@ -27,9 +27,16 @@ set -x
 set -o pipefail
 shopt -s globstar
 
+(
+# Stop echoing commands, so we don't leak secret env vars
+set +x
 mvn --batch-mode clean verify \
-  -Dbookshelf.bucket="${GCS_BUCKET-GCS_BUCKET envvar is unset}" | \
+  -Dbookshelf.clientID="${OAUTH2_CLIENT_ID}" \
+  -Dbookshelf.clientSecret="${OAUTH2_CLIENT_SECRET}" \
+  -Dbookshelf.bucket="${GCS_BUCKET-GCS_BUCKET envvar is unset}" \
+  -Plocal | \
   egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
+)
 
 # Test running samples on localhost.
 git clone https://github.com/GoogleCloudPlatform/java-repo-tools.git
