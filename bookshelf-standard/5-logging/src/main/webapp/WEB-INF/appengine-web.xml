@@ -15,22 +15,22 @@
  limitations under the License.
 -->
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-    <threadsafe>true</threadsafe>
-    <use-google-connector-j>true</use-google-connector-j>
+  <threadsafe>true</threadsafe>
+  <use-google-connector-j>true</use-google-connector-j>
 
-    <!-- Configure java.util.logging -->
-    <system-properties>
-        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
-    </system-properties>
+  <!-- Configure java.util.logging -->
+  <system-properties>
+    <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+  </system-properties>
 
-    <static-files>
-      <include path="/static/**" />
-    </static-files>
+  <static-files>
+    <include path="/static/**" />
+  </static-files>
 
-    <resource-files>
-      <include path="/resources/**" />
-    </resource-files>
+  <resource-files>
+    <include path="/resources/**" />
+  </resource-files>
 
-    <sessions-enabled>true</sessions-enabled>
-    <async-session-persistence enabled="true" />
+  <sessions-enabled>true</sessions-enabled>
+  <async-session-persistence enabled="true" />
 </appengine-web-app>
