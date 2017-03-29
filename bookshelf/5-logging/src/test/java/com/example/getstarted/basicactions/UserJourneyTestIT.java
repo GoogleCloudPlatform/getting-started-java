@@ -106,7 +106,8 @@ public class UserJourneyTestIT {
     WebElement list = driver.findElement(By.cssSelector("body>.container p"));
     assertEquals("No books found", list.getText());
 
-    driver.findElement(By.linkText("Login"));
+    WebElement loginButton = driver.findElement(By.linkText("Login"));
+    assertTrue(null != loginButton);
 
     return button;
   }
@@ -178,6 +179,12 @@ public class UserJourneyTestIT {
       (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
       checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
+
+      // Now make sure login at least nominally works.
+      driver.findElement(By.linkText("Login")).click();
+      (new WebDriverWait(driver, 10)).until(
+          ExpectedConditions.urlMatches("https://accounts.google.com"));
+      // ...aaaaand that's about as far as I can test without a Real Account.
     } catch (Exception e) {
       System.err.println(driver.getPageSource());
       throw e;
