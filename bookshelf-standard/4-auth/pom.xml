@@ -52,7 +52,6 @@ Copyright 2016 Google Inc.
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
     <appengine-maven.version>1.9.48</appengine-maven.version>
-    <guava.version>21.0</guava.version>
   </properties>
 
   <prerequisites>                       <!-- Optional, but suggested -->
@@ -124,7 +123,9 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Core Libraries for Java -->
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-        <version>${guava.version}</version>
+        <!-- Guava v21.0 doesn't support Java7 -->
+        <version>20.0</version>
+        <scope>compile</scope>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
@@ -148,9 +149,10 @@ Copyright 2016 Google Inc.
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-server</artifactId>
     </dependency>
+    <!-- Selenium chokes without this, for some reason. -->
     <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-chrome-driver</artifactId>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
     </dependency>
   </dependencies>
 
