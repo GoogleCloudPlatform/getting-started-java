@@ -131,18 +131,6 @@ limitations under the License.
           <artifactId>jcabi-matchers</artifactId>
           <version>1.4</version>
         </dependency>
-        <dependency>
-          <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>selenium-server</artifactId>
-          <version>3.3.1</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>selenium-chrome-driver</artifactId>
-          <version>3.3.1</version>
-          <scope>test</scope>
-        </dependency>
       </dependencies>
     </dependencyManagement>
 </project>

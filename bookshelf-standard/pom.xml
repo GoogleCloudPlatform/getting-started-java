@@ -60,4 +60,23 @@ Copyright 2016 Google Inc.
       </plugin>
     </plugins>
   </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Selenium v3.3.1 depends on Guava v21, which doesn't support Java7 -->
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-server</artifactId>
+        <version>3.0.1</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- Selenium chokes without this, for some reason. -->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.3.5</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
