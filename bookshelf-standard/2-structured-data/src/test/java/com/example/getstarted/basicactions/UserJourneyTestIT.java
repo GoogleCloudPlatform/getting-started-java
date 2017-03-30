@@ -19,6 +19,14 @@ package com.example.getstarted.basicactions;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.google.cloud.datastore.Batch;
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.Key;
+import com.google.cloud.datastore.Query;
+import com.google.cloud.datastore.QueryResults;
+import com.google.cloud.datastore.StructuredQuery;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,6 +57,10 @@ public class UserJourneyTestIT {
   private static final String PUBLISHED_DATE = "1984-02-27";
   private static final String DESCRIPTION = "mydescription";
 
+  private static final String APP_ID = System.getProperty("appengine.appId");
+  private static final String APP_VERSION = System.getProperty("appengine.version");
+  private static final boolean LOCAL_TEST = null == APP_ID || null == APP_VERSION;
+
   private static DriverService service;
   private WebDriver driver;
 
@@ -56,12 +68,23 @@ public class UserJourneyTestIT {
   public static void createAndStartService() throws Exception {
     service = ChromeDriverService.createDefaultService();
     service.start();
-
   }
 
   @AfterClass
   public static void createAndStopService() {
     service.stop();
+
+    // Clear the datastore if we're not using the local emulator
+    if (!LOCAL_TEST) {
+      Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+      Batch batch = datastore.newBatch();
+      StructuredQuery<Key> query = Query.newKeyQueryBuilder()
+          .setKind("Book2").build();
+      for (QueryResults<Key> keys = datastore.run(query); keys.hasNext(); ) {
+        batch.delete(keys.next());
+      }
+      batch.submit();
+    }
   }
 
   @Before
@@ -158,7 +181,13 @@ public class UserJourneyTestIT {
 
   @Test
   public void userJourney() throws Exception {
-    driver.get("http://localhost:8080");
+    // Do selenium tests on the deployed version, if applicable
+    String endpoint = "http://localhost:8080";
+    if (!LOCAL_TEST) {
+      endpoint = String.format("https://%s-dot-%s.appspot.com", APP_VERSION, APP_ID);
+    }
+    System.out.println("Testing endpoint: " + endpoint);
+    driver.get(endpoint);
 
     try {
       WebElement button = checkLandingPage();

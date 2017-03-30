@@ -32,6 +32,7 @@ Copyright 2016 Google Inc.
 
   <properties>
     <appengine-maven.version>1.9.48</appengine-maven.version>
+    <google-cloud.version>0.10.0-alpha</google-cloud.version>
   </properties>
 
   <profiles>
@@ -85,6 +86,12 @@ Copyright 2016 Google Inc.
         <groupId>org.apache.httpcomponents</groupId>
         <artifactId>httpclient</artifactId>
         <version>4.3.5</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>                        <!-- Google Cloud Client Library for Java -->
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud</artifactId>
+        <version>${google-cloud.version}</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
