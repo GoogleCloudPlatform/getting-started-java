@@ -34,25 +34,12 @@ mvn --batch-mode clean verify \
   -Dbookshelf.clientID="${OAUTH2_CLIENT_ID}" \
   -Dbookshelf.clientSecret="${OAUTH2_CLIENT_SECRET}" \
   -Dbookshelf.bucket="${GCS_BUCKET-GCS_BUCKET envvar is unset}" \
-  -Plocal | \
+  -Pselenium | \
   egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 )
 
 # Test running samples on localhost.
-git clone https://github.com/GoogleCloudPlatform/java-repo-tools.git
-
-if [[ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]]; then
-  # The bookshelf sample requires Cloud Datastore access. Enable when
-  # credentials are available (such as branch PRs).
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/2-structured-data -- -Plocal -DskipTests=true
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/3-binary-data -- -Plocal -DskipTests=true
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/4-auth -- -Plocal -DskipTests=true
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/5-logging -- -Plocal -DskipTests=true
-  ./java-repo-tools/scripts/test-localhost.sh jetty bookshelf/6-gce -- -Plocal -DskipTests=true
-else
-  # only run unit tests and lint on external PRs
-  echo 'External PR: skipping integration tests.'
-fi
+# git clone https://github.com/GoogleCloudPlatform/java-repo-tools.git
 # ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-jsp -- -DskipTests=true
 # ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-servlet -- -DskipTests=true
 # ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-compat -- -DskipTests=true
