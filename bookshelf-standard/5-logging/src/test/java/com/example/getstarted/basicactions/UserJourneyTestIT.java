@@ -19,6 +19,14 @@ package com.example.getstarted.basicactions;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.google.cloud.datastore.Batch;
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.Key;
+import com.google.cloud.datastore.Query;
+import com.google.cloud.datastore.QueryResults;
+import com.google.cloud.datastore.StructuredQuery;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -54,6 +62,10 @@ public class UserJourneyTestIT {
   private static final String DESCRIPTION = "mydescription";
   private static final String EMAIL = "userjourneytest@example.com";
 
+  private static final String APP_ID = System.getProperty("appengine.appId");
+  private static final String APP_VERSION = System.getProperty("appengine.version");
+  private static final boolean LOCAL_TEST = null == APP_ID || null == APP_VERSION;
+
   private static DriverService service;
   private WebDriver driver;
 
@@ -66,6 +78,18 @@ public class UserJourneyTestIT {
 
   @AfterClass
   public static void tearDownClass() {
+    // Clear the datastore if we're not using the local emulator
+    if (!LOCAL_TEST) {
+      Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+      Batch batch = datastore.newBatch();
+      StructuredQuery<Key> query = Query.newKeyQueryBuilder()
+          .setKind("Book5").build();
+      for (QueryResults<Key> keys = datastore.run(query); keys.hasNext(); ) {
+        batch.delete(keys.next());
+      }
+      batch.submit();
+    }
+
     service.stop();
   }
 
@@ -90,7 +114,9 @@ public class UserJourneyTestIT {
     assertEquals("No books found", list.getText());
 
     WebElement loginButton = driver.findElement(By.linkText("Login"));
-    return loginButton;
+    assertTrue(null != loginButton);
+
+    return button;
   }
 
   private WebElement checkLandingPage(String email) throws Exception {
@@ -188,32 +214,60 @@ public class UserJourneyTestIT {
 
   @Test
   public void userJourney() throws Exception {
-    driver.get("http://localhost:8080");
+    // Do selenium tests on the deployed version, if applicable
+    String endpoint = "http://localhost:8080";
+    if (!LOCAL_TEST) {
+      endpoint = String.format("https://%s-dot-%s.appspot.com", APP_VERSION, APP_ID);
+    }
+    System.out.println("Testing endpoint: " + endpoint);
+    driver.get(endpoint);
 
     try {
-      WebElement loginButton = checkLandingPage();
+      WebElement button = checkLandingPage();
 
-      loginButton.click();
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches("login"));
+      if (LOCAL_TEST) {
+        WebElement loginButton = driver.findElement(By.linkText("Login"));
+        loginButton.click();
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches("login"));
 
-      login(EMAIL);
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches("/books"));
+        login(EMAIL);
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches("/books"));
 
-      WebElement button = checkLandingPage(EMAIL);
+        button = checkLandingPage(EMAIL);
 
-      button.click();
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/create$"));
+        button.click();
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/create$"));
 
-      checkAddBookPage();
+        checkAddBookPage();
 
-      submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
+        submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
+        (new WebDriverWait(driver, 10)).until(
+            ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
-      checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, EMAIL);
+        checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, EMAIL);
 
-      logout(EMAIL);
-      (new WebDriverWait(driver, 10)).until(
-          ExpectedConditions.presenceOfElementLocated(By.linkText("Login")));
+        logout(EMAIL);
+        (new WebDriverWait(driver, 10)).until(
+            ExpectedConditions.presenceOfElementLocated(By.linkText("Login")));
+
+      } else {
+        button.click();
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/create$"));
+
+        checkAddBookPage();
+
+        submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
+        (new WebDriverWait(driver, 10)).until(
+            ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
+
+        checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, "Anonymous");
+
+        // Now check the list of books for the one we just submitted
+        driver.findElement(By.linkText("Books")).click();
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/$"));
+
+        checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
+      }
     } catch (Exception e) {
       System.err.println(driver.getPageSource());
       throw e;
