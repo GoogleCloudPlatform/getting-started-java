@@ -34,32 +34,42 @@ Copyright 2016 Google Inc.
     <appengine-maven.version>1.9.48</appengine-maven.version>
   </properties>
 
-  <build>
-    <plugins>
-      <!-- Integration tests need the servlet up to work -->
-      <plugin>
-        <groupId>com.google.appengine</groupId>
-        <artifactId>appengine-maven-plugin</artifactId>
-        <version>${appengine-maven.version}</version>
-        <executions>
-          <execution>
-            <id>start-gae</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>devserver_start</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>stop-gae</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>devserver_stop</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <profiles>
+    <profile>
+      <id>selenium</id>
+      <properties>
+        <callback.method>http</callback.method>       <!-- "http" for local, "https" for the cloud -->
+        <callback.host>localhost:8080</callback.host> <!-- Typically projectname.appspot.com -->
+        <bookshelf.callback>http://localhost:8080/oauth2callback</bookshelf.callback>
+      </properties>
+      <build>
+        <plugins>
+          <!-- Integration tests need the servlet up to work -->
+          <plugin>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-maven-plugin</artifactId>
+            <version>${appengine-maven.version}</version>
+            <executions>
+              <execution>
+                <id>start-gae</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>devserver_start</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>stop-gae</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>devserver_stop</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <dependencyManagement>
     <dependencies>

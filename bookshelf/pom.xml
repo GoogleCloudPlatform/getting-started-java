@@ -34,37 +34,47 @@ Copyright 2016 Google Inc.
     <jetty.maven.plugin>9.3.8.v20160314</jetty.maven.plugin>
   </properties>
 
-  <build>
-    <plugins>
-      <!-- Integration tests need the servlet up to work -->
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jetty.maven.plugin}</version>
-        <configuration>
-          <stopKey>stopPlzKThxBai</stopKey>
-          <stopPort>9283</stopPort>
-          <stopWait>60</stopWait>
-        </configuration>
-        <executions>
-          <execution>
-            <id>start-gae</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>start</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>stop-gae</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>stop</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <profiles>
+    <profile>
+      <id>selenium</id>
+      <properties>
+        <callback.method>http</callback.method>       <!-- "http" for local, "https" for the cloud -->
+        <callback.host>localhost:8080</callback.host> <!-- Typically projectname.appspot.com -->
+        <bookshelf.callback>http://localhost:8080/oauth2callback</bookshelf.callback>
+      </properties>
+      <build>
+        <plugins>
+          <!-- Integration tests need the servlet up to work -->
+          <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>${jetty.maven.plugin}</version>
+            <configuration>
+              <stopKey>stopPlzKThxBai</stopKey>
+              <stopPort>9283</stopPort>
+              <stopWait>60</stopWait>
+            </configuration>
+            <executions>
+              <execution>
+                <id>start-gae</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>start</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>stop-gae</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <dependencyManagement>
     <dependencies>
