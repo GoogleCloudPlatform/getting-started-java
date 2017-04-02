@@ -22,23 +22,8 @@ set -xe
 # Make sure it works on GAE7
 
 # Deploy and run selenium tests
-mvn clean appengine:update verify \
+mvn clean appengine:deploy verify \
   -Pselenium \
-  -Dappengine.appId="${GOOGLE_CLOUD_PROJECT}" \
-  -Dappengine.version="${GOOGLE_VERSION_ID}" \
-  -Dappengine.additionalParams="--service_account_json_key_file=${GOOGLE_APPLICATION_CREDENTIALS}"
-
-
-# Make sure it deploys on GAE8
-
-FILE_PATH=src/main/webapp/WEB-INF/appengine-web.xml
-sed -i'.bak' '/<appengine-web-app/ a <runtime>java8</runtime>' "${FILE_PATH}"
-# Restore the backup after we're done
-trap 'mv "${FILE_PATH}"{.bak,}' EXIT
-# Deploy and run selenium tests
-mvn clean appengine:update verify \
-  -Pselenium \
-  -Dappengine.appId="${GOOGLE_CLOUD_PROJECT}" \
-  -Dappengine.version="${GOOGLE_VERSION_ID}" \
-  -Dappengine.additionalParams="--service_account_json_key_file=${GOOGLE_APPLICATION_CREDENTIALS}"
-
+  -Dbookshelf.endpoint="https://${GOOGLE_VERSION_ID}-dot-${GOOGLE_CLOUD_PROJECT}.appspot.com" \
+  -Dapp.deploy.version="${GOOGLE_VERSION_ID}" \
+  -Dapp.deploy.promote=false

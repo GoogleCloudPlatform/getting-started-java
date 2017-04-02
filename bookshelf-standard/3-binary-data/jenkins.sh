@@ -17,15 +17,16 @@
 # Fail on non-zero return and print command to stdout
 set -xe
 
-# Jenkins provides values for GOOGLE_CLOUD_PROJECT and GOOGLE_VERSION_ID
+# Jenkins provides values for GOOGLE_PROJECT_ID and GOOGLE_VERSION_ID
 
 # Make sure it works on GAE7
 
 # Deploy and run selenium tests
 mvn clean appengine:update verify \
   -Pselenium \
-  -Dappengine.appId="${GOOGLE_CLOUD_PROJECT}" \
+  -Dappengine.appId="${GOOGLE_PROJECT_ID}" \
   -Dappengine.version="${GOOGLE_VERSION_ID}" \
+  -Dbookshelf.bucket="${GCS_BUCKET}" \
   -Dappengine.additionalParams="--service_account_json_key_file=${GOOGLE_APPLICATION_CREDENTIALS}"
 
 
@@ -38,7 +39,8 @@ trap 'mv "${FILE_PATH}"{.bak,}' EXIT
 # Deploy and run selenium tests
 mvn clean appengine:update verify \
   -Pselenium \
-  -Dappengine.appId="${GOOGLE_CLOUD_PROJECT}" \
+  -Dappengine.appId="${GOOGLE_PROJECT_ID}" \
   -Dappengine.version="${GOOGLE_VERSION_ID}" \
+  -Dbookshelf.bucket="${GCS_BUCKET}" \
   -Dappengine.additionalParams="--service_account_json_key_file=${GOOGLE_APPLICATION_CREDENTIALS}"
 
