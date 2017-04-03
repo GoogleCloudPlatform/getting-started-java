@@ -159,9 +159,23 @@ public class UserJourneyTestIT {
         description, driver.findElement(By.cssSelector(".book-description")).getText());
   }
 
+  private void getWithRetries(String endpoint, int numRetries) throws InterruptedException {
+    for (int i = 0; i < numRetries; i++) {
+      driver.get(endpoint);
+      if (driver.getTitle().matches("50[0-9]|[Ee]rror")) {
+        Thread.sleep(5000 + (int)(Math.random() * Math.pow(2, i + 1)) * 1000);
+      } else {
+        return;
+      }
+    }
+    throw new RuntimeException("Failed " + numRetries + "x to GET non-500 page for " + endpoint);
+  }
+
   @Test
   public void userJourney() throws Exception {
-    driver.get("http://localhost:8080");
+    String endpoint = System.getProperty("bookshelf.endpoint", "http://localhost:8080");
+    System.out.println("Testing endpoint: " + endpoint);
+    getWithRetries(endpoint, 3);
 
     try {
       WebElement button = checkLandingPage();

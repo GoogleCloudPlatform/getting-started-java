@@ -140,6 +140,10 @@ Copyright 2016 Google Inc.
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
     </dependency>
+    <dependency>                        <!-- Google Cloud Client Library for Java -->
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

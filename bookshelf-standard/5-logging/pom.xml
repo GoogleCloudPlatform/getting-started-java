@@ -116,8 +116,8 @@ Copyright 2016 Google Inc.
 
     <dependency>                        <!-- Google Cloud Client Library for Java -->
       <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud</artifactId>
-      <version>0.5.1</version>
+      <artifactId>google-cloud-storage</artifactId>
+      <version>0.10.0-beta</version>
     </dependency>
 
     <dependency>                        <!-- Google Core Libraries for Java -->
@@ -153,6 +153,10 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
+    </dependency>
+    <dependency>                        <!-- Google Cloud Client Library for Java -->
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud</artifactId>
     </dependency>
   </dependencies>
 
