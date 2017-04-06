@@ -36,20 +36,20 @@
     <maven.compiler.source>${java.version}</maven.compiler.source> <!-- REQUIRED -->
     <maven.compiler.target>${java.version}</maven.compiler.target> <!-- REQUIRED -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
+    <appengine.maven.plugin>1.2.1</appengine.maven.plugin>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>1.4.4.RELEASE</version>
+      <version>1.5.2.RELEASE</version>
     </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>1.4.4.RELEASE</version>
+      <version>1.5.2.RELEASE</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
