@@ -72,6 +72,20 @@ Copyright 2016 Google Inc.
     </profile>
   </profiles>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <!-- explicitly specified to help m2e-wtp (http://eclip.se/514577) -->
+          <filteringDeploymentDescriptors>${maven.war.filteringDeploymentDescriptors}</filteringDeploymentDescriptors> 
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencyManagement>
     <dependencies>
       <!-- Selenium v3.3.1 depends on Guava v21, which doesn't support Java7 -->

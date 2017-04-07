@@ -12,7 +12,11 @@
  limitations under the License.
 -->
 <!-- [START webxml] -->
-<web-app version="3.0">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+         version="2.5">
     <!--
       A web.xml is needed to explicitly set the order in which filters process requests. Any filters
       not included in web.xml will be loaded after filters listed below.
