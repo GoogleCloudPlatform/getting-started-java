@@ -15,6 +15,11 @@ to below as `MY-BUCKET`.
 
     mvn -Plocal clean appengine:devserver -Dbookshelf.bucket=MY-BUCKET
 
+**Note**: If you run into an error about `Invalid Credentials`, you may have to
+run:
+
+    gcloud auth application-default login
+
 ### Deploying to App Engine Standard
 
 * Deploy your App
