@@ -32,7 +32,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
-    <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
+    <appengine.maven.plugin>1.2.1</appengine.maven.plugin>
     <jetty.maven.plugin>9.3.7.v20160115</jetty.maven.plugin>
   </properties>
 
