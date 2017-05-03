@@ -46,11 +46,6 @@ spec:
         # off in production.
         imagePullPolicy: Always
 
-        env:
-        - name: GCLOUD_PROJECT
-          # Replace [GCLOUD_PROJECT] with your project ID.
-          value: "[GCLOUD_PROJECT]"
-
         # The bookshelf process listens on port 8080 for web traffic by default.
         ports:
         - name: http-server
