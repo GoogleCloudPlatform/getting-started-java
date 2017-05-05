@@ -41,10 +41,6 @@
     <relativePath>..</relativePath>
   </parent>
 
-  <prerequisites>                       <!-- Optional, but suggested -->
-    <maven>3.3.9</maven>                <!-- Recommended minimum maven version -->
-  </prerequisites>
-
   <dependencies>
     <dependency>                        <!-- REQUIRED -->
       <groupId>javax.servlet</groupId>  <!-- Java Servlet API -->

@@ -52,10 +52,6 @@ Copyright 2016 Google Inc.
     <appengine-maven.version>1.9.52</appengine-maven.version>
   </properties>
 
-  <prerequisites>                       <!-- Optional, but suggested -->
-    <maven>3.3.9</maven>                <!-- Recommended minimum maven version -->
-  </prerequisites>
-
   <!-- THINGS ONLY USED WHEN RUN LOCALLY -->
   <profiles>
     <profile>

@@ -54,10 +54,6 @@ Copyright 2016 Google Inc.
     <appengine-maven.version>1.9.52</appengine-maven.version>
   </properties>
 
-  <prerequisites>                       <!-- Optional, but suggested -->
-    <maven>3.3.9</maven>                <!-- Recommended minimum maven version -->
-  </prerequisites>
-
   <!-- THINGS ONLY USED WHEN RUN LOCALLY -->
   <profiles>
     <profile>
@@ -157,6 +153,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Cloud Client Library for Java -->
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud</artifactId>
+      <version>0.17.2-alpha</version>
     </dependency>
   </dependencies>
 

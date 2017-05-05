@@ -64,10 +64,6 @@ Copyright 2016 Google Inc.
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
   </properties>
 
-  <prerequisites>                       <!-- Optional, but suggested -->
-    <maven>3.3.9</maven>                <!-- Recommended minimum maven version -->
-  </prerequisites>
-
   <profiles>
     <profile>
       <id>local</id>

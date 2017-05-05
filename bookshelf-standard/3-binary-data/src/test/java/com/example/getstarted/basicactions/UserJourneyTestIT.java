@@ -19,7 +19,7 @@ package com.example.getstarted.basicactions;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.google.cloud.Page;
+import com.google.api.gax.paging.Page;
 import com.google.cloud.datastore.Batch;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
@@ -84,10 +84,9 @@ public class UserJourneyTestIT {
     // Delete any objects in the bucket
     Storage storage = StorageOptions.getDefaultInstance().getService();
     Page<Blob> blobs = storage.list(System.getProperty("bookshelf.bucket"));
-    Iterator<Blob> blobIterator = blobs.iterateAll();
     List<BlobId> blobIds = new ArrayList<BlobId>();
-    while (blobIterator.hasNext()) {
-      blobIds.add(blobIterator.next().getBlobId());
+    for (Blob b : blobs.iterateAll()) {
+      blobIds.add(b.getBlobId());
     }
     storage.delete(blobIds);
 

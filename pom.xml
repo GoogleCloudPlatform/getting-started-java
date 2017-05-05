@@ -82,10 +82,6 @@ limitations under the License.
  -->
     </pluginRepositories>
 
-    <prerequisites>
-        <maven>3.3.9</maven>
-    </prerequisites>
-
     <modules>
         <module>bookshelf/2-structured-data</module>
         <module>bookshelf/3-binary-data</module>
