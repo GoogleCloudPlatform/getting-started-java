@@ -24,7 +24,7 @@ limitations under the License.
     <parent>
         <groupId>com.google.cloud.samples</groupId>
         <artifactId>shared-configuration</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </parent>
 
     <repositories>
@@ -96,6 +96,7 @@ limitations under the License.
         <module>helloworld-jsp</module>
         <module>helloworld-servlet</module>
         <module>helloworld-springboot</module>
+        <module>appengine-standard-java8/helloworld</module>
     </modules>
 
     <reporting>
