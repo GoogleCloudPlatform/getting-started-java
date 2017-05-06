@@ -83,6 +83,7 @@ limitations under the License.
     </pluginRepositories>
 
     <modules>
+        <module>appengine-standard-java8/helloworld</module>
         <module>bookshelf/2-structured-data</module>
         <module>bookshelf/3-binary-data</module>
         <module>bookshelf/4-auth</module>
@@ -96,7 +97,6 @@ limitations under the License.
         <module>helloworld-jsp</module>
         <module>helloworld-servlet</module>
         <module>helloworld-springboot</module>
-        <module>appengine-standard-java8/helloworld</module>
     </modules>
 
     <reporting>
