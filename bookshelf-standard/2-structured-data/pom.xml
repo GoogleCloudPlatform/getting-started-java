@@ -49,7 +49,7 @@ Copyright 2016 Google Inc.
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
-    <appengine-maven.version>1.9.52</appengine-maven.version>
+    <appengine-maven.version>1.9.53</appengine-maven.version>
   </properties>
 
   <!-- THINGS ONLY USED WHEN RUN LOCALLY -->
@@ -80,7 +80,7 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.52</version>
+      <version>1.9.53</version>
     </dependency>
 
     <dependency>                        <!-- REQUIRED -->
