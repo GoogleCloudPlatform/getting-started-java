@@ -1,3 +1,4 @@
+// See https://github.com/JetBrains/kotlin-examples/blob/master/LICENSE
 package org.jetbrains.kotlin.demo
 
 import javax.servlet.annotation.WebServlet
