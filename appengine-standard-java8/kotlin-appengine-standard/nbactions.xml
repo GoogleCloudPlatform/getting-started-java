@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2017 Google Inc.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<actions>
+    <action>
+        <actionName>CUSTOM-appengine:devserver</actionName>
+        <displayName>appengine:devserver</displayName>
+        <goals>
+            <goal>appengine:devserver</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-appengine:update</actionName>
+        <displayName>appengine:update</displayName>
+        <goals>
+            <goal>appengine:update</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-appengine:rollback</actionName>
+        <displayName>appengine:rollback</displayName>
+        <goals>
+            <goal>appengine:rollback</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-appengine:update_cron</actionName>
+        <displayName>appengine:update_cron</displayName>
+        <goals>
+            <goal>appengine:update_cron</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-appengine:update_dos</actionName>
+        <displayName>appengine:update_dos</displayName>
+        <goals>
+            <goal>appengine:update_dos</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-appengine:update_indexes</actionName>
+        <displayName>appengine:update_indexes</displayName>
+        <goals>
+            <goal>appengine:update_indexes</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-appengine:update_queues</actionName>
+        <displayName>appengine:update_queues</displayName>
+        <goals>
+            <goal>appengine:update_queues</goal>
+        </goals>
+    </action>
+    <action>
+            <actionName>run</actionName>
+            <packagings>
+                <packaging>war</packaging>
+                <packaging>ear</packaging>
+                <packaging>ejb</packaging>
+            </packagings>
+            <goals>
+                <goal>appengine:devserver</goal>
+            </goals>
+            <properties>
+                <netbeans.deploy>true</netbeans.deploy>
+            </properties>
+        </action>
+</actions>

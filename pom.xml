@@ -84,6 +84,8 @@ limitations under the License.
 
     <modules>
         <module>appengine-standard-java8/helloworld</module>
+	<module>appengine-standard-java8/kotlin-appengine-standard</module>
+        <module>appengine-standard-java8/kotlin-springboot-appengine-standard</module>
         <module>bookshelf/2-structured-data</module>
         <module>bookshelf/3-binary-data</module>
         <module>bookshelf/4-auth</module>
