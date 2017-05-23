@@ -40,7 +40,7 @@ to (`src/main/test/...`).  The following resources are quite useful:
 
 ## Steps to convert a Spring Boot application for App Engine Standard
 ### Use the WAR packaging
-You muse use WAR packaging to deploy into Google App Engine Standard.
+You must use WAR packaging to deploy into Google App Engine Standard.
 
 If you generate a Spring Boot project from [start.spring.io](http://start.spring.io/),
 make sure you *switch to the full version* view of the initializer site, and select *WAR*
@@ -77,8 +77,7 @@ includes Tomcat by default. This will introduce conflicts. Exclude Tomcat depend
 </dependency>
 ```
 
-Do not include the Jetty dependencies. But you must include Servlet API. Add Servlet API
-dependency:
+Do not include the Jetty dependencies. But you must include Servlet API dependency:
 ```
 <dependency>
 	<groupId>javax.servlet</groupId>
@@ -105,6 +104,9 @@ In the `pom.xml`, add the App Engine Standard plugin:
 </plugin>
 ```
 
+This plugin is used to run local development server as well as deploying the application
+into Google App Engine.
+
 ### Add App Engine Configuration
 Add a `src/main/webapp/WEB-INF/appengine-web.xml`:
 ```
@@ -117,11 +119,13 @@ Add a `src/main/webapp/WEB-INF/appengine-web.xml`:
 </appengine-web-app>
 ```
 
+This configure is required for applications running in Google App Engine.
+
 ### Exclude JUL to SLF4J Bridge
 Spring Boot's default logging bridge conflicts with Jetty's logging system.
 To be able to capture the Spring Boot startup logs, you need to exclude
 `org.slf4j:jul-to-slf4j` dependency.  The easiest way to do this is to
-add set the dependency to `provided` scope, so that it won't be included in
+set the dependency scope to `provided`, so that it won't be included in
 the `WAR` file:
 
 ```
