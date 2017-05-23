@@ -37,6 +37,13 @@
 			</exclusions>
 		</dependency>
 
+		<!-- Exclude any jul-to-slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- Include Servlet API -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -64,7 +71,7 @@
 				<version>1.9.53</version>
 				<configuration>
 					<!-- change to your app Id and version -->
-					<appId>brave-computer-151019</appId>
+					<appId>PROJECT_ID</appId>
 					<version>1</version>
 					<fullScanSeconds>1</fullScanSeconds>
 					<retainUploadDir>true</retainUploadDir>

@@ -117,4 +117,19 @@ Add a `src/main/webapp/WEB-INF/appengine-web.xml`:
 </appengine-web-app>
 ```
 
+### Exclude JUL to SLF4J Bridge
+Spring Boot's default logging bridge conflicts with Jetty's logging system.
+To be able to capture the Spring Boot startup logs, you need to exclude
+`org.slf4j:jul-to-slf4j` dependency.  The easiest way to do this is to
+add set the dependency to `provided` scope, so that it won't be included in
+the `WAR` file:
+
+```
+<!-- Exclude any jul-to-slf4j -->
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>jul-to-slf4j</artifactId>
+	<scope>provided</scope>
+</dependency>
+```
 
