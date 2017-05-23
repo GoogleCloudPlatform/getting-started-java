@@ -16,11 +16,12 @@
 package com.google.appengine.demos.springboot;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@org.springframework.boot.autoconfigure.SpringBootApplication
-public class SpringBootApplication {
+@SpringBootApplication
+public class SpringBootExampleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootApplication.class, args);
+		SpringApplication.run(SpringBootExampleApplication.class, args);
 	}
 }
