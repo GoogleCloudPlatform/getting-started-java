@@ -17,7 +17,7 @@ detailed instructions.
 ## Setup
 
     gcloud init
-    gcloud beta auth application-default login
+    gcloud auth application-default login
 
 ## Maven
 ### Running locally
