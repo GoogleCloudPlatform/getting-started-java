@@ -1,12 +1,19 @@
-# sparkjava-war-example
-Build war with maven and sparkjava framework
+App Engine SparkJava with Java8
+===
 
-Steps:
+## Sample written in SparkJava for use with App Engine Java8 Standard.
 
-1. Download a fresh [Tomcat 8 distribution](https://tomcat.apache.org/download-80.cgi)
-2. Clone the repository to your local machine
-3. Run mvn package
-4. Copy the generated `sparkjava-hello-world-1.0.war` to the Tomcat `webapps` folder
-5. Start Tomcat by running `bin\startup.bat` (or `bin\startaup.sh` for Linux)
-5. Tomcat will automatically deploy the war
-6. Open [http://localhost:8080/sparkjava-hello-world-1.0/hello](http://localhost:8080/sparkjava-hello-world-1.0/hello) in your browser
+Requires [Apache Maven](http://maven.apache.org) 3.1 or greater, and JDK 8 in order to run.
+
+To build, run
+
+    mvn package
+
+
+To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/appengine-maven-plugin/) that is already included in this demo.  Just run the command.
+
+    mvn appengine:devserver
+
+For further information, consult the [Java App Engine](https://developers.google.com/appengine/docs/java/overview) documentation.
+
+
