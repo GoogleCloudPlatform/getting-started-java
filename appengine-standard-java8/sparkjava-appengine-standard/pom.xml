@@ -122,6 +122,7 @@ limitations under the License.
         <artifactId>appengine-maven-plugin</artifactId>
         <version>1.9.53</version>
         <configuration>
+          <!-- change below with your App Engine project name: -->
           <appId>testdevoxx</appId>
           <version>sparkjava</version>
           <fullScanSeconds>1</fullScanSeconds>
