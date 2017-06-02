@@ -1,4 +1,4 @@
-App Engine Java Kotlin Servlet 3.1 with Java8
+App Engine SparkJava Kotlin with Java8
 ===
 
 ## Sample SparkJava application written in Kotlin for use with App Engine Java8 Standard.

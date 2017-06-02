@@ -155,7 +155,7 @@ limitations under the License.
         <version>1.9.53</version>
         <configuration>
           <!-- change to your app Id and version -->  
-          <appId>pubrobots</appId>
+          <appId>kotlin-gae</appId>
           <version>kotlinspark</version>
           <fullScanSeconds>1</fullScanSeconds>
           <retainUploadDir>true</retainUploadDir>

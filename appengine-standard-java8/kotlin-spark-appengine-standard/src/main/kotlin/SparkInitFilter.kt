@@ -1,6 +1,3 @@
-// See https://github.com/JetBrains/kotlin-examples/blob/master/LICENSE
-package org.jetbrains.kotlin.demo
-
 /**
  * Copyright 2017 Google Inc.
  *
