@@ -76,13 +76,13 @@ public class HelloAppEngineTest {
     // We expect our hello world response.
     assertThat(responseWriter.toString())
         .named("HelloAppEngine response")
-        .contains("Hello App Engine - Standard using Java 8!");
+        .contains("Hello App Engine - Standard ");
   }
 
   @Test
   public void helloInfoTest() {
-    String result = HelloInfo.getInfo();
-    assertThat(HelloInfo.getInfo())
+    String result = HelloAppEngine.getInfo();
+    assertThat(result)
       .named("HelloInfo.getInfo")
       .containsMatch("^Version:\\s+.+OS:\\s+.+User:\\s");
   }
