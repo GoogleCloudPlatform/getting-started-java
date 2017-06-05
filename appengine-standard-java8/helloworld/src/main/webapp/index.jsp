@@ -17,7 +17,7 @@
   --%>
 <!-- [END_EXCLUDE] -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.gaejava8standard.HelloInfo" %>
+<%@ page import="com.example.gaejava8standard.HelloAppEngine" %>
 <html>
 <head>
   <link href='//fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>
@@ -26,7 +26,7 @@
 <body>
     <h1>Hello App Engine -- Java 8!</h1>
 
-  <p>This is <%= HelloInfo.getInfo() %>.</p>
+  <p>This is <%= HelloAppEngine.getInfo() %>.</p>
   <table>
     <tr>
       <td colspan="2" style="font-weight:bold;">Available Servlets:</td>

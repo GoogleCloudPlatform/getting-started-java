@@ -17,7 +17,10 @@
 package com.example.gaejava8standard;
 
 // [START example]
+import com.google.appengine.api.utils.SystemProperty;
+
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,9 +34,19 @@ public class HelloAppEngine extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
 
+    Properties properties = System.getProperties();
+
     response.setContentType("text/plain");
-    response.getWriter().println("Hello App Engine - Standard using Java 8!");
+    response.getWriter().println("Hello App Engine - Standard using "
+        + SystemProperty.version.get() + " Java " + properties.get("java.specification.version"));
 
   }
+
+  public static String getInfo() {
+    return "Version: " + System.getProperty("java.version")
+          + " OS: " + System.getProperty("os.name")
+          + " User: " + System.getProperty("user.name");
+  }
+
 }
 // [END example]
