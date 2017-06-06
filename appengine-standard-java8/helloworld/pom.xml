@@ -14,6 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+<!-- [START pom] -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
@@ -49,11 +50,13 @@ limitations under the License.
 
   <dependencies>
     <!-- Compile/runtime dependencies -->
+    <!-- [START api-dependencies] -->
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
       <version>1.9.53</version>
     </dependency>
+    <!-- [END api-dependencies] -->
     <!-- [START servlet] -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -208,3 +211,4 @@ limitations under the License.
     </plugins>
   </build>
 </project>
+<!-- [END pom] -->
