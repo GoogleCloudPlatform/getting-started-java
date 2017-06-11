@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// With @WebServlet annotation the webapp/WEB-INF/web.xml is no longer required.
 @WebServlet(name = "HelloAppEngine", value = "/hello")
 public class HelloAppEngine extends HttpServlet {
 

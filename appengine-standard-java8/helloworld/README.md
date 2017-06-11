@@ -16,8 +16,17 @@ detailed instructions.
 
 ## Setup
 
+• Download and initialize the [Cloud SDK](https://cloud.google.com/sdk/)
+
     gcloud init
+
+* Setup application default credentials (only required to use Google API's locally)
+
     gcloud auth application-default login
+
+* Create an App Engine app within the current Google Cloud Project
+
+    gcloud app create
 
 ## Maven
 ### Running locally
@@ -44,9 +53,9 @@ If you do not have gradle installed, you can deploy using `./gradlew appengineDe
 ## Testing
 
     mvn verify
- 
+
  or
- 
+
     gradle test
 
 As you add / modify the source code (`src/main/java/...`) it's very useful to add [unit testing](https://cloud.google.com/appengine/docs/java/tools/localunittesting)
