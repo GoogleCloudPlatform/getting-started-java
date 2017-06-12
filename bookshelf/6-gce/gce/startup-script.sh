@@ -28,7 +28,7 @@ gsutil cp "gs://${BUCKET}/gce/"** .
 
 # Install dependencies from apt
 apt-get update
-apt-get install  -yq openjdk-8-jdk
+apt-get install -t jessie-backports -yq openjdk-8-jdk
 
 # Make Java8 the default
 update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
