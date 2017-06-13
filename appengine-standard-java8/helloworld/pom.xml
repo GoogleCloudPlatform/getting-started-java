@@ -24,12 +24,14 @@ limitations under the License.
   <groupId>com.example.appengine_standard_java8</groupId>
   <artifactId>helloworld_java8_GAE_standard</artifactId>
 
+  <!-- [START_EXCLUDE] -->  
   <parent>                              <!-- Get parameters and allow bulk testing -->
     <artifactId>getting-started-java</artifactId>
     <groupId>com.example</groupId>
     <version>1.0.0</version>
     <relativePath>../..</relativePath>
   </parent>
+  <!-- [END_EXCLUDE] -->
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,11 +42,11 @@ limitations under the License.
     <archiveClasses>true</archiveClasses>
     <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
-
+  <!-- [START_EXCLUDE] -->
   <prerequisites>
     <maven>3.5</maven>
   </prerequisites>
-
+  <!-- [END_EXCLUDE] -->
   <dependencies>
     <!-- Compile/runtime dependencies -->
     <!-- [START api-dependencies] -->
@@ -54,6 +56,7 @@ limitations under the License.
       <version>1.9.53</version>
     </dependency>
     <!-- [END api-dependencies] -->
+
     <!-- [START servlet] -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -69,7 +72,7 @@ limitations under the License.
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
-
+    <!-- [START_EXCLUDE] -->
     <!-- Test Dependencies -->
     <dependency>
       <groupId>com.google.appengine</groupId>
@@ -110,6 +113,7 @@ limitations under the License.
       <version>2.0.2-beta</version>
       <scope>test</scope>
     </dependency>
+    <!-- [END_EXCLUDE] -->
   </dependencies>
 
   <build>
@@ -125,7 +129,8 @@ limitations under the License.
         </configuration>
       </plugin>
       <!-- [END cloudplugin] -->
-
+      
+      <!-- [START_EXCLUDE] -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
@@ -206,6 +211,7 @@ limitations under the License.
           </execution>
         </executions>
       </plugin>
+      <!-- [END_EXCLUDE] -->
     </plugins>
   </build>
 </project>
