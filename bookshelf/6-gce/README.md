@@ -22,10 +22,10 @@ details.
 
         gcloud init
 
-* Update the `pom.xml` update properties `projectID` and `bookshelf.bucket` with
+* In the `pom.xml` update properties `projectID` and `bookshelf.bucket` with
   your project id and your bucket name respectively.
 
-* Inside the `makeBookshelf` script update the `BUCKET` environment variable
+* In the `makeBookshelf` script update the `BUCKET` environment variable
   with your bucket name.
 
 * Deploy your App
