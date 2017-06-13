@@ -43,7 +43,7 @@ Copyright 2016 Google Inc.
     <sql.userName>root</sql.userName>                         <!-- A reasonable default -->
     <sql.password>myRootPassword1234</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
 
-    <bookshelf.bucket>myBucketName</bookshelf.bucket> <!-- bucket w/o gs:// -->
+    <bookshelf.bucket>BUCKETNAME</bookshelf.bucket> <!-- bucket w/o gs:// -->
 
     <callback.host></callback.host> <!-- Typically projectname.appspot.com -->
     <bookshelf.clientID></bookshelf.clientID>             <!-- for User Authentication -->
