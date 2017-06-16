@@ -8,7 +8,7 @@ dependencies:
     - sudo apt-add-repository "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe"
     - sudo apt-get update
     - sudo apt-get install -t trusty-backports shellcheck
-    - openssl aes-256-cbc -d -in "${HOME}/java-docs-samples/client-secret.json.enc" -k "${key}" -iv "${iv}" -out "${HOME}/google-cloud-service-key.json"
+    - openssl aes-256-cbc -d -in "${HOME}/${CIRCLE_PROJECT_REPONAME}/client-secret.json.enc" -k "${key}" -iv "${iv}" -out "${HOME}/google-cloud-service-key.json"
     - export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/google-cloud-service-key.json"
 test:
   override:
