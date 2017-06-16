@@ -29,12 +29,13 @@ shopt -s globstar
 
 (
 # Stop echoing commands, so we don't leak secret env vars
+#   -Pselenium | \ # LV3 20170616 turn off selenium for now.
 set +x
-mvn --batch-mode clean verify \
+./mvnw --batch-mode clean verify \
   -Dbookshelf.clientID="${OAUTH2_CLIENT_ID}" \
   -Dbookshelf.clientSecret="${OAUTH2_CLIENT_SECRET}" \
   -Dbookshelf.bucket="${GCS_BUCKET-GCS_BUCKET envvar is unset}" \
-  -Pselenium | \
+  | \
   egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 )
 
