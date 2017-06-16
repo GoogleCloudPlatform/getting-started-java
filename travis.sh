@@ -35,6 +35,7 @@ set +x
   -Dbookshelf.clientID="${OAUTH2_CLIENT_ID}" \
   -Dbookshelf.clientSecret="${OAUTH2_CLIENT_SECRET}" \
   -Dbookshelf.bucket="${GCS_BUCKET-GCS_BUCKET envvar is unset}" \
+  | \
   egrep -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 )
 

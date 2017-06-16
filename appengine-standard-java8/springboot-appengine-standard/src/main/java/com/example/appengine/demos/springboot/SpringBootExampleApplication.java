@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.appengine.demos.springboot;
+package com.example.appengine.demos.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringBootExampleApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootExampleApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(SpringBootExampleApplication.class, args);
+  }
 }
