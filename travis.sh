@@ -30,7 +30,7 @@ shopt -s globstar
 (
 # Stop echoing commands, so we don't leak secret env vars
 set +x
-mvn --batch-mode clean verify \
+mvnw --batch-mode clean verify \
   -Dbookshelf.clientID="${OAUTH2_CLIENT_ID}" \
   -Dbookshelf.clientSecret="${OAUTH2_CLIENT_SECRET}" \
   -Dbookshelf.bucket="${GCS_BUCKET-GCS_BUCKET envvar is unset}" \
