@@ -30,7 +30,7 @@ limitations under the License.
     <version>1.0.0</version>
     <relativePath>../..</relativePath>
   </parent>
-  
+
   <dependencies>
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -87,7 +87,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.53</version>
+      <version>1.9.54</version>
       <type>jar</type>
     </dependency>
     <dependency>
@@ -116,19 +116,17 @@ limitations under the License.
           <target>1.8</target>
         </configuration>
       </plugin>
-  
+
+      <!-- [START cloudplugin] -->
       <plugin>
-        <groupId>com.google.appengine</groupId>
+        <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>1.9.53</version>
+        <version>1.3.1</version>
         <configuration>
-          <!-- change below with your App Engine project name: -->
-          <appId>testdevoxx</appId>
-          <version>sparkjava</version>
-          <fullScanSeconds>1</fullScanSeconds>
         </configuration>
       </plugin>
-      
+      <!-- [END cloudplugin] -->
+
     </plugins>
   </build>
 </project>

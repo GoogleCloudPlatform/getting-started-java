@@ -12,11 +12,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-    <application>kotlin-in-gae</application>
-    <version>kotlin</version>
     <threadsafe>true</threadsafe>
     <runtime>java8</runtime>
-    <module>default</module>
     <system-properties>
         <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
     </system-properties>

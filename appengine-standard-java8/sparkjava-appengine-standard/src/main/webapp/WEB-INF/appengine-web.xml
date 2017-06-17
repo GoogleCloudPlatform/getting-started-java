@@ -18,7 +18,6 @@ limitations under the License.
 
   <threadsafe>true</threadsafe>
   <precompilation-enabled>false</precompilation-enabled>
-  <module>default</module>
   <sessions-enabled>true</sessions-enabled>
   <runtime>java8</runtime>
   <system-properties>
