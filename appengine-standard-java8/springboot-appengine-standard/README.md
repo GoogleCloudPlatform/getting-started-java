@@ -1,4 +1,4 @@
-HelloWorld for App Engine Standard (Java 8)
+SpringBoot HelloWorld for App Engine Standard (Java 8)
 ============================
 
 This sample demonstrates how to deploy a Spring Boot application on Google App Engine.
@@ -8,42 +8,47 @@ detailed instructions.
 
 [ae-docs]: https://cloud.google.com/appengine/docs/java/
 
-
 * [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven](https://maven.apache.org/download.cgi) (at least 3.5)
-* [Google Cloud SDK](https://cloud.google.com/sdk/) (aka gcloud)
+* [Google Cloud SDK](https://cloud.google.com/sdk/) (aka gcloud command line tool)
 
 ## Setup
 
-    gcloud init
-    gcloud auth application-default login
-    gcloud components update
+* Download and initialize the [Cloud SDK](https://cloud.google.com/sdk/)
+
+    `gcloud init`
+
+* Create an App Engine app within the current Google Cloud Project
+
+    `gcloud app create`
 
 ## Maven
 ### Running locally
 
-    mvnw appengine:run
+`mvn appengine:run`
+
+To use vist: http://localhost:8080/
 
 ### Deploying
 
-To deploy to the project currently set in `gcloud`:
+`mvn appengine:deploy`
 
-    mvnw appengine:deploy
-    
-To deploy to a specific project:
-
-    mvnw appengine:deploy -Dapp.deploy.project=PROJECT_ID
+To use vist:  https://YOUR-PROJECT-ID.appspot.com
 
 ## Testing
 
-    mvnw verify
- 
+`mvn verify`
+
 As you add / modify the source code (`src/main/java/...`) it's very useful to add [unit testing](https://cloud.google.com/appengine/docs/java/tools/localunittesting)
 to (`src/main/test/...`).  The following resources are quite useful:
 
 * [Junit4](http://junit.org/junit4/)
 * [Mockito](http://mockito.org/)
 * [Truth](http://google.github.io/truth/)
+
+
+For further information, consult the
+[Java App Engine](https://developers.google.com/appengine/docs/java/overview) documentation.
 
 ## Steps to convert a Spring Boot application for App Engine Standard
 ### Use the WAR packaging

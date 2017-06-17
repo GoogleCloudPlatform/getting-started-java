@@ -5,17 +5,53 @@ App Engine SparkJava Kotlin with Java8
 
 For Spark Kotlin documentation, see [Spark Kotlin](https://github.com/perwendel/spark-kotlin/).
 
-Requires [Apache Maven](http://maven.apache.org) 3.1 or greater, and JDK 8 in order to run.
+See the [Google App Engine standard environment documentation][ae-docs] for more
+detailed instructions.
 
-To build, run
+[ae-docs]: https://cloud.google.com/appengine/docs/java/
 
-    mvn package
+* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Maven](https://maven.apache.org/download.cgi) (at least 3.5)
+* [Google Cloud SDK](https://cloud.google.com/sdk/) (aka gcloud command line tool)
+
+## Setup
+
+* Download and initialize the [Cloud SDK](https://cloud.google.com/sdk/)
+
+    `gcloud init`
+
+* Create an App Engine app within the current Google Cloud Project
+
+    `gcloud app create`
+
+## Maven
+### Running locally
+
+`mvn appengine:run`
+
+To use vist: http://localhost:8080/
+
+### Deploying
+
+`mvn appengine:deploy`
+
+To use vist:  https://YOUR-PROJECT-ID.appspot.com
+
+## Testing
+
+`mvn verify`
+
+As you add / modify the source code (`src/main/java/...`) it's very useful to add [unit testing](https://cloud.google.com/appengine/docs/java/tools/localunittesting)
+to (`src/main/test/...`).  The following resources are quite useful:
+
+* [Junit4](http://junit.org/junit4/)
+* [Mockito](http://mockito.org/)
+* [Truth](http://google.github.io/truth/)
 
 
-To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/appengine-maven-plugin/) that is already included in this demo.  Just run the command.
+For further information, consult the
+[Java App Engine](https://developers.google.com/appengine/docs/java/overview) documentation.
 
-    mvn appengine:devserver
 
-For further information, consult the [Java App Engine](https://developers.google.com/appengine/docs/java/overview) documentation.
 
 

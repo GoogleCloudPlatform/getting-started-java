@@ -1,4 +1,4 @@
-HelloWorld for App Engine Standard (Java 8)
+HelloWorld for App Engine Standard (Java 8) using the App Engine Java SDK tooling
 ============================
 
 This sample demonstrates how to deploy an application on Google App Engine.
@@ -27,17 +27,22 @@ detailed instructions.
 ## Maven
 ### Running locally
 
-    mvn appengine:run
+    mvn clean appengine:devserver
 
 To use vist: http://localhost:8080/
 
 ### Deploying
 
-    mvn appengine:deploy
+Update `src/main/webapp/WEB-INF/appengine-web.xml` `<application>` tag with the Project ID.
+
+    mvn clean appengine:update
 
 To use vist:  https://YOUR-PROJECT-ID.appspot.com
 
 ## Gradle
+
+For more information see the [plugin project](https://github.com/GoogleCloudPlatform/gradle-appengine-plugin#gradle-app-engine-plugin-) on github.
+
 ### Running locally
 
     gradle appengineRun
@@ -48,11 +53,15 @@ To use vist: http://localhost:8080/
 
 ### Deploying
 
-    gradle appengineDeploy
+Update `src/main/webapp/WEB-INF/appengine-web.xml` `<application>` tag with the Project ID.
+
+    gradle appengineUpdate
 
 If you do not have gradle installed, you can deploy using `./gradlew appengineDeploy`.
 
-To use vist:  https://YOUR-PROJECT-ID.appspot.com
+To use vist:  https://1-dot-YOUR-PROJECT-ID.appspot.com
+
+This is using verison-dot-project naming.
 
 ## Testing
 

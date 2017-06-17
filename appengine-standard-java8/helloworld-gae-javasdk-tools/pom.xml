@@ -22,7 +22,7 @@ limitations under the License.
   <version>1.0-SNAPSHOT</version>
 
   <groupId>com.example.appengine_standard_java8</groupId>
-  <artifactId>helloworld_java8_GAE_standard</artifactId>
+  <artifactId>helloworld_gae_tooling</artifactId>
 
   <!-- [START_EXCLUDE] -->
   <parent>                              <!-- Get parameters and allow bulk testing -->
@@ -116,15 +116,29 @@ limitations under the License.
     <!-- for hot reload of the web application-->
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
     <plugins>
-      <!-- [START cloudplugin] -->
+      <!-- [START gaejavaplugin] -->
       <plugin>
-        <groupId>com.google.cloud.tools</groupId>
+        <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>1.3.1</version>
+        <version>1.9.54</version>
         <configuration>
+          <!-- change to your app Id and version -->
+<!--
+          <appId>MY-APP-ID</appId>
+          <version>1</version>
+ -->
+          <fullScanSeconds>1</fullScanSeconds>
         </configuration>
       </plugin>
-      <!-- [END cloudplugin] -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <!-- [END gaejavaplugin] -->
 
       <!-- [START_EXCLUDE] -->
       <plugin>
@@ -145,11 +159,6 @@ limitations under the License.
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.1.0</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
       </plugin>
 
       <plugin>
