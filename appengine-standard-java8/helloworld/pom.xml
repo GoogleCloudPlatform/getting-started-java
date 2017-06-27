@@ -33,19 +33,21 @@ limitations under the License.
   </parent>
   <!-- [END_EXCLUDE] -->
 
-  <!-- [START properties] -->
+<!-- [START properties] -->
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- [START_EXCLUDE] -->
+
+<!-- [START_EXCLUDE] -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <archiveClasses>true</archiveClasses>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <!-- [END_EXCLUDE] -->
+<!-- [END_EXCLUDE] -->
+
   </properties>
-  <!-- [END properties] -->
+<!-- [END properties] -->
 
   <dependencies>
     <!-- Compile/runtime dependencies -->
