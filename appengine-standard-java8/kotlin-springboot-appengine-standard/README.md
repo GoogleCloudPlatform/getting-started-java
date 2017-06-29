@@ -27,7 +27,7 @@ detailed instructions.
 
 `mvn appengine:run`
 
-To use vist: http://localhost:8080/
+To use visit: http://localhost:8080/
 
 ### Deploying
 
