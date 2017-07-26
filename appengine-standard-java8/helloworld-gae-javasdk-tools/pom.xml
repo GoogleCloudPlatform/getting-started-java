@@ -209,12 +209,6 @@ limitations under the License.
                 <requireMavenVersion>
                   <version>3.3.9</version>
                 </requireMavenVersion>
-                <requirePluginVersions>
-                   <message>Best Practice is to always define plugin versions!</message>
-                   <banLatest>true</banLatest>
-                   <banRelease>true</banRelease>
-                   <phases>clean,deploy,verify,appengine:run,appengine:deploy,appengine:update,appengine:devappaserver,site</phases>
-                </requirePluginVersions>
               </rules>
             </configuration>
           </execution>
