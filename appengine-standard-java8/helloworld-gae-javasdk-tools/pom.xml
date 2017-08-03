@@ -24,7 +24,7 @@ limitations under the License.
   <groupId>com.example.appengine_standard_java8</groupId>
   <artifactId>helloworld_gae_tooling</artifactId>
 
-  <!-- [START_EXCLUDE] -->
+  <!-- [START_EXCLUDE silent] -->
   <parent>                              <!-- Get parameters and allow bulk testing -->
     <artifactId>getting-started-java</artifactId>
     <groupId>com.example</groupId>
@@ -37,7 +37,7 @@ limitations under the License.
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- [START_EXCLUDE] -->
+    <!-- [START_EXCLUDE silent] -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
@@ -72,7 +72,7 @@ limitations under the License.
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
-    <!-- [START_EXCLUDE] -->
+    <!-- [START_EXCLUDE silent] -->
     <!-- Test Dependencies -->
     <dependency>
       <groupId>com.google.appengine</groupId>
@@ -144,7 +144,7 @@ limitations under the License.
       </plugin>
       <!-- [END gaejavaplugin] -->
 
-      <!-- [START_EXCLUDE] -->
+      <!-- [START_EXCLUDE silent] -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
