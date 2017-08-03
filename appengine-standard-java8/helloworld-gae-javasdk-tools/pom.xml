@@ -121,6 +121,16 @@ limitations under the License.
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
     <plugins>
       <!-- [START gaejavaplugin] -->
+        <plugin>
+         <groupId>com.google.cloud.tools</groupId>
+         <artifactId>appengine-maven-plugin</artifactId>
+         <version>1.3.1</version>
+        </plugin>
+        <plugin>
+         <groupId>org.eclipse.jetty</groupId>
+         <artifactId>jetty-maven-plugin</artifactId>
+         <version>9.3.7.v20160115</version>
+        </plugin>
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
@@ -207,14 +217,8 @@ limitations under the License.
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <version>3.5</version>
+                  <version>3.3.9</version>
                 </requireMavenVersion>
-                <requirePluginVersions>
-                   <message>Best Practice is to always define plugin versions!</message>
-                   <banLatest>true</banLatest>
-                   <banRelease>true</banRelease>
-                   <phases>clean,deploy,verify,appengine:run,appengine:deploy,appengine:update,appengine:devappaserver,site</phases>
-                </requirePluginVersions>
               </rules>
             </configuration>
           </execution>
