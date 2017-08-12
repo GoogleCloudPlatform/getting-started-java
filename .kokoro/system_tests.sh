@@ -13,15 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export GOOGLE_APPLICATION_CREDENTIAL=./service-acct.json
+set -eo pipefail
+
+env
+ls
+
+export GOOGLE_APPLICATION_CREDENTIAL=${KOKORO_GFILE_DIR}/service-acct.json
 export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
 
 gcloud components update --quiet
-gsutil cp gs://gs://cloud-devrel-kokoro-resources/getting-started-java/service-acct.json .
-git clone https://github.com/GoogleCloudPlatform/getting-started-java.git
+
 gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \
     --project=$GOOGLE_CLOUD_PROJECT
 
-cd getting-started-java
+gcloud config list
+
+cd github/getting-started-java
 mvn clean verify
