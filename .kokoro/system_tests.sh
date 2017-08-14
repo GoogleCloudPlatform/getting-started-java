@@ -15,12 +15,16 @@
 
 set -eo pipefail
 
-env
-ls
-
 export GOOGLE_APPLICATION_CREDENTIAL=${KOKORO_GFILE_DIR}/service-acct.json
 export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
+export PATH=/google-cloud-sdk:$PATH
 
+echo "******** Environment *********"
+env
+echo "******** mvn & Java *********"
+mvn -version
+
+echo "Update gcloud ********"
 gcloud components update --quiet
 
 gcloud auth activate-service-account\
