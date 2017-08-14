@@ -27,11 +27,16 @@ mvn -version
 echo "Update gcloud ********"
 gcloud components update --quiet
 
+echo "******** activate-service-account ********"
+ls -lr ${KOKORO_GFILE_DIR}
+
 gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \
     --project=$GOOGLE_CLOUD_PROJECT
 
+echo "********* gcloud config ********"
 gcloud config list
 
+echo "******** build everything ********"
 cd github/getting-started-java
 mvn clean verify
