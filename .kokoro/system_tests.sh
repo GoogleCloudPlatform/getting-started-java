@@ -17,7 +17,7 @@ set -eo pipefail
 
 export GOOGLE_APPLICATION_CREDENTIAL=${KOKORO_GFILE_DIR}/service-acct.json
 export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
-export PATH=/google-cloud-sdk:$PATH
+export PATH=/google-cloud-sdk/bin:$PATH
 
 echo "******** Environment *********"
 env
