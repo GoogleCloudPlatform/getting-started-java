@@ -110,15 +110,15 @@ gcloud auth activate-service-account\
     --project=$GOOGLE_CLOUD_PROJECT
 
 # First, style-check the shell scripts
-shellcheck ./**/*.sh
+# shellcheck ./**/*.sh
 
 for app in "helloworld" "kotlin-appengine-standard" "kotlin-springboot-appengine-standard" \
       "springboot-appengine-standard" "kotlin-spark-appengine-standard" \
       "sparkjava-appengine-standard"
 do
-cd {app}
-mvn appengine:deploy -Dapp.deploy.version="${app}"
-cd ..
+  cd {app}
+  mvn appengine:deploy -Dapp.deploy.version="${app}"
+  cd ..
 done
 
 
