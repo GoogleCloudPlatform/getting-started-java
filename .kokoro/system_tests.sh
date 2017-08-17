@@ -116,9 +116,7 @@ for app in "helloworld" "kotlin-appengine-standard" "kotlin-springboot-appengine
       "springboot-appengine-standard" "kotlin-spark-appengine-standard" \
       "sparkjava-appengine-standard"
 do
-  cd {app}
-  mvn appengine:deploy -Dapp.deploy.version="${app}"
-  cd ..
+  (cd "${app}"; mvn appengine:deploy -Dapp.deploy.version="${app}")
 done
 
 
