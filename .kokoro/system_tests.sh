@@ -116,7 +116,7 @@ for app in "helloworld" "kotlin-appengine-standard" "kotlin-springboot-appengine
       "springboot-appengine-standard" "kotlin-spark-appengine-standard" \
       "sparkjava-appengine-standard"
 do
-  (cd "${app}" \
+  (cd "${app}"; \
   mvn appengine:deploy -Dapp.deploy.version="${app}" -Dapp.deploy.project="${GOOGLE_CLOUD_PROJECT}")
 done
 
