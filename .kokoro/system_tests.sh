@@ -114,6 +114,7 @@ echo "******** Deploy to QA cluster ********"
 cd appengine-standard-java8
 
 export GOOGLE_CLOUD_PROJECT=lesv-qa-999
+export CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE='https://staging-appengine.sandbox.googleapis.com/'
 
 gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \
