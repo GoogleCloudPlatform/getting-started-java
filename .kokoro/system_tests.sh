@@ -23,7 +23,7 @@ trap '' HUP
 # Temporary directory to store any output to display on error
 export ERROR_OUTPUT_DIR
 ERROR_OUTPUT_DIR="$(mktemp -d)"
-trap 'rm -r "${ERROR_OUTPUT_DIR}"' EXIT
+# trap 'rm -r "${ERROR_OUTPUT_DIR}"' EXIT
 URL="dot-lesv-qa-999.prom-qa.sandbox.google.com"
 
 # $1 - project
