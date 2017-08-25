@@ -24,6 +24,16 @@ trap '' HUP
 export ERROR_OUTPUT_DIR
 ERROR_OUTPUT_DIR="$(mktemp -d)"
 trap 'rm -r "${ERROR_OUTPUT_DIR}"' EXIT
+URL="dot-lesv-qa-999.prom-qa.sandbox.google.com"
+
+# $1 - project
+# $2 - PATH
+# $3 - search string
+function TestIt() {
+  curl -X GET "https://${1}-${URL}/${2}" | \
+  tee "${ERROR_OUTPUT_DIR}/response.txt" | \
+  grep "${3}"
+}
 
 delete_app_version() {
   yes | gcloud --project="${GOOGLE_PROJECT_ID}" \
@@ -120,6 +130,28 @@ do
   mvn appengine:deploy -Dapp.deploy.version="${app}" -Dapp.deploy.project="${GOOGLE_CLOUD_PROJECT}")
 done
 
+echo "******* Test QA Deployed Apps ********"
+
+TestIt "helloworld" "" "Hello App Engine -- Java 8!"
+TestIt "helloworld" "hello" "Hello App Engine - Standard using Google App Engine"
+
+TestIt "kotlin-appengine-standard" "" \
+  "Hello, World! I am a Servlet 3.1 running on Java8 App Engine Standard, and written in Kotlin..."
+
+TestIt "kotlin-springboot-appengine-standard" "greeting" \
+  "Hello, World, from a SpringBoot Application written in Kotlin, running on Google App Engine Java8 Standard..."
+
+TestIt "springboot-appengine-standard" "" \
+  "Hello world - springboot-appengine-standard!"
+
+TestIt "kotlin-spark-appengine-standard" "" \
+  "Hello Spark Kotlin running on Java8 App Engine Standard."
+
+TestIt "kotlin-spark-appengine-standard" "hello" \
+  "Hello Spark Kotlin running on Java8 App Engine Standard."
+
+TestIt "sparkjava-appengine-standard" "" \
+  "Hello from SparkJava running on GAE Standard Java8 runtime."
 
 ## Find all jenkins.sh's and run them.
 # find . -mindepth 2 -maxdepth 5 -name jenkins.sh -type f | while read -r path; do
