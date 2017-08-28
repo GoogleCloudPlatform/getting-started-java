@@ -104,7 +104,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Cloud Client Library for Java -->
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud</artifactId>
-      <version>0.21.1-alpha</version>
+      <version>0.22.0-alpha</version>
     </dependency>
 
     <dependency>                        <!-- Google API client - for stuff that's not in gcloud-->
