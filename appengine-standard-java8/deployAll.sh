@@ -25,7 +25,7 @@ for app in "helloworld" "kotlin-appengine-standard" \
       "springboot-appengine-standard" "kotlin-spark-appengine-standard" \
       "sparkjava-appengine-standard"
 do
-  (cd "${app}"; mvn appengine:deploy -Dapp.deploy.version="${app}" \
+  (cd "${app}"; mvn -B --fail-at-end -q appengine:deploy -Dapp.deploy.version="${app}" \
           -Dapp.deploy.project="${GOOGLE_CLOUD_PROJECT}" -DskipTests=true)
 done
 

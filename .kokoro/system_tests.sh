@@ -59,30 +59,7 @@ gcloud config list
 
 echo "******** build everything ********"
 cd github/getting-started-java
-mvn clean verify --fail-at-end -q | grep -E -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
-
-# (
-# # Stop echoing commands, so we don't leak secret env vars
-# #   -Pselenium | \ # LV3 20170616 turn off selenium for now.
-# set +x
-# mvn --batch-mode clean verify \
-#   -Dbookshelf.clientID="${OAUTH2_CLIENT_ID}" \
-#   -Dbookshelf.clientSecret="${OAUTH2_CLIENT_SECRET}" \
-#   -Dbookshelf.bucket="${GCS_BUCKET envvar is unset}" \
-#   | \
-#   grep -E -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
-# )
-#
-# Test running samples on localhost.
-# git clone https://github.com/GoogleCloudPlatform/java-repo-tools.git
-# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-jsp -- -DskipTests=true
-# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-servlet -- -DskipTests=true
-# ./java-repo-tools/scripts/test-localhost.sh jetty helloworld-compat -- -DskipTests=true
-# ./java-repo-tools/scripts/test-localhost.sh spring-boot helloworld-springboot -- -DskipTests=true
-
-# Check that all shell scripts in this repo (including this one) pass the
-# Shell Check linter.
-# shellcheck ./**/*.sh
+mvn -B --fail-at-end -q clean verify  | grep -E -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
 echo "******** Deploy to QA cluster ********"
 cd appengine-standard-java8
@@ -96,27 +73,5 @@ gcloud auth activate-service-account\
 
 ./deployAll.sh
 
-## Find all jenkins.sh's and run them.
-# find . -mindepth 2 -maxdepth 5 -name jenkins.sh -type f | while read -r path; do
-#   dir="${path%/jenkins.sh}"
-#   Need different app versions because flex can't deploy over an existing
-#   version. Use just the first letter of each subdir in version name
-#   export GOOGLE_VERSION_ID
-#   shellcheck disable=SC2001
-#   GOOGLE_VERSION_ID="jenkins-$(echo "${dir#./}" | sed 's#\([a-z]\)[^/]*/#\1-#g')"
-#
-#   trap 'handle_error "${GOOGLE_VERSION_ID}" "${ERROR_OUTPUT_DIR}"' ERR
-#   (
-#   If there's an error, clean up
-#
-#   pushd "${dir}"
-#   /bin/bash ./jenkins.sh
-#
-#   Clean up the app version
-#   cleanup
-#   )
-#   Clear the trap
-#   trap - ERR
-# done
+echo "******** DONE ********"
 
-wait
