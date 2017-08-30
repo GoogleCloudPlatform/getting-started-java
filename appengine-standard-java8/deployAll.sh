@@ -13,7 +13,7 @@ export CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE='https://staging-appengine.sand
 # $2 - PATH
 # $3 - search string
 function TestIt() {
-  curl -X GET "https://${1}-${URL}/${2}" | \
+  curl -s --show-error "https://${1}-${URL}/${2}" | \
   tee -a "${ERROR_OUTPUT_DIR}/response.txt" | \
   grep "${3}"
 }
@@ -50,4 +50,4 @@ TestIt "kotlin-spark-appengine-standard" "hello" \
   "Hello Spark Kotlin running on Java8 App Engine Standard."
 
 TestIt "sparkjava-appengine-standard" "" \
-  "Hello from SparkJava running on GAE Standard Java8 runtime."
+  "Hello from SparkJava running on GAE Standard Java8 runtime"

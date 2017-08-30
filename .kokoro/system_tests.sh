@@ -26,15 +26,6 @@ ERROR_OUTPUT_DIR="$(mktemp -d)"
 # trap 'rm -r "${ERROR_OUTPUT_DIR}"' EXIT
 URL="dot-lesv-qa-999.prom-qa.sandbox.google.com"
 
-# $1 - project
-# $2 - PATH
-# $3 - search string
-function TestIt() {
-  curl -X GET "https://${1}-${URL}/${2}" | \
-  tee "${ERROR_OUTPUT_DIR}/response.txt" | \
-  grep "${3}"
-}
-
 export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/service-acct.json
 export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
 export PATH=/google-cloud-sdk/bin:$PATH
@@ -73,5 +64,5 @@ gcloud auth activate-service-account\
 
 ./deployAll.sh
 
-echo "******** DONE ********"
+echo "******** Success ********"
 
