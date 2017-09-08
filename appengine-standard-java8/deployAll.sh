@@ -27,7 +27,7 @@ export CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE='https://staging-appengine.sand
 # $2 - PATH
 # $3 - search string
 function TestIt() {
-  curl -s --show-error "https://${1}-${URL}/${2}" | \
+  curl -X 192.168.0.6:8888  -s --show-error "https://${1}-${URL}/${2}" | \
   tee -a "${ERROR_OUTPUT_DIR}/response.txt" | \
   grep "${3}"
   if [ "${?}" -ne 0 ]; then
