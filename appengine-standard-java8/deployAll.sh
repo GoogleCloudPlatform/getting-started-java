@@ -18,22 +18,6 @@
 # Temporary directory to store any output to display on error
 export ERROR_OUTPUT_DIR="$(mktemp -d)"
 # trap 'rm -r "${ERROR_OUTPUT_DIR}"' EXIT
-URL="dot-lesv-qa-999.prom-qa.sandbox.google.com"
-
-export GOOGLE_CLOUD_PROJECT=lesv-qa-999
-export CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE='https://staging-appengine.sandbox.googleapis.com/'
-
-# $1 - project
-# $2 - PATH
-# $3 - search string
-function TestIt() {
-  curl -s --show-error "https://${1}-${URL}/${2}" | \
-  tee -a "${ERROR_OUTPUT_DIR}/response.txt" | \
-  grep "${3}"
-  if [ "${?}" -ne 0 ]; then
-    echo "${1}/${2} ****** NOT FOUND"
-  fi
-}
 
 # gcloud config configurations activate qa
 
@@ -42,10 +26,24 @@ for app in "helloworld" "kotlin-appengine-standard" \
       "springboot-appengine-standard" "kotlin-spark-appengine-standard" \
       "sparkjava-appengine-standard"
 do
-  (cd "${app}"; mvn -B --fail-at-end -q appengine:deploy -Dapp.deploy.version="${app}" \
+  (cd "${app}"; \
+      sed 's/<\\runtime>/<\\runtime>\n<service>${app}<\\service>' src/main/webapp/WEB-INF/appengine-web.xml
+      mvn -B --fail-at-end -q appengine:deploy -Dapp.deploy.version="1" \
+          -Dapp.stage.quickstart=true -Dapp.deploy.force=true -Dapp.deploy.promote=true \
           -Dapp.deploy.project="${GOOGLE_CLOUD_PROJECT}" -DskipTests=true)
 done
 
+# $1 - project
+# $2 - PATH
+# $3 - search string
+# function TestIt() {
+#   curl -s --show-error "https://${1}-${URL}/${2}" | \
+#   tee -a "${ERROR_OUTPUT_DIR}/response.txt" | \
+#   grep "${3}"
+#   if [ "${?}" -ne 0 ]; then
+#     echo "${1}/${2} ****** NOT FOUND"
+#   fi
+# }
 # echo "******* Test QA Deployed Apps ********"
 #
 # TestIt "helloworld" "" "Hello App Engine -- Java 8!"
