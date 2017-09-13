@@ -62,6 +62,12 @@ gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \
     --project=$GOOGLE_CLOUD_PROJECT
 
+export URL="dot-lesv-qa-999.prom-qa.sandbox.google.com"
+
+export GOOGLE_CLOUD_PROJECT=lesv-qa-999
+export CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE='https://staging-appengine.sandbox.googleapis.com/'
+
+
 ./deployAll.sh
 
 echo "******** Success ********"
