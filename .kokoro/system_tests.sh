@@ -102,7 +102,6 @@ echo "******** Success ********"
 echo "******** Deploy to QA cluster ********"
 export CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE='https://staging-appengine.sandbox.googleapis.com/'
 
-echo "******** Deploy to prod *******"
 ./deployAll.sh
 
 echo "******** Success ********"
