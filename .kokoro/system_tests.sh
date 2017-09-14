@@ -63,29 +63,18 @@ echo "******** build everything ********"
 cd github/getting-started-java
 mvn -B --fail-at-end -q clean verify  | grep -E -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
-echo "******** Deploy to QA cluster ********"
+echo "******** Deploy to prod *******"
 cd appengine-standard-java8
 
 export GOOGLE_CLOUD_PROJECT=lesv-qa-999
-export CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE='https://staging-appengine.sandbox.googleapis.com/'
 
 gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \
     --project=$GOOGLE_CLOUD_PROJECT
 
 ./deployAll.sh
-
-echo "******** Success ********"
-
-unset CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE
-export URL="dot-lesv-qa-999.appspot.com"
-
-echo "******** Deploy to prod *******"
-./deployAll.sh
-
-echo "******** Success ********"
-
 echo "******* Test prod Deployed Apps ********"
+export URL="dot-lesv-qa-999.appspot.com"
 
 TestIt "helloworld" "" "Hello App Engine -- Java 8!"
 TestIt "helloworld" "hello" "Hello App Engine - Standard using Google App Engine"
@@ -108,4 +97,16 @@ TestIt "kotlin-spark-appengine-standard" "hello" \
 TestIt "sparkjava-appengine-standard" "" \
   "Hello from SparkJava running on GAE Standard Java8 runtime"
 
+echo "******** Success ********"
+
+echo "******** Deploy to QA cluster ********"
+export CLOUDSDK_API_ENDPOINT_OVERRIDES_APPENGINE='https://staging-appengine.sandbox.googleapis.com/'
+
+echo "******** Deploy to prod *******"
+./deployAll.sh
+
+echo "******** Success ********"
+
 echo "STATUS: ${?}"
+
+

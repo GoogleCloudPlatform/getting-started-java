@@ -15,9 +15,6 @@
 
 # set -x
 # set -v
-# Temporary directory to store any output to display on error
-export ERROR_OUTPUT_DIR="$(mktemp -d)"
-# trap 'rm -r "${ERROR_OUTPUT_DIR}"' EXIT
 
 # gcloud config configurations activate qa
 
@@ -26,11 +23,13 @@ for app in "helloworld" "kotlin-appengine-standard" \
       "springboot-appengine-standard" "kotlin-spark-appengine-standard" \
       "sparkjava-appengine-standard"
 do
-  (cd "${app}"; \
-      sed --in-place='.xx' "s/<\/runtime>/<\/runtime><service>${app}<\/service>/" src/main/webapp/WEB-INF/appengine-web.xml
+  (cd "${app}"
+      sed --in-place='.xx' "s/<\/runtime>/<\/runtime><service>${app}<\/service>/" \
+          src/main/webapp/WEB-INF/appengine-web.xml
       mvn -B --fail-at-end -q appengine:deploy -Dapp.deploy.version="1" \
           -Dapp.stage.quickstart=true -Dapp.deploy.force=true -Dapp.deploy.promote=true \
-          -Dapp.deploy.project="${GOOGLE_CLOUD_PROJECT}" -DskipTests=true)
+          -Dapp.deploy.project="${GOOGLE_CLOUD_PROJECT}" -DskipTests=true
+      mv src/main/webapp/WEB-INF/appengine-web.xml.xx src/main/webapp/WEB-INF/appengine-web.xml)
 done
 
 echo "STATUS: ${?}"
