@@ -51,6 +51,7 @@ public class CloudStorageHelper {
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
    */
+  @SuppressWarnings("deprecation")
   public String uploadFile(FileItemStream fileStream, final String bucketName)
       throws IOException, ServletException {
     checkFileExtension(fileStream.getName());

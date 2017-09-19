@@ -20,7 +20,7 @@ Copyright 2016 Google Inc.
   <packaging>war</packaging>            <!-- REQUIRED -->
 
   <groupId>com.example.flex.gettingstarted</groupId>
-  <artifactId>bookshelf</artifactId>    <!-- Name of your project -->
+  <artifactId>bookshelf-gce</artifactId>    <!-- Name of your project -->
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <parent> <!-- Only used for testing - NOT REQUIRED -->
@@ -134,7 +134,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Core Libraries for Java -->
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-      <version>21.0</version>
+      <version>23.0</version>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->

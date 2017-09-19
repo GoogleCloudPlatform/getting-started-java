@@ -61,6 +61,7 @@ public class CloudStorageHelper {
     final String fileName = fileStream.getName() + dtString;
 
     // the inputstream is closed by default, so we don't need to close it here
+    @SuppressWarnings("deprecation")
     BlobInfo blobInfo =
         storage.create(
             BlobInfo
