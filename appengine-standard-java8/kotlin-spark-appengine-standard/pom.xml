@@ -109,7 +109,7 @@ limitations under the License.
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.8.0-alpha2</version> <!-- TEST if not 1.7.25 -->
+      <version>1.7.25</version> <!-- TEST if not 1.7.25 -->
     </dependency>
   </dependencies>
 
