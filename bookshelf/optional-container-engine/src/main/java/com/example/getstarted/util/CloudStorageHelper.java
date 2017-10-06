@@ -56,6 +56,7 @@ public class CloudStorageHelper {
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
    */
+  @SuppressWarnings("deprecation")
   public String uploadFile(Part filePart, final String bucketName) throws IOException {
     DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
     DateTime dt = DateTime.now(DateTimeZone.UTC);
