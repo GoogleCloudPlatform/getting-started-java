@@ -79,8 +79,8 @@ test {
 }
 // [END model]
 
-group   = "com.example.appengine_standard_java8"        // Generated output GroupId
-version = "1.0-SNAPSHOT"        // Version in generated output
+group   = "com.example.appenginej8"        // Generated output GroupId
+version = "1.0-SNAPSHOT"       // Version in generated output
 
 sourceCompatibility = 1.8     // App Engine Flexible uses Java 8
 targetCompatibility = 1.8     // App Engine Flexible uses Java 8

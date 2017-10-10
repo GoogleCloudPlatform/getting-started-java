@@ -17,7 +17,7 @@
   --%>
 <!-- [END_EXCLUDE] -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.gaejava8standard.HelloAppEngine" %>
+<%@ page import="com.example.appengine.java8.HelloAppEngine" %>
 <html>
 <head>
   <link href='//fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>

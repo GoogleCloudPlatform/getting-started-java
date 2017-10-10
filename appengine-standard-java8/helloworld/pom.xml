@@ -18,11 +18,12 @@ limitations under the License.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
+  <!-- REQUIRED : your application must be packed as a .war to deploy on App Engine Standard -->
   <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
 
-  <groupId>com.example.appengine_standard_java8</groupId>
-  <artifactId>helloworld_java8_GAE_standard</artifactId>
+  <groupId>com.example.appengine-j8</groupId>
+  <artifactId>helloworld</artifactId>
+  <version>1.0-SNAPSHOT</version>
 
   <!-- [START_EXCLUDE] -->
   <parent>                              <!-- Get parameters and allow bulk testing -->
@@ -37,12 +38,7 @@ limitations under the License.
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-
-<!-- [START_EXCLUDE] -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
-    <archiveClasses>true</archiveClasses>
+    <!-- REQUIRED by appengine-maven-plugin plugin, if web.xml does not exist for your application -->
     <failOnMissingWebXml>false</failOnMissingWebXml>
 <!-- [END_EXCLUDE] -->
 
@@ -51,14 +47,12 @@ limitations under the License.
 
   <dependencies>
     <!-- Compile/runtime dependencies -->
-    <!-- [START api-dependencies] -->
+    <!-- App Engine SDK dependency : only required if you need to explicitly use App Engine API -->
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
       <version>1.9.57</version>
     </dependency>
-    <!-- [END api-dependencies] -->
-
     <!-- [START servlet] -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -69,11 +63,6 @@ limitations under the License.
     </dependency>
     <!-- [END servlet] -->
 
-    <dependency>
-      <groupId>jstl</groupId>
-      <artifactId>jstl</artifactId>
-      <version>1.2</version>
-    </dependency>
     <!-- [START_EXCLUDE] -->
     <!-- Test Dependencies -->
     <dependency>
@@ -88,7 +77,6 @@ limitations under the License.
       <version>1.9.57</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-tools-sdk</artifactId>
@@ -102,7 +90,6 @@ limitations under the License.
       <version>0.36</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -127,93 +114,8 @@ limitations under the License.
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
         <version>1.3.1</version>
-        <configuration>
-        </configuration>
       </plugin>
       <!-- [END cloudplugin] -->
-
-      <!-- [START_EXCLUDE] -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>versions-maven-plugin</artifactId>
-        <version>2.4</version>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-              <goal>display-dependency-updates</goal>
-              <goal>display-plugin-updates</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.1.0</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>3.0.0</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>2.5.2</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.20</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.6</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.0.2</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.8.2</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>1.4.1</version>
-        <executions>
-          <execution>
-            <id>enforce-maven</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>3.5</version>
-                </requireMavenVersion>
-                <requirePluginVersions>
-                   <message>Best Practice is to always define plugin versions!</message>
-                   <banLatest>true</banLatest>
-                   <banRelease>true</banRelease>
-                   <phases>clean,deploy,verify,appengine:run,appengine:deploy,appengine:update,appengine:devappaserver,site</phases>
-                </requirePluginVersions>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <!-- [END_EXCLUDE] -->
     </plugins>
   </build>
 </project>
