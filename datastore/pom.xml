@@ -19,7 +19,7 @@ Copyright 2017 Google Inc.
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <groupId>com.example.appengine</groupId>
-  <artifactId>appengine-datastore</artifactId>
+  <artifactId>qs-datastore</artifactId>
 
   <properties>
       <appengine.sdk.version>1.9.54</appengine.sdk.version>
