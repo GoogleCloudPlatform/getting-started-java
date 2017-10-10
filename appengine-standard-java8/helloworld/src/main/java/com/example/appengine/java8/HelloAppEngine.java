@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.gaejava8standard;
+package com.example.appengine.java8;
 
 // [START example]
 import com.google.appengine.api.utils.SystemProperty;
@@ -34,13 +34,12 @@ public class HelloAppEngine extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
-
     Properties properties = System.getProperties();
 
     response.setContentType("text/plain");
     response.getWriter().println("Hello App Engine - Standard using "
-        + SystemProperty.version.get() + " Java " + properties.get("java.specification.version"));
-
+            + SystemProperty.version.get() + " Java "
+            + properties.get("java.specification.version"));
   }
 
   public static String getInfo() {

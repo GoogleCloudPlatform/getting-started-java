@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.gaejava8standard;
+package com.example.appengine.java8;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;

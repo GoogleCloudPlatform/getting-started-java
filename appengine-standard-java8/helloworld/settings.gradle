@@ -15,4 +15,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'helloworld_java8_GAE_standard'
+rootProject.name = 'helloworld'
