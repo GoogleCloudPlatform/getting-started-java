@@ -22,11 +22,15 @@ Copyright 2017 Google Inc.
   <artifactId>qs-datastore</artifactId>
 
   <properties>
-      <appengine.sdk.version>1.9.54</appengine.sdk.version>
+      <appengine.app.appId>[YOUR-APP-ID]</appengine.app.appId>
       <appengine.app.version>1</appengine.app.version>
-
+      <appengine.sdk.version>1.9.54</appengine.sdk.version>
+      
       <project.http.version>1.19.0</project.http.version>
       <project.oauth.version>1.19.0</project.oauth.version>
+   
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
       <maven.compiler.target>1.8</maven.compiler.target>
       <maven.compiler.source>1.8</maven.compiler.source>
@@ -100,23 +104,34 @@ Copyright 2017 Google Inc.
   <build>
     <!-- for hot reload of the web application -->
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3</version>
+        <version>3.5.1</version>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
       </plugin>
-      <!-- Parent POM defines ${appengine.sdk.version} (updates frequently). -->
+
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>${appengine.sdk.version}</version>
+       <version>${appengine.sdk.version}</version>
+       <configuration>
+         <deploy.promote>true</deploy.promote>
+         <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
+         <appId>${appengine.app.appId}</appId>
+         <version>${appengine.app.version}</version>
+         <fullScanSeconds>1</fullScanSeconds>
+       </configuration>
+
       </plugin>
     </plugins>
-  </build>
+
+   </build>
+
 </project>
 <!-- [END pom] -->
