@@ -123,6 +123,7 @@ Copyright 2017 Google Inc.
        <configuration>
          <deploy.promote>true</deploy.promote>
          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
+        <!-- <appId> needs to be set if you do not use gcloud to deploy -->
          <appId>${appengine.app.appId}</appId>
          <version>${appengine.app.version}</version>
          <fullScanSeconds>1</fullScanSeconds>
