@@ -30,12 +30,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Retrieves and displays blog posts stored in Cloud Datastore
+ */
+
 @SuppressWarnings("serial")
 @WebServlet(name = "ListEntities", description = "List the latest news posts", urlPatterns = "/")
 public class ListEntities extends HttpServlet {
 
   DatastoreService datastore;
 
+  // Query for Datastore - returns all posts that do not have a blank title
   final Query q =
       new Query("Blogpost").setFilter(new FilterPredicate("title", FilterOperator.NOT_EQUAL, ""));
 
@@ -44,28 +49,21 @@ public class ListEntities extends HttpServlet {
       throws ServletException, IOException {
 
     PreparedQuery pq = datastore.prepare(q);
-    List<Entity> posts = pq.asList(FetchOptions.Builder.withLimit(5));
+    List<Entity> posts = pq.asList(FetchOptions.Builder.withLimit(5)); // Fetch five entries
 
     PrintWriter out = resp.getWriter();
 
     out.println(
         "<h1>Welcome to the App Engine Blog</h1><h3><a href=\"form.jsp\">Add a new post</a></h3>");
 
+    // Print out each post, adding a link for updating an deleting the post
     posts.forEach(
         (result) -> {
           out.println(
-              "<h2>"
-                  + result.getProperty("title")
-                  + "</h2> Posted at: "
-                  + result.getProperty("timestamp")
-                  + " by "
-                  + result.getProperty("author")
-                  + " [<a href=\"/update?id="
-                  + result.getKey().getId()
-                  + "\">update</a>] | "
-                  + "[<a href=\"/delete?id="
-                  + result.getKey().getId()
-                  + "\">delete</a>]<br><br>"
+              "<h2>" + result.getProperty("title") + "</h2>"
+                  + "Posted at: " + result.getProperty("timestamp") + " by " + result.getProperty("author")
+                  + " [<a href=\"/update?id=" + result.getKey().getId() + "\">update</a>] | "
+                  + "[<a href=\"/delete?id=" + result.getKey().getId() + "\">delete</a>]<br><br>"
                   + result.getProperty("body")
                   + "<br><br>");
         });
