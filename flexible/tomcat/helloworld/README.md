@@ -1,7 +1,7 @@
 # Servlet based Hello World app for App Engine Flexible environment
 
 ## Requirements
-* [Apache Maven](http://maven.apache.org) 3.3.9 or greater
+* [Apache Maven](http://maven.apache.org) (3.3.9 or greater) OR [Gradle ](https://gradle.org/) (4.2.1 or greater)
 * [Google Cloud SDK](https://cloud.google.com/sdk/)
 * `gcloud components install app-engine-java`
 * `gcloud components update`
@@ -22,7 +22,7 @@ The samples have files to support both Maven and Gradle.  To use the IDE plugins
 
 ### Running locally
 
-    $ mvn jetty:run-exploded
+    $ mvn cargo:run
   
 ### Deploying
 
@@ -34,7 +34,7 @@ The samples have files to support both Maven and Gradle.  To use the IDE plugins
 
 ### Running locally
 
-    $ gradle jettyRun
+    $ gradle tomcatRun
 
 ### Deploying
 
