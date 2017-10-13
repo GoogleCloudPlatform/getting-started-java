@@ -18,14 +18,14 @@
 runtime: java
 env: flex
 
-handlers:
-- url: /.*
-  script: this field is required, but ignored
-
 runtime_config:  
   jdk: openjdk8
   server: tomcat8 # Run on Tomcat8
 
 manual_scaling:
   instances: 1
+  
+handlers:
+- url: /.*
+  script: this field is required, but ignored
 # [END runtime]
