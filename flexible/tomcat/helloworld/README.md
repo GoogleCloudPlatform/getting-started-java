@@ -19,6 +19,7 @@ The samples have files to support both Maven and Gradle.  To use the IDE plugins
 ## Maven
 [Using Maven and the App Engine Plugin](https://cloud.google.com/appengine/docs/flexible/java/using-maven)
 & [Maven Plugin Goals and Parameters](https://cloud.google.com/appengine/docs/flexible/java/maven-reference)
+
 ### Running locally
 
     $ mvn cargo:run
@@ -30,6 +31,7 @@ The samples have files to support both Maven and Gradle.  To use the IDE plugins
 ## Gradle
 [Using Gradle and the App Engine Plugin](https://cloud.google.com/appengine/docs/flexible/java/using-gradle) 
 & [Gradle Tasks and Parameters](https://cloud.google.com/appengine/docs/flexible/java/gradle-reference)
+
 ### Running locally
 
     $ gradle tomcatRun
