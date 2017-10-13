@@ -49,21 +49,23 @@ public class ListEntities extends HttpServlet {
       throws ServletException, IOException {
 
     PreparedQuery pq = datastore.prepare(q);
-    List<Entity> posts = pq.asList(FetchOptions.Builder.withLimit(5)); // Fetch five entries
+    QueryResultList<Entity> posts = pq.asQueryResultList(FetchOptions.Builder.withLimit(5)); // Fetch five entries
 
     PrintWriter out = resp.getWriter();
 
     out.println(
-        "<h1>Welcome to the App Engine Blog</h1><h3><a href=\"form.jsp\">Add a new post</a></h3>");
+        "<!DOCTYPE html><meta charset=\"utf-8\"><h1>Welcome to the App Engine Blog</h1><h3><a href=\"form.jsp\">Add a new post</a></h3>");
 
     // Print out each post, adding a link for updating an deleting the post
     posts.forEach(
         (result) -> {
+          String safeCursor = posts.getCursor().toWebSafeString();
+          
           out.println(
               "<h2>" + result.getProperty("title") + "</h2>"
                   + "Posted at: " + result.getProperty("timestamp") + " by " + result.getProperty("author")
-                  + " [<a href=\"/update?id=" + result.getKey().getId() + "\">update</a>] | "
-                  + "[<a href=\"/delete?id=" + result.getKey().getId() + "\">delete</a>]<br><br>"
+                  + " [<a href=\"/update?id=" + safeCursor + "\">update</a>] | "
+                  + "[<a href=\"/delete?id=" + safeCursor + "\">delete</a>]<br><br>"
                   + result.getProperty("body")
                   + "<br><br>");
         });
