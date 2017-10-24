@@ -47,7 +47,7 @@
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 
     <plugins>
-
+      <!-- [START gae_plugin] -->
       <!-- Used to deploy to AppEngine Flexible -->
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
@@ -57,7 +57,9 @@
           <!-- Used for server configuration -->
         </configuration>
       </plugin>
-
+      <!-- [END gae_plugin] -->
+  
+      <!-- [START cargo] -->
       <!-- Used for local testing (uses Cargo for embedded Tomcat8 launch) -->
       <plugin>
         <groupId>org.codehaus.cargo</groupId>
@@ -94,7 +96,7 @@
           </deployables>
         </configuration>
       </plugin>
-
+      <!-- [END cargo] -->
     </plugins>
   </build>
 </project>
