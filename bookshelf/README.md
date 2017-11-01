@@ -55,7 +55,7 @@
 * Visit `http://localhost:8080`
 
 
-## Deploy to AppEngine Managed VMs
+## Deploy to the App Engine flexible environment
 
     mvn clean gcloud:deploy
 
