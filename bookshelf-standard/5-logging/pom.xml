@@ -51,7 +51,7 @@ Copyright 2016 Google Inc.
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
-    <appengine-maven.version>1.9.58</appengine-maven.version>
+    <appengine-maven.version>1.9.59</appengine-maven.version>
   </properties>
 
   <!-- THINGS ONLY USED WHEN RUN LOCALLY -->
