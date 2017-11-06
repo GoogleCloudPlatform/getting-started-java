@@ -38,7 +38,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.57</version>
+      <version>1.9.59</version>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
@@ -48,7 +48,7 @@ limitations under the License.
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>1.5.7.RELEASE</version>
+      <version>1.5.8.RELEASE</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>

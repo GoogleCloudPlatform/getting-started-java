@@ -47,9 +47,7 @@ limitations under the License.
         <module>bookshelf-standard/5-logging</module>
         <module>helloworld-jsp</module>
         <module>helloworld-servlet</module>
-<!--
         <module>helloworld-springboot</module>
- -->
     </modules>
 
     <reporting>
@@ -208,7 +206,7 @@ limitations under the License.
         <dependency>
           <groupId>org.mockito</groupId>
           <artifactId>mockito-core</artifactId>
-          <version>2.10.0</version>
+          <version>2.11.0</version>
           <scope>test</scope>
         </dependency>
         <dependency>
