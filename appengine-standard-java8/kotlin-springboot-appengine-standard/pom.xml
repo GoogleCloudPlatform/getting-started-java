@@ -31,14 +31,14 @@ limitations under the License.
 
   <properties>
     <java.version>1.8</java.version>
-    <kotlin.version>1.1.51</kotlin.version>
+    <kotlin.version>1.2.0</kotlin.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.58</version>
+      <version>1.9.59</version>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
@@ -48,7 +48,7 @@ limitations under the License.
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>1.5.7.RELEASE</version>
+      <version>1.5.9.RELEASE</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
