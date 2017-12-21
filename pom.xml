@@ -40,7 +40,7 @@ limitations under the License.
         <module>bookshelf/4-auth</module>
         <module>bookshelf/5-logging</module>
         <module>bookshelf/6-gce</module>
-        <module>bookshelf/optional-container-engine</module>
+        <module>bookshelf/optional-kubernetes-engine</module>
         <module>bookshelf-standard/2-structured-data</module>
         <module>bookshelf-standard/3-binary-data</module>
         <module>bookshelf-standard/4-auth</module>
@@ -206,7 +206,7 @@ limitations under the License.
         <dependency>
           <groupId>org.mockito</groupId>
           <artifactId>mockito-core</artifactId>
-          <version>2.11.0</version>
+          <version>2.13.0</version>
           <scope>test</scope>
         </dependency>
         <dependency>
