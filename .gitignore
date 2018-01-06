@@ -6,6 +6,7 @@
 # IntelliJ IDEA
 .Idea
 *.iml
+.idea/
 
 # Target folders
 target/
