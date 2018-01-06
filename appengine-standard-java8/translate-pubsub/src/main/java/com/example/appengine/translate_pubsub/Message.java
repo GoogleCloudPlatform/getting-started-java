@@ -14,6 +14,8 @@
 
 package com.example.appengine.translate_pubsub;
 
+import com.google.protobuf.ByteString;
+
 /**
  * A message captures information from the Pubsub message received over the push endpoint and is
  * persisted in storage.
@@ -70,6 +72,6 @@ public class Message {
   }
 
   public String getTranslated() {
-    return Translate.translateText(data, sourceLang, targetLang);
+    return Translate.translateText(ByteString.copyFrom(data.getBytes()).toStringUtf8(), sourceLang, targetLang);
   }
 }

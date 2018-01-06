@@ -1,5 +1,6 @@
 package com.example.appengine.translate_pubsub;
 
+import com.google.cloud.translate.Translate.TranslateOption;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 import com.google.common.base.Strings;
@@ -21,8 +22,8 @@ public class Translate {
             return sourceText;
         }
         com.google.cloud.translate.Translate translate = createTranslateService();
-        com.google.cloud.translate.Translate.TranslateOption srcLang = com.google.cloud.translate.Translate.TranslateOption.sourceLanguage(sourceLang);
-        com.google.cloud.translate.Translate.TranslateOption tgtLang = com.google.cloud.translate.Translate.TranslateOption.targetLanguage(targetLang);
+        TranslateOption srcLang = com.google.cloud.translate.Translate.TranslateOption.sourceLanguage(sourceLang);
+        TranslateOption tgtLang = com.google.cloud.translate.Translate.TranslateOption.targetLanguage(targetLang);
 
         Translation translation = translate.translate(sourceText, srcLang, tgtLang);
         return translation.getTranslatedText();

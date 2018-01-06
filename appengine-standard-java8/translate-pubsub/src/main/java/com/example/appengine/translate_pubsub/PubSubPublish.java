@@ -16,22 +16,32 @@ package com.example.appengine.translate_pubsub;
 
 import com.google.cloud.ServiceOptions;
 import com.google.cloud.pubsub.v1.Publisher;
+import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "Publish with PubSub", value = "/pubsub/publish")
-public class PubSubPublish extends PubSubHttpServlet {
+public class PubSubPublish extends HttpServlet {
+  private Gson gson = new Gson();
 
   @Override
-  public void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException, ServletException {
+  public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Publisher publisher = this.publisher;
+    // construct a pubsub message from the payload
+    final String payload = req.getParameter("payload");
+    Message message = new Message(null);
+    message.setData(payload);
+    PubsubMessage pubsubMessage =
+            PubsubMessage.newBuilder().setData(ByteString.copyFromUtf8(payload))
+                    .putAttributes("sourceLang", req.getParameter("sourceLang"))
+                    .putAttributes("targetLang", req.getParameter("targetLang"))
+                    .build();
     String topicId = System.getenv("PUBSUB_TOPIC");
     // create a publisher on the topic
     if (publisher == null) {
@@ -39,13 +49,6 @@ public class PubSubPublish extends PubSubHttpServlet {
           TopicName.of(ServiceOptions.getDefaultProjectId(), topicId))
           .build();
     }
-    // construct a pubsub message from the message payload.
-    Message message = getMessage(req);
-    PubsubMessage pubsubMessage = PubsubMessage.newBuilder()
-            .setData(ByteString.copyFromUtf8(message.getTranslated()))
-            .putAttributes("sourceLang", message.getSourceLang())
-            .putAttributes("targetLang", message.getTargetLang())
-            .build();
 
     publisher.publish(pubsubMessage);
     // redirect to home page
