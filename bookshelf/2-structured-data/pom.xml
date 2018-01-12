@@ -139,13 +139,13 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>com.google.cloud.sql</groupId>
       <artifactId>mysql-socket-factory-connector-j-6</artifactId>
-      <version>1.0.4</version>
+      <version>1.0.5</version>
     </dependency>
 
     <dependency>
       <groupId>com.google.firebase</groupId>
       <artifactId>firebase-admin</artifactId>
-      <version>5.7.0</version>
+      <version>5.8.0</version>
     </dependency>
 
     <!-- Test dependencies -->
