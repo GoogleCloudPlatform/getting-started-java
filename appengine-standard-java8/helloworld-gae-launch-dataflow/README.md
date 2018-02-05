@@ -69,15 +69,17 @@ To use vist: http://localhost:8080/
 
     mvn appengine:deploy
 
-To use vist:  https://YOUR-PROJECT-ID.appspot.com
+To use, visit:  https://YOUR-PROJECT-ID.appspot.com
 
-### Running locally
+To delete the deployed version, see
+https://cloud.google.com/java/getting-started/delete-tutorial-resources#deleting_app_versions.
 
-    gradle appengineRun
-
-If you do not have gradle installed, you can run using `./gradlew appengineRun`.
-
-To use vist: http://localhost:8080/
+Please note that deploying this project will incur charges at the F1 (default)
+type, as described in the pricing schedule on
+https://cloud.google.com/appengine/pricing#standard_instance_pricing. The
+launched dataflow job will be charged as described in
+https://cloud.google.com/dataflow/pricing, but will likely not incur any charges
+so long as there are little to no entities in the target datastore instance.
 
 ## Testing
 
