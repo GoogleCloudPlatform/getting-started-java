@@ -56,16 +56,16 @@ public class LaunchDataflowTemplate extends HttpServlet {
     JSONObject jsonObj = null;
     try {
       JSONObject parameters = new JSONObject()
-        .put("datastoreReadGqlQuery", "SELECT * FROM Entries")
-        .put("datastoreReadProjectId", project)
-        .put("textWritePrefix", bucket + "/output/");
+          .put("datastoreReadGqlQuery", "SELECT * FROM Entries")
+          .put("datastoreReadProjectId", project)
+          .put("textWritePrefix", bucket + "/output/");
       JSONObject environment = new JSONObject()
-        .put("tempLocation", bucket + "/tmp/")
-        .put("bypassTempDirValidation", false);
+          .put("tempLocation", bucket + "/tmp/")
+          .put("bypassTempDirValidation", false);
       jsonObj = new JSONObject()
-        .put("jobName", "template-" + UUID.randomUUID().toString())
-        .put("parameters", parameters)
-        .put("environment", environment);
+          .put("jobName", "template-" + UUID.randomUUID().toString())
+          .put("parameters", parameters)
+          .put("environment", environment);
     } catch (JSONException e) {
       e.printStackTrace();
     }
