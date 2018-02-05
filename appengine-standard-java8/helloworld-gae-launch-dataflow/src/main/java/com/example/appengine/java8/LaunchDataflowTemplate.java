@@ -40,8 +40,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 // With @WebServlet annotation the webapp/WEB-INF/web.xml is no longer required.
-@WebServlet(name = "HelloAppEngine", value = "/hello")
-public class HelloAppEngine extends HttpServlet {
+@WebServlet(name = "LaunchDataflowTemplate", value = "/launch")
+public class LaunchDataflowTemplate extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)

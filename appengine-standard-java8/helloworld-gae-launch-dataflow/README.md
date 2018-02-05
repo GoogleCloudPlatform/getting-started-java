@@ -80,21 +80,9 @@ If you do not have gradle installed, you can run using `./gradlew appengineRun`.
 
 To use vist: http://localhost:8080/
 
-### Deploying
-
-    gradle appengineDeploy
-
-If you do not have gradle installed, you can deploy using `./gradlew appengineDeploy`.
-
-To use vist:  https://YOUR-PROJECT-ID.appspot.com
-
 ## Testing
 
     mvn verify
-
- or
-
-    gradle test
 
 As you add / modify the source code (`src/main/java/...`) it's very useful to add [unit testing](https://cloud.google.com/appengine/docs/java/tools/localunittesting)
 to (`src/main/test/...`).  The following resources are quite useful:

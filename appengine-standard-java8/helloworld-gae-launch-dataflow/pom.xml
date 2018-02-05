@@ -22,15 +22,14 @@ limitations under the License.
   <packaging>war</packaging>
 
   <groupId>com.example.appengine-j8</groupId>
-  <artifactId>helloworld</artifactId>
+  <artifactId>launch-dataflow-template-from-gae</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <!-- [START_EXCLUDE] -->
   <parent>                              <!-- Get parameters and allow bulk testing -->
-    <artifactId>getting-started-java</artifactId>
-    <groupId>com.example</groupId>
-    <version>1.0.0</version>
-    <relativePath>../..</relativePath>
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.8</version>
   </parent>
   <!-- [END_EXCLUDE] -->
 
@@ -128,7 +127,7 @@ limitations under the License.
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.2</version>
       </plugin>
       <!-- [END cloudplugin] -->
     </plugins>
