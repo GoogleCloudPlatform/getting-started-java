@@ -36,19 +36,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Unit tests for {@link HelloAppEngine}.
+ * Unit tests for {@link LaunchDataflowTemplate}.
  */
 // [START example]
 @RunWith(JUnit4.class)
-public class HelloAppEngineTest {
-  private static final String FAKE_URL = "fake.fk/hello";
+public class LaunchDataflowTemplateTest {
+  private static final String FAKE_URL = "fake.fk/launch";
   // Set up a helper so that the ApiProxy returns a valid environment for local testing.
   private final LocalServiceTestHelper helper = new LocalServiceTestHelper();
 
   @Mock private HttpServletRequest mockRequest;
   @Mock private HttpServletResponse mockResponse;
   private StringWriter responseWriter;
-  private HelloAppEngine servletUnderTest;
+  private LaunchDataflowTemplate servletUnderTest;
 
   @Before
   public void setUp() throws Exception {
@@ -62,7 +62,7 @@ public class HelloAppEngineTest {
     responseWriter = new StringWriter();
     when(mockResponse.getWriter()).thenReturn(new PrintWriter(responseWriter));
 
-    servletUnderTest = new HelloAppEngine();
+    servletUnderTest = new LaunchDataflowTemplate();
   }
 
   @After public void tearDown() {
@@ -76,7 +76,7 @@ public class HelloAppEngineTest {
 
   @Test
   public void helloInfoTest() {
-    String result = HelloAppEngine.getInfo();
+    String result = LaunchDataflowTemplate.getInfo();
     assertThat(result)
       .named("HelloInfo.getInfo")
       .containsMatch("^Version:\\s+.+OS:\\s+.+User:\\s");
