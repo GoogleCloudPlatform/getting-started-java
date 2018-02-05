@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,6 @@ package com.example.appengine.java8;
 
 import com.google.appengine.api.appidentity.AppIdentityService;
 import com.google.appengine.api.appidentity.AppIdentityServiceFactory;
-import com.google.appengine.api.utils.SystemProperty;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,7 +28,6 @@ import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.UUID;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 // With @WebServlet annotation the webapp/WEB-INF/web.xml is no longer required.
-@WebServlet(name = "LaunchDataflowTemplate", value = "/launch")
+@WebServlet(name = "LaunchDataflowTemplate", value = "/launchdf")
 public class LaunchDataflowTemplate extends HttpServlet {
 
   @Override
@@ -72,9 +70,8 @@ public class LaunchDataflowTemplate extends HttpServlet {
       e.printStackTrace();
     }
 
-    URL url = new URL("https://dataflow.googleapis.com/v1b3/projects/"
-        + project + "/templates:launch?gcs_path="
-        + "gs://dataflow-templates/latest/Datastore_to_GCS_Text");
+    URL url = new URL(String.format("https://dataflow.googleapis.com/v1b3/projects/%s/templates"
+          + ":launch?gcs_path=gs://dataflow-templates/latest/Datastore_to_GCS_Text", project));
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setDoOutput(true);
     conn.setRequestMethod("POST");
@@ -100,12 +97,6 @@ public class LaunchDataflowTemplate extends HttpServlet {
       IOUtils.copy(conn.getErrorStream(), w, "UTF-8");
       response.getWriter().println(w.toString());
     }
-  }
-
-  public static String getInfo() {
-    return "Version: " + System.getProperty("java.version")
-          + " OS: " + System.getProperty("os.name")
-          + " User: " + System.getProperty("user.name");
   }
 
 }

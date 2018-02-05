@@ -41,7 +41,7 @@ detailed instructions.
    commands add generic names; feel free to adjust appropriately.
 
     ```
-    export PROJECT=dataflow-$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 10 | head -n 1)
+    export PROJECT=<your-project-name-here>
     export BUCKET=$PROJECT-template
     ```
 
@@ -54,8 +54,8 @@ detailed instructions.
 1. Update the source to use your project and bucket names in the dataflow job.
 
     ```
-    sed -i "s/YOUR_PROJECT_NAME/$PROJECT/" src/main/java/com/example/appengine/java8/HelloAppEngine.java
-    sed -i "s/YOUR_BUCKET_NAME/$BUCKET/" src/main/java/com/example/appengine/java8/HelloAppEngine.java
+    sed -i "s/YOUR_PROJECT_NAME/$PROJECT/" src/main/java/com/example/appengine/java8/LaunchDataflowTemplate.java
+    sed -i "s/YOUR_BUCKET_NAME/$BUCKET/" src/main/java/com/example/appengine/java8/LaunchDataflowTemplate.java
     ```
 
 ## Maven
@@ -71,7 +71,6 @@ To use vist: http://localhost:8080/
 
 To use vist:  https://YOUR-PROJECT-ID.appspot.com
 
-## Gradle
 ### Running locally
 
     gradle appengineRun

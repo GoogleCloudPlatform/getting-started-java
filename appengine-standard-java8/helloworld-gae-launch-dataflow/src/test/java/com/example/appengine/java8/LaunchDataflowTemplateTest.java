@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 // [START example]
 @RunWith(JUnit4.class)
 public class LaunchDataflowTemplateTest {
-  private static final String FAKE_URL = "fake.fk/launch";
+  private static final String FAKE_URL = "fake.fk/launchdf";
   // Set up a helper so that the ApiProxy returns a valid environment for local testing.
   private final LocalServiceTestHelper helper = new LocalServiceTestHelper();
 
@@ -72,14 +72,6 @@ public class LaunchDataflowTemplateTest {
   @Test
   public void doGetWritesResponse() throws Exception {
     servletUnderTest.doGet(mockRequest, mockResponse);
-  }
-
-  @Test
-  public void helloInfoTest() {
-    String result = LaunchDataflowTemplate.getInfo();
-    assertThat(result)
-      .named("HelloInfo.getInfo")
-      .containsMatch("^Version:\\s+.+OS:\\s+.+User:\\s");
   }
 }
 // [END example]

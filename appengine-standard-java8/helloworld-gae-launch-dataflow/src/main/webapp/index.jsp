@@ -17,7 +17,7 @@
   --%>
 <!-- [END_EXCLUDE] -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.appengine.java8.HelloAppEngine" %>
+<%@ page import="com.example.appengine.java8.LaunchDataflowTemplate" %>
 <html>
 <head>
   <link href='//fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>
@@ -26,13 +26,10 @@
 <body>
     <h1>Hello App Engine -- Java 8!</h1>
 
-  <p>This is <%= HelloAppEngine.getInfo() %>.</p>
+  <p>This webapp demonstrates launching Dataflow templates from App Engine.</p>
   <table>
     <tr>
-      <td colspan="2" style="font-weight:bold;">Available Servlets:</td>
-    </tr>
-    <tr>
-      <td><a href='/hello'>Hello App Engine</a></td>
+      <td><a href='/launchdf'>Launch Dataflow from GAE</a></td>
     </tr>
   </table>
 
