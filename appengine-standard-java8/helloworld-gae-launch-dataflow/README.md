@@ -81,6 +81,10 @@ launched dataflow job will be charged as described in
 https://cloud.google.com/dataflow/pricing, but will likely not incur any charges
 so long as there are little to no entities in the target datastore instance.
 
+*Note that as of 2018-02-05, gcloud 187.0.0 will throw
+[errors](https://stackoverflow.com/a/48567678) when you try to
+deploy. Version 186.0.0, however, should deploy successfully.*
+
 ## Testing
 
     mvn verify
