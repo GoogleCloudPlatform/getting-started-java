@@ -83,8 +83,6 @@ public class CreateRecord extends HttpServlet {
       statementCreatePost.setString(4, blogContent.get("blogContent_description"));
       statementCreatePost.executeUpdate();
 
-      conn.close(); // close the connection to the MySQL server
-
       // Send the user to the confirmation page with personalised confirmation text
       String confirmation = "Post with title " + blogContent.get("blogContent_title") + " created.";
 
@@ -111,8 +109,7 @@ public class CreateRecord extends HttpServlet {
         throw new ServletException("Unable to connect to Cloud SQL", e);
       }
 
-    } finally {
-      // Nothing really to do here.
     }
   }
+
 }
