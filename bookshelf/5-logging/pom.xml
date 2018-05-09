@@ -104,7 +104,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Cloud Client Library for Java -->
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud</artifactId>
-      <version>0.42.0-alpha</version>
+      <version>0.47.0-alpha</version>
     </dependency>
 
     <dependency>                        <!-- Google API client - for stuff that's not in gcloud-->
@@ -122,7 +122,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google+ API Client Library for Java -->
       <groupId>com.google.apis</groupId>
       <artifactId>google-api-services-plus</artifactId>
-      <version>v1-rev544-1.23.0</version>
+      <version>v1-rev549-1.23.0</version>
     </dependency>
 
     <dependency>                        <!-- https://github.com/FasterXML/jackson-databind -->
@@ -158,13 +158,13 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>com.google.cloud.sql</groupId>
       <artifactId>mysql-socket-factory-connector-j-6</artifactId>
-      <version>1.0.5</version>
+      <version>1.0.8</version>
     </dependency>
 
     <dependency>
       <groupId>com.google.firebase</groupId>
       <artifactId>firebase-admin</artifactId>
-      <version>5.9.0</version>
+      <version>6.0.0</version>
     </dependency>
 
     <!-- Test dependencies -->
