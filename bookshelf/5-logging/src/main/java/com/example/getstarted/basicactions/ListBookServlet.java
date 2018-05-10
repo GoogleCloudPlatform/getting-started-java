@@ -1,4 +1,4 @@
-/* Copyright 2016 Google Inc.
+/* Copyright 2016 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,11 +75,11 @@ public class ListBookServlet extends HttpServlet {
     this.getServletContext().setAttribute(
         "isCloudStorageConfigured",    // Hide upload when Cloud Storage is not configured.
         !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
- // [START authConfigured]
+    // [START authConfigured]
     this.getServletContext().setAttribute(
         "isAuthConfigured",            // Hide login when auth is not configured.
         !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.clientID")));
-// [END authConfigured]
+    // [END authConfigured]
   }
 
   @Override

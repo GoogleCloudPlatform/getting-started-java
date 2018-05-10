@@ -1,4 +1,4 @@
-/* Copyright 2016 Google Inc.
+/* Copyright 2016 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,6 +46,7 @@ public class CloudSqlDao implements BookDao {
       conn.createStatement().executeUpdate(createTableSql);
     }
   }
+
   // [END constructor]
   // [START create]
   @Override
@@ -54,8 +55,8 @@ public class CloudSqlDao implements BookDao {
         + "(author, createdBy, createdById, description, publishedDate, title, imageUrl) "
         + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        final PreparedStatement createBookStmt = conn.prepareStatement(createBookString,
-            Statement.RETURN_GENERATED_KEYS)) {
+         final PreparedStatement createBookStmt = conn.prepareStatement(createBookString,
+             Statement.RETURN_GENERATED_KEYS)) {
       createBookStmt.setString(1, book.getAuthor());
       createBookStmt.setString(2, book.getCreatedBy());
       createBookStmt.setString(3, book.getCreatedById());
@@ -70,13 +71,14 @@ public class CloudSqlDao implements BookDao {
       }
     }
   }
+
   // [END create]
   // [START read]
   @Override
   public Book readBook(Long bookId) throws SQLException {
     final String readBookString = "SELECT * FROM books2 WHERE id = ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement readBookStmt = conn.prepareStatement(readBookString)) {
+         PreparedStatement readBookStmt = conn.prepareStatement(readBookString)) {
       readBookStmt.setLong(1, bookId);
       try (ResultSet keys = readBookStmt.executeQuery()) {
         keys.next();
@@ -93,6 +95,7 @@ public class CloudSqlDao implements BookDao {
       }
     }
   }
+
   // [END read]
   // [START update]
   @Override
@@ -100,7 +103,7 @@ public class CloudSqlDao implements BookDao {
     final String updateBookString = "UPDATE books2 SET author = ?, createdBy = ?, createdById = ?, "
         + "description = ?, publishedDate = ?, title = ?, imageUrl = ? WHERE id = ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement updateBookStmt = conn.prepareStatement(updateBookString)) {
+         PreparedStatement updateBookStmt = conn.prepareStatement(updateBookString)) {
       updateBookStmt.setString(1, book.getAuthor());
       updateBookStmt.setString(2, book.getCreatedBy());
       updateBookStmt.setString(3, book.getCreatedById());
@@ -112,17 +115,19 @@ public class CloudSqlDao implements BookDao {
       updateBookStmt.executeUpdate();
     }
   }
+
   // [END update]
   // [START delete]
   @Override
   public void deleteBook(Long bookId) throws SQLException {
     final String deleteBookString = "DELETE FROM books2 WHERE id = ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement deleteBookStmt = conn.prepareStatement(deleteBookString)) {
+         PreparedStatement deleteBookStmt = conn.prepareStatement(deleteBookString)) {
       deleteBookStmt.setLong(1, bookId);
       deleteBookStmt.executeUpdate();
     }
   }
+
   // [END delete]
   // [START listbooks]
   @Override
@@ -135,7 +140,7 @@ public class CloudSqlDao implements BookDao {
         + "description, id, publishedDate, title, imageUrl FROM books2 ORDER BY title ASC "
         + "LIMIT 10 OFFSET ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement listBooksStmt = conn.prepareStatement(listBooksString)) {
+         PreparedStatement listBooksStmt = conn.prepareStatement(listBooksString)) {
       listBooksStmt.setInt(1, offset);
       List<Book> resultBooks = new ArrayList<>();
       try (ResultSet rs = listBooksStmt.executeQuery()) {
