@@ -1,4 +1,4 @@
-/* Copyright 2016 Google Inc.
+/* Copyright 2016 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END constructor]
+
   // [START create]
   @Override
   public Long createBook(Book book) throws SQLException {
@@ -71,6 +72,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END create]
+
   // [START read]
   @Override
   public Book readBook(Long bookId) throws SQLException {
@@ -94,6 +96,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END read]
+
   // [START update]
   @Override
   public void updateBook(Book book) throws SQLException {
@@ -113,6 +116,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END update]
+
   // [START delete]
   @Override
   public void deleteBook(Long bookId) throws SQLException {
@@ -124,6 +128,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END delete]
+
   // [START listbooks]
   @Override
   public Result<Book> listBooks(String cursor) throws SQLException {

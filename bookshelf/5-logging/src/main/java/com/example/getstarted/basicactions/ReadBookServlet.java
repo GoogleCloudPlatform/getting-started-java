@@ -1,4 +1,4 @@
-/* Copyright 2016 Google Inc.
+/* Copyright 2016 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,9 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "read", value = "/read")
 public class ReadBookServlet extends HttpServlet {
 
-// [START init]
+  // [START init]
   private final Logger logger = Logger.getLogger(ReadBookServlet.class.getName());
-// [END init]
+  // [END init]
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,

@@ -1,4 +1,4 @@
-/* Copyright 2016 Google Inc.
+/* Copyright 2016 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public class CreateBookServlet extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
-// [START bookBuilder]
+    // [START bookBuilder]
     Book book = new Book.Builder()
         .author(req.getParameter("author"))   // form parameter
         .description(req.getParameter("description"))
@@ -59,7 +59,7 @@ public class CreateBookServlet extends HttpServlet {
         .title(req.getParameter("title"))
         .imageUrl(null)
         .build();
-// [END bookBuilder]
+    // [END bookBuilder]
     try {
       Long id = dao.createBook(book);
       resp.sendRedirect("/read?id=" + id.toString());   // read what we just wrote
