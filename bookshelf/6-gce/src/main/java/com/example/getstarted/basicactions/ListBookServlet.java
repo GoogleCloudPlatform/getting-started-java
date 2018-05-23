@@ -75,11 +75,11 @@ public class ListBookServlet extends HttpServlet {
     this.getServletContext().setAttribute(
         "isCloudStorageConfigured",    // Hide upload when Cloud Storage is not configured.
         !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
- // [START authConfigured]
+    // [START authConfigured]
     this.getServletContext().setAttribute(
         "isAuthConfigured",            // Hide login when auth is not configured.
         !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.clientID")));
-// [END authConfigured]
+    // [END authConfigured]
   }
 
   @Override

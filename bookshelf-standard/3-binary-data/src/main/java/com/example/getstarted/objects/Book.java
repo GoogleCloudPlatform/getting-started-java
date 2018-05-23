@@ -17,7 +17,7 @@ package com.example.getstarted.objects;
 
 // [START example]
 public class Book {
-// [START book]
+  // [START book]
   private String title;
   private String author;
   private String createdBy;
@@ -26,8 +26,8 @@ public class Book {
   private String description;
   private Long id;
   private String imageUrl;
-// [END book]
-// [START keys]
+  // [END book]
+  // [START keys]
   public static final String AUTHOR = "author";
   public static final String CREATED_BY = "createdBy";
   public static final String CREATED_BY_ID = "createdById";
@@ -36,8 +36,9 @@ public class Book {
   public static final String PUBLISHED_DATE = "publishedDate";
   public static final String TITLE = "title";
   public static final String IMAGE_URL = "imageUrl";
-// [END keys]
-// [START constructor]
+  // [END keys]
+
+  // [START constructor]
   // We use a Builder pattern here to simplify and standardize construction of Book objects.
   private Book(Builder builder) {
     this.title = builder.title;
@@ -49,8 +50,9 @@ public class Book {
     this.id = builder.id;
     this.imageUrl = builder.imageUrl;
   }
-// [END constructor]
-// [START builder]
+  // [END constructor]
+
+  // [START builder]
   public static class Builder {
     private String title;
     private String author;
@@ -169,7 +171,8 @@ public class Book {
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
   }
-// [END builder]
+
+  // [END builder]
   @Override
   public String toString() {
     return

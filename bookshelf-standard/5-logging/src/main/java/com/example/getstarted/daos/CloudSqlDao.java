@@ -47,6 +47,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END constructor]
+
   // [START create]
   @Override
   public Long createBook(Book book) throws SQLException {
@@ -54,8 +55,8 @@ public class CloudSqlDao implements BookDao {
         + "(author, createdBy, createdById, description, publishedDate, title, imageUrl) "
         + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        final PreparedStatement createBookStmt = conn.prepareStatement(createBookString,
-            Statement.RETURN_GENERATED_KEYS)) {
+         final PreparedStatement createBookStmt = conn.prepareStatement(createBookString,
+             Statement.RETURN_GENERATED_KEYS)) {
       createBookStmt.setString(1, book.getAuthor());
       createBookStmt.setString(2, book.getCreatedBy());
       createBookStmt.setString(3, book.getCreatedById());
@@ -71,12 +72,13 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END create]
+
   // [START read]
   @Override
   public Book readBook(Long bookId) throws SQLException {
     final String readBookString = "SELECT * FROM books5 WHERE id = ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement readBookStmt = conn.prepareStatement(readBookString)) {
+         PreparedStatement readBookStmt = conn.prepareStatement(readBookString)) {
       readBookStmt.setLong(1, bookId);
       try (ResultSet keys = readBookStmt.executeQuery()) {
         keys.next();
@@ -94,13 +96,14 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END read]
+
   // [START update]
   @Override
   public void updateBook(Book book) throws SQLException {
     final String updateBookString = "UPDATE books5 SET author = ?, createdBy = ?, createdById = ?, "
         + "description = ?, publishedDate = ?, title = ?, imageUrl = ? WHERE id = ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement updateBookStmt = conn.prepareStatement(updateBookString)) {
+         PreparedStatement updateBookStmt = conn.prepareStatement(updateBookString)) {
       updateBookStmt.setString(1, book.getAuthor());
       updateBookStmt.setString(2, book.getCreatedBy());
       updateBookStmt.setString(3, book.getCreatedById());
@@ -113,17 +116,19 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END update]
+
   // [START delete]
   @Override
   public void deleteBook(Long bookId) throws SQLException {
     final String deleteBookString = "DELETE FROM books5 WHERE id = ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement deleteBookStmt = conn.prepareStatement(deleteBookString)) {
+         PreparedStatement deleteBookStmt = conn.prepareStatement(deleteBookString)) {
       deleteBookStmt.setLong(1, bookId);
       deleteBookStmt.executeUpdate();
     }
   }
   // [END delete]
+
   // [START listbooks]
   @Override
   public Result<Book> listBooks(String cursor) throws SQLException {
@@ -135,7 +140,7 @@ public class CloudSqlDao implements BookDao {
         + "description, id, publishedDate, title, imageUrl FROM books5 ORDER BY title ASC "
         + "LIMIT 10 OFFSET ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement listBooksStmt = conn.prepareStatement(listBooksString)) {
+         PreparedStatement listBooksStmt = conn.prepareStatement(listBooksString)) {
       listBooksStmt.setInt(1, offset);
       List<Book> resultBooks = new ArrayList<>();
       try (ResultSet rs = listBooksStmt.executeQuery()) {
@@ -179,7 +184,7 @@ public class CloudSqlDao implements BookDao {
         + "description, id, publishedDate, title, imageUrl FROM books WHERE createdById = ? "
         + "ORDER BY title ASC LIMIT 10 OFFSET ?";
     try (Connection conn = DriverManager.getConnection(sqlUrl);
-        PreparedStatement listBooksStmt = conn.prepareStatement(listBooksString)) {
+         PreparedStatement listBooksStmt = conn.prepareStatement(listBooksString)) {
       listBooksStmt.setString(1, userId);
       listBooksStmt.setInt(2, offset);
       List<Book> resultBooks = new ArrayList<>();
