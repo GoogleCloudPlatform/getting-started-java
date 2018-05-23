@@ -32,10 +32,11 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START init]
 public class LogoutFilter implements Filter {
+  // [END init]
 
-// [END init]
   @Override
-  public void init(FilterConfig config) throws ServletException { }
+  public void init(FilterConfig config) throws ServletException {
+  }
 
   @Override
   public void doFilter(ServletRequest servletReq, ServletResponse servletResp, FilterChain chain)

@@ -18,8 +18,6 @@ package com.example.getstarted.daos;
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +25,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.dbcp2.BasicDataSource;
 
 // [START example]
 public class CloudSqlDao implements BookDao {
@@ -48,6 +48,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END constructor]
+
   // [START create]
   @Override
   public Long createBook(Book book) throws SQLException {
@@ -72,6 +73,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END create]
+
   // [START read]
   @Override
   public Book readBook(Long bookId) throws SQLException {
@@ -95,6 +97,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END read]
+
   // [START update]
   @Override
   public void updateBook(Book book) throws SQLException {
@@ -114,6 +117,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END update]
+
   // [START delete]
   @Override
   public void deleteBook(Long bookId) throws SQLException {
@@ -125,6 +129,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END delete]
+
   // [START listbooks]
   @Override
   public Result<Book> listBooks(String cursor) throws SQLException {

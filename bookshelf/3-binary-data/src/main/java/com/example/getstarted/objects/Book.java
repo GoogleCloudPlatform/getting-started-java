@@ -38,6 +38,7 @@ public class Book {
   public static final String IMAGE_URL = "imageUrl";
 
   // [END keys]
+
   // [START constructor]
   // We use a Builder pattern here to simplify and standardize construction of Book objects.
   private Book(Builder builder) {

@@ -46,6 +46,7 @@ public class DatastoreDao implements BookDao {
   }
 
   // [END constructor]
+
   // [START entityToBook]
   public Book entityToBook(Entity entity) {
     return new Book.Builder()                                     // Convert to Book form
