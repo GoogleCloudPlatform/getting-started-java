@@ -61,6 +61,10 @@ limitations under the License.
         </plugins>
     </reporting>
 
+  <prerequisites>
+    <maven>3.5</maven>
+  </prerequisites>
+
     <build>
       <pluginManagement>
         <plugins>
