@@ -26,7 +26,7 @@ do
   (cd "${app}"
       sed --in-place='.xx' "s/<\/runtime>/<\/runtime><service>${app}<\/service>/" \
           src/main/webapp/WEB-INF/appengine-web.xml
-      mvn -B --fail-at-end -q appengine:deploy -Dapp.deploy.version="1" \
+      mvn -B --fail-at-end -q package appengine:deploy -Dapp.deploy.version="1" \
           -Dapp.stage.quickstart=true -Dapp.deploy.force=true -Dapp.deploy.promote=true \
           -Dapp.deploy.project="${GOOGLE_CLOUD_PROJECT}" -DskipTests=true
       mv src/main/webapp/WEB-INF/appengine-web.xml.xx src/main/webapp/WEB-INF/appengine-web.xml)

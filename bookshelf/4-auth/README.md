@@ -26,7 +26,7 @@ details.
 
 * Deploy your App
 
-    mvn clean appengine:deploy \
+    mvn clean package appengine:deploy \
         -Dbookshelf.bucket=MY-BUCKET
 
 

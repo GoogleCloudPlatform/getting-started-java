@@ -19,5 +19,5 @@ Most users can get this running by updating the parameters in `pom.xml`.
 
 * Deploy your App
 
-    mvn clean appengine:deploy
+    mvn clean package appengine:deploy
 

@@ -30,7 +30,7 @@ The samples have files to support both Maven and Gradle.  To use the IDE plugins
   
 ### Deploying
 
-    $ mvn appengine:deploy
+    $ mvn package appengine:deploy
 
 ## Gradle
 [Using Gradle and the App Engine Plugin](https://cloud.google.com/appengine/docs/flexible/java/using-gradle) 

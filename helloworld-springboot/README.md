@@ -84,7 +84,7 @@ These settings should be revisited for production use.
 
 ## Deploy to App Engine flexible environment
 
-1. `mvn appengine:deploy`
+1. `mvn package appengine:deploy`
 1. Visit `http://YOUR_PROJECT.appspot.com`.
 
 Note that deployment to the App Engine flexible environment requires the new
