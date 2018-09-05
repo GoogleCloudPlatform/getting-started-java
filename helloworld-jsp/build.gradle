@@ -50,7 +50,7 @@ dependencies {
 
 // [START gretty]
 gretty {
-    port = 8080
+    httpPort = 8080
     contextPath = '/'
     servletContainer = 'jetty9'  // What App Engine Flexible uses
 }
