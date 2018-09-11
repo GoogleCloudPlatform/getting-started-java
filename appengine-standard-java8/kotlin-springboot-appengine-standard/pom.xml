@@ -31,7 +31,6 @@ limitations under the License.
 
   <properties>
     <java.version>1.8</java.version>
-    <kotlin.version>1.2.41</kotlin.version>
   </properties>
 
   <dependencies>
@@ -68,8 +67,13 @@ limitations under the License.
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-jre8</artifactId>
-      <version>${kotlin.version}</version>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <version>1.2.41</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-reflect</artifactId>
+      <version>1.2.41</version>
     </dependency>
   </dependencies>
 
@@ -81,7 +85,7 @@ limitations under the License.
       <plugin>
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>${kotlin.version}</version>
+        <version>1.2.41</version>
         <configuration>
           <compilerPlugins>
             <plugin>spring</plugin>
@@ -108,7 +112,7 @@ limitations under the License.
             <dependency>
               <groupId>org.jetbrains.kotlin</groupId>
               <artifactId>kotlin-maven-allopen</artifactId>
-              <version>${kotlin.version}</version>
+              <version>1.2.41</version>
             </dependency>
           </dependencies>
       </plugin>
