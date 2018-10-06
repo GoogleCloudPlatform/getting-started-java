@@ -38,6 +38,7 @@ import java.util.List;
 // [START example]
 public class DatastoreDao implements BookDao {
 
+  private static final int PAGING_SIZE = 10;
   // [START constructor]
   private DatastoreService datastore;
   private static final String BOOK_KIND = "Book4";
@@ -48,7 +49,7 @@ public class DatastoreDao implements BookDao {
   // [END constructor]
 
   // [START entityToBook]
-  public Book entityToBook(Entity entity) {
+  private Book entityToBook(Entity entity) {
     return new Book.Builder()                                     // Convert to Book form
         .author((String) entity.getProperty(Book.AUTHOR))
         .description((String) entity.getProperty(Book.DESCRIPTION))
@@ -117,7 +118,7 @@ public class DatastoreDao implements BookDao {
   // [END delete]
 
   // [START entitiesToBooks]
-  public List<Book> entitiesToBooks(Iterator<Entity> results) {
+  private List<Book> entitiesToBooks(Iterator<Entity> results) {
     List<Book> resultBooks = new ArrayList<>();
     while (results.hasNext()) {  // We still have data
       resultBooks.add(entityToBook(results.next()));      // Add the Book to the List
@@ -126,54 +127,47 @@ public class DatastoreDao implements BookDao {
   }
   // [END entitiesToBooks]
 
-  // [START listbooks]
-  @Override
-  public Result<Book> listBooks(String startCursorString) {
-    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time
+  // [START list]
+  private Result<Book> list(String startCursorString, Query.Filter filter) {
+    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(PAGING_SIZE); // Only show 10 at a time
     if (startCursorString != null && !startCursorString.equals("")) {
       fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
     }
+
     Query query = new Query(BOOK_KIND) // We only care about Books
-        .addSort(Book.TITLE, SortDirection.ASCENDING); // Use default Index "title"
+            .addSort(Book.TITLE, SortDirection.ASCENDING);
+
+    if (filter != null) {
+      query.setFilter(filter);
+    }
+
     PreparedQuery preparedQuery = datastore.prepare(query);
     QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
     List<Book> resultBooks = entitiesToBooks(results);     // Retrieve and convert Entities
     Cursor cursor = results.getCursor();              // Where to start next time
-    if (cursor != null && resultBooks.size() == 10) {         // Are we paging? Save Cursor
+
+    if (cursor != null && resultBooks.size() == PAGING_SIZE) {         // Are we paging? Save Cursor
       String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
       return new Result<>(resultBooks, cursorString);
     } else {
       return new Result<>(resultBooks);
     }
   }
+  // [END list]
+
+  // [START listbooks]
+  @Override
+  public Result<Book> listBooks(String startCursorString) {
+    return list(startCursorString, null);
+  }
   // [END listbooks]
 
   // [START listbyuser]
   @Override
   public Result<Book> listBooksByUser(String userId, String startCursorString) {
-    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time
-    if (startCursorString != null && !startCursorString.equals("")) {
-      fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
-    }
-    Query query = new Query(BOOK_KIND) // We only care about Books
-        // Only for this user
-        .setFilter(new Query.FilterPredicate(
-            Book.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
-        // a custom datastore index is required since you are filtering by one property
-        // but ordering by another
-        .addSort(Book.TITLE, SortDirection.ASCENDING);
-    PreparedQuery preparedQuery = datastore.prepare(query);
-    QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
-
-    List<Book> resultBooks = entitiesToBooks(results);     // Retrieve and convert Entities
-    Cursor cursor = results.getCursor();              // Where to start next time
-    if (cursor != null && resultBooks.size() == 10) {         // Are we paging? Save Cursor
-      String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
-      return new Result<>(resultBooks, cursorString);
-    } else {
-      return new Result<>(resultBooks);
-    }
+    return list(startCursorString, new Query.FilterPredicate(
+            Book.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId));
   }
   // [END listbyuser]
 }
