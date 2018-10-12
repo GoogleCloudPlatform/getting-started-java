@@ -1,0 +1,32 @@
+runtime: java8
+api_version: '1.0'
+env: flex
+threadsafe: true
+instance_class: F1
+inbound_services:
+  - warmup
+handlers:
+  - url: '(/.*/)'
+    login: required
+    secure: always
+    application_readable: false
+    static_files: "__static__\\1index.html"
+    require_matching_file: true
+    upload: __NOT_USED__
+  - url: (/)
+    login: required
+    secure: always
+    application_readable: false
+    static_files: "__static__\\1index.html"
+    require_matching_file: true
+    upload: __NOT_USED__
+  - url: '(/.*)'
+    login: required
+    secure: always
+    application_readable: false
+    static_files: "__static__\\1"
+    require_matching_file: true
+    upload: __NOT_USED__
+  - url: '/.*'
+    script: unused
+    login: required
