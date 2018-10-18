@@ -82,7 +82,7 @@ TestIt "helloworld" "hello" "Hello App Engine - Standard using Google App Engine
 TestIt "kotlin-appengine-standard" "" \
   "Hello, World! I am a Servlet 3.1 running on Java8 App Engine Standard, and written in Kotlin..."
 
-TestIt "kotlin-springboot-appengine-standard" "greeting" \
+TestIt "kotlin-sb-appengine-standard" "greeting" \
   "Hello, World, from a SpringBoot Application written in Kotlin, running on Google App Engine Java8 Standard..."
 
 TestIt "springboot-appengine-standard" "" \
