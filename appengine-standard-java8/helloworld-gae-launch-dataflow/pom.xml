@@ -50,7 +50,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.64</version>
+      <version>1.9.67</version>
     </dependency>
     <!-- [START servlet] -->
     <dependency>
@@ -63,12 +63,12 @@ limitations under the License.
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20180130</version>
+      <version>20180813</version>
     </dependency>
     <dependency>
       <groupId>com.google.auth</groupId>
       <artifactId>google-auth-library-appengine</artifactId>
-      <version>0.9.1</version>
+      <version>0.11.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
@@ -82,26 +82,26 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-testing</artifactId>
-      <version>1.9.64</version>
+      <version>1.9.67</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-stubs</artifactId>
-      <version>1.9.64</version>
+      <version>1.9.67</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-tools-sdk</artifactId>
-      <version>1.9.64</version>
+      <version>1.9.67</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>com.google.truth</groupId>
       <artifactId>truth</artifactId>
-      <version>0.41</version>
+      <version>0.42</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -113,7 +113,7 @@ limitations under the License.
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>2.18.3</version>
+      <version>2.23.0</version>
       <scope>test</scope>
     </dependency>
     <!-- [END_EXCLUDE] -->
