@@ -27,7 +27,7 @@ mvn -v
 echo -e "\n ********** GRADLE INFO *********** "
 gradle -v
 
-# Setup required enviormental variables
+# Setup required environment variables
 export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/service-acct.json
 export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
 # Activate service account
@@ -35,36 +35,48 @@ gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \
     --project=$GOOGLE_CLOUD_PROJECT
 
-echo -e "\n******************** CHECKING FOR AFFECTED FOLDERS ********************"
+echo -e "\n******************** TESTING AFFECTED PROJECTS ********************"
+set +e
 # Diff to find out what has changed from master
+RESULT=0
 cd github/getting-started-java
-find ./*/ -name pom.xml -print0 | sort -z | while read -d $'\0' file
-do
+# For every pom.xml (may break on whitespace)
+for file in **/pom.xml; do
+    # Navigate to project
     file=$(dirname "$file")
-    echo "------------------------------------------------------------"
-    echo "- checking $file"
-    echo "------------------------------------------------------------"
-
-
     pushd "$file" > /dev/null
-    set +e
+
+    # Only tests changed projects
     git diff --quiet master.. .
-    RTN=$?
-    set -e
+    CHANGED=$?
+    # Only test leafs to prevent testing twice
+    PARENT=$(grep "<modules>" pom.xml -c)
 
     # Check for changes to the current folder
     if [ "$CHANGED" -eq 1 ] && [ "$PARENT" -eq 0 ]; then
+        echo "------------------------------------------------------------"
+        echo "- testing $file"
+        echo "------------------------------------------------------------"
+
+        # Run tests and update RESULT if failed
         mvn -q --batch-mode --fail-at-end clean verify \
            -Dfile.encoding="UTF-8" \
            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
            -Dmaven.test.redirectTestOutputToFile=true \
            -Dbigtable.projectID="${GOOGLE_CLOUD_PROJECT}" \
            -Dbigtable.instanceID=instance
-        echo -e " Tests complete. \n"
-    else
-        echo -e "\n NO change found. \n"
+        EXIT=$?
+
+        if [ $EXIT -ne 0 ]; then
+            echo -e "\n Tests failed. \n"
+            RESULT=1
+        else
+            echo -e "\n Tests complete. \n"
+        fi
     fi
 
     popd > /dev/null
 
 done
+
+exit $RESULT
