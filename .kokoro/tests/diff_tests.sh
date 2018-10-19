@@ -27,7 +27,7 @@ mvn -v
 echo -e "\n ********** GRADLE INFO *********** "
 gradle -v
 
-# Setup required environmental variables
+# Setup required environment variables
 export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/service-acct.json
 export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
 # Activate service account
