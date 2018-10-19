@@ -196,50 +196,29 @@ limitations under the License.
             </executions>
           </plugin>
         </plugins>
-      </pluginManagement>
-    </build>
+      </build>
+    </profile>
+  </profiles>
 
-    <profiles>
-      <profile>
-        <id>selenium</id>
-        <build>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-failsafe-plugin</artifactId>
-              <version>2.20</version>
-              <executions>
-                <execution>
-                  <configuration>
-                    <skipITs>false</skipITs>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
-          </plugins>
-        </build>
-      </profile>
-    </profiles>
-
-    <dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.12</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.mockito</groupId>
-          <artifactId>mockito-core</artifactId>
-          <version>2.23.0</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>com.jcabi</groupId>
-          <artifactId>jcabi-matchers</artifactId>
-          <version>1.4</version>
-        </dependency>
-      </dependencies>
-    </dependencyManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>2.23.0</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.jcabi</groupId>
+        <artifactId>jcabi-matchers</artifactId>
+        <version>1.4</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
