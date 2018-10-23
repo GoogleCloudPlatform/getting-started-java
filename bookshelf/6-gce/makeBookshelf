@@ -35,7 +35,7 @@ MAX_INSTANCES=10
 TARGET_UTILIZATION=0.6
 
 SERVICE=frontend-web-service
-WAR=bookshelf-1.0-SNAPSHOT.war
+WAR=bookshelf-gce-1.0-SNAPSHOT.war
 # [END useful]
 
 function print_usage() {
