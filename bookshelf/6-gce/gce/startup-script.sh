@@ -26,6 +26,14 @@ echo "Project ID: ${PROJECTID}  Bucket: ${BUCKET}"
 # get our file(s)
 gsutil cp "gs://${BUCKET}/gce/"** .
 
+# Decrypt the config.json file, if necessary
+if [ -f config.json.enc ]; then
+  gcloud kms decrypt --location=global --keyring=[YOUR_KEY_RING] --key=[YOUR_KEY_NAME] --plaintext-file=config.json --ciphertext-file=config.json.enc
+fi
+
+# Copy config.json to /opt/jetty
+cp config.json /opt/jetty/
+
 # Install dependencies from apt
 apt-get update
 apt-get install -yq openjdk-8-jdk

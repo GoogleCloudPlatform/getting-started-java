@@ -84,6 +84,12 @@ gce)
 # [START gce-single]
   mvn clean package
 
+  if [ -f config.json.enc ]; then
+    gsutil cp config.json.enc gs://${BUCKET}/gce/
+  else
+    gsutil cp config.json gs://${BUCKET}/gce/
+  fi
+
   gsutil cp -r target/${WAR} gce/base gs://${BUCKET}/gce/
 
   gcloud compute firewall-rules create allow-http-bookshelf \
@@ -116,6 +122,12 @@ gce-many)
 # Instance group setup
 #
   mvn clean package
+
+  if [ -f config.json.enc ]; then
+    gsutil cp config.json.enc gs://${BUCKET}/gce/
+  else
+    gsuit cp config.json gs://${BUCKET}/gce/
+  fi
 
   gsutil cp -r target/${WAR} gce/base gs://${BUCKET}/gce/
 

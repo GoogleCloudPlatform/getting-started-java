@@ -16,6 +16,7 @@
 
 package com.example.getstarted.auth;
 
+import com.example.getstarted.util.ConfigFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -78,13 +79,13 @@ public class Oauth2CallbackServlet extends HttpServlet {
     flow = new GoogleAuthorizationCodeFlow.Builder(
         HTTP_TRANSPORT,
         JSON_FACTORY,
-        getServletContext().getInitParameter("bookshelf.clientID"),
-        getServletContext().getInitParameter("bookshelf.clientSecret"),
+        ConfigFile.getConfig().get("OAUTH2_CLIENT_ID"),
+        ConfigFile.getConfig().get("OAUTH2_CLIENT_SECRET"),
         SCOPES).build();
 
     final TokenResponse tokenResponse =
         flow.newTokenRequest(req.getParameter("code"))
-            .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
+            .setRedirectUri(ConfigFile.getConfig().get("OAUTH2_CALLBACK"))
             .execute();
 
     req.getSession().setAttribute("token", tokenResponse.toString()); // Keep track of the token.

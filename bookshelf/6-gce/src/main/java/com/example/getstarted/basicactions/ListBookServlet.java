@@ -22,6 +22,7 @@ import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
 
+import com.example.getstarted.util.ConfigFile;
 import com.google.common.base.Strings;
 
 import java.io.IOException;
@@ -50,35 +51,39 @@ public class ListBookServlet extends HttpServlet {
     CloudStorageHelper storageHelper = new CloudStorageHelper();
 
     // Creates the DAO based on the Context Parameters
-    String storageType = this.getServletContext().getInitParameter("bookshelf.storageType");
-    switch (storageType) {
-      case "datastore":
-        dao = new DatastoreDao();
-        break;
-      case "cloudsql":
-        try {
-          String connect = this.getServletContext().getInitParameter("sql.urlRemote");
-          if (connect.contains("localhost")) {
-            connect = this.getServletContext().getInitParameter("sql.urlLocal");
+    try {
+      String storageType = ConfigFile.getConfig().get("DATA_BACKEND");
+      switch (storageType) {
+        case "datastore":
+          dao = new DatastoreDao();
+          break;
+        case "cloudsql":
+          try {
+            String connect = this.getServletContext().getInitParameter("sql.urlRemote");
+            if (connect.contains("localhost")) {
+              connect = this.getServletContext().getInitParameter("sql.urlLocal");
+            }
+            dao = new CloudSqlDao(connect);
+          } catch (SQLException e) {
+            throw new ServletException("SQL error", e);
           }
-          dao = new CloudSqlDao(connect);
-        } catch (SQLException e) {
-          throw new ServletException("SQL error", e);
-        }
-        break;
-      default:
-        throw new IllegalStateException(
-            "Invalid storage type. Check if bookshelf.storageType property is set.");
+          break;
+        default:
+          throw new IllegalStateException(
+              "Invalid storage type. Check if bookshelf.storageType property is set.");
+      }
+      this.getServletContext().setAttribute("dao", dao);
+      this.getServletContext().setAttribute("storageHelper", storageHelper);
+      this.getServletContext().setAttribute(
+          "isCloudStorageConfigured",    // Hide upload when Cloud Storage is not configured.
+          !Strings.isNullOrEmpty(ConfigFile.getConfig().get("CLOUD_BUCKET")));
+      // [START authConfigured]
+      this.getServletContext().setAttribute(
+          "isAuthConfigured",            // Hide login when auth is not configured.
+          !Strings.isNullOrEmpty(ConfigFile.getConfig().get("OAUTH2_CLIENT_ID")));
+    } catch (IOException e) {
+      throw new IllegalStateException("'config.json' file not found.");
     }
-    this.getServletContext().setAttribute("dao", dao);
-    this.getServletContext().setAttribute("storageHelper", storageHelper);
-    this.getServletContext().setAttribute(
-        "isCloudStorageConfigured",    // Hide upload when Cloud Storage is not configured.
-        !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
-    // [START authConfigured]
-    this.getServletContext().setAttribute(
-        "isAuthConfigured",            // Hide login when auth is not configured.
-        !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.clientID")));
     // [END authConfigured]
   }
 

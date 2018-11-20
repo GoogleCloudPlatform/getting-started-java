@@ -18,6 +18,7 @@ package com.example.getstarted.basicactions;
 import com.example.getstarted.daos.BookDao;
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.util.CloudStorageHelper;
+import com.example.getstarted.util.ConfigFile;
 
 import java.io.IOException;
 
@@ -57,7 +58,7 @@ public class UpdateBookServlet extends HttpServlet {
         (CloudStorageHelper) req.getServletContext().getAttribute("storageHelper");
     String imageUrl =
         storageHelper.getImageUrl(
-            req, resp, getServletContext().getInitParameter("bookshelf.bucket"));
+            req, resp, ConfigFile.getConfig().get("CLOUD_BUCKET"));
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
     try {
 

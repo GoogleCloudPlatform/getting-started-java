@@ -16,6 +16,8 @@
 
 package com.example.getstarted.auth;
 
+import com.example.getstarted.util.ConfigFile;
+
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -69,15 +71,15 @@ public class LoginServlet extends HttpServlet {
     flow = new GoogleAuthorizationCodeFlow.Builder(
         HTTP_TRANSPORT,
         JSON_FACTORY,
-        getServletContext().getInitParameter("bookshelf.clientID"),
-        getServletContext().getInitParameter("bookshelf.clientSecret"),
+        ConfigFile.getConfig().get("OAUTH2_CLIENT_ID"),
+        ConfigFile.getConfig().get("OAUTH2_CLIENT_SECRET"),
         SCOPES)
         .build();
 
     // Callback url should be the one registered in Google Developers Console
     String url =
         flow.newAuthorizationUrl()
-            .setRedirectUri(getServletContext().getInitParameter("bookshelf.callback"))
+            .setRedirectUri(ConfigFile.getConfig().get("OAUTH2_CALLBACK"))
             .setState(state)            // Prevent request forgery
             .build();
     resp.sendRedirect(url);
