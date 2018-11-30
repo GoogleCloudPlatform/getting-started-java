@@ -76,11 +76,11 @@ public class ListBookServlet extends HttpServlet {
       this.getServletContext().setAttribute("storageHelper", storageHelper);
       this.getServletContext().setAttribute(
           "isCloudStorageConfigured",    // Hide upload when Cloud Storage is not configured.
-          !Strings.isNullOrEmpty(ConfigFile.getConfig().get("CLOUD_BUCKET")));
+          !ConfigFile.getConfig().get("CLOUD_BUCKET").startsWith("[YOUR"));
       // [START authConfigured]
       this.getServletContext().setAttribute(
           "isAuthConfigured",            // Hide login when auth is not configured.
-          !Strings.isNullOrEmpty(ConfigFile.getConfig().get("OAUTH2_CLIENT_ID")));
+          !ConfigFile.getConfig().get("OAUTH2_CLIENT_ID").startsWith("[YOUR"));
     } catch (IOException e) {
       throw new IllegalStateException("'config.json' file not found.");
     }

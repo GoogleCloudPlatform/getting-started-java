@@ -31,27 +31,6 @@ Copyright 2016 Google Inc.
   </parent>
 
   <properties>
-    <!-- [START config] -->
-    <projectID>myProjectID</projectID> <!-- set w/ -DprojectID=myProjectID on command line -->
-
-    <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
-
-    <sql.dbName>bookshelf</sql.dbName>                        <!-- A reasonable default -->
-<!-- Instance Connection Name - project:region:dbName -->
-<!-- -Dsql.instanceName=localhost to use a local MySQL server -->
-    <sql.instanceName>${projectID}:us-central1:${sql.dbName}</sql.instanceName>
-    <sql.userName>root</sql.userName>                         <!-- A reasonable default -->
-    <sql.password>myRootPassword1234</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
-
-    <bookshelf.bucket>BUCKETNAME</bookshelf.bucket> <!-- bucket w/o gs:// -->
-
-    <callback.host></callback.host> <!-- Typically projectname.appspot.com -->
-    <bookshelf.clientID></bookshelf.clientID>             <!-- for User Authentication -->
-    <bookshelf.clientSecret></bookshelf.clientSecret> <!-- from g.co/cloud/console -->
-    <!-- Register in g.co/cloud/console -->
-    <bookshelf.callback>https://${callback.host}/oauth2callback</bookshelf.callback>
-    <!-- [END config] -->
-
     <appengine.maven.plugin>1.3.2</appengine.maven.plugin>
     <jetty.maven.plugin>9.4.3.v20170317</jetty.maven.plugin>
 
@@ -68,9 +47,6 @@ Copyright 2016 Google Inc.
     <profile>
       <id>local</id>
       <properties>
-        <callback.method>http</callback.method>       <!-- "http" for local, "https" for the cloud -->
-        <callback.host>localhost:8080</callback.host> <!-- Typically projectname.appspot.com -->
-        <bookshelf.callback>http://localhost:8080/oauth2callback</bookshelf.callback>
       </properties>
     </profile>
   </profiles>

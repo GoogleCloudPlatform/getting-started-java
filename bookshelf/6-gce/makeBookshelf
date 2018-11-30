@@ -16,7 +16,7 @@
 
 set -ex
 
-BUCKET=
+BUCKET=nodejs-docs-samples
 
 # [START useful]
 ZONE=us-central1-f
