@@ -19,7 +19,7 @@
 # gcloud config configurations activate qa
 
 for app in "helloworld" "kotlin-appengine-standard" \
-      "kotlin-springboot-appengine-standard" \
+      "kotlin-sb-appengine-standard" \
       "springboot-appengine-standard" "kotlin-spark-appengine-standard" \
       "sparkjava-appengine-standard"
 do

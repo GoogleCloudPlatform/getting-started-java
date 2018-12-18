@@ -14,211 +14,211 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <project>
-    <modelVersion>4.0.0</modelVersion>
-    <version>1.0.0</version>
-    <groupId>com.example</groupId>
-    <artifactId>getting-started-java</artifactId>
-    <packaging>pom</packaging>
+  <modelVersion>4.0.0</modelVersion>
+  <version>1.0.0</version>
+  <groupId>com.example</groupId>
+  <artifactId>getting-started-java</artifactId>
+  <packaging>pom</packaging>
 
-    <!-- Parent POM defines common plugins and properties. -->
-    <parent>
-        <groupId>com.google.cloud.samples</groupId>
-        <artifactId>shared-configuration</artifactId>
-        <version>1.0.9</version>
-    </parent>
+  <!-- Parent POM defines common plugins and properties. -->
+  <parent>
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.9</version>
+  </parent>
 
-    <modules>
-        <module>appengine-standard-java8/helloworld</module>
-        <module>appengine-standard-java8/helloworld-gae-launch-dataflow</module>
-        <module>appengine-standard-java8/helloworld-gae-javasdk-tools</module>
-	      <module>appengine-standard-java8/kotlin-appengine-standard</module>
-        <module>appengine-standard-java8/kotlin-springboot-appengine-standard</module>
-        <module>appengine-standard-java8/sparkjava-appengine-standard</module>
-	      <module>appengine-standard-java8/kotlin-spark-appengine-standard</module>
-	      <module>appengine-standard-java8/springboot-appengine-standard</module>
-        <module>bookshelf/2-structured-data</module>
-        <module>bookshelf/3-binary-data</module>
-        <module>bookshelf/4-auth</module>
-        <module>bookshelf/5-logging</module>
-        <module>bookshelf/6-gce</module>
-        <module>bookshelf/optional-kubernetes-engine</module>
-        <module>bookshelf-standard/2-structured-data</module>
-        <module>bookshelf-standard/3-binary-data</module>
-        <module>bookshelf-standard/4-auth</module>
-        <module>bookshelf-standard/5-logging</module>
-        <module>helloworld-jsp</module>
-        <module>helloworld-servlet</module>
-        <module>helloworld-springboot</module>
-    </modules>
+  <modules>
+    <module>appengine-standard-java8/helloworld</module>
+    <module>appengine-standard-java8/helloworld-gae-launch-dataflow</module>
+    <module>appengine-standard-java8/helloworld-gae-javasdk-tools</module>
+    <module>appengine-standard-java8/kotlin-appengine-standard</module>
+    <module>appengine-standard-java8/kotlin-sb-appengine-standard</module>
+    <module>appengine-standard-java8/sparkjava-appengine-standard</module>
+    <module>appengine-standard-java8/kotlin-spark-appengine-standard</module>
+    <module>appengine-standard-java8/springboot-appengine-standard</module>
+    <module>bookshelf/2-structured-data</module>
+    <module>bookshelf/3-binary-data</module>
+    <module>bookshelf/4-auth</module>
+    <module>bookshelf/5-logging</module>
+    <module>bookshelf/6-gce</module>
+    <module>bookshelf/optional-kubernetes-engine</module>
+    <module>bookshelf-standard/2-structured-data</module>
+    <module>bookshelf-standard/3-binary-data</module>
+    <module>bookshelf-standard/4-auth</module>
+    <module>bookshelf-standard/5-logging</module>
+    <module>helloworld-jsp</module>
+    <module>helloworld-servlet</module>
+    <module>helloworld-springboot</module>
+  </modules>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.4</version>
-            </plugin>
-        </plugins>
-    </reporting>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+    </plugins>
+  </reporting>
 
   <prerequisites>
     <maven>3.5</maven>
   </prerequisites>
 
-    <build>
-      <pluginManagement>
-        <plugins>
+  <build>
+    <pluginManagement>
+      <plugins>
 
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <executions>
+            <execution>
+              <configuration>
+                <skipITs>true</skipITs>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
+        <!-- m2eclipse does not support errorprone -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <versionRange>[3.3,)</versionRange>
+                    <goals>
+                      <goal>compile</goal>
+                      <goal>testCompile</goal>
+                    </goals>
+                    <parameters>
+                      <compilerId>javac-with-errorprone</compilerId>
+                    </parameters>
+                  </pluginExecutionFilter>
+                  <action>
+                    <configurator>
+                      <id>org.eclipse.m2e.jdt.javaConfigurator</id>
+                    </configurator>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.4</version>
+          <executions>
+            <execution>
+              <phase>compile</phase>
+              <goals>
+                <goal>display-dependency-updates</goal>
+                <goal>display-plugin-updates</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <excludes>
+              <exclude>javax.servlet:javax.servlet-api</exclude>
+              <exclude>com.google.guava:guava</exclude> <!-- avoid android version -->
+            </excludes>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.6.1</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.20</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.6</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>selenium</id>
+      <build>
+        <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.20</version>
             <executions>
               <execution>
                 <configuration>
-                  <skipITs>true</skipITs>
+                  <skipITs>false</skipITs>
                 </configuration>
               </execution>
             </executions>
           </plugin>
-
-          <!-- m2eclipse does not support errorprone -->
-          <plugin>
-            <groupId>org.eclipse.m2e</groupId>
-            <artifactId>lifecycle-mapping</artifactId>
-            <version>1.0.0</version>
-            <configuration>
-              <lifecycleMappingMetadata>
-                <pluginExecutions>
-                  <pluginExecution>
-                    <pluginExecutionFilter>
-                      <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-compiler-plugin</artifactId>
-                      <versionRange>[3.3,)</versionRange>
-                      <goals>
-                        <goal>compile</goal>
-                        <goal>testCompile</goal>
-                      </goals>
-                      <parameters>
-                        <compilerId>javac-with-errorprone</compilerId>
-                      </parameters>
-                    </pluginExecutionFilter>
-                    <action>
-                      <configurator>
-                        <id>org.eclipse.m2e.jdt.javaConfigurator</id>
-                      </configurator>
-                    </action>
-                  </pluginExecution>
-                </pluginExecutions>
-              </lifecycleMappingMetadata>
-            </configuration>
-          </plugin>
-
-           <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>versions-maven-plugin</artifactId>
-            <version>2.4</version>
-            <executions>
-              <execution>
-                <phase>compile</phase>
-                <goals>
-                  <goal>display-dependency-updates</goal>
-                  <goal>display-plugin-updates</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <excludes>
-                <exclude>javax.servlet:javax.servlet-api</exclude>
-                <exclude>com.google.guava:guava</exclude> <!-- avoid android version -->
-              </excludes>
-            </configuration>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.1.0</version>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.6.1</version>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>3.0.0</version>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-install-plugin</artifactId>
-            <version>2.5.2</version>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.20</version>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-site-plugin</artifactId>
-            <version>3.6</version>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.0.2</version>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.8.2</version>
-          </plugin>
-
         </plugins>
-      </pluginManagement>
-    </build>
+      </build>
+    </profile>
+  </profiles>
 
-    <profiles>
-      <profile>
-        <id>selenium</id>
-        <build>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-failsafe-plugin</artifactId>
-              <version>2.20</version>
-              <executions>
-                <execution>
-                  <configuration>
-                    <skipITs>false</skipITs>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
-          </plugins>
-        </build>
-      </profile>
-    </profiles>
-
-    <dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.12</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.mockito</groupId>
-          <artifactId>mockito-core</artifactId>
-          <version>2.18.3</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>com.jcabi</groupId>
-          <artifactId>jcabi-matchers</artifactId>
-          <version>1.4</version>
-        </dependency>
-      </dependencies>
-    </dependencyManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13-beta-1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>2.23.4</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.jcabi</groupId>
+        <artifactId>jcabi-matchers</artifactId>
+        <version>1.4</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
