@@ -25,6 +25,7 @@
     <java.version>1.8</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
+    <jetty.version>9.3.25.v20180904</jetty.version>
   </properties>
 
   <dependencies>
@@ -122,6 +123,21 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <stopPort>9966</stopPort>
+                    <stopKey>foo</stopKey>
+                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                    <httpConnector>
+                        <port>8080</port>
+                    </httpConnector>
+                    <jvmArgs>-Xmx1G -XX:MaxPermSize=128m</jvmArgs>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
 
     </plugins>
   </build>
