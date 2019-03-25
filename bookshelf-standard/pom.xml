@@ -80,7 +80,7 @@ Copyright 2016 Google Inc.
         <version>2.2</version>
         <configuration>
           <!-- explicitly specified to help m2e-wtp (http://eclip.se/514577) -->
-          <filteringDeploymentDescriptors>${maven.war.filteringDeploymentDescriptors}</filteringDeploymentDescriptors> 
+          <filteringDeploymentDescriptors>${maven.war.filteringDeploymentDescriptors}</filteringDeploymentDescriptors>
         </configuration>
       </plugin>
     </plugins>
@@ -99,7 +99,7 @@ Copyright 2016 Google Inc.
       <dependency>
         <groupId>org.apache.httpcomponents</groupId>
         <artifactId>httpclient</artifactId>
-        <version>4.3.5</version>
+        <version>4.3.6</version>
         <scope>test</scope>
       </dependency>
       <dependency>                        <!-- Google Cloud Client Library for Java -->
