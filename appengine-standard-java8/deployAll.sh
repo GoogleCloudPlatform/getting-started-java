@@ -21,7 +21,7 @@
 for app in "helloworld" "kotlin-appengine-standard" \
       "kotlin-sb-appengine-standard" \
       "springboot-appengine-standard" "kotlin-spark-appengine-standard" \
-      "sparkjava-appengine-standard"
+      "sparkjava-appengine-standard" "java-pubsub-authenticated-push"
 do
   (cd "${app}"
       sed --in-place='.xx' "s/<\/runtime>/<\/runtime><service>${app}<\/service>/" \
