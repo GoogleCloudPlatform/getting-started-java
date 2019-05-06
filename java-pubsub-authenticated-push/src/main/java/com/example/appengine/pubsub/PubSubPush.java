@@ -1,30 +1,25 @@
 package com.example.appengine.pubsub;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import java.io.File;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import java.nio.file.Files;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 import org.apache.http.HttpStatus;
 
 @WebServlet(name = "PubSubPush", value = "/_ah/push-handlers/receive_messages")
 public class PubSubPush extends HttpServlet {
-  List<String> tokens = new ArrayList<>();
-  List<String> claims = new ArrayList<>();
-  List<GoogleIdToken.Payload> messages = new ArrayList<>();
+  Data data;
 
   @Override
-  public void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+  public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
     if (null == req.getParameter("token")
         || null == req.getHeader("Authorization")
@@ -34,29 +29,56 @@ public class PubSubPush extends HttpServlet {
 
     String headers[] = req.getHeader("Authorization").split(" ");
     String bearerToken = headers[1];
-    tokens.add(bearerToken);
+
+    if (data == null) {
+      data = new Data();
+    }
+    data.getTokens().add(bearerToken);
 
     JacksonFactory jacksonFactory = new JacksonFactory();
-    GoogleIdTokenVerifier verifier =
-        new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), jacksonFactory).build();
     GoogleIdToken token = GoogleIdToken.parse(jacksonFactory, bearerToken);
-    try {
-      verifier.verify(token);
-    } catch (GeneralSecurityException e) {
-      resp.sendError(HttpStatus.SC_BAD_REQUEST, "Invalid token");
+    Claims claims = decodeJWT(bearerToken);
+    if (null != claims && claims.size() > 0) {
+      String issValue = (String) claims.get("iss");
+      if (issValue.equals("https://accounts.google.com")
+          || issValue.equals("accounts.google.com")) {
+        GoogleIdToken.Payload payload = token.getPayload();
+        data.messages.add(payload);
+        data.getClaims().add(claims);
+        getServletContext().setAttribute("data", data);
+      } else {
+        resp.sendError(HttpStatus.SC_BAD_REQUEST, "Invalid request");
+      }
     }
-    GoogleIdToken.Payload payload = token.getPayload();
-    messages.add(payload);
   }
 
-  @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+  public static Claims decodeJWT(String jwt) {
+    Claims claims = null;
     try {
-      req.setAttribute("messages", messages);
-      RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
-      requestDispatcher.forward(req, resp);
+      claims =
+          Jwts.parser()
+              .setSigningKey(DatatypeConverter.parseBase64Binary(readFile("privatekey.pem")))
+              .parseClaimsJws(jwt)
+              .getBody();
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return claims;
+  }
+
+  public static String readFile(String path) throws IOException {
+    ClassLoader classLoader = new PubSubPush().getClass().getClassLoader();
+
+    File file = new File(classLoader.getResource(path).getFile());
+
+    String privateKeyContent = new String(Files.readAllBytes(file.toPath()));
+
+    privateKeyContent =
+        privateKeyContent
+            .replaceAll("\\n", "")
+            .replace("-----BEGIN RSA PRIVATE KEY-----", "")
+            .replace("-----END RSA PRIVATE KEY-----", "");
+
+    return privateKeyContent;
   }
 }

@@ -23,8 +23,6 @@ import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +32,6 @@ import org.apache.http.HttpStatus;
 
 @WebServlet(name = "PubSub", value = "/")
 public class PubSub extends HttpServlet {
-  List<String> messages = new ArrayList<>();
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -55,8 +52,7 @@ public class PubSub extends HttpServlet {
       publisher.publish(pubsubMessage);
       // redirect to home page
       ApiFuture<String> future = publisher.publish(pubsubMessage);
-      String message = future.get();
-      messages.add(message);
+      future.get();
       resp.sendRedirect("/");
     } catch (Exception e) {
       resp.sendError(HttpStatus.SC_INTERNAL_SERVER_ERROR, e.getMessage());
@@ -66,7 +62,12 @@ public class PubSub extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
     try {
-      req.setAttribute("messages", messages);
+      if (getServletContext().getAttribute("data") != null) {
+        Data data = (Data) getServletContext().getAttribute("data");
+        req.setAttribute("messages", data.getMessages());
+        req.setAttribute("tokens", data.getTokens());
+        req.setAttribute("claims", data.getClaims());
+      }
       RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
       requestDispatcher.forward(req, resp);
     } catch (Exception e) {

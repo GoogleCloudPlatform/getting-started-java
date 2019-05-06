@@ -20,18 +20,20 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.example.appengine.pubsub.Data;
 import com.example.appengine.pubsub.PubSub;
 import com.google.api.core.ApiFuture;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 /** Unit tests for {@link PubSub}. */
@@ -45,19 +47,26 @@ public class PubSubTest {
 
   @Mock ApiFuture<String> future;
 
-  @Mock List<String> messages;
+  private ServletContext servletContext;
+
+  private ServletConfig servletConfig;
 
   @Before
-  public void setUp() {
+  public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
     pubSubServlet = new PubSub();
+    servletConfig = Mockito.mock(ServletConfig.class);
+    servletContext = Mockito.mock(ServletContext.class);
+    pubSubServlet.init(servletConfig);
+    servletContext.setAttribute("data", new Data());
   }
 
   @Test
   public void testIndex() {
     when(mockRequest.getRequestDispatcher("index.jsp")).thenReturn(requestDispatcher);
+    when(pubSubServlet.getServletContext()).thenReturn(servletContext);
     pubSubServlet.doGet(mockRequest, mockResponse);
-    Assert.assertEquals(mockRequest.getRequestDispatcher("index.jsp"), requestDispatcher);
+    verify(mockRequest, atLeast(1)).getRequestDispatcher("index.jsp");
   }
 
   @Test
@@ -66,6 +75,5 @@ public class PubSubTest {
     when(future.get()).thenReturn("630244882789845");
     pubSubServlet.doPost(mockRequest, mockResponse);
     verify(mockRequest, atLeast(1)).getParameter("payload");
-    Assert.assertEquals(future.get(), "630244882789845");
   }
 }
