@@ -1,5 +1,5 @@
 <!--
-  Copyright 2017 Google Inc.
+  Copyright 2019 Google Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
-      <version>0.7.0</version>
+      <version>0.9.0</version>
     </dependency>
 
     <dependency>
