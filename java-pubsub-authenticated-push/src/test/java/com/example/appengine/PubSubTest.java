@@ -62,7 +62,7 @@ public class PubSubTest {
   }
 
   @Test
-  public void testIndex() {
+  public void testIndex() throws Exception {
     when(mockRequest.getRequestDispatcher("index.jsp")).thenReturn(requestDispatcher);
     when(pubSubServlet.getServletContext()).thenReturn(servletContext);
     pubSubServlet.doGet(mockRequest, mockResponse);

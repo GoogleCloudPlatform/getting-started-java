@@ -31,7 +31,7 @@ import org.apache.http.HttpStatus;
 
 @WebServlet(name = "PubSubPush", value = "/_ah/push-handlers/receive_messages")
 public class PubSubPush extends HttpServlet {
-  Data data;
+  private Data data;
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

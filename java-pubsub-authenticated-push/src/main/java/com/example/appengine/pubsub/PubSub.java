@@ -24,6 +24,7 @@ import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,18 +61,15 @@ public class PubSub extends HttpServlet {
   }
 
   @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) {
-    try {
-      if (getServletContext().getAttribute("data") != null) {
-        Data data = (Data) getServletContext().getAttribute("data");
-        req.setAttribute("messages", data.getMessages());
-        req.setAttribute("tokens", data.getTokens());
-        req.setAttribute("claims", data.getClaims());
-      }
-      RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
-      requestDispatcher.forward(req, resp);
-    } catch (Exception e) {
-      e.printStackTrace();
+  public void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    if (getServletContext().getAttribute("data") != null) {
+      Data data = (Data) getServletContext().getAttribute("data");
+      req.setAttribute("messages", data.getMessages());
+      req.setAttribute("tokens", data.getTokens());
+      req.setAttribute("claims", data.getClaims());
     }
+    RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
+    requestDispatcher.forward(req, resp);
   }
 }
