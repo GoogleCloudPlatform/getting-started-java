@@ -27,6 +27,7 @@ import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery;
 
+import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
 
@@ -192,18 +193,21 @@ public class UserJourneyTestIT {
       WebElement button = checkLandingPage();
 
       button.click();
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/create$"));
+      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+          ".*/create$"));
 
       checkAddBookPage();
 
       submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
+      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+          ".*/read\\?id=[0-9]+$"));
 
       checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
 
       // Now check the list of books for the one we just submitted
       driver.findElement(By.linkText("Books")).click();
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/$"));
+      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+          ".*/$"));
 
       checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
     } catch (Exception e) {
