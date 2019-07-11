@@ -32,6 +32,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -198,18 +199,21 @@ public class UserJourneyTestIT {
       WebElement button = checkLandingPage();
 
       button.click();
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/create$"));
+      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+          ".*/create$"));
 
       checkAddBookPage();
 
       submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, filePath);
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
+      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+          ".*/read\\?id=[0-9]+$"));
 
       checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, IMAGE_FILENAME);
 
       // Now check the list of books for the one we just submitted
       driver.findElement(By.linkText("Books")).click();
-      (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlMatches(".*/$"));
+      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+          ".*/$"));
 
       checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, IMAGE_FILENAME);
     } catch (Exception e) {

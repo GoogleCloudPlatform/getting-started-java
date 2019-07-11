@@ -35,9 +35,10 @@ Copyright 2016 Google Inc.
     <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
 
     <sql.dbName>bookshelf</sql.dbName>                        <!-- A reasonable default -->
-<!-- Instance Connection Name - project:region:dbName -->
-<!-- -Dsql.instanceName=localhost to use a local MySQL server -->
-    <sql.instanceName>DATABASE-connectionName-HERE</sql.instanceName> <!-- See `gcloud sql instances describe [instanceName]` -->
+    <!-- Instance Connection Name - project:region:dbName -->
+    <!-- -Dsql.instanceName=localhost to use a local MySQL server -->
+    <sql.instanceName>DATABASE-connectionName-HERE
+    </sql.instanceName> <!-- See `gcloud sql instances describe [instanceName]` -->
     <sql.userName>root</sql.userName>                         <!-- A reasonable default -->
     <sql.password>MYSQL-ROOT-PASSWORD-HERE</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
 
@@ -117,11 +118,10 @@ Copyright 2016 Google Inc.
     </dependency>
 
     <dependency>                        <!-- Google Core Libraries for Java -->
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-        <!-- Guava v21.0 doesn't support Java7 -->
-        <version>20.0</version>
-        <scope>compile</scope>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
+      <version>23.0</version>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
@@ -144,6 +144,12 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-server</artifactId>
+      <version>3.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+      <version>3.3.1</version>
     </dependency>
     <!-- Selenium chokes without this, for some reason. -->
     <dependency>
@@ -159,9 +165,9 @@ Copyright 2016 Google Inc.
 
   <build>
     <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->
-    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes
+    </outputDirectory>
     <plugins>
-
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
