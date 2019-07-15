@@ -28,7 +28,7 @@ gsutil cp "gs://${BUCKET}/gce/"** .
 
 # Install dependencies from apt
 apt-get update
-apt-get install -t jessie-backports -yq openjdk-8-jdk
+apt-get install -t stretch-backports -yq openjdk-8-jdk
 
 # Make Java8 the default
 update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
@@ -50,7 +50,7 @@ java -jar /opt/jetty/start.jar --add-to-startd=setuid
 cd /
 
 # very important - by renaming the war to root.war, it will run as the root servlet.
-mv bookshelf-1.0-SNAPSHOT.war /opt/jetty/webapps/root.war
+mv bookshelf-gce-1.0-SNAPSHOT.war /opt/jetty/webapps/root.war
 
 # Make sure "jetty" owns everything.
 chown --recursive jetty /opt/jetty

@@ -24,7 +24,7 @@ ZONE=us-central1-f
 GROUP=frontend-group
 TEMPLATE=$GROUP-tmpl
 MACHINE_TYPE=g1-small
-IMAGE_FAMILY=debian-8
+IMAGE_FAMILY=debian-9
 IMAGE_PROJECT=debian-cloud
 STARTUP_SCRIPT=gce/startup-script.sh
 SCOPES="datastore,userinfo-email,logging-write,storage-full,cloud-platform"
@@ -35,7 +35,7 @@ MAX_INSTANCES=10
 TARGET_UTILIZATION=0.6
 
 SERVICE=frontend-web-service
-WAR=bookshelf-1.0-SNAPSHOT.war
+WAR=bookshelf-gce-1.0-SNAPSHOT.war
 # [END useful]
 
 function print_usage() {
