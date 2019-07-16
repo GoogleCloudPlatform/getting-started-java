@@ -21,13 +21,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.service.DriverService;
 
@@ -45,7 +46,7 @@ public class UserJourneyTestIT {
 
   @Before
   public void setup() {
-    driver = new RemoteWebDriver(service.getUrl(), DesiredCapabilities.chrome());
+    driver = new RemoteWebDriver(service.getUrl(), new ChromeOptions());
   }
 
   @After
@@ -54,6 +55,7 @@ public class UserJourneyTestIT {
   }
 
   @Test
+  @Ignore("b/138123046")
   public void userJourney() {
     driver.get("http://localhost:8080");
 

@@ -14,19 +14,25 @@ Copyright 2019 Google LLC
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project>                               <!-- REQUIRED -->
+<project>
 
-  <modelVersion>4.0.0</modelVersion>    <!-- REQUIRED -->
-  <packaging>war</packaging>            <!-- REQUIRED -->
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>war</packaging>
 
   <groupId>com.google.gce.demos</groupId>
-  <artifactId>getting-started-gce</artifactId>    <!-- Name of your project -->
-  <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
+  <artifactId>getting-started-gce</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <parent>
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.10</version>
+  </parent>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
-    <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
@@ -37,8 +43,8 @@ Copyright 2019 Google LLC
     <profile>
       <id>local</id>
       <properties>
-        <callback.method>http</callback.method>       <!-- "http" for local, "https" for the cloud -->
-        <callback.host>localhost:8080</callback.host> <!-- Typically projectname.appspot.com -->
+        <callback.method>http</callback.method>
+        <callback.host>localhost:8080</callback.host>
       </properties>
     </profile>
   </profiles>
@@ -72,15 +78,21 @@ Copyright 2019 Google LLC
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>23.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-server</artifactId>
-      <version>3.3.1</version>
+      <version>3.141.59</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-chrome-driver</artifactId>
-      <version>3.3.1</version>
+      <version>3.141.59</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -88,18 +100,31 @@ Copyright 2019 Google LLC
   <build>
     <plugins>
       <plugin>
-        <groupId>com.google.appengine</groupId>
-        <artifactId>gcloud-maven-plugin</artifactId>
-        <configuration>
-          <set_default>true</set_default>
-        </configuration>
-      </plugin>
-
-      <plugin>                          <!-- Used for local debugging -->
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.4.3.v20170317</version>
+        <version>9.4.10.v20180503</version>
+        <executions>
+          <execution>
+            <id>start-selenium</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>start</goal>
+            </goals>
+            <configuration>
+            </configuration>
+          </execution>
+          <execution>
+            <id>stop-selenium</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
+          <stopKey>stopPlzKThxBai</stopKey>
+          <stopPort>9283</stopPort>
+          <stopWait>60</stopWait>
           <webApp>
             <overrideDescriptor>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</overrideDescriptor>
           </webApp>
