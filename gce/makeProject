@@ -18,7 +18,6 @@ set -ex
 
 BUCKET=
 
-# [START useful]
 REGION=us-central1
 ZONE=$REGION-f
 
@@ -37,7 +36,6 @@ TARGET_UTILIZATION=0.6
 
 SERVICE=frontend-web-service
 WAR=getting-started-gce-1.0-SNAPSHOT.war
-# [END useful]
 
 function print_usage() {
   echo "Usage: ${0} gce | down | gce-many | down-many"
@@ -68,21 +66,17 @@ case $COMMAND in
 
 run)
   set -v
-# [START run-local]
   mvn -Plocal clean jetty:run-exploded
-# [END run-local]
   ;;
 
 deploy)
   set -v
-# [START deploy-flex]
   mvn clean gcloud:deploy
-# [END deploy-flex]
   ;;
 
 gce)
   set -v
-# [START gce-single]
+# [START getting_started_gce_single]
   mvn clean package
 
   gsutil cp -r target/${WAR} scripts/base gs://${BUCKET}/gce/
@@ -102,7 +96,7 @@ gce)
     --image-family=${IMAGE_FAMILY} \
     --image-project=${IMAGE_PROJECT} \
     --metadata BUCKET=${BUCKET}
-# [END gce-single]
+# [END getting_started_gce_single]
   ;;
 
 down)
@@ -122,7 +116,7 @@ gce-many)
 # This template will be used by the instance group
 # to create new instances.
 
-# [START create_template]
+# [START getting_started_create_template]
   gcloud compute instance-templates create ${TEMPLATE} \
     --image-family=${IMAGE_FAMILY} \
     --image-project=${IMAGE_PROJECT} \
@@ -131,7 +125,7 @@ gce-many)
     --metadata-from-file startup-script=${STARTUP_SCRIPT} \
     --tags ${TAGS} \
     --metadata BUCKET=${BUCKET}
-# [END create_template]
+# [END getting_started_create_template]
 
 # Add a firewall rule so that we can connect directly to
 # the compute instances in the group.
@@ -143,14 +137,14 @@ gce-many)
 
 # Create the managed instance group.
 
-# [START create_group]
+# [START getting_started_create_group]
   gcloud compute instance-groups managed \
     create ${GROUP} \
     --base-instance-name ${GROUP} \
     --size ${MIN_INSTANCES} \
     --template ${TEMPLATE} \
     --zone ${ZONE}
-# [END create_group]
+# [END getting_started_create_group]
 
 #
 # Load Balancer Setup
@@ -172,65 +166,65 @@ gce-many)
 # The load balancer will use this check to keep track of which instances to send traffic to.
 # Note that health checks will not cause the load balancer to shutdown any instances.
 
-# [START create_health_check]
+# [START getting_started_create_health_check]
   gcloud compute http-health-checks create ah-health-check \
     --request-path /_ah/health \
     --port 80
-# [END create_health_check]
+# [END getting_started_create_health_check]
 
 # Create a backend service, associate it with the health check and instance group.
 # The backend service serves as a target for load balancing.
 
-# [START create_backend_service]
+# [START getting_started_create_backend_service]
   gcloud compute backend-services create $SERVICE \
     --http-health-checks ah-health-check --global
-# [END create_backend_service]
+# [END getting_started_create_backend_service]
 
-# [START add_backend_service]
+# [START getting_started_add_backend_service]
   gcloud compute backend-services add-backend $SERVICE \
     --instance-group $GROUP \
     --instance-group-zone $ZONE
     --global
-# [END add_backend_service]
+# [END getting_started_add_backend_service]
 
 # Create a URL map and web Proxy. The URL map will send all requests to the
 # backend service defined above.
 
-# [START create_url_map]
+# [START getting_started_create_url_map]
   gcloud compute url-maps create $SERVICE-map \
     --default-service $SERVICE
-# [END create_url_map]
+# [END getting_started_create_url_map]
 
-# [START create_http_proxy]
+# [START getting_started_create_http_proxy]
   gcloud compute target-http-proxies create $SERVICE-proxy \
     --url-map $SERVICE-map
-# [END create_http_proxy]
+# [END getting_started_create_http_proxy]
 
 # Create a global forwarding rule to send all traffic to our proxy
 
-# [START create_forwarding_rule]
+# [START getting_started_create_forwarding_rule]
   gcloud compute forwarding-rules create $SERVICE-http-rule \
     --global \
     --target-http-proxy $SERVICE-proxy \
     --ports 80
-# [END create_forwarding_rule]
+# [END getting_started_create_forwarding_rule]
 
 #
 # Autoscaler configuration
 #
-# [START set_autoscaling]
+# [START getting_started_set_autoscaling]
   gcloud compute instance-groups managed set-autoscaling \
     $GROUP \
     --max-num-replicas $MAX_INSTANCES \
     --target-load-balancing-utilization $TARGET_UTILIZATION \
     --zone $ZONE
-# [END set_autoscaling]
+# [END getting_started_set_autoscaling]
 
   ;;
 
 down-many)
   set -v +e
-# [START stop-gce]
+# [START getting_started_stop_gce]
   gcloud compute instance-groups managed stop-autoscaling $GROUP --zone $ZONE --quiet
   gcloud compute forwarding-rules delete $SERVICE-http-rule --global --quiet
   gcloud compute target-http-proxies delete $SERVICE-proxy --quiet
@@ -240,7 +234,7 @@ down-many)
   gcloud compute instance-groups managed delete $GROUP --zone $ZONE --quiet
   gcloud compute firewall-rules delete allow-http-hello-world --quiet
   gcloud compute instance-templates delete $TEMPLATE --quiet
-# [END stop-gce]
+# [END getting_started_stop_gce]
   ;;
 esac
 set +v
