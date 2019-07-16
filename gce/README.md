@@ -1,6 +1,6 @@
 # Getting Started with Java - Google Compute Engine
 
-See the [Bookshelf tutorial][tutorial] for help getting started with App Engine Standard, Cloud
+See the [Bookshelf tutorial][tutorial] for help getting started with Google App Engine (Standard), Google Cloud
 Firestore, and more.
 
 You'll need to [create a bucket][create-bucket] in Google Cloud Storage,
