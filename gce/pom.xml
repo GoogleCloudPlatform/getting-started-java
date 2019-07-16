@@ -19,7 +19,7 @@ Copyright 2019 Google LLC
   <modelVersion>4.0.0</modelVersion>    <!-- REQUIRED -->
   <packaging>war</packaging>            <!-- REQUIRED -->
 
-  <groupId>com.google.flex.demos</groupId>
+  <groupId>com.google.gce.demos</groupId>
   <artifactId>getting-started-gce</artifactId>    <!-- Name of your project -->
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
