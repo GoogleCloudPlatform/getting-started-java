@@ -16,6 +16,7 @@
 
 set -ex
 
+# [START getting_started_useful]
 BUCKET=
 
 REGION=us-central1
@@ -33,6 +34,7 @@ TAGS=http-server
 MIN_INSTANCES=1
 MAX_INSTANCES=10
 TARGET_UTILIZATION=0.6
+# [END getting_started_useful]
 
 SERVICE=frontend-web-service
 WAR=getting-started-gce-1.0-SNAPSHOT.war
