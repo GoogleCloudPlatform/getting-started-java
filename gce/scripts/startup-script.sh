@@ -28,10 +28,10 @@ gsutil cp "gs://${BUCKET}/gce/"** .
 
 # Install dependencies from apt
 apt-get update
-apt-get install -yq openjdk-8-jdk
+apt-get install -yq openjdk-11-jre-headless
 
-# Make Java8 the default
-update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+# Make Java11 the default
+update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
 # Jetty Setup
 mkdir -p /opt/jetty/temp
@@ -84,4 +84,3 @@ echo "Startup Complete"
 #chmod +x format_env_gce.sh
 # CDBG_ARGS="$( sudo ./format_env_gce.sh --app_class_path=ZZZZZZ.jar )"
 # java ${CDBG_ARGS} -cp sparky/hellosparky-1.0-SNAPSHOT-jar-with-dependencies.jar com.example.hellosparky.App
-
