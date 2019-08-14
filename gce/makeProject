@@ -81,7 +81,7 @@ gce)
 # [START getting_started_gce_single]
   mvn clean package
 
-  gsutil cp -r target/${WAR} scripts/base gs://${BUCKET}/gce/
+  gsutil cp -r target/${WAR} config/base gs://${BUCKET}/gce/
 
   gcloud compute firewall-rules create allow-http-hello-world \
     --allow tcp:80 \
