@@ -19,26 +19,20 @@ set -v
 
 # Talk to the metadata server to get the project id
 PROJECTID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
-BUCKET=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/attributes/BUCKET" -H "Metadata-Flavor: Google")
 
-echo "Project ID: ${PROJECTID}  Bucket: ${BUCKET}"
-
-# get our file(s)
-gsutil cp "gs://${BUCKET}/gce/"** .
+echo "Project ID: ${PROJECTID}"
 
 # Install dependencies from apt
-apt-get update
-apt-get install -yq openjdk-11-jre-headless
+apt-get install -yq openjdk-11-jdk git maven
 
-# Make Java11 the default
-update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+mvn --version
 
 # Jetty Setup
 mkdir -p /opt/jetty/temp
 mkdir -p /var/log/jetty
 
 # Get Jetty
-curl -L https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.3.8.v20160314/jetty-distribution-9.3.8.v20160314.tar.gz -o jetty9.tgz
+curl -L http://central.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.13.v20181111/jetty-distribution-9.4.13.v20181111.tar.gz -o jetty9.tgz
 tar xf jetty9.tgz  --strip-components=1 -C /opt/jetty
 
 # Add a Jetty User
@@ -49,8 +43,14 @@ cd /opt/jetty
 java -jar /opt/jetty/start.jar --add-to-startd=setuid
 cd /
 
+# Clone the source repository.
+git clone https://github.com/GoogleCloudPlatform/getting-started-java
+cd getting-started-java/gce
+
+# Build the .war file and rename.
 # very important - by renaming the war to root.war, it will run as the root servlet.
-mv getting-started-gce-1.0-SNAPSHOT.war /opt/jetty/webapps/root.war
+mvn clean package -q
+mv target/getting-started-gce-1.0-SNAPSHOT.war /opt/jetty/webapps/root.war
 
 # Make sure "jetty" owns everything.
 chown --recursive jetty /opt/jetty
@@ -65,8 +65,6 @@ echo "JETTY_HOME=/opt/jetty" > /etc/default/jetty
   echo "JETTY_LOGS=/var/log/jetty"
 } >> /etc/default/jetty
 
-# -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.JavaUtilLog
-
 # Reload daemon to pick up new service
 systemctl daemon-reload
 
@@ -79,8 +77,3 @@ service jetty check
 
 echo "Startup Complete"
 # [END script]
-
-#wget -q https://storage.googleapis.com/cloud-debugger/compute-java/format_env_gce.sh
-#chmod +x format_env_gce.sh
-# CDBG_ARGS="$( sudo ./format_env_gce.sh --app_class_path=ZZZZZZ.jar )"
-# java ${CDBG_ARGS} -cp sparky/hellosparky-1.0-SNAPSHOT-jar-with-dependencies.jar com.example.hellosparky.App

@@ -185,7 +185,7 @@ gce-many)
 # [START getting_started_add_backend_service]
   gcloud compute backend-services add-backend $SERVICE \
     --instance-group $GROUP \
-    --instance-group-zone $ZONE
+    --instance-group-zone $ZONE \
     --global
 # [END getting_started_add_backend_service]
 
