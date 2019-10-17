@@ -24,7 +24,7 @@ limitations under the License.
   <parent>
     <groupId>com.google.cloud.samples</groupId>
     <artifactId>shared-configuration</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.11</version>
   </parent>
 
   <modules>
@@ -40,7 +40,6 @@ limitations under the License.
     <module>bookshelf/3-binary-data</module>
     <module>bookshelf/4-auth</module>
     <module>bookshelf/5-logging</module>
-    <module>bookshelf/6-gce</module>
     <module>bookshelf/optional-kubernetes-engine</module>
     <module>bookshelf-standard/2-structured-data</module>
     <module>bookshelf-standard/3-binary-data</module>
