@@ -23,6 +23,7 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,14 +55,25 @@ public class CloudStorageHelper {
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
    */
-  @SuppressWarnings("deprecation")
+  // Note:This sample assumes small files are uploaded. For large files or streams use: 
+  // Storage.writer(BlobInfo blobInfo, Storage.BlobWriteOption... options)
   public String uploadFile(Part filePart, final String bucketName) throws IOException {
     DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
     DateTime dt = DateTime.now(DateTimeZone.UTC);
     String dtString = dt.toString(dtf);
     final String fileName = filePart.getSubmittedFileName() + dtString;
-
-    // the inputstream is closed by default, so we don't need to close it here
+    
+    // The InputStream is closed by default, so we don't need to close it here
+    // Read InputStream into a ByteArrayOutputStream.
+    InputStream is = filePart.getInputStream();
+    ByteArrayOutputStream os = new ByteArrayOutputStream();
+    while(is.available()) {
+      byte[] buf = new byte[1024];
+      int bytesRead = is.read(buf);
+      os.write(buf, 0, bytesRead);
+    } 
+    
+    // Convert ByteArrayOutputStream into byte[]
     BlobInfo blobInfo =
         storage.create(
             BlobInfo
@@ -69,7 +81,7 @@ public class CloudStorageHelper {
                 // Modify access list to allow all users with link to read file
                 .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER))))
                 .build(),
-            filePart.getInputStream());
+            os.toByteStream());
     // return the public download link
     return blobInfo.getMediaLink();
   }
