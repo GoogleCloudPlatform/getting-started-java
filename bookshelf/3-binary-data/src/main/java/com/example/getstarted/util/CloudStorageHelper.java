@@ -68,7 +68,7 @@ public class CloudStorageHelper {
     // Read InputStream into a ByteArrayOutputStream.
     InputStream is = filePart.getInputStream();
     ByteArrayOutputStream os = new ByteArrayOutputStream();
-    while(is.available()) {
+    while(is.available() > 0) {
       byte[] buf = new byte[1024];
       int bytesRead = is.read(buf);
       os.write(buf, 0, bytesRead);
