@@ -24,6 +24,7 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,7 +82,7 @@ public class CloudStorageHelper {
                 // Modify access list to allow all users with link to read file
                 .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER))))
                 .build(),
-            os.toByteStream());
+            os.toByteArray());
     // return the public download link
     return blobInfo.getMediaLink();
   }
