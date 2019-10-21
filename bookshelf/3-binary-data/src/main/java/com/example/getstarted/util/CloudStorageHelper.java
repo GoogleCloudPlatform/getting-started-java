@@ -56,7 +56,7 @@ public class CloudStorageHelper {
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
    */
-  // Note:This sample assumes small files are uploaded. For large files or streams use: 
+  // Note: this sample assumes small files are being uploaded. For large files or streams use 
   // Storage.writer(BlobInfo blobInfo, Storage.BlobWriteOption... options)
   public String uploadFile(Part filePart, final String bucketName) throws IOException {
     DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
