@@ -23,9 +23,9 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -65,15 +65,10 @@ public class CloudStorageHelper {
     final String fileName = filePart.getSubmittedFileName() + dtString;
     
     // The InputStream is closed by default, so we don't need to close it here
-    // Read InputStream into a ByteArrayOutputStream.
-    InputStream is = filePart.getInputStream();
-    ByteArrayOutputStream os = new ByteArrayOutputStream();
-    while(is.available() > 0) {
-      byte[] buf = new byte[1024];
-      int bytesRead = is.read(buf);
-      os.write(buf, 0, bytesRead);
-    } 
-    
+    // Read InputStream into a byte[].
+    FileInputStream file = new FileInputStream(fileName);
+    byte[] fileContent = Files.readAllBytes(file.toPath());
+
     // Convert ByteArrayOutputStream into byte[]
     BlobInfo blobInfo =
         storage.create(
@@ -82,7 +77,7 @@ public class CloudStorageHelper {
                 // Modify access list to allow all users with link to read file
                 .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER))))
                 .build(),
-            os.toByteArray());
+            fileContent);
     // return the public download link
     return blobInfo.getMediaLink();
   }
