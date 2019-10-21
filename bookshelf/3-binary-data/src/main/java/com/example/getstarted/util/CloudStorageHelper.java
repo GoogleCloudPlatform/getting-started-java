@@ -25,7 +25,7 @@ import com.google.cloud.storage.StorageOptions;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 
