@@ -23,7 +23,9 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -54,14 +56,25 @@ public class CloudStorageHelper {
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
    */
-  @SuppressWarnings("deprecation")
+  // Note: this sample assumes small files are uploaded. For large files or streams use:
+  // Storage.writer(BlobInfo blobInfo, Storage.BlobWriteOption... options)
   public String uploadFile(Part filePart, final String bucketName) throws IOException {
     DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
     DateTime dt = DateTime.now(DateTimeZone.UTC);
     String dtString = dt.toString(dtf);
     final String fileName = filePart.getSubmittedFileName() + dtString;
+    
+    // The InputStream is closed by default, so we don't need to close it here
+    // Read InputStream into a ByteArrayOutputStream.
+    InputStream is = filePart.getInputStream();
+    ByteArrayOutputStream os = new ByteArrayOutputStream();
+    byte[] readBuf = new byte[4096];
+    while (is.available() > 0) {
+      int bytesRead = is.read(readBuf);
+      os.write(readBuf, 0, bytesRead);
+    }
 
-    // the inputstream is closed by default, so we don't need to close it here
+    // Convert ByteArrayOutputStream into byte[]
     BlobInfo blobInfo =
         storage.create(
             BlobInfo
@@ -69,7 +82,7 @@ public class CloudStorageHelper {
                 // Modify access list to allow all users with link to read file
                 .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER))))
                 .build(),
-            filePart.getInputStream());
+            os.toByteArray());
     // return the public download link
     return blobInfo.getMediaLink();
   }
