@@ -183,7 +183,7 @@ public class UserJourneyTestIT {
     for (int i = 0; i < numRetries; i++) {
       driver.get(endpoint);
       if (driver.getTitle().matches("50[0-9]|[Ee]rror")) {
-	Thread.sleep(5000 + ((int)(Math.random() * Math.pow(2, i + 1))) * 1000);
+        Thread.sleep(5000 + ((int)(Math.random() * Math.pow(2, i + 1))) * 1000);
       } else {
         return;
       }

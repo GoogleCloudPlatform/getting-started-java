@@ -24,8 +24,8 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -69,7 +69,7 @@ public class CloudStorageHelper {
     InputStream is = filePart.getInputStream();
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     byte[] readBuf = new byte[4096];
-    while(is.available() > 0) {
+    while (is.available() > 0) {
       int bytesRead = is.read(readBuf);
       os.write(readBuf, 0, bytesRead);
     }
