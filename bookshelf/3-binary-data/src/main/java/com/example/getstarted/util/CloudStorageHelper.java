@@ -23,9 +23,9 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
-import java.io.FileInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -56,7 +56,7 @@ public class CloudStorageHelper {
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
    */
-  // Note: this sample assumes small files are being uploaded. For large files or streams use 
+  // Note: this sample assumes small files are uploaded. For large files or streams use:
   // Storage.writer(BlobInfo blobInfo, Storage.BlobWriteOption... options)
   public String uploadFile(Part filePart, final String bucketName) throws IOException {
     DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
@@ -65,9 +65,14 @@ public class CloudStorageHelper {
     final String fileName = filePart.getSubmittedFileName() + dtString;
     
     // The InputStream is closed by default, so we don't need to close it here
-    // Read InputStream into a byte[].
-    FileInputStream file = new FileInputStream(fileName);
-    byte[] fileContent = Files.readAllBytes(file.toPath());
+    // Read InputStream into a ByteArrayOutputStream.
+    InputStream is = filePart.getInputStream();
+    ByteArrayOutputStream os = new ByteArrayOutputStream();
+    byte[] readBuf = new byte[4096];
+    while(is.available() > 0) {
+      int bytesRead = is.read(readBuf);
+      os.write(readBuf, 0, bytesRead);
+    }
 
     // Convert ByteArrayOutputStream into byte[]
     BlobInfo blobInfo =
@@ -77,7 +82,7 @@ public class CloudStorageHelper {
                 // Modify access list to allow all users with link to read file
                 .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER))))
                 .build(),
-            fileContent);
+            os.toByteArray());
     // return the public download link
     return blobInfo.getMediaLink();
   }
