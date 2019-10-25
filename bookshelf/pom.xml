@@ -19,13 +19,13 @@ Copyright 2016 Google Inc.
   <modelVersion>4.0.0</modelVersion>    <!-- REQUIRED -->
   <packaging>pom</packaging>            <!-- REQUIRED -->
 
-  <groupId>com.example.flex.gettingstarted</groupId>
-  <artifactId>bookshelf-flexible</artifactId>    <!-- Name of your project -->
+  <groupId>com.example.getstarted</groupId>
+  <artifactId>getting-started</artifactId>    <!-- Name of your project -->
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <parent> <!-- Only used for testing - NOT REQUIRED -->
-    <artifactId>getting-started-java</artifactId>
     <groupId>com.example</groupId>
+    <artifactId>getting-started-java</artifactId>
     <version>1.0.0</version>
     <relativePath>../</relativePath>
   </parent>
