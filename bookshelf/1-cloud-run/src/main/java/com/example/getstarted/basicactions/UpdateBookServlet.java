@@ -78,7 +78,7 @@ public class UpdateBookServlet extends HttpServlet {
         } else if (!Strings.isNullOrEmpty(item.getName())) {
           newImageUrl =
               storageHelper.uploadFile(
-                  item, System.getProperty("bookshelf.bucket"));
+                  item, System.getenv("BOOKSHELF_BUCKET"));
         }
       }
     } catch (FileUploadException e) {

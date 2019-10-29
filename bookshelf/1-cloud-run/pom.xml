@@ -31,7 +31,6 @@ Copyright 2019 Google LLC
 
   <properties>
     <!-- [START bookshelf_config] -->
-    <bookshelf.bucket>MY_BUCKET</bookshelf.bucket>
     <gcloud.appId>MY_PROJECT</gcloud.appId>
     <!-- [END bookshelf_config] -->
 
@@ -121,12 +120,6 @@ Copyright 2019 Google LLC
     <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes
     </outputDirectory>
-    <resources>
-      <resource>
-        <directory>${project.basedir}/src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.eclipse.jetty</groupId>

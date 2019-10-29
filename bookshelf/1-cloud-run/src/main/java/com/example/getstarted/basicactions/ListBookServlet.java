@@ -45,17 +45,6 @@ public class ListBookServlet extends HttpServlet {
   private static final Logger logger = Logger.getLogger(ListBookServlet.class.getName());
 
   @Override
-  public void init() {
-    CloudStorageHelper storageHelper = new CloudStorageHelper();
-    this.getServletContext().setAttribute("storageHelper", storageHelper);
-    // Hide upload when Cloud Storage is not configured.
-    this.getServletContext()
-        .setAttribute(
-            "isCloudStorageConfigured",
-            !Strings.isNullOrEmpty(getServletContext().getInitParameter("bookshelf.bucket")));
-  }
-
-  @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
     BookDao dao = (BookDao) this.getServletContext().getAttribute("dao");
