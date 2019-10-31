@@ -12,14 +12,16 @@ to below as `MY_BUCKET`.
 
 ### Running Locally
 
-To run locally, update the parameters in `pom.xml`:
+To run your project locally:
 
-* Replace `MY_PROJECT` with your project ID.
-* Replace `MY_BUCKET` with the bucket created above.
+* Set the `BOOKSHELF_BUCKET` environment variable:
 
-Then run:
+      export BOOKSHELF_BUCKET=<YOUR_BUCKET_NAME>
+    
+  Where <YOUR_BUCKET_NAME> is the bucket you created above.
+* Run with the Jetty Maven plugin:
 
-    mvn clean jetty:run-exploded
+      mvn jetty:run-exploded 
 
 **Note**: If you run into an error about `Invalid Credentials`, you may have to run:
 
@@ -27,19 +29,22 @@ Then run:
 
 ### Deploying to Cloud Run
 
-To build your image, update the parameters in `pom.xml` as above, then run:
+To build your image:
 
-    mvn clean package jib:build
-    
-Increase the [memory limit ][configure-memory]for the service:
+* Update the parameters in `pom.xml`:
+  * Replace `MY_PROJECT` with your project ID.
+* Build and deploy to your GCR with [Jib][jib] Maven plugin.
 
-    gcloud beta run services update bookshelf --memory 512M
+      mvn clean package jib:build
+* Deploy the app to Cloud Run:
 
-When the build is successful, deploy the app to Cloud Run:
+      cloud beta run deploy bookshelf --image gcr.io/<MY_PROJECT>/bookshelf \
+            --platform managed --region us-central1 --memory 512M \
+            --update-env-vars BOOKSHELF_BUCKET="<MY_BUCKET>"
 
-    gcloud beta run deploy bookshelf --image gcr.io/<MY_PROJECT>/bookshelf \
-    --platform managed --region us-central1
+Where <MY_PROJECT> is the name of the project you created.
 
 This command will output a link to visit the page.
 
+[jib]: https://github.com/GoogleContainerTools/jib
 [configure-memory]: https://cloud.google.com/run/docs/configuring/memory-limits
