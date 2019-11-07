@@ -68,7 +68,7 @@ limitations under the License.
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
-      <version>1.3.10</version>
+      <version>1.3.50</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
@@ -119,7 +119,7 @@ limitations under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
+        <version>3.2.3</version>
         <configuration>
           <archiveClasses>true</archiveClasses>
           <failOnMissingWebXml>false</failOnMissingWebXml>
