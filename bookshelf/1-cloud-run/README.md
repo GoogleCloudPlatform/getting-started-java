@@ -38,9 +38,9 @@ To build your image:
       mvn clean package jib:build
 * Deploy the app to Cloud Run:
 
-      cloud beta run deploy bookshelf --image gcr.io/<MY_PROJECT>/bookshelf \
+      gcloud beta run deploy bookshelf --image gcr.io/<MY_PROJECT>/bookshelf \
             --platform managed --region us-central1 --memory 512M \
-            --update-env-vars BOOKSHELF_BUCKET="<MY_BUCKET>"
+            --update-env-vars BOOKSHELF_BUCKET="<YOUR_BUCKET_NAME>"
 
 Where <MY_PROJECT> is the name of the project you created.
 
