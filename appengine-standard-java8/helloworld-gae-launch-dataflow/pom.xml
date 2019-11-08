@@ -113,7 +113,7 @@ limitations under the License.
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>2.23.4</version>
+      <version>2.28.2</version>
       <scope>test</scope>
     </dependency>
     <!-- [END_EXCLUDE] -->
@@ -127,7 +127,7 @@ limitations under the License.
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>1.3.2</version>
+        <version>2.2.0</version>
       </plugin>
       <!-- [END cloudplugin] -->
     </plugins>

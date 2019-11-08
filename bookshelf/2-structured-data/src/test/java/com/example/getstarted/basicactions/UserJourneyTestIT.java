@@ -139,7 +139,7 @@ public class UserJourneyTestIT {
     driver.findElement(By.cssSelector("button[type=submit]")).submit();
   }
 
-  private void checkReadPage(String title, String author, String datePublished, String description)
+  private void checkReadPage(String title, String author, String description)
       throws Exception {
     WebElement heading = driver.findElement(By.cssSelector("h3"));
     assertEquals("Book", heading.getText());
@@ -164,7 +164,7 @@ public class UserJourneyTestIT {
         .indexOf("Anonymous") > 0);
   }
 
-  private void checkBookList(String title, String author, String datePublished, String description)
+  private void checkBookList(String title, String author)
       throws Exception {
     List<WebElement> media = driver.findElements(By.cssSelector("div.media"));
     assertEquals(1, media.size());
@@ -179,7 +179,7 @@ public class UserJourneyTestIT {
     for (int i = 0; i < numRetries; i++) {
       driver.get(endpoint);
       if (driver.getTitle().matches("50[0-9]|[Ee]rror")) {
-        Thread.sleep(5000 + (int) (Math.random() * Math.pow(2, i + 1)) * 1000);
+        Thread.sleep(5000 + ((int) (Math.random() * Math.pow(2, i + 1))) * 1000);
       } else {
         return;
       }
@@ -197,23 +197,23 @@ public class UserJourneyTestIT {
       WebElement button = checkLandingPage();
 
       button.click();
-      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+      new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlMatches(
           ".*/create$"));
 
       checkAddBookPage();
 
       submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+      new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlMatches(
           ".*/read\\?id=[0-9]+$"));
 
-      checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
+      checkReadPage(TITLE, AUTHOR, DESCRIPTION);
 
       // Now check the list of books for the one we just submitted
       driver.findElement(By.linkText("Books")).click();
-      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
+      new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlMatches(
           ".*/$"));
 
-      checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
+      checkBookList(TITLE, AUTHOR);
     } catch (Exception e) {
       System.err.println(driver.getPageSource());
       throw e;
