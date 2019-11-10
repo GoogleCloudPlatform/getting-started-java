@@ -1,3 +1,18 @@
+/* Copyright 2019 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.getstarted.util;
 
 import com.example.getstarted.daos.BookDao;
@@ -10,7 +25,7 @@ import javax.servlet.annotation.WebListener;
 
 import org.apache.xpath.operations.Bool;
 
-@WebListener("Creates a connection pool that is stored in the Servlet's context for later use.")
+@WebListener("Creates BookDao and other servlet context objects for reuse.")
 public class BookshelfContextListener implements ServletContextListener {
   @Override
   public void contextDestroyed(javax.servlet.ServletContextEvent event) {
@@ -18,8 +33,8 @@ public class BookshelfContextListener implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent event) {
-    // This function is called when the application starts and will safely create a connection pool
-    // that can be used to connect to.
+    // This function is called when the application starts and will safely set a few required
+    // context attributes such as the BookDao.
 
     BookDao dao = (BookDao) event.getServletContext().getAttribute("dao");
     if (dao == null) {
