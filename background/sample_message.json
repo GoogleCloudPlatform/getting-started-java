@@ -1,0 +1,11 @@
+{
+  "message":{
+    "data":"Hello world!",
+    "attributes":{
+      "sourceLang":"en",
+      "targetLang":"es"
+    },
+    "messageId":"181789827785065",
+    "publishTime":"2018-01-06T00:41:01.839Z"
+  }
+}
