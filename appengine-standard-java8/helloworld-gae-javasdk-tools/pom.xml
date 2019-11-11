@@ -61,7 +61,7 @@ limitations under the License.
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>4.0.1</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
@@ -77,20 +77,20 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-testing</artifactId>
-      <version>1.9.69</version>
+      <version>1.9.76</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-stubs</artifactId>
-      <version>1.9.69</version>
+      <version>1.9.76</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-tools-sdk</artifactId>
-      <version>1.9.69</version>
+      <version>1.9.76</version>
       <scope>test</scope>
     </dependency>
 
@@ -124,7 +124,7 @@ limitations under the License.
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>1.9.54</version>
+        <version>1.9.76</version>
         <configuration>
           <!-- change to your app Id and version -->
 <!--
