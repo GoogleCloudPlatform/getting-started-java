@@ -75,7 +75,6 @@ public class HelloAppEngineTest {
 
     // We expect our hello world response.
     assertThat(responseWriter.toString())
-        .named("HelloAppEngine response")
         .contains("Hello App Engine - Standard ");
   }
 
@@ -83,7 +82,6 @@ public class HelloAppEngineTest {
   public void helloInfoTest() {
     String result = HelloAppEngine.getInfo();
     assertThat(result)
-      .named("HelloInfo.getInfo")
       .containsMatch("^Version:\\s+.+OS:\\s+.+User:\\s");
   }
 }
