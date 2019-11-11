@@ -12,6 +12,8 @@
 target/
 build/
 out/
+.gradle/
+bin/
 
 ## Vim ##
 # swap

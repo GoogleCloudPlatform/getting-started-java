@@ -33,7 +33,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.69</version>
+      <version>1.9.76</version>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
@@ -43,7 +43,7 @@ limitations under the License.
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>4.0.1</version>
       <type>jar</type>
     </dependency>
     <dependency>
@@ -109,7 +109,7 @@ limitations under the License.
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.25</version> <!-- TEST if not 1.7.25 -->
+      <version>1.7.29</version> <!-- TEST if not 1.7.25 -->
     </dependency>
   </dependencies>
 
