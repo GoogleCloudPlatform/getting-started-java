@@ -30,9 +30,7 @@ Copyright 2019 Google LLC
   </parent>
 
   <properties>
-    <!-- [START bookshelf_config] -->
     <gcloud.appId>MY_PROJECT</gcloud.appId>
-    <!-- [END bookshelf_config] -->
 
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -110,7 +108,7 @@ Copyright 2019 Google LLC
   </dependencies>
 
   <build>
-    <finalName>bookshelf-cloud-run</finalName>
+    <finalName>background-processing</finalName>
     <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes
     </outputDirectory>
@@ -120,13 +118,14 @@ Copyright 2019 Google LLC
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${jetty.version}</version>
       </plugin>
+
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
         <version>1.7.0</version>
         <configuration>
           <to>
-            <image>gcr.io/${gcloud.appId}/bookshelf</image>
+            <image>gcr.io/${gcloud.appId}/background</image>
           </to>
         </configuration>
       </plugin>
