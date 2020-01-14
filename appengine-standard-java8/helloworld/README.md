@@ -27,13 +27,13 @@ detailed instructions.
 ## Maven
 ### Running locally
 
-    mvn appengine:run
+    mvn package appengine:run
 
 To use vist: http://localhost:8080/
 
 ### Deploying
 
-    mvn appengine:deploy
+    mvn package appengine:deploy
 
 To use vist:  https://YOUR-PROJECT-ID.appspot.com
 
