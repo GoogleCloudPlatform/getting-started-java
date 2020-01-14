@@ -63,6 +63,8 @@
         <artifactId>appengine-maven-plugin</artifactId>
         <version>${appengine.maven.plugin}</version>
         <configuration>
+          <version>GCLOUD_CONFIG</version> <!-- delegate to gcloud to generate a version -->
+          <projectId>GCLOUD_CONFIG</projectId> <!-- delegate to project in gcloud config -->
           <!-- dev appserver configuration (standard environment only) -->
           <!--
           <devserver.host>127.0.0.1</devserver.port>

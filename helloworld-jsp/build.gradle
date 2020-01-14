@@ -18,7 +18,7 @@ buildscript {      // Configuration for building
     mavenCentral()
   }
   dependencies {
-    classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.+' // Latest 1.x.x release
+    classpath 'com.google.cloud.tools:appengine-gradle-plugin:2.2.0'
     classpath 'org.akhikhl.gretty:gretty:+'
   }
 }
@@ -50,7 +50,7 @@ dependencies {
 
 // [START gretty]
 gretty {
-    port = 8080
+    httpPort = 8080
     contextPath = '/'
     servletContainer = 'jetty9'  // What App Engine Flexible uses
 }
@@ -62,6 +62,8 @@ appengine {
   deploy {   // deploy configuration
     stopPreviousVersion = true  // default - stop the current version
     promote = true              // default - & make this the current version
+    projectId = 'GCLOUD_CONFIG' // delegate to project in gcloud config
+    version = 'GCLOUD_CONFIG'   // delegate to gcloud to generate a version
   }
 }
 // [END model]
