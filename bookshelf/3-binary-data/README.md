@@ -18,13 +18,13 @@ to below as `MY-BUCKET`.
 
 * Initialize the [Google Cloud SDK]()
 
-    gcloud init
+      gcloud init
 
 * Update the parameters in `pom.xml`:
   * Replace `myProjectId` with your project ID.
 
 * Deploy your App
 
-    mvn clean package appengine:deploy \
-        -Dbookshelf.bucket=MY-BUCKET
+      mvn clean package appengine:deploy \
+          -Dbookshelf.bucket=MY-BUCKET
 
