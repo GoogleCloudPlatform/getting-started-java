@@ -17,7 +17,10 @@ Most users can get this running by updating the parameters in `pom.xml`.
 
     gcloud init
 
+* Update the parameters in `pom.xml`:
+  * Replace `myProjectId` with your project ID.
+
 * Deploy your App
 
-    mvn clean appengine:deploy
+    mvn clean package appengine:deploy
 

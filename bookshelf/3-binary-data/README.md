@@ -20,8 +20,11 @@ to below as `MY-BUCKET`.
 
     gcloud init
 
+* Update the parameters in `pom.xml`:
+  * Replace `myProjectId` with your project ID.
+
 * Deploy your App
 
-    mvn clean appengine:deploy \
+    mvn clean package appengine:deploy \
         -Dbookshelf.bucket=MY-BUCKET
 

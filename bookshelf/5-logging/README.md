@@ -14,7 +14,7 @@ details.
 
 ### Running Locally
 
-    mvn clean jetty:run-exploded \
+    mvn clean package jetty:run-exploded \
         -Dbookshelf.bucket=MY-BUCKET
 
 
@@ -24,9 +24,12 @@ details.
 
     gcloud init
 
+* Update the parameters in `pom.xml`:
+  * Replace `myProjectID` with your project ID.
+
 * Deploy your App
 
-    mvn clean appengine:deploy \
+    mvn clean package appengine:deploy \
         -Dbookshelf.bucket=MY-BUCKET
 
 
