@@ -35,9 +35,10 @@ Copyright 2016 Google Inc.
     <bookshelf.storageType>datastore</bookshelf.storageType>   <!-- datastore or cloudsql -->
 
     <sql.dbName>bookshelf</sql.dbName>                        <!-- A reasonable default -->
-<!-- Instance Connection Name - project:region:dbName -->
-<!-- -Dsql.instanceName=localhost to use a local MySQL server -->
-    <sql.instanceName>DATABASE-connectionName-HERE</sql.instanceName> <!-- See `gcloud sql instances describe [instanceName]` -->
+    <!-- Instance Connection Name - project:region:dbName -->
+    <!-- -Dsql.instanceName=localhost to use a local MySQL server -->
+    <sql.instanceName>DATABASE-connectionName-HERE
+    </sql.instanceName> <!-- See `gcloud sql instances describe [instanceName]` -->
     <sql.userName>root</sql.userName>                         <!-- A reasonable default -->
     <sql.password>MYSQL-ROOT-PASSWORD-HERE</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
 
@@ -51,7 +52,7 @@ Copyright 2016 Google Inc.
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
-    <appengine-maven.version>1.9.60</appengine-maven.version>
+    <appengine-maven.version>1.9.69</appengine-maven.version>
   </properties>
 
   <!-- THINGS ONLY USED WHEN RUN LOCALLY -->
@@ -82,7 +83,7 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.60</version>
+      <version>1.9.69</version>
     </dependency>
 
     <dependency>                        <!-- REQUIRED -->
@@ -113,21 +114,20 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Cloud Client Library for Java -->
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-storage</artifactId>
-      <version>1.14.0</version>
+      <version>1.54.0</version>
     </dependency>
 
     <dependency>                        <!-- Google Core Libraries for Java -->
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-        <!-- Guava v21.0 doesn't support Java7 -->
-        <version>20.0</version>
-        <scope>compile</scope>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
+      <version>23.0</version>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
-      <version>2.9.9</version>
+      <version>2.10.1</version>
     </dependency>
 
     <dependency>                        <!-- http://commons.apache.org/proper/commons-fileupload/ -->
@@ -144,6 +144,12 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-server</artifactId>
+      <version>3.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+      <version>3.3.1</version>
     </dependency>
     <!-- Selenium chokes without this, for some reason. -->
     <dependency>
@@ -153,15 +159,15 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Cloud Client Library for Java -->
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud</artifactId>
-      <version>0.32.0-alpha</version>
+      <version>0.47.0-alpha</version>
     </dependency>
   </dependencies>
 
   <build>
     <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->
-    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes
+    </outputDirectory>
     <plugins>
-
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>

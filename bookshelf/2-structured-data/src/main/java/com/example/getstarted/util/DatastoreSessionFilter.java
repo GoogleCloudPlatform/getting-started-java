@@ -28,11 +28,6 @@ import com.google.common.collect.FluentIterable;
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -51,6 +46,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 // [START init]
 @WebFilter(filterName = "DatastoreSessionFilter",
@@ -88,7 +88,7 @@ public class DatastoreSessionFilter implements Filter {
       datastore.delete(stateEntity.getKey());
     }
   }
-// [END init]
+  // [END init]
 
   @Override
   public void doFilter(ServletRequest servletReq, ServletResponse servletResp, FilterChain chain)
@@ -106,7 +106,7 @@ public class DatastoreSessionFilter implements Filter {
       resp.addCookie(session);
     }
 
-    Map<String,String> datastoreMap = loadSessionVariables(req);  // session variables for request
+    Map<String, String> datastoreMap = loadSessionVariables(req);  // session variables for request
 
     chain.doFilter(servletReq, servletResp);  // Allow the servlet to process request and response
 
@@ -133,7 +133,7 @@ public class DatastoreSessionFilter implements Filter {
 
   @SuppressWarnings("unused")
   private String mapToString(Map<String, String> map) {
-    StringBuffer names = new StringBuffer();
+    StringBuilder names = new StringBuilder();
     for (String name : map.keySet()) {
       names.append(name + " ");
     }
@@ -157,8 +157,10 @@ public class DatastoreSessionFilter implements Filter {
   }
 
   // [START deleteSessionVariables]
+
   /**
    * Delete a value stored in the project's datastore.
+   *
    * @param sessionId Request from which the session is extracted.
    */
   protected void deleteSessionVariables(String sessionId, String... varNames) {
@@ -207,11 +209,13 @@ public class DatastoreSessionFilter implements Filter {
   }
 
   // [START setSessionVariables]
+
   /**
    * Stores the state value in each key-value pair in the project's datastore.
+   *
    * @param sessionId Request from which to extract session.
-   * @param varName the name of the desired session variable
-   * @param varValue the value of the desired session variable
+   * @param varName   the name of the desired session variable
+   * @param varValue  the value of the desired session variable
    */
   protected void setSessionVariables(String sessionId, Map<String, String> setMap) {
     if (sessionId.equals("")) {
@@ -243,8 +247,10 @@ public class DatastoreSessionFilter implements Filter {
   // [END setSessionVariables]
 
   // [START loadSessionVariables]
+
   /**
    * Take an HttpServletRequest, and copy all of the current session variables over to it
+   *
    * @param req Request from which to extract session.
    * @return a map of strings containing all the session variables loaded or an empty map.
    */

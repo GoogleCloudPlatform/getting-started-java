@@ -44,7 +44,9 @@ public class DatastoreDao implements BookDao {
     datastore = DatastoreOptions.getDefaultInstance().getService(); // Authorized Datastore service
     keyFactory = datastore.newKeyFactory().setKind("Book2");      // Is used for creating keys later
   }
+
   // [END constructor]
+
   // [START entityToBook]
   public Book entityToBook(Entity entity) {
     return new Book.Builder()                                     // Convert to Book form
@@ -55,6 +57,7 @@ public class DatastoreDao implements BookDao {
         .title(entity.getString(Book.TITLE))
         .build();
   }
+
   // [END entityToBook]
   // [START create]
   @Override
@@ -70,6 +73,7 @@ public class DatastoreDao implements BookDao {
     return bookEntity.getKey().getId();                     // The ID of the Key
   }
   // [END create]
+
   // [START read]
   @Override
   public Book readBook(Long bookId) {
@@ -77,6 +81,7 @@ public class DatastoreDao implements BookDao {
     return entityToBook(bookEntity);
   }
   // [END read]
+
   // [START update]
   @Override
   public void updateBook(Book book) {
@@ -90,6 +95,7 @@ public class DatastoreDao implements BookDao {
     datastore.update(entity);                   // Update the Entity
   }
   // [END update]
+
   // [START delete]
   @Override
   public void deleteBook(Long bookId) {
@@ -97,6 +103,7 @@ public class DatastoreDao implements BookDao {
     datastore.delete(key);                      // Delete the Entity
   }
   // [END delete]
+
   // [START entitiesToBooks]
   public List<Book> entitiesToBooks(QueryResults<Entity> resultList) {
     List<Book> resultBooks = new ArrayList<>();
@@ -105,6 +112,7 @@ public class DatastoreDao implements BookDao {
     }
     return resultBooks;
   }
+
   // [END entitiesToBooks]
   // [START listbooks]
   @Override

@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
     urlPatterns = { "/logout" })
 public class LogoutFilter implements Filter {
 
-// [END init]
+  // [END init]
   @Override
   public void init(FilterConfig config) throws ServletException { }
 

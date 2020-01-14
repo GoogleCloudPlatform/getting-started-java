@@ -23,11 +23,6 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +33,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 // [START example]
 public class CloudStorageHelper {
@@ -52,6 +52,7 @@ public class CloudStorageHelper {
   // [END init]
 
   // [START uploadFile]
+
   /**
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
@@ -81,6 +82,7 @@ public class CloudStorageHelper {
   // [END uploadFile]
 
   // [START getImageUrl]
+
   /**
    * Extracts the file payload from an HttpServletRequest, checks that the file extension
    * is supported and uploads the file to Google Cloud Storage.
@@ -93,7 +95,7 @@ public class CloudStorageHelper {
     // Check extension of file
     if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
       final String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-      String[] allowedExt = { "jpg", "jpeg", "png", "gif" };
+      String[] allowedExt = {"jpg", "jpeg", "png", "gif"};
       for (String s : allowedExt) {
         if (extension.equals(s)) {
           return this.uploadFile(filePart, bucket);

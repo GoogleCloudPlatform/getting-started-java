@@ -18,8 +18,6 @@ package com.example.getstarted.daos;
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +25,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.dbcp2.BasicDataSource;
 
 // [START example]
 public class CloudSqlDao implements BookDao {
@@ -48,6 +48,7 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END constructor]
+
   // [START create]
   @Override
   public Long createBook(Book book) throws SQLException {
@@ -55,8 +56,8 @@ public class CloudSqlDao implements BookDao {
         + "(author, createdBy, createdById, description, publishedDate, title, imageUrl) "
         + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     try (Connection conn = dataSource.getConnection();
-        final PreparedStatement createBookStmt = conn.prepareStatement(createBookString,
-            Statement.RETURN_GENERATED_KEYS)) {
+         final PreparedStatement createBookStmt = conn.prepareStatement(createBookString,
+             Statement.RETURN_GENERATED_KEYS)) {
       createBookStmt.setString(1, book.getAuthor());
       createBookStmt.setString(2, book.getCreatedBy());
       createBookStmt.setString(3, book.getCreatedById());
@@ -72,12 +73,13 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END create]
+
   // [START read]
   @Override
   public Book readBook(Long bookId) throws SQLException {
     final String readBookString = "SELECT * FROM books3 WHERE id = ?";
     try (Connection conn = dataSource.getConnection();
-        PreparedStatement readBookStmt = conn.prepareStatement(readBookString)) {
+         PreparedStatement readBookStmt = conn.prepareStatement(readBookString)) {
       readBookStmt.setLong(1, bookId);
       try (ResultSet keys = readBookStmt.executeQuery()) {
         keys.next();
@@ -95,13 +97,14 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END read]
+
   // [START update]
   @Override
   public void updateBook(Book book) throws SQLException {
     final String updateBookString = "UPDATE books3 SET author = ?, createdBy = ?, createdById = ?, "
         + "description = ?, publishedDate = ?, title = ?, imageUrl = ? WHERE id = ?";
     try (Connection conn = dataSource.getConnection();
-        PreparedStatement updateBookStmt = conn.prepareStatement(updateBookString)) {
+         PreparedStatement updateBookStmt = conn.prepareStatement(updateBookString)) {
       updateBookStmt.setString(1, book.getAuthor());
       updateBookStmt.setString(2, book.getCreatedBy());
       updateBookStmt.setString(3, book.getCreatedById());
@@ -114,17 +117,19 @@ public class CloudSqlDao implements BookDao {
     }
   }
   // [END update]
+
   // [START delete]
   @Override
   public void deleteBook(Long bookId) throws SQLException {
     final String deleteBookString = "DELETE FROM books3 WHERE id = ?";
     try (Connection conn = dataSource.getConnection();
-        PreparedStatement deleteBookStmt = conn.prepareStatement(deleteBookString)) {
+         PreparedStatement deleteBookStmt = conn.prepareStatement(deleteBookString)) {
       deleteBookStmt.setLong(1, bookId);
       deleteBookStmt.executeUpdate();
     }
   }
   // [END delete]
+
   // [START listbooks]
   @Override
   public Result<Book> listBooks(String cursor) throws SQLException {
@@ -136,7 +141,7 @@ public class CloudSqlDao implements BookDao {
         + "description, id, publishedDate, title, imageUrl FROM books3 ORDER BY title ASC "
         + "LIMIT 10 OFFSET ?";
     try (Connection conn = dataSource.getConnection();
-        PreparedStatement listBooksStmt = conn.prepareStatement(listBooksString)) {
+         PreparedStatement listBooksStmt = conn.prepareStatement(listBooksString)) {
       listBooksStmt.setInt(1, offset);
       List<Book> resultBooks = new ArrayList<>();
       try (ResultSet rs = listBooksStmt.executeQuery()) {

@@ -32,7 +32,7 @@ Copyright 2016 Google Inc.
 
   <properties>
     <appengine-maven.version>1.9.48</appengine-maven.version>
-    <google-cloud.version>0.10.0-alpha</google-cloud.version>
+    <google-cloud.version>0.47.0-alpha</google-cloud.version>
   </properties>
 
   <profiles>
@@ -80,7 +80,7 @@ Copyright 2016 Google Inc.
         <version>2.2</version>
         <configuration>
           <!-- explicitly specified to help m2e-wtp (http://eclip.se/514577) -->
-          <filteringDeploymentDescriptors>${maven.war.filteringDeploymentDescriptors}</filteringDeploymentDescriptors> 
+          <filteringDeploymentDescriptors>${maven.war.filteringDeploymentDescriptors}</filteringDeploymentDescriptors>
         </configuration>
       </plugin>
     </plugins>
@@ -92,14 +92,20 @@ Copyright 2016 Google Inc.
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-server</artifactId>
-        <version>3.0.1</version>
+        <version>3.3.1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-chrome-driver</artifactId>
+        <version>3.3.1</version>
         <scope>test</scope>
       </dependency>
       <!-- Selenium chokes without this, for some reason. -->
       <dependency>
         <groupId>org.apache.httpcomponents</groupId>
         <artifactId>httpclient</artifactId>
-        <version>4.3.5</version>
+        <version>4.3.6</version>
         <scope>test</scope>
       </dependency>
       <dependency>                        <!-- Google Cloud Client Library for Java -->

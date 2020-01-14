@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,12 @@ import static org.mockito.Mockito.when;
 
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,12 +34,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Unit tests for {@link HelloAppEngine}.
@@ -75,7 +75,6 @@ public class HelloAppEngineTest {
 
     // We expect our hello world response.
     assertThat(responseWriter.toString())
-        .named("HelloAppEngine response")
         .contains("Hello App Engine - Standard ");
   }
 
@@ -83,7 +82,6 @@ public class HelloAppEngineTest {
   public void helloInfoTest() {
     String result = HelloAppEngine.getInfo();
     assertThat(result)
-      .named("HelloInfo.getInfo")
       .containsMatch("^Version:\\s+.+OS:\\s+.+User:\\s");
   }
 }

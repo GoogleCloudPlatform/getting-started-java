@@ -144,11 +144,13 @@ With Spring Boot >= 1.5.6, you may run into out of memory errors on startup.
 Please follow these instructions to work around this issue:
 
 1. Inside src/main/resources, adding a logging.properties file with:
-```
+```ini
 .level = INFO
 ```
 2. Inside src/main/webapp/WEB-INF/appengine-web.xml, add a config that points to the new logging.properties file.
-```
-<property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
+```xml
+<system-properties>
+  <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
+</system-properties>
 ```
 

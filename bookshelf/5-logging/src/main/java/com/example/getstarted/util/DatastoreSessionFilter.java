@@ -28,11 +28,6 @@ import com.google.common.collect.FluentIterable;
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -51,6 +46,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 // [START init]
 @WebFilter(filterName = "DatastoreSessionFilter",
@@ -88,7 +88,7 @@ public class DatastoreSessionFilter implements Filter {
       datastore.delete(stateEntity.getKey());
     }
   }
-// [END init]
+  // [END init]
 
   @Override
   public void doFilter(ServletRequest servletReq, ServletResponse servletResp, FilterChain chain)

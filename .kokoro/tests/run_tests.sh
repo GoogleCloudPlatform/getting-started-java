@@ -66,7 +66,7 @@ mvn -B --fail-at-end -q clean verify  | grep -E -v "(^\[INFO\] Download|^\[INFO\
 echo "******** Deploy to prod *******"
 cd appengine-standard-java8
 
-export GOOGLE_CLOUD_PROJECT=lesv-qa-999
+export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
 
 gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \
@@ -74,7 +74,7 @@ gcloud auth activate-service-account\
 
 ./deployAll.sh
 echo "******* Test prod Deployed Apps ********"
-export URL="dot-lesv-qa-999.appspot.com"
+export URL="dot-java-docs-samples-testing.appspot.com"
 
 TestIt "helloworld" "" "Hello App Engine -- Java 8!"
 TestIt "helloworld" "hello" "Hello App Engine - Standard using Google App Engine"
@@ -82,7 +82,7 @@ TestIt "helloworld" "hello" "Hello App Engine - Standard using Google App Engine
 TestIt "kotlin-appengine-standard" "" \
   "Hello, World! I am a Servlet 3.1 running on Java8 App Engine Standard, and written in Kotlin..."
 
-TestIt "kotlin-springboot-appengine-standard" "greeting" \
+TestIt "kotlin-sb-appengine-standard" "greeting" \
   "Hello, World, from a SpringBoot Application written in Kotlin, running on Google App Engine Java8 Standard..."
 
 TestIt "springboot-appengine-standard" "" \

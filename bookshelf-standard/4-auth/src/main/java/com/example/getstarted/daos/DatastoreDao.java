@@ -46,20 +46,22 @@ public class DatastoreDao implements BookDao {
     datastore = DatastoreServiceFactory.getDatastoreService(); // Authorized Datastore service
   }
   // [END constructor]
+
   // [START entityToBook]
   public Book entityToBook(Entity entity) {
     return new Book.Builder()                                     // Convert to Book form
-        .author((String)entity.getProperty(Book.AUTHOR))
-        .description((String)entity.getProperty(Book.DESCRIPTION))
+        .author((String) entity.getProperty(Book.AUTHOR))
+        .description((String) entity.getProperty(Book.DESCRIPTION))
         .id(entity.getKey().getId())
-        .publishedDate((String)entity.getProperty(Book.PUBLISHED_DATE))
-        .imageUrl((String)entity.getProperty(Book.IMAGE_URL))
-        .createdBy((String)entity.getProperty(Book.CREATED_BY))
-        .createdById((String)entity.getProperty(Book.CREATED_BY_ID))
-        .title((String)entity.getProperty(Book.TITLE))
+        .publishedDate((String) entity.getProperty(Book.PUBLISHED_DATE))
+        .imageUrl((String) entity.getProperty(Book.IMAGE_URL))
+        .createdBy((String) entity.getProperty(Book.CREATED_BY))
+        .createdById((String) entity.getProperty(Book.CREATED_BY_ID))
+        .title((String) entity.getProperty(Book.TITLE))
         .build();
   }
   // [END entityToBook]
+
   // [START create]
   @Override
   public Long createBook(Book book) {
@@ -76,6 +78,7 @@ public class DatastoreDao implements BookDao {
     return bookKey.getId();                     // The ID of the Key
   }
   // [END create]
+
   // [START read]
   @Override
   public Book readBook(Long bookId) {
@@ -87,6 +90,7 @@ public class DatastoreDao implements BookDao {
     }
   }
   // [END read]
+
   // [START update]
   @Override
   public void updateBook(Book book) {
@@ -103,6 +107,7 @@ public class DatastoreDao implements BookDao {
     datastore.put(entity);                   // Update the Entity
   }
   // [END update]
+
   // [START delete]
   @Override
   public void deleteBook(Long bookId) {
@@ -110,6 +115,7 @@ public class DatastoreDao implements BookDao {
     datastore.delete(key);                      // Delete the Entity
   }
   // [END delete]
+
   // [START entitiesToBooks]
   public List<Book> entitiesToBooks(Iterator<Entity> results) {
     List<Book> resultBooks = new ArrayList<>();
@@ -119,6 +125,7 @@ public class DatastoreDao implements BookDao {
     return resultBooks;
   }
   // [END entitiesToBooks]
+
   // [START listbooks]
   @Override
   public Result<Book> listBooks(String startCursorString) {

@@ -36,9 +36,11 @@ import javax.servlet.http.HttpServletResponse;
 public class LogoutFilter implements Filter {
 
   private static final Logger logger = Logger.getLogger(ListByUserFilter.class.getName());
-// [END init]
+  // [END init]
+
   @Override
-  public void init(FilterConfig config) throws ServletException { }
+  public void init(FilterConfig config) throws ServletException {
+  }
 
   @Override
   public void doFilter(ServletRequest servletReq, ServletResponse servletResp, FilterChain chain)

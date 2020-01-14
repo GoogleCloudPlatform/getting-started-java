@@ -32,9 +32,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(filterName = "ListByUserFilter", value = "/books/mine")
 public class ListByUserFilter implements Filter {
-// [START createLogger]
+  // [START createLogger]
   private static final Logger logger = Logger.getLogger(ListByUserFilter.class.getName());
-// [END createLogger]
+  // [END createLogger]
+
   @Override
   public void init(FilterConfig config) throws ServletException {
   }
@@ -45,7 +46,7 @@ public class ListByUserFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) servletReq;
     HttpServletResponse resp = (HttpServletResponse) servletResp;
 
-// [START logStuff]
+    // [START logStuff]
     String instanceId =
         System.getenv().containsKey("GAE_MODULE_INSTANCE")
             ? System.getenv("GAE_MODULE_INSTANCE") : "-1";
@@ -53,7 +54,7 @@ public class ListByUserFilter implements Filter {
         Level.INFO,
         "ListByUserFilter processing new request for path: " + req.getRequestURI()
             + " and instance: " + instanceId);
-// [END logStuff]
+    // [END logStuff]
 
     if (req.getSession().getAttribute("token") == null
         && req.getSession().getAttribute("state") == null) {

@@ -33,9 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "read", value = "/read")
 public class ReadBookServlet extends HttpServlet {
 
-// [START init]
+  // [START init]
   private final Logger logger = Logger.getLogger(ReadBookServlet.class.getName());
-// [END init]
+  // [END init]
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
