@@ -13,6 +13,10 @@ Use either:
 * `gcloud init`
 * `gcloud beta auth application-default login`
 
+Set your project, the plugins in this example are configured to use this value from gcloud
+
+* `gcloud config set project <YOUR_PROJECT_NAME>`
+
 We support building with [Maven](http://maven.apache.org/), [Gradle](https://gradle.org), and [IntelliJ IDEA](https://cloud.google.com/tools/intellij/docs/).
 The samples have files to support both Maven and Gradle.  To use the IDE plugins, see the documentation pages above.
 
@@ -22,13 +26,13 @@ The samples have files to support both Maven and Gradle.  To use the IDE plugins
 ### Running locally
 
     $ mvn jetty:run-exploded
-  
+
 ### Deploying
 
-    $ mvn appengine:deploy
+    $ mvn package appengine:deploy
 
 ## Gradle
-[Using Gradle and the App Engine Plugin](https://cloud.google.com/appengine/docs/flexible/java/using-gradle) 
+[Using Gradle and the App Engine Plugin](https://cloud.google.com/appengine/docs/flexible/java/using-gradle)
 & [Gradle Tasks and Parameters](https://cloud.google.com/appengine/docs/flexible/java/gradle-reference)
 ### Running locally
 

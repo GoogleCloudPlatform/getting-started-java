@@ -17,11 +17,11 @@ To run your project locally:
 * Set the `BOOKSHELF_BUCKET` environment variable:
 
       export BOOKSHELF_BUCKET=<YOUR_BUCKET_NAME>
-    
+
   Where <YOUR_BUCKET_NAME> is the bucket you created above.
 * Run with the Jetty Maven plugin:
 
-      mvn jetty:run-exploded 
+      mvn jetty:run-exploded
 
 **Note**: If you run into an error about `Invalid Credentials`, you may have to run:
 
