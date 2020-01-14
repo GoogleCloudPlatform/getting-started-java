@@ -30,6 +30,8 @@ gradle -v
 # Setup required environment variables
 export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/service-acct.json
 export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
+export FIRESTORE_CLOUD_PROJECT=java-docs-testing-firestore
+
 # Activate service account
 gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \

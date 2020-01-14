@@ -13,6 +13,7 @@ To run your project locally:
 
       export PUBSUB_TOPIC=<your-topic-name>
       export PUBSUB_VERIFICATION_TOKEN=<your-verification-token>
+      export FIRESTORE_CLOUD_PROJECT=<your-project-id>
 * Create a Pub/Sub topic:
 
       gcloud pubsub topics create $PUBSUB_TOPIC
@@ -34,7 +35,7 @@ To run your project locally:
 You will see that nothing has changed. This because there is no subscription on that Pub/Sub topic
 yet. Since you can't set up a Pub/Sub push subscription to post requests to `localhost`, you can
 instead send a manual request with `curl` (from a second terminal, in the 
-`getting-started-java/bookshelf/background` directory):
+`getting-started-java/background` directory):
 
     curl -H "Content-Type: application/json" -i --data @sample_message.json \
        "localhost:8080/pubsub/push?token=$PUBSUB_VERIFICATION_TOKEN"
@@ -52,7 +53,7 @@ To build your image:
       mvn clean package jib:build
 * Deploy the app to Cloud Run:
 
-      gcloud beta run deploy bookshelf --image gcr.io/<MY_PROJECT>/bookshelf \
+      gcloud beta run deploy background --image gcr.io/<MY_PROJECT>/background \
             --platform managed --region us-central1 --memory 512M \
             --update-env-vars PUBSUB_TOPIC=$PUBSUB_TOPIC,PUBSUB_VERIFICATION_TOKEN=$PUBSUB_VERIFICATION_TOKEN
 
@@ -66,9 +67,9 @@ To build your image:
             --ack-deadline 30
             
   This command will output a link to visit the page, hereafter called <CLOUD_RUN_ENDPOINT>.
-* Now fill out the `+ Request Translation` form again, this time <CLOUD_RUN_ENDPOINT>. It will
-  redirect you back to /translate.
-  * The new request will take a moment to show, so refresh after a minute.
+* Now fill out the `+ Request Translation` form again, this time at <CLOUD_RUN_ENDPOINT>. When you
+  click `Submit` it will redirect you back to /translate.
+  * The new request will take a moment to show, so refresh after a minute or two.
   
 [jib]: https://github.com/GoogleContainerTools/jib
   
