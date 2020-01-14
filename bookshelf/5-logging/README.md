@@ -14,7 +14,7 @@ details.
 
 ### Running Locally
 
-    mvn clean package jetty:run-exploded \
+    mvn clean jetty:run-exploded \
         -Dbookshelf.bucket=MY-BUCKET
 
 
@@ -22,14 +22,14 @@ details.
 
 * Initialize the [Google Cloud SDK]()
 
-    gcloud init
+      gcloud init
 
 * Update the parameters in `pom.xml`:
   * Replace `myProjectID` with your project ID.
 
 * Deploy your App
 
-    mvn clean package appengine:deploy \
-        -Dbookshelf.bucket=MY-BUCKET
+      mvn clean package appengine:deploy \
+          -Dbookshelf.bucket=MY-BUCKET
 
 
