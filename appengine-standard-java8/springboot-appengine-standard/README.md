@@ -1,7 +1,13 @@
 SpringBoot HelloWorld for App Engine Standard (Java 8)
 ============================
 
-This sample demonstrates how to deploy a Spring Boot application on Google App Engine.
+This sample demonstrates how to deploy a Java 8 Spring Boot application on
+Google App Engine. The Java 8 App Engine runtime expects a
+[WAR file to be uploaded](https://cloud.google.com/appengine/docs/standard/java/tools/uploadinganapp).
+
+Note: If your project's root directory includes other Maven modules, EAR packages,
+or .jar files that do not define an App Engine service, the command will fail when
+configuration files are not found.
 
 See the [Google App Engine standard environment documentation][ae-docs] for more
 detailed instructions.
@@ -153,4 +159,3 @@ Please follow these instructions to work around this issue:
   <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
 </system-properties>
 ```
-
