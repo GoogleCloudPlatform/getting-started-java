@@ -35,11 +35,12 @@ public class BackgroundContextListener implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent event) {
+    String firestoreProjectId = System.getenv("FIRESTORE_CLOUD_PROJECT");
     Firestore firestore = (Firestore) event.getServletContext().getAttribute("firestore");
     if (firestore == null) {
       firestore =
           FirestoreOptions.getDefaultInstance().toBuilder()
-              .setProjectId(System.getenv("GOOGLE_CLOUD_PROJECT"))
+              .setProjectId(firestoreProjectId)
               .build()
               .getService();
       event.getServletContext().setAttribute("firestore", firestore);
@@ -58,7 +59,7 @@ public class BackgroundContextListener implements ServletContextListener {
         publisher =
             Publisher.newBuilder(
                     ProjectTopicName.newBuilder()
-                        .setProject(ServiceOptions.getDefaultProjectId())
+                        .setProject(firestoreProjectId)
                         .setTopic(topicId)
                         .build())
                 .build();

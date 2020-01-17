@@ -133,7 +133,7 @@ public class DatastoreSessionFilter implements Filter {
 
   @SuppressWarnings("unused")
   private String mapToString(Map<String, String> map) {
-    StringBuffer names = new StringBuffer();
+    StringBuilder names = new StringBuilder();
     for (String name : map.keySet()) {
       names.append(name + " ");
     }

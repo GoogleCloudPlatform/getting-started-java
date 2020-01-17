@@ -31,13 +31,13 @@ detailed instructions.
 ## Maven
 ### Running locally
 
-`mvn appengine:run`
+`mvn package appengine:run`
 
 To use vist: http://localhost:8080/
 
 ### Deploying
 
-`mvn appengine:deploy`
+`mvn package appengine:deploy`
 
 To use vist:  https://YOUR-PROJECT-ID.appspot.com
 
@@ -109,7 +109,7 @@ In the `pom.xml`, add the App Engine Standard plugin:
 <plugin>
   <groupId>com.google.cloud.tools</groupId>
   <artifactId>appengine-maven-plugin</artifactId>
-  <version>1.3.1</version>
+  <version>2.2.0</version>
 </plugin>
 ```
 

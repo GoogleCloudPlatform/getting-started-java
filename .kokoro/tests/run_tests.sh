@@ -59,14 +59,14 @@ gcloud auth activate-service-account\
 echo "********* gcloud config ********"
 gcloud config list
 
+export FIRESTORE_CLOUD_PROJECT=java-docs-testing-firestore
+
 echo "******** build everything ********"
 cd github/getting-started-java
 mvn -B --fail-at-end -q clean verify  | grep -E -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
 echo "******** Deploy to prod *******"
 cd appengine-standard-java8
-
-export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
 
 gcloud auth activate-service-account\
     --key-file=$GOOGLE_APPLICATION_CREDENTIALS \
