@@ -28,6 +28,21 @@ detailed instructions.
 
     `gcloud app create`
 
+* In the `pom.xml`, update the [App Engine Maven Plugin](https://cloud.google.com/appengine/docs/standard/java/tools/maven-reference)
+with your Google Cloud Project Id:
+
+```
+<plugin>
+  <groupId>com.google.cloud.tools</groupId>
+  <artifactId>appengine-maven-plugin</artifactId>
+  <version>2.2.0</version>
+  <configuration>
+    <projectId>myProjectId</projectId>
+    <version>GCLOUD_CONFIG</version>
+  </configuration>
+</plugin>
+```
+
 ## Maven
 ### Running locally
 
