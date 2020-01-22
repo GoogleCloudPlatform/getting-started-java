@@ -34,6 +34,23 @@ The samples have files to support both Maven and Gradle.  To use the IDE plugins
 
 ### Deploying
 
+* In the `pom.xml`, update the [App Engine Maven Plugin](https://cloud.google.com/appengine/docs/standard/java/tools/maven-reference)
+with your Google Cloud Project Id:
+
+```
+<plugin>
+  <groupId>com.google.cloud.tools</groupId>
+  <artifactId>appengine-maven-plugin</artifactId>
+  <version>2.2.0</version>
+  <configuration>
+    <projectId>myProjectId</projectId>
+    <version>GCLOUD_CONFIG</version>
+  </configuration>
+</plugin>
+```
+**Note:** `GCLOUD_CONFIG` is a special version for autogenerating an App Engine
+version. Change this field to specify a specific version name.
+
     $ mvn package appengine:deploy
 
 ## Gradle
@@ -47,4 +64,3 @@ The samples have files to support both Maven and Gradle.  To use the IDE plugins
 ### Deploying
 
     $ gradle appengineDeploy
-

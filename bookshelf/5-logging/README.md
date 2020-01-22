@@ -24,12 +24,24 @@ details.
 
       gcloud init
 
-* Update the parameters in `pom.xml`:
-  * Replace `myProjectID` with your project ID.
+* In the `pom.xml`, update the [App Engine Maven Plugin](https://cloud.google.com/appengine/docs/standard/java/tools/maven-reference)
+with your Google Cloud Project Id:
+
+  ```
+  <plugin>
+    <groupId>com.google.cloud.tools</groupId>
+    <artifactId>appengine-maven-plugin</artifactId>
+    <version>2.2.0</version>
+    <configuration>
+      <projectId>myProjectId</projectId>
+      <version>GCLOUD_CONFIG</version>
+    </configuration>
+  </plugin>
+  ```
+  **Note:** `GCLOUD_CONFIG` is a special version for autogenerating an App Engine
+  version. Change this field to specify a specific version name.
 
 * Deploy your App
 
       mvn clean package appengine:deploy \
           -Dbookshelf.bucket=MY-BUCKET
-
-

@@ -22,7 +22,7 @@ set -xe
 # Make sure it works on GAE7
 
 # Deploy and run selenium tests
-mvn clean appengine:deploy verify \
+mvn clean package appengine:deploy verify \
   -Pselenium \
   -Dbookshelf.endpoint="https://${GOOGLE_VERSION_ID}-dot-${GOOGLE_CLOUD_PROJECT}.appspot.com" \
   -Dapp.deploy.version="${GOOGLE_VERSION_ID}" \

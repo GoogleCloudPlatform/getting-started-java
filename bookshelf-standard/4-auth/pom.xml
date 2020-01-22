@@ -52,7 +52,6 @@ Copyright 2016 Google Inc.
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
-    <appengine-maven.version>1.9.69</appengine-maven.version>
   </properties>
 
   <!-- THINGS ONLY USED WHEN RUN LOCALLY -->
@@ -169,9 +168,14 @@ Copyright 2016 Google Inc.
     </outputDirectory>
     <plugins>
       <plugin>
-        <groupId>com.google.appengine</groupId>
+        <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>${appengine-maven.version}</version>
+        <version>2.2.0</version>
+        <configuration>
+          <!-- can be set w/ -DprojectId=myProjectId on command line -->
+          <projectId>myProjectId</projectId>
+          <version>bookshelf</version>
+        </configuration>
       </plugin>
     </plugins>
   </build>
