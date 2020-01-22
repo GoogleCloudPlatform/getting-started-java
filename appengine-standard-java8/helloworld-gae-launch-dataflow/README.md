@@ -58,7 +58,7 @@ detailed instructions.
     sed -i "s/YOUR_BUCKET_NAME/$BUCKET/" src/main/java/com/example/appengine/java8/LaunchDataflowTemplate.java
     ```
 
-1. In the `pom.xml`, update the [App Engine Maven Plugin](https://cloud.google.com/appengine/docs/standard/java/tools/maven-reference) 
+1. In the `pom.xml`, update the [App Engine Maven Plugin](https://cloud.google.com/appengine/docs/standard/java/tools/maven-reference)
 with your Google Cloud Project Id:
 
 ```
@@ -72,6 +72,9 @@ with your Google Cloud Project Id:
   </configuration>
 </plugin>
 ```
+**Note:** `GCLOUD_CONFIG` is a special version for autogenerating an App Engine
+version. Change this field to specify a specific version name. 
+
 ## Maven
 ### Running locally
 

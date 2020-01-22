@@ -18,11 +18,15 @@ detailed instructions.
 
 * Download and initialize the [Cloud SDK](https://cloud.google.com/sdk/)
 
-    `gcloud init`
+```
+gcloud init
+```
 
 * Create an App Engine app within the current Google Cloud Project
 
-    `gcloud app create`
+```
+gcloud app create
+```
 
 * In the `pom.xml`, update the [App Engine Maven Plugin](https://cloud.google.com/appengine/docs/standard/java/tools/maven-reference)
 with your Google Cloud Project Id:
@@ -38,6 +42,8 @@ with your Google Cloud Project Id:
   </configuration>
 </plugin>
 ```
+**Note:** `GCLOUD_CONFIG` is a special version for autogenerating an App Engine
+version. Change this field to specify a specific version name.
 
 ## Maven
 ### Running locally
