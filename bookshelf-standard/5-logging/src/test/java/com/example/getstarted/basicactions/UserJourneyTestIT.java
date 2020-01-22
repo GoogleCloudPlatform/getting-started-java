@@ -26,11 +26,9 @@ import com.google.cloud.datastore.Key;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery;
-
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -73,7 +71,6 @@ public class UserJourneyTestIT {
   public static void setupClass() throws Exception {
     service = ChromeDriverService.createDefaultService();
     service.start();
-
   }
 
   @AfterClass
@@ -82,8 +79,7 @@ public class UserJourneyTestIT {
     if (!LOCAL_TEST) {
       Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
       Batch batch = datastore.newBatch();
-      StructuredQuery<Key> query = Query.newKeyQueryBuilder()
-          .setKind("Book5").build();
+      StructuredQuery<Key> query = Query.newKeyQueryBuilder().setKind("Book5").build();
       for (QueryResults<Key> keys = datastore.run(query); keys.hasNext(); ) {
         batch.delete(keys.next());
       }
@@ -138,17 +134,25 @@ public class UserJourneyTestIT {
   private void checkAddBookPage() throws Exception {
     List<WebElement> inputContainers = driver.findElements(By.cssSelector("form .form-group"));
     assertTrue("Should have more than 5 inputs", inputContainers.size() > 5);
-    assertEquals("First input should be Title",
-        "Title", inputContainers.get(0).findElement(By.tagName("label")).getText());
-    assertEquals("Second input should be Author",
-        "Author", inputContainers.get(1).findElement(By.tagName("label")).getText());
-    assertEquals("Third input should be Date Published",
-        "Date Published", inputContainers.get(2).findElement(By.tagName("label")).getText());
-    assertEquals("Fourth input should be Description",
-        "Description", inputContainers.get(3).findElement(By.tagName("label")).getText());
+    assertEquals(
+        "First input should be Title",
+        "Title",
+        inputContainers.get(0).findElement(By.tagName("label")).getText());
+    assertEquals(
+        "Second input should be Author",
+        "Author",
+        inputContainers.get(1).findElement(By.tagName("label")).getText());
+    assertEquals(
+        "Third input should be Date Published",
+        "Date Published",
+        inputContainers.get(2).findElement(By.tagName("label")).getText());
+    assertEquals(
+        "Fourth input should be Description",
+        "Description",
+        inputContainers.get(3).findElement(By.tagName("label")).getText());
 
     // The rest should be hidden
-    for (Iterator<WebElement> iter = inputContainers.listIterator(5); iter.hasNext();) {
+    for (Iterator<WebElement> iter = inputContainers.listIterator(5); iter.hasNext(); ) {
       WebElement el = iter.next();
       assertTrue(el.getAttribute("class").indexOf("hidden") >= 0);
     }
@@ -164,8 +168,10 @@ public class UserJourneyTestIT {
     driver.findElement(By.cssSelector("button[type=submit]")).submit();
   }
 
-  private void checkReadPage(String title, String author, String datePublished, String description,
-      String addedBy) throws Exception {
+  @SuppressWarnings("UnusedVariable")
+  private void checkReadPage(
+      String title, String author, String datePublished, String description, String addedBy)
+      throws Exception {
     WebElement heading = driver.findElement(By.cssSelector("h3"));
     assertEquals("Book", heading.getText());
 
@@ -175,20 +181,28 @@ public class UserJourneyTestIT {
     assertEquals("Delete book", buttons.get(1).getText());
 
     // Should be a cat thumbnail
-    assertTrue(driver.findElement(By.cssSelector("img.book-image")).getAttribute("src")
-        .indexOf("placekitten") > 0);
-    assertTrue("Should show title",
-        driver.findElement(By.cssSelector(".book-title")).getText()
-        .startsWith(title));
-    assertEquals("Should show author",
-        "By " + author, driver.findElement(By.cssSelector(".book-author")).getText());
-    assertEquals("Should show description",
-        description, driver.findElement(By.cssSelector(".book-description")).getText());
+    assertTrue(
+        driver
+                .findElement(By.cssSelector("img.book-image"))
+                .getAttribute("src")
+                .indexOf("placekitten")
+            > 0);
+    assertTrue(
+        "Should show title",
+        driver.findElement(By.cssSelector(".book-title")).getText().startsWith(title));
+    assertEquals(
+        "Should show author",
+        "By " + author,
+        driver.findElement(By.cssSelector(".book-author")).getText());
+    assertEquals(
+        "Should show description",
+        description,
+        driver.findElement(By.cssSelector(".book-description")).getText());
 
-    assertTrue(driver.findElement(By.cssSelector(".book-added-by")).getText()
-        .indexOf(addedBy) > 0);
+    assertTrue(driver.findElement(By.cssSelector(".book-added-by")).getText().indexOf(addedBy) > 0);
   }
 
+  @SuppressWarnings("UnusedVariable")
   private void checkBookList(String title, String author, String datePublished, String description)
       throws Exception {
     List<WebElement> media = driver.findElements(By.cssSelector("div.media"));
@@ -228,48 +242,48 @@ public class UserJourneyTestIT {
       if (LOCAL_TEST) {
         WebElement loginButton = driver.findElement(By.linkText("Login"));
         loginButton.click();
-        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
-            "login"));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.urlMatches("login"));
 
         login(EMAIL);
-        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
-            "/books"));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.urlMatches("/books"));
 
         button = checkLandingPage(EMAIL);
 
         button.click();
-        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
-            ".*/create$"));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.urlMatches(".*/create$"));
 
         checkAddBookPage();
 
         submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(
-            ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
         checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, EMAIL);
 
         logout(EMAIL);
-        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(
-            ExpectedConditions.presenceOfElementLocated(By.linkText("Login")));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.presenceOfElementLocated(By.linkText("Login")));
 
       } else {
         button.click();
-        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
-            ".*/create$"));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.urlMatches(".*/create$"));
 
         checkAddBookPage();
 
         submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(
-            ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
         checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, "Anonymous");
 
         // Now check the list of books for the one we just submitted
         driver.findElement(By.linkText("Books")).click();
-        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
-            ".*/$"));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.urlMatches(".*/$"));
 
         checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
       }
