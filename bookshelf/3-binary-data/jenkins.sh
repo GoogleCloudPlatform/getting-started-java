@@ -18,7 +18,7 @@
 set -ex
 
 # Deploy and run selenium tests
-mvn clean appengine:deploy verify \
+mvn clean package appengine:deploy verify \
   -Dbookshelf.bucket="${GCS_BUCKET}" \
   -Pselenium \
   -Dbookshelf.endpoint="https://${GOOGLE_VERSION_ID}-dot-${GOOGLE_CLOUD_PROJECT}.appspot.com" \

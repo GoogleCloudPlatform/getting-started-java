@@ -20,7 +20,7 @@ set -e
 set +x
 
 # Deploy and run selenium tests
-mvn clean appengine:deploy verify \
+mvn clean package appengine:deploy verify \
   -Dbookshelf.bucket="${GCS_BUCKET}" \
   -Dbookshelf.clientID="${OAUTH2_CLIENT_ID}" \
   -Dbookshelf.clientSecret="${OAUTH2_CLIENT_SECRET}" \

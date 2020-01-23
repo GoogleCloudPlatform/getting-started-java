@@ -46,13 +46,12 @@ Copyright 2016 Google Inc.
     <!-- [END config] -->
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source> <!-- REQUIRED -->
-    <maven.compiler.target>1.7</maven.compiler.target> <!-- REQUIRED -->
+    <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
+    <maven.compiler.target>1.8</maven.compiler.target> <!-- REQUIRED -->
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>true</maven.war.filteringDeploymentDescriptors>
-    <appengine-maven.version>1.9.69</appengine-maven.version>
   </properties>
 
   <!-- THINGS ONLY USED WHEN RUN LOCALLY -->
@@ -169,9 +168,14 @@ Copyright 2016 Google Inc.
     </outputDirectory>
     <plugins>
       <plugin>
-        <groupId>com.google.appengine</groupId>
+        <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>${appengine-maven.version}</version>
+        <version>2.2.0</version>
+        <configuration>
+          <!-- can be set w/ -DprojectId=myProjectId on command line -->
+          <projectId>myProjectId</projectId>
+          <version>bookshelf</version>
+        </configuration>
       </plugin>
     </plugins>
   </build>

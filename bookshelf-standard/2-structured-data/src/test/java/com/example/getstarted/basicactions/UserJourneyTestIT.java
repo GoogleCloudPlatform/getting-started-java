@@ -26,11 +26,9 @@ import com.google.cloud.datastore.Key;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery;
-
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -78,8 +76,7 @@ public class UserJourneyTestIT {
     if (!LOCAL_TEST) {
       Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
       Batch batch = datastore.newBatch();
-      StructuredQuery<Key> query = Query.newKeyQueryBuilder()
-          .setKind("Book2").build();
+      StructuredQuery<Key> query = Query.newKeyQueryBuilder().setKind("Book2").build();
       for (QueryResults<Key> keys = datastore.run(query); keys.hasNext(); ) {
         batch.delete(keys.next());
       }
@@ -113,17 +110,25 @@ public class UserJourneyTestIT {
   private void checkAddBookPage() throws Exception {
     List<WebElement> inputContainers = driver.findElements(By.cssSelector("form .form-group"));
     assertTrue("Should have more than 4 inputs", inputContainers.size() > 4);
-    assertEquals("First input should be Title",
-        "Title", inputContainers.get(0).findElement(By.tagName("label")).getText());
-    assertEquals("Second input should be Author",
-        "Author", inputContainers.get(1).findElement(By.tagName("label")).getText());
-    assertEquals("Third input should be Date Published",
-        "Date Published", inputContainers.get(2).findElement(By.tagName("label")).getText());
-    assertEquals("Fourth input should be Description",
-        "Description", inputContainers.get(3).findElement(By.tagName("label")).getText());
+    assertEquals(
+        "First input should be Title",
+        "Title",
+        inputContainers.get(0).findElement(By.tagName("label")).getText());
+    assertEquals(
+        "Second input should be Author",
+        "Author",
+        inputContainers.get(1).findElement(By.tagName("label")).getText());
+    assertEquals(
+        "Third input should be Date Published",
+        "Date Published",
+        inputContainers.get(2).findElement(By.tagName("label")).getText());
+    assertEquals(
+        "Fourth input should be Description",
+        "Description",
+        inputContainers.get(3).findElement(By.tagName("label")).getText());
 
     // The rest should be hidden
-    for (Iterator<WebElement> iter = inputContainers.listIterator(4); iter.hasNext();) {
+    for (Iterator<WebElement> iter = inputContainers.listIterator(4); iter.hasNext(); ) {
       WebElement el = iter.next();
       assertTrue(el.getAttribute("class").indexOf("hidden") >= 0);
     }
@@ -143,6 +148,7 @@ public class UserJourneyTestIT {
     driver.findElement(By.cssSelector("button[type=submit]")).submit();
   }
 
+  @SuppressWarnings("UnusedVariable")
   private void checkReadPage(String title, String author, String datePublished, String description)
       throws Exception {
     WebElement heading = driver.findElement(By.cssSelector("h3"));
@@ -154,20 +160,29 @@ public class UserJourneyTestIT {
     assertEquals("Delete book", buttons.get(1).getText());
 
     // Should be a cat thumbnail
-    assertTrue(driver.findElement(By.cssSelector("img.book-image")).getAttribute("src")
-        .indexOf("placekitten") > 0);
-    assertTrue("Should show title",
-        driver.findElement(By.cssSelector(".book-title")).getText()
-        .startsWith(title));
-    assertEquals("Should show author",
-        "By " + author, driver.findElement(By.cssSelector(".book-author")).getText());
-    assertEquals("Should show description",
-        description, driver.findElement(By.cssSelector(".book-description")).getText());
+    assertTrue(
+        driver
+                .findElement(By.cssSelector("img.book-image"))
+                .getAttribute("src")
+                .indexOf("placekitten")
+            > 0);
+    assertTrue(
+        "Should show title",
+        driver.findElement(By.cssSelector(".book-title")).getText().startsWith(title));
+    assertEquals(
+        "Should show author",
+        "By " + author,
+        driver.findElement(By.cssSelector(".book-author")).getText());
+    assertEquals(
+        "Should show description",
+        description,
+        driver.findElement(By.cssSelector(".book-description")).getText());
 
-    assertTrue(driver.findElement(By.cssSelector(".book-added-by")).getText()
-        .indexOf("Anonymous") > 0);
+    assertTrue(
+        driver.findElement(By.cssSelector(".book-added-by")).getText().indexOf("Anonymous") > 0);
   }
 
+  @SuppressWarnings("UnusedVariable")
   private void checkBookList(String title, String author, String datePublished, String description)
       throws Exception {
     List<WebElement> media = driver.findElements(By.cssSelector("div.media"));
@@ -193,21 +208,21 @@ public class UserJourneyTestIT {
       WebElement button = checkLandingPage();
 
       button.click();
-      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
-          ".*/create$"));
+      new WebDriverWait(driver, Duration.ofSeconds(10))
+          .until(ExpectedConditions.urlMatches(".*/create$"));
 
       checkAddBookPage();
 
       submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
-          ".*/read\\?id=[0-9]+$"));
+      new WebDriverWait(driver, Duration.ofSeconds(10))
+          .until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
       checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
 
       // Now check the list of books for the one we just submitted
       driver.findElement(By.linkText("Books")).click();
-      (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.urlMatches(
-          ".*/$"));
+      new WebDriverWait(driver, Duration.ofSeconds(10))
+          .until(ExpectedConditions.urlMatches(".*/$"));
 
       checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
     } catch (Exception e) {

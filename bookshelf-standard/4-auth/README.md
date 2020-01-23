@@ -21,10 +21,24 @@ to below as `MY-BUCKET`.
 
 ### Deploying to App Engine Standard
 
+* In the `pom.xml`, update the [App Engine Maven Plugin](https://cloud.google.com/appengine/docs/standard/java/tools/maven-reference)
+with your Google Cloud Project Id:
+
+  ```
+  <plugin>
+    <groupId>com.google.cloud.tools</groupId>
+    <artifactId>appengine-maven-plugin</artifactId>
+    <version>2.2.0</version>
+    <configuration>
+      <projectId>myProjectId</projectId>
+      <version>bookshelf</version>
+    </configuration>
+  </plugin>
+  ```
+
 * Deploy your App
 
-    mvn clean appengine:update -Dappengine.appId=<your-project-id> \
-        -Dappengine.version=bookshelf \
+    mvn clean appengine appengine:deploy \
         -Dbookshelf.bucket=MY-BUCKET
 
 Visit it at http://bookshelf.<your-project-id>.appspot.com

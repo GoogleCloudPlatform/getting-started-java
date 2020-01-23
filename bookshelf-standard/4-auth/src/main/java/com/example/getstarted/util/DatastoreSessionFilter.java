@@ -118,7 +118,7 @@ public class DatastoreSessionFilter implements Filter {
         FluentIterable.from(deleteMap.keySet()).toArray(String.class));
   }
 
-  @SuppressWarnings("unused")
+  @SuppressWarnings({"unused", "JdkObsolete"})
   private String mapToString(Map<String, String> map) {
     StringBuffer names = new StringBuffer();
     for (String name : map.keySet()) {
