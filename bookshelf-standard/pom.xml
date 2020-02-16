@@ -105,7 +105,7 @@ Copyright 2016 Google Inc.
       <dependency>
         <groupId>org.apache.httpcomponents</groupId>
         <artifactId>httpclient</artifactId>
-        <version>4.3.6</version>
+        <version>4.5.11</version>
         <scope>test</scope>
       </dependency>
       <dependency>                        <!-- Google Cloud Client Library for Java -->
