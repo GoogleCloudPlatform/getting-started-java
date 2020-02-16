@@ -135,7 +135,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Apache Database Connection Pool API -->
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-dbcp2</artifactId>
-      <version>2.5.0</version>
+      <version>2.7.0</version>
     </dependency>
 
     <dependency>
