@@ -16,8 +16,7 @@
       "groupName": "Vertx packages"
     }
   ],
-  "prConcurrentLimit": 5,
-  "prCreation": "not-pending",
+  "prConcurrentLimit": 0,
   "rebaseStalePrs": false,
   "masterIssue": true
 }
