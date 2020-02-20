@@ -50,7 +50,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.77</version>
+      <version>1.9.78</version>
     </dependency>
     <!-- [START servlet] -->
     <dependency>
@@ -68,7 +68,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.auth</groupId>
       <artifactId>google-auth-library-appengine</artifactId>
-      <version>0.18.0</version>
+      <version>0.20.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
@@ -82,32 +82,32 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-testing</artifactId>
-      <version>1.9.77</version>
+      <version>1.9.78</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-stubs</artifactId>
-      <version>1.9.77</version>
+      <version>1.9.78</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-tools-sdk</artifactId>
-      <version>1.9.77</version>
+      <version>1.9.78</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>com.google.truth</groupId>
       <artifactId>truth</artifactId>
-      <version>1.0</version>
+      <version>1.0.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13-rc-1</version>
+      <version>4.13</version>
       <scope>test</scope>
     </dependency>
     <dependency>
