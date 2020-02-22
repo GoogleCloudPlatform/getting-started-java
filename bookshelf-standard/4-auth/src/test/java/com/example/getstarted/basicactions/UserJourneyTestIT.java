@@ -227,47 +227,47 @@ public class UserJourneyTestIT {
         WebElement loginButton = driver.findElement(By.linkText("Login"));
 
         loginButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches("login"));
 
         login(EMAIL);
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches("/books"));
 
         button = checkLandingPage(EMAIL);
 
         button.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/create$"));
 
         checkAddBookPage();
 
         submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
         checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, EMAIL);
 
         logout(EMAIL);
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.presenceOfElementLocated(By.linkText("Login")));
 
       } else {
         button.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/create$"));
 
         checkAddBookPage();
 
         submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$"));
 
         checkReadPage(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION, "Anonymous");
 
         // Now check the list of books for the one we just submitted
         driver.findElement(By.linkText("Books")).click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/$"));
 
         checkBookList(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);

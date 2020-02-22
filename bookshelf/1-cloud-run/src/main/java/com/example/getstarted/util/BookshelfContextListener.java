@@ -23,8 +23,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import org.apache.xpath.operations.Bool;
-
 @WebListener("Creates BookDao and other servlet context objects for reuse.")
 public class BookshelfContextListener implements ServletContextListener {
   @Override
@@ -42,7 +40,7 @@ public class BookshelfContextListener implements ServletContextListener {
       event.getServletContext().setAttribute("dao", dao);
     }
 
-    Bool isCloudStorageConfigured = (Bool) event.getServletContext()
+    Boolean isCloudStorageConfigured = (Boolean) event.getServletContext()
         .getAttribute("isCloudStorageConfigured");
     if (isCloudStorageConfigured == null) {
       event.getServletContext()
