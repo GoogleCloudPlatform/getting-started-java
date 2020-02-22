@@ -48,7 +48,7 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-firestore</artifactId>
-      <version>1.13.0</version>
+      <version>1.32.4</version>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
@@ -59,7 +59,7 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-pubsub</artifactId>
-      <version>1.102.1</version>
+      <version>1.103.0</version>
     </dependency>
     <!-- [END getting_started_background_processing_dependencies] -->
 
