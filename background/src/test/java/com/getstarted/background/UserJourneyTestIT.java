@@ -142,13 +142,13 @@ public class UserJourneyTestIT {
       WebElement button = checkLandingPage();
 
       button.click();
-      new WebDriverWait(driver, Duration.ofSeconds(10))
+      new WebDriverWait(driver, 10L) // 10 seconds
           .until(ExpectedConditions.urlMatches(".*/create$")::apply);
 
       checkRequestTranslationPage();
 
       submitForm();
-      new WebDriverWait(driver, Duration.ofSeconds(10))
+      new WebDriverWait(driver, 10L)  // 10 seconds
           .until(ExpectedConditions.urlMatches(".*/")::apply);
     } catch (Exception e) {
       System.err.println(driver.getPageSource());

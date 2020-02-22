@@ -23,12 +23,9 @@ import static org.junit.Assert.assertTrue;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
-
-import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -244,47 +241,47 @@ public class UserJourneyTestIT {
       if (LOCAL_TEST) {
         WebElement loginButton = driver.findElement(By.linkText("Login"));
         loginButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches("login")::apply);
 
         login();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches("/books")::apply);
 
         button = checkLandingPage(EMAIL);
 
         button.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/create$")::apply);
 
         checkAddBookPage();
 
         submitForm();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$")::apply);
 
         checkReadPage(EMAIL);
 
         logout();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.presenceOfElementLocated(By.linkText("Login"))::apply);
 
       } else {
         button.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/create$")::apply);
 
         checkAddBookPage();
 
         submitForm();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/read\\?id=[0-9]+$")::apply);
 
         checkReadPage("Anonymous");
 
         // Now check the list of books for the one we just submitted
         driver.findElement(By.linkText("Books")).click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, 10L)
             .until(ExpectedConditions.urlMatches(".*/$")::apply);
 
         checkBookList();
