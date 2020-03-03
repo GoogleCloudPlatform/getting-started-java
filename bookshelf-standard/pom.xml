@@ -77,7 +77,7 @@ Copyright 2016 Google Inc.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.2</version>
+        <version>3.2.3</version>
         <configuration>
           <!-- explicitly specified to help m2e-wtp (http://eclip.se/514577) -->
           <filteringDeploymentDescriptors>${maven.war.filteringDeploymentDescriptors}</filteringDeploymentDescriptors>
@@ -92,7 +92,7 @@ Copyright 2016 Google Inc.
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-server</artifactId>
-        <version>3.3.1</version>
+        <version>3.141.59</version>
         <scope>test</scope>
       </dependency>
       <dependency>

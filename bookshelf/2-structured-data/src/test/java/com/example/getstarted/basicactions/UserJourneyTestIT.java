@@ -197,20 +197,20 @@ public class UserJourneyTestIT {
       WebElement button = checkLandingPage();
 
       button.click();
-      new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlMatches(
+      new WebDriverWait(driver, 10L).until(ExpectedConditions.urlMatches(
           ".*/create$"));
 
       checkAddBookPage();
 
       submitForm(TITLE, AUTHOR, PUBLISHED_DATE, DESCRIPTION);
-      new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlMatches(
+      new WebDriverWait(driver, 10L).until(ExpectedConditions.urlMatches(
           ".*/read\\?id=[0-9]+$"));
 
       checkReadPage(TITLE, AUTHOR, DESCRIPTION);
 
       // Now check the list of books for the one we just submitted
       driver.findElement(By.linkText("Books")).click();
-      new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlMatches(
+      new WebDriverWait(driver, 10L).until(ExpectedConditions.urlMatches(
           ".*/$"));
 
       checkBookList(TITLE, AUTHOR);
