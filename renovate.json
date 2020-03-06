@@ -20,6 +20,6 @@
     "automerge"
   ],
   "prConcurrentLimit": 0,
-  "rebaseStalePrs": false,
+  "rebaseWhen": "never",
   "masterIssue": true
 }
