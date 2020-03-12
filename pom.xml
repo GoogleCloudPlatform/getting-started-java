@@ -29,7 +29,6 @@ limitations under the License.
 
   <modules>
     <module>appengine-standard-java8/helloworld</module>
-    <module>appengine-standard-java8/helloworld-gae-launch-dataflow</module>
     <module>appengine-standard-java8/helloworld-gae-javasdk-tools</module>
     <module>appengine-standard-java8/kotlin-appengine-standard</module>
     <module>appengine-standard-java8/kotlin-sb-appengine-standard</module>
