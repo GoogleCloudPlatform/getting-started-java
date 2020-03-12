@@ -18,10 +18,8 @@ package com.example.appengine.java8;
 
 // [START example]
 import com.google.appengine.api.utils.SystemProperty;
-
 import java.io.IOException;
 import java.util.Properties;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
