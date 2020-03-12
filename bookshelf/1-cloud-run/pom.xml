@@ -42,7 +42,7 @@ Copyright 2019 Google LLC
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>false</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>false</maven.war.filteringDeploymentDescriptors>
-    <jetty.version>9.4.26.v20200117</jetty.version>
+    <jetty.version>9.4.27.v20200227</jetty.version>
   </properties>
 
   <dependencies>
@@ -88,7 +88,7 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-storage</artifactId>
-      <version>1.104.0</version>
+      <version>1.105.1</version>
     </dependency>
 
     <dependency>
@@ -138,7 +138,7 @@ Copyright 2019 Google LLC
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
         <configuration>
           <to>
             <image>gcr.io/${gcloud.appId}/bookshelf</image>

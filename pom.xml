@@ -24,7 +24,7 @@ limitations under the License.
   <parent>
     <groupId>com.google.cloud.samples</groupId>
     <artifactId>shared-configuration</artifactId>
-    <version>1.0.11</version>
+    <version>1.0.12</version>
   </parent>
 
   <modules>
@@ -159,7 +159,7 @@ limitations under the License.
 
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.8.2</version>
+          <version>3.9.0</version>
         </plugin>
 
         <plugin>
