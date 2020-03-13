@@ -17,7 +17,6 @@ package com.example.getstarted.daos;
 
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
-
 import com.google.cloud.datastore.Cursor;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
@@ -30,7 +29,6 @@ import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery.OrderBy;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
-
 import java.util.ArrayList;
 import java.util.List;
 

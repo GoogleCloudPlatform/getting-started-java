@@ -17,7 +17,6 @@ package com.example.getstarted.daos;
 
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
-
 import java.sql.SQLException;
 
 // [START example]
