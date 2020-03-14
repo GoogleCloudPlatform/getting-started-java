@@ -22,15 +22,12 @@ import com.google.cloud.storage.Acl.User;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.servlet.ServletException;
-
 import org.apache.commons.fileupload.FileItemStream;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;

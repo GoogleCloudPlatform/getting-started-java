@@ -18,10 +18,7 @@ package com.example.getstarted.basicactions;
 // [START bookshelf_delete_servlet]
 
 import com.example.getstarted.daos.BookDao;
-
 import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

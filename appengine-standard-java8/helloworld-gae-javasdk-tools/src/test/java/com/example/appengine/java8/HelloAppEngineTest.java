@@ -20,13 +20,10 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -82,7 +79,7 @@ public class HelloAppEngineTest {
   public void helloInfoTest() {
     String result = HelloAppEngine.getInfo();
     assertThat(result)
-      .containsMatch("^Version:\\s+.+OS:\\s+.+User:\\s");
+        .containsMatch("^Version:\\s+.+OS:\\s+.+User:\\s");
   }
 }
 // [END example]
