@@ -17,9 +17,7 @@ package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.BookDao;
 import com.example.getstarted.objects.Book;
-
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

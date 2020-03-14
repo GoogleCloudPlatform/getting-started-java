@@ -21,15 +21,12 @@ import com.example.getstarted.daos.DatastoreDao;
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
-
 import com.google.common.base.Strings;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

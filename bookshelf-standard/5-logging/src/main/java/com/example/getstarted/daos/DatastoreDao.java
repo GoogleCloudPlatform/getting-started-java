@@ -17,7 +17,6 @@ package com.example.getstarted.daos;
 
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
-
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -30,7 +29,6 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.QueryResultIterator;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
