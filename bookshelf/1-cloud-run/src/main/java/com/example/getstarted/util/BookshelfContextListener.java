@@ -18,7 +18,6 @@ package com.example.getstarted.util;
 import com.example.getstarted.daos.BookDao;
 import com.example.getstarted.daos.FirestoreDao;
 import com.google.common.base.Strings;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;

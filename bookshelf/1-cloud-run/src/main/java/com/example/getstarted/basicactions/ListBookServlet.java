@@ -17,17 +17,12 @@ package com.example.getstarted.basicactions;
 
 // [START bookshelf_list_books_servlet]
 import com.example.getstarted.daos.BookDao;
-import com.example.getstarted.daos.FirestoreDao;
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
-import com.example.getstarted.util.CloudStorageHelper;
-import com.google.common.base.Strings;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

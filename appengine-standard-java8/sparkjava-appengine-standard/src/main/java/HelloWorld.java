@@ -18,7 +18,6 @@ import static spark.Spark.get;
 
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
-
 import spark.servlet.SparkApplication;
 
 

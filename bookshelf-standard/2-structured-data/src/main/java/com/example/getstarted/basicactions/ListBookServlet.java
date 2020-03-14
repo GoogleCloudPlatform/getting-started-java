@@ -20,11 +20,9 @@ import com.example.getstarted.daos.CloudSqlDao;
 import com.example.getstarted.daos.DatastoreDao;
 import com.example.getstarted.objects.Book;
 import com.example.getstarted.objects.Result;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
