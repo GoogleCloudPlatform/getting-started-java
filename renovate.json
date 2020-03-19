@@ -22,6 +22,10 @@
     {
       "packagePatterns": [ "^org.springframework.boot:" ],
       "groupName": "Spring packages"
+    },
+    {
+      "packagePatterns": [ "^io.opencensus:" ],
+      "groupName": "Opencensus packages"
     }
   ],
   "labels": [
