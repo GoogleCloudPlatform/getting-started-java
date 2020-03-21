@@ -31,7 +31,7 @@ Copyright 2016 Google Inc.
   </parent>
 
   <properties>
-    <appengine-maven.version>1.9.77</appengine-maven.version>
+    <appengine-maven.version>1.9.79</appengine-maven.version>
     <google-cloud.version>0.47.0-alpha</google-cloud.version>
   </properties>
 
