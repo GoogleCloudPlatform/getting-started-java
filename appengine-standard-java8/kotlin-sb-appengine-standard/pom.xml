@@ -36,7 +36,7 @@ limitations under the License.
 
   <properties>
     <java.version>1.8</java.version>
-    <kotlin.version>1.3.70</kotlin.version>
+    <kotlin.version>1.3.71</kotlin.version>
   </properties>
 
   <dependencies>
