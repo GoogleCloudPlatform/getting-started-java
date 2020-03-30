@@ -30,6 +30,7 @@ import com.google.cloud.translate.Translation;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
@@ -129,7 +130,7 @@ public class TranslateServlet extends HttpServlet {
     }
   }
 
-  private String decode(String data) {
-    return new String(Base64.getDecoder().decode(data));
+  private String decode(String data) throws UnsupportedEncodingException {
+    return new String(Base64.getDecoder().decode(data), "UTF-8");
   }
 }
