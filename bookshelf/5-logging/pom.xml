@@ -134,7 +134,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Core Libraries for Java -->
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-      <version>28.2-jre</version>
+      <version>29.0-jre</version>
     </dependency>
 
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
