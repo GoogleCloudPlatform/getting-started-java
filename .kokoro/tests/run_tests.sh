@@ -63,7 +63,7 @@ export FIRESTORE_CLOUD_PROJECT=java-docs-testing-firestore
 
 echo "******** build everything ********"
 cd github/getting-started-java
-mvn -B --fail-at-end -q clean verify  | grep -E -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
+mvn -B -P lint --fail-at-end -q clean verify  | grep -E -v "(^\[INFO\] Download|^\[INFO\].*skipping)"
 
 echo "******** Deploy to prod *******"
 cd appengine-standard-java8
