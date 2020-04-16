@@ -61,7 +61,7 @@ for file in **/pom.xml; do
         echo "------------------------------------------------------------"
 
         # Run tests and update RESULT if failed
-        mvn -q --batch-mode --fail-at-end clean verify \
+        mvn -P lint -q --batch-mode --fail-at-end clean verify \
            -Dfile.encoding="UTF-8" \
            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
            -Dmaven.test.redirectTestOutputToFile=true \
