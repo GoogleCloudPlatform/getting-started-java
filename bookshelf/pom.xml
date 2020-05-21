@@ -31,7 +31,7 @@ Copyright 2016 Google Inc.
   </parent>
 
   <properties>
-    <jetty.maven.plugin>9.4.28.v20200408</jetty.maven.plugin>
+    <jetty.maven.plugin>9.4.29.v20200521</jetty.maven.plugin>
   </properties>
 
   <profiles>
