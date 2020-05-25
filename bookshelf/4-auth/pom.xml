@@ -55,7 +55,7 @@ Copyright 2016 Google Inc.
     <!-- [END config] -->
 
     <appengine.maven.plugin>2.2.0</appengine.maven.plugin>
-    <jetty.maven.plugin>9.4.28.v20200408</jetty.maven.plugin>
+    <jetty.maven.plugin>9.4.29.v20200521</jetty.maven.plugin>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source> <!-- REQUIRED -->
