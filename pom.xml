@@ -45,7 +45,6 @@ limitations under the License.
     <module>bookshelf-standard/4-auth</module>
     <module>bookshelf-standard/5-logging</module>
     <module>helloworld-jsp</module>
-    <module>helloworld-servlet</module>
   </modules>
 
   <reporting>
