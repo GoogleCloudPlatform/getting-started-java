@@ -28,13 +28,10 @@ limitations under the License.
   </parent>
 
   <modules>
-    <module>appengine-standard-java8/helloworld</module>
     <module>appengine-standard-java8/helloworld-gae-javasdk-tools</module>
     <module>appengine-standard-java8/kotlin-appengine-standard</module>
     <module>appengine-standard-java8/kotlin-sb-appengine-standard</module>
-    <module>appengine-standard-java8/sparkjava-appengine-standard</module>
     <module>appengine-standard-java8/kotlin-spark-appengine-standard</module>
-    <module>appengine-standard-java8/springboot-appengine-standard</module>
     <module>bookshelf/1-cloud-run</module>
     <module>bookshelf/2-structured-data</module>
     <module>bookshelf/3-binary-data</module>
