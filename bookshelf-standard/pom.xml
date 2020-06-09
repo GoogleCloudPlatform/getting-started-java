@@ -77,7 +77,7 @@ Copyright 2016 Google Inc.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.3.0</version>
         <configuration>
           <!-- explicitly specified to help m2e-wtp (http://eclip.se/514577) -->
           <filteringDeploymentDescriptors>${maven.war.filteringDeploymentDescriptors}</filteringDeploymentDescriptors>
