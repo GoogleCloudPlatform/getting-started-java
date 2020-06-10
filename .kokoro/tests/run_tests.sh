@@ -56,27 +56,8 @@ if [[ "$SCRIPT_DEBUG" != "true" ]]; then
     # Setup required env variables
     export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
     export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/service-acct.json
-    # For Tasks samples
-    export QUEUE_ID=my-appengine-queue
-    export LOCATION_ID=us-east1
-    # For Datalabeling samples to hit the testing endpoint
-    export DATALABELING_ENDPOINT="test-datalabeling.sandbox.googleapis.com:443"
-    # shellcheck source=src/aws-secrets.sh
-    source "${KOKORO_GFILE_DIR}/aws-secrets.sh"
-    # shellcheck source=src/storage-hmac-credentials.sh
-    source "${KOKORO_GFILE_DIR}/storage-hmac-credentials.sh"
-    # shellcheck source=src/dlp_secrets.txt
-    source "${KOKORO_GFILE_DIR}/dlp_secrets.txt"
-    # shellcheck source=src/bigtable_secrets.txt
-    source "${KOKORO_GFILE_DIR}/bigtable_secrets.txt"
-    # shellcheck source=src/automl_secrets.txt
-    source "${KOKORO_GFILE_DIR}/automl_secrets.txt"
-    # shellcheck source=src/functions_secrets.txt
-    source "${KOKORO_GFILE_DIR}/functions_secrets.txt"
     # spellcheck source=src/firestore_secrets.txt
     source "${KOKORO_GFILE_DIR}/firestore_secrets.txt"
-    # spellcheck source=src/cts_v4_secrets.txt
-    source "${KOKORO_GFILE_DIR}/cts_v4_secrets.txt"
 
     # Activate service account
     gcloud auth activate-service-account \
@@ -84,20 +65,6 @@ if [[ "$SCRIPT_DEBUG" != "true" ]]; then
         --project="$GOOGLE_CLOUD_PROJECT"
 
     cd github/getting-started-java
-fi
-
-# Don't check Appengine-java8 | flexible if using Java 11
-if [[ "$KOKORO_JOB_NAME" == */java11/* ]]; then
-  SKIP_LEGACY_GAE="true"
-else
-  SKIP_LEGACY_GAE="false"
-fi
-
-# Package local jetty dependency for Java11 samples
-if [[ ",$JAVA_VERSION," =~ "11" ]]; then
-  cd appengine-java11/appengine-simple-jetty-main/
-  mvn install --quiet
-  cd ../../
 fi
 
 echo -e "\n******************** TESTING PROJECTS ********************"
@@ -112,20 +79,6 @@ for file in **/pom.xml; do
     # Navigate to the project folder.
     file=$(dirname "$file")
     cd "$file"
-
-    # Skip Legacy GAE
-    if [[ "$SKIP_LEGACY_GAE" = "true" ]]; then
-      if [[ ",$JAVA_VERSION," =~ "11" ]]; then
-        case "$file" in
-          *appengine-java8*)
-            continue
-            ;;
-          *flexible*)
-            continue
-            ;;
-        esac
-      fi
-    fi
 
     # If $DIFF_ONLY is true, skip projects without changes.
     if [[ "$ONLY_DIFF" = "true" ]]; then
@@ -177,28 +130,6 @@ for file in **/pom.xml; do
       echo -e "\n Testing failed: Maven returned a non-zero exit code. \n"
     else
       echo -e "\n Testing completed.\n"
-    fi
-
-    # Build and deploy Cloud Run samples
-    if [[ "$file" == "run/"* ]]; then
-      export SAMPLE_NAME=${file#"run/"}
-      # chmod 755 "$SCRIPT_DIR"/build_cloud_run.sh
-      "$SCRIPT_DIR"/build_cloud_run.sh
-      EXIT=$?
-
-      if [[ $EXIT -ne 0 ]]; then
-        RTN=1
-        echo -e "\n Cloud Run build/deploy failed: gcloud returned a non-zero exit code. \n"
-      else
-        echo -e "\n Cloud Run build/deploy completed.\n"
-      fi
-    fi
-
-    # If this is a periodic build, send the test log to the Build Cop Bot.
-    # See https://github.com/googleapis/repo-automation-bots/tree/master/packages/buildcop.
-    if [[ $KOKORO_BUILD_ARTIFACTS_SUBDIR = *"periodic"* ]]; then
-      chmod +x $KOKORO_GFILE_DIR/linux_amd64/buildcop
-      $KOKORO_GFILE_DIR/linux_amd64/buildcop
     fi
 
 done
