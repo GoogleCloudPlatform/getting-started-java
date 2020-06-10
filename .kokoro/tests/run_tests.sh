@@ -83,7 +83,7 @@ if [[ "$SCRIPT_DEBUG" != "true" ]]; then
         --key-file="$GOOGLE_APPLICATION_CREDENTIALS" \
         --project="$GOOGLE_CLOUD_PROJECT"
 
-    cd github/java-docs-samples
+    cd github/getting-started-java
 fi
 
 # Don't check Appengine-java8 | flexible if using Java 11
