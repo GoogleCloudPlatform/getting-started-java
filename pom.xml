@@ -27,6 +27,11 @@ limitations under the License.
     <version>1.0.17</version>
   </parent>
 
+  <properties>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+
   <modules>
     <module>appengine-standard-java8/helloworld-gae-javasdk-tools</module>
     <module>appengine-standard-java8/kotlin-appengine-standard</module>
