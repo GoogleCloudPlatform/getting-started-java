@@ -210,6 +210,12 @@ Copyright 2016 Google Inc.
           <version>GCLOUD_CONFIG</version>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+      </plugin>
     </plugins>
   </build>
 </project>
