@@ -22,12 +22,6 @@ limitations under the License.
   <groupId>com.google.appengine.demos</groupId>
   <artifactId>kotlin-sb-appengine-standard</artifactId>
 
-<!--  <parent>                              &lt;!&ndash; Get parameters and allow bulk testing &ndash;&gt;-->
-<!--    <artifactId>getting-started-java</artifactId>-->
-<!--    <groupId>com.example</groupId>-->
-<!--    <version>1.0.0</version>-->
-<!--    <relativePath>../..</relativePath>-->
-<!--  </parent>-->
   <parent>
     <groupId>com.google.cloud.samples</groupId>
     <artifactId>shared-configuration</artifactId>
