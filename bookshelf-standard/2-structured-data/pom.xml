@@ -24,10 +24,9 @@ Copyright 2016 Google Inc.
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <parent> <!-- Only used for testing - NOT REQUIRED -->
-    <groupId>com.example.standard.gettingstarted</groupId>
-    <artifactId>bookshelf-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <relativePath>../</relativePath>
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.17</version>
   </parent>
 
   <properties>
@@ -125,6 +124,8 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <version>4.13</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -134,6 +135,8 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Cloud Client Library for Java -->
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud</artifactId>
+      <version>0.47.0-alpha</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
