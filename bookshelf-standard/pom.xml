@@ -33,6 +33,8 @@ Copyright 2016 Google Inc.
   <properties>
     <appengine-maven.version>1.9.80</appengine-maven.version>
     <google-cloud.version>0.47.0-alpha</google-cloud.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <profiles>
