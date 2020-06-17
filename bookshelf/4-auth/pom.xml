@@ -166,7 +166,7 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>com.google.firebase</groupId>
       <artifactId>firebase-admin</artifactId>
-      <version>6.13.0</version>
+      <version>6.14.0</version>
     </dependency>
 
     <!-- Test dependencies -->
