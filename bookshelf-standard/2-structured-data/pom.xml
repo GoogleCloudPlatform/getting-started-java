@@ -120,26 +120,6 @@ Copyright 2016 Google Inc.
       <version>2.10.6</version>
     </dependency>
 
-    <!-- Test dependencies -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-server</artifactId>
-      <version>3.141.59</version>
-    </dependency>
-    <dependency>                        <!-- Google Cloud Client Library for Java -->
-      <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud</artifactId>
-      <version>0.47.0-alpha</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes
