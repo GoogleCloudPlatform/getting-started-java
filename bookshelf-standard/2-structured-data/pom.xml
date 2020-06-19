@@ -119,6 +119,7 @@ Copyright 2016 Google Inc.
       <artifactId>joda-time</artifactId>
       <version>2.10.6</version>
     </dependency>
+  </dependencies>
 
   <build>
     <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->

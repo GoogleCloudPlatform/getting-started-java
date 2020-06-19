@@ -133,6 +133,7 @@ Copyright 2016 Google Inc.
       <artifactId>commons-fileupload</artifactId>
       <version>1.4</version>
     </dependency>
+  </dependencies>
 
   <build>
     <!-- Optional - for hot reload of the web application when using an IDE Eclipse / IDEA -->
