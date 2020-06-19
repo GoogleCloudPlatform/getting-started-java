@@ -24,9 +24,9 @@ Copyright 2016 Google Inc.
   <version>1.0-SNAPSHOT</version>       <!-- xx.xx.xx -SNAPSHOT means development -->
 
   <parent> <!-- Only used for testing - NOT REQUIRED -->
-    <groupId>com.example.standard.gettingstarted</groupId>
-    <artifactId>bookshelf-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.google.cloud.samples</groupId>
+    <artifactId>shared-configuration</artifactId>
+    <version>1.0.18</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -133,32 +133,6 @@ Copyright 2016 Google Inc.
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
       <version>1.4</version>
-    </dependency>
-
-    <!-- Test dependencies -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-server</artifactId>
-      <version>3.141.59</version>
-    </dependency>
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-chrome-driver</artifactId>
-      <version>3.141.59</version>
-    </dependency>
-    <!-- Selenium chokes without this, for some reason. -->
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-    </dependency>
-    <dependency>                        <!-- Google Cloud Client Library for Java -->
-      <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud</artifactId>
-      <version>0.47.0-alpha</version>
     </dependency>
   </dependencies>
 
