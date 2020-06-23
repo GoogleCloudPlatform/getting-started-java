@@ -29,7 +29,7 @@ with your Google Cloud Project Id:
   <plugin>
     <groupId>com.google.cloud.tools</groupId>
     <artifactId>appengine-maven-plugin</artifactId>
-    <version>2.2.0</version>
+    <version>2.3.0</version>
     <configuration>
       <projectId>myProjectId</projectId>
       <version>bookshelf</version>
