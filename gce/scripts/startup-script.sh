@@ -32,7 +32,7 @@ mkdir -p /opt/jetty/temp
 mkdir -p /var/log/jetty
 
 # Get Jetty
-curl -L http://central.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.13.v20181111/jetty-distribution-9.4.13.v20181111.tar.gz -o jetty9.tgz
+curl -L https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.13.v20181111/jetty-distribution-9.4.13.v20181111.tar.gz -o jetty9.tgz
 tar xf jetty9.tgz  --strip-components=1 -C /opt/jetty
 
 # Add a Jetty User
