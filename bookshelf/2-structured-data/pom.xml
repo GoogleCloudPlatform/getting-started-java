@@ -43,7 +43,7 @@ Copyright 2016 Google Inc.
     <sql.password>myRootPassword1234</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
     <!-- [END config] -->
 
-    <appengine.maven.plugin>2.3.0</appengine.maven.plugin>
+    <appengine.maven.plugin>2.4.0</appengine.maven.plugin>
     <jetty.maven.plugin>9.4.31.v20200723</jetty.maven.plugin>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
