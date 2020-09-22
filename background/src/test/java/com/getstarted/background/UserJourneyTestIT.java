@@ -42,8 +42,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /*
- * I can't figure out how to test server-side logging in a selenium test, so just confidence-check that
- * it hasn't broken anything.
+ * I can't figure out how to test server-side logging in a selenium test, so just confidence-check
+ * that it hasn't broken anything.
  */
 @RunWith(JUnit4.class)
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
