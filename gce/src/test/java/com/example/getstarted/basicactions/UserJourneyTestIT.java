@@ -32,7 +32,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.service.DriverService;
 
 @RunWith(JUnit4.class)
-@SuppressWarnings("checkstyle:abbreviationaswordinname")
+@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class UserJourneyTestIT {
   private static DriverService service;
   private WebDriver driver;
