@@ -46,7 +46,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * that it hasn't broken anything.
  */
 @RunWith(JUnit4.class)
-@SuppressWarnings("checkstyle:abbreviationaswordinname")
+@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 @Ignore("Issue #498")
 public class UserJourneyTestIT {
 

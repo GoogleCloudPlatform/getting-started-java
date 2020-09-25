@@ -103,7 +103,7 @@ public class DatastoreSessionFilter implements Filter {
       resp.addCookie(session);
     }
 
-    Map<String,String> datastoreMap = loadSessionVariables(req);  // session variables for request
+    Map<String, String> datastoreMap = loadSessionVariables(req);  // session variables for request
 
     chain.doFilter(servletReq, servletResp);  // Allow the servlet to process request and response
 
@@ -156,6 +156,7 @@ public class DatastoreSessionFilter implements Filter {
   // [START deleteSessionVariables]
   /**
    * Delete a value stored in the project's datastore.
+   *
    * @param sessionId Request from which the session is extracted.
    */
   protected void deleteSessionVariables(String sessionId, String... varNames) {
@@ -206,6 +207,7 @@ public class DatastoreSessionFilter implements Filter {
   // [START setSessionVariables]
   /**
    * Stores the state value in each key-value pair in the project's datastore.
+   *
    * @param sessionId Request from which to extract session.
    * @param varName the name of the desired session variable
    * @param varValue the value of the desired session variable
@@ -242,6 +244,7 @@ public class DatastoreSessionFilter implements Filter {
   // [START loadSessionVariables]
   /**
    * Take an HttpServletRequest, and copy all of the current session variables over to it
+   *
    * @param req Request from which to extract session.
    * @return a map of strings containing all the session variables loaded or an empty map.
    */
