@@ -1,0 +1,14 @@
+rules:
+  grandfathered:
+    regex:
+      - "/grandfathered/gi"
+    level: failure
+  sanity_check:
+    regex:
+      - "/sanity[_-]*check/gi"
+    level: failure
+  man_hours:
+    regex:
+      - "/man[_-]*hours/gi"
+    level: failure
+    
