@@ -1,57 +1,14 @@
 rules:
-  master:
-    level: failure
-  slave:
-    level: failure
-  whitelist:
-    level: failure
-  blacklist:
-    level: failure
   grandfathered:
+    regex:
+      - "/grandfathered/gi"
     level: failure
-  sanity:
+  sanity_check:
+    regex:
+      - "/sanity[_-]*check/gi"
     level: failure
-  man:
-    level: warning
-  he:
-    level: warning
-  she:
-    level: warning
-  normal:
-    level: warning
-  healthy:
-    level: warning
-  disabled:
-    level: warning
-  victim:
-    level: warning
-  native:
-    level: warning
-  first-class:
-    level: warning
-  dummy:
+  man_hours:
+    regex:
+      - "/man[_-]*hours/gi"
     level: failure
-  crazy:
-    level: failure
-  cripples:
-    level: failure
-  blast-radius:
-    level: failure
-  dead-letter:
-    level: failure
-  demilitarized:
-    level: failure
-  DMZ:
-    level: failure
-  derpy:
-    level: failure
-  fat:
-    level: failure
-  female:
-    level: warning
-  male:
-    level: warning
-  
-ignore:
- - ".github/in-solidarity.yml"  # default
-# - "**/*.yml"
+    
