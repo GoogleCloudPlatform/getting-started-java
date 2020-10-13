@@ -89,7 +89,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google API client - for stuff that's not in gcloud-->
       <groupId>com.google.api-client</groupId>
       <artifactId>google-api-client</artifactId>
-      <version>1.30.10</version>
+      <version>1.30.11</version>
       <exclusions>
         <exclusion>
           <groupId>com.google.guava</groupId>
