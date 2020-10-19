@@ -1,13 +1,4 @@
 assign_issues:
-  - averikitsch
-  - dzlier-gcp
-  - gguuss
-  - kurtisvg
-  - stephaniewang526
+  - GoogleCloudPlatform/java-samples-reviewers
 assign_prs:
-  - averikitsch
-  - dzlier-gcp
-  - gguuss
-  - kurtisvg
-  - lesv
-  - stephaniewang526
+  - GoogleCloudPlatform/java-samples-reviewers
