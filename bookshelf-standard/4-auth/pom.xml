@@ -118,7 +118,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Core Libraries for Java -->
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-      <version>29.0-jre</version>
+      <version>30.0-jre</version>
       <scope>compile</scope>
     </dependency>
 
