@@ -52,11 +52,11 @@ public class BackgroundContextListener implements ServletContextListener {
       event.getServletContext().setAttribute("translate", translate);
     }
 
+    String topicId = System.getenv("PUBSUB_TOPIC");
     TopicName topicName = TopicName.of(firestoreProjectId, topicId);
     Publisher publisher = (Publisher) event.getServletContext().getAttribute("publisher");
     if (publisher == null) {
       try {
-        String topicId = System.getenv("PUBSUB_TOPIC");
         publisher = Publisher.newBuilder(topicName).build();
         event.getServletContext().setAttribute("publisher", publisher);
       } catch (IOException e) {
