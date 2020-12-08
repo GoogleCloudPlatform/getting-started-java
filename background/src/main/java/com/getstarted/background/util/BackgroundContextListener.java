@@ -21,7 +21,7 @@ import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
-import com.google.pubsub.v1.ProjectTopicName;
+import com.google.pubsub.v1.TopicName;
 import java.io.IOException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -52,17 +52,12 @@ public class BackgroundContextListener implements ServletContextListener {
       event.getServletContext().setAttribute("translate", translate);
     }
 
+    String topicId = System.getenv("PUBSUB_TOPIC");
+    TopicName topicName = TopicName.of(firestoreProjectId, topicId);
     Publisher publisher = (Publisher) event.getServletContext().getAttribute("publisher");
     if (publisher == null) {
       try {
-        String topicId = System.getenv("PUBSUB_TOPIC");
-        publisher =
-            Publisher.newBuilder(
-                    ProjectTopicName.newBuilder()
-                        .setProject(firestoreProjectId)
-                        .setTopic(topicId)
-                        .build())
-                .build();
+        publisher = Publisher.newBuilder(topicName).build();
         event.getServletContext().setAttribute("publisher", publisher);
       } catch (IOException e) {
         e.printStackTrace();
