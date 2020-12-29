@@ -125,7 +125,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- http://www.joda.org/joda-time/ -->
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
-      <version>2.10.8</version>
+      <version>2.10.9</version>
     </dependency>
 
     <dependency>                        <!-- http://commons.apache.org/proper/commons-fileupload/ -->
