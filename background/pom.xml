@@ -58,7 +58,7 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-pubsub</artifactId>
-      <version>1.110.3</version>
+      <version>1.111.0</version>
     </dependency>
     <!-- [END getting_started_background_processing_dependencies] -->
 
