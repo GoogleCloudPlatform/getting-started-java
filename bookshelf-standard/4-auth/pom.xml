@@ -71,7 +71,7 @@ Copyright 2016 Google Inc.
         <dependency>
           <groupId>com.google.api-client</groupId>
           <artifactId>google-api-client-appengine</artifactId>
-          <version>1.31.3</version>
+          <version>1.31.4</version>
         </dependency>
       </dependencies>
     </profile>
