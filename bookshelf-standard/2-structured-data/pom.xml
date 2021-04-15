@@ -58,7 +58,7 @@ Copyright 2016 Google Inc.
         <dependency>
           <groupId>com.google.cloud.sql</groupId>
           <artifactId>mysql-socket-factory</artifactId>
-          <version>1.2.1</version>
+          <version>1.2.2</version>
         </dependency>
         <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
           <groupId>mysql</groupId>
@@ -68,7 +68,7 @@ Copyright 2016 Google Inc.
         <dependency>
           <groupId>com.google.api-client</groupId>
           <artifactId>google-api-client-appengine</artifactId>
-          <version>1.31.3</version>
+          <version>1.31.4</version>
         </dependency>
       </dependencies>
     </profile>
@@ -78,7 +78,7 @@ Copyright 2016 Google Inc.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.87</version>
+      <version>1.9.88</version>
     </dependency>
 
     <dependency>                        <!-- REQUIRED -->
