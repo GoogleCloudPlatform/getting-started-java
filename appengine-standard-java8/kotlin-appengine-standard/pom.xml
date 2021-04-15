@@ -40,7 +40,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.87</version>
+      <version>1.9.88</version>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
@@ -56,7 +56,7 @@ limitations under the License.
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib</artifactId>
-      <version>1.4.31</version>
+      <version>1.4.32</version>
     </dependency>
   </dependencies>
 
@@ -68,7 +68,7 @@ limitations under the License.
       <plugin>
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>1.4.31</version>
+        <version>1.4.32</version>
         <configuration/>
         <executions>
           <execution>
