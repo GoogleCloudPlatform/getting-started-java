@@ -54,7 +54,7 @@ To use visit: http://localhost:8080/
 
 `mvn package appengine:deploy`
 
-To use vist:  https://YOUR-PROJECT-ID.appspot.com
+To use visit:  https://YOUR-PROJECT-ID.appspot.com
 
 ## Testing
 
