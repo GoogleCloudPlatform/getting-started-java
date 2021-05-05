@@ -46,7 +46,7 @@ version. Change this field to specify a specific version name.
 ## Maven
 ### Running locally
 
-    mvn clean appengine:devserver
+    mvn clean appengine:start
 
 To use vist: http://localhost:8080/
 
@@ -54,7 +54,7 @@ To use vist: http://localhost:8080/
 
 Update `src/main/webapp/WEB-INF/appengine-web.xml` `<application>` tag with the Project ID.
 
-    mvn clean appengine:update
+    mvn clean appengine:deploy
 
 To use vist:  https://YOUR-PROJECT-ID.appspot.com
 
