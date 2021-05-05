@@ -122,7 +122,7 @@ limitations under the License.
     <plugins>
       <!-- [START gaejavaplugin] -->
       <plugin>
-        <groupId>com.google.appengine</groupId>
+        <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
         <version>2.3.0</version>
         <configuration>
