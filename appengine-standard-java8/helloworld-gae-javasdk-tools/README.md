@@ -46,17 +46,17 @@ version. Change this field to specify a specific version name.
 ## Maven
 ### Running locally
 
-    mvn clean appengine:start
+    mvn clean package appengine:run
 
-To use vist: http://localhost:8080/
+To use visit: http://localhost:8080/
 
 ### Deploying
 
 Update `src/main/webapp/WEB-INF/appengine-web.xml` `<application>` tag with the Project ID.
 
-    mvn clean appengine:deploy
+    mvn clean package appengine:deploy
 
-To use vist:  https://YOUR-PROJECT-ID.appspot.com
+To use visit:  https://YOUR-PROJECT-ID.appspot.com
 
 ## Gradle
 
@@ -68,7 +68,7 @@ For more information see the [plugin project](https://github.com/GoogleCloudPlat
 
 If you do not have gradle installed, you can run using `./gradlew appengineRun`.
 
-To use vist: http://localhost:8080/
+To use visit: http://localhost:8080/
 
 ### Deploying
 
@@ -78,9 +78,9 @@ Update `src/main/webapp/WEB-INF/appengine-web.xml` `<application>` tag with the 
 
 If you do not have gradle installed, you can deploy using `./gradlew appengineDeploy`.
 
-To use vist:  https://1-dot-YOUR-PROJECT-ID.appspot.com
+To use visit:  https://1-dot-YOUR-PROJECT-ID.appspot.com
 
-This is using verison-dot-project naming.
+This is using version-dot-project naming.
 
 ## Testing
 
