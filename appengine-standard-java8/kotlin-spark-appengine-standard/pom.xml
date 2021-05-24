@@ -126,7 +126,7 @@ limitations under the License.
       <plugin>
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>1.5.0</version>
+        <version>1.5.10</version>
         <configuration/>
         <executions>
           <execution>
