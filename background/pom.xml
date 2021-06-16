@@ -52,7 +52,7 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-translate</artifactId>
-      <version>1.98.3</version>
+      <version>1.98.4</version>
     </dependency>
 
     <dependency>
