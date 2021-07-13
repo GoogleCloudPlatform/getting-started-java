@@ -56,7 +56,7 @@ limitations under the License.
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib</artifactId>
-      <version>1.5.20</version>
+      <version>1.5.21</version>
     </dependency>
   </dependencies>
 
@@ -68,7 +68,7 @@ limitations under the License.
       <plugin>
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>1.5.20</version>
+        <version>1.5.21</version>
         <configuration/>
         <executions>
           <execution>
