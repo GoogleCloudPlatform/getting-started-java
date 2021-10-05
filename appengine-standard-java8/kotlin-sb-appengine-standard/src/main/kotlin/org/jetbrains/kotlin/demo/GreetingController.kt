@@ -1,4 +1,4 @@
-// See https://github.com/JetBrains/kotlin-examples/blob/master/LICENSE
+// See https://github.com/JetBrains/kotlin-examples/blob/main/LICENSE
 package org.jetbrains.kotlin.demo
 
 import org.springframework.web.bind.annotation.GetMapping
