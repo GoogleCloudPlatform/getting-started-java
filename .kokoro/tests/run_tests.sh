@@ -29,7 +29,7 @@ else
     SCRIPT_DEBUG="false"
 fi
 
-# `--only-diff` will only run tests on projects container changes from the master branch.
+# `--only-diff` will only run tests on projects container changes from the main branch.
 if [[ $* == *--only-diff* ]]; then
     ONLY_DIFF="true"
 else
