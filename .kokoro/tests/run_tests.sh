@@ -43,9 +43,9 @@ if [[ -z ${JAVA_VERSION+x} ]]; then
 fi
 
 if [[ "$SCRIPT_DEBUG" != "true" ]]; then
-    # Update `gcloud` and log versioning for debugging.
-    gcloud components install beta --quiet
-    gcloud components update --quiet
+    # Update `gcloud` and log versioning for debugging
+    apt update && apt upgrade google-cloud-sdk
+
     echo "********** GCLOUD INFO ***********"
     gcloud -v
     echo "********** MAVEN INFO  ***********"
