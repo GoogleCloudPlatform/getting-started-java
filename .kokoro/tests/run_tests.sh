@@ -44,7 +44,7 @@ fi
 
 if [[ "$SCRIPT_DEBUG" != "true" ]]; then
     # Update `gcloud` and log versioning for debugging
-    apt update && apt upgrade google-cloud-sdk
+    apt update && apt -y upgrade google-cloud-sdk
 
     echo "********** GCLOUD INFO ***********"
     gcloud -v
@@ -82,7 +82,7 @@ for file in **/pom.xml; do
 
     # If $DIFF_ONLY is true, skip projects without changes.
     if [[ "$ONLY_DIFF" = "true" ]]; then
-        git diff --quiet origin/master.. .
+        git diff --quiet origin/main.. .
         CHANGED=$?
         if [[ "$CHANGED" -eq 0 ]]; then
           # echo -e "\n Skipping $file: no changes in folder.\n"
