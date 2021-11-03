@@ -32,7 +32,7 @@ apply plugin: 'war'                               // standard Web Archive plugin
 apply plugin: 'appengine'  // App Engine tasks
 
 dependencies {
-  appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.91'
+  appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.92'
 
   compile 'com.google.appengine:appengine-api-1.0-sdk:+'  // Latest App Engine Api's
   providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
