@@ -78,7 +78,7 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>io.opencensus</groupId>
       <artifactId>opencensus-contrib-http-util</artifactId>
-      <version>0.28.3</version>
+      <version>0.29.0</version>
     </dependency>
 
     <dependency>
