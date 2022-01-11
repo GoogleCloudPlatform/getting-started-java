@@ -55,7 +55,7 @@ if [[ "$SCRIPT_DEBUG" != "true" ]]; then
 
     # Setup required env variables
     export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
-    export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/java-docs-samples-service-account.json
+    export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/secrets/java-docs-samples-service-account.json
 
     # Grab latest version of secrets
     mkdir -p "${KOKORO_GFILE_DIR}/secrets"
