@@ -55,10 +55,15 @@ if [[ "$SCRIPT_DEBUG" != "true" ]]; then
 
     # Setup required env variables
     export GOOGLE_CLOUD_PROJECT=java-docs-samples-testing
-    export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/service-acct.json
-    # spellcheck source=src/firestore_secrets.txt
-    source "${KOKORO_GFILE_DIR}/firestore_secrets.txt"
+    export GOOGLE_APPLICATION_CREDENTIALS=${KOKORO_GFILE_DIR}/secrets/java-docs-samples-service-account.json
 
+    # Grab latest version of secrets
+    mkdir -p "${KOKORO_GFILE_DIR}/secrets"
+    gcloud secrets versions access latest --secret="java-docs-samples-service-account" > "$GOOGLE_APPLICATION_CREDENTIALS"
+    gcloud secrets versions access latest --secret="java-firestore-samples-secrets" > "${KOKORO_GFILE_DIR}/secrets/java-firestore-samples-secrets.txt"
+    
+    # Execute secret file contents
+    source "${KOKORO_GFILE_DIR}/secrets/java-firestore-samples-secrets.txt"
     # Activate service account
     gcloud auth activate-service-account \
         --key-file="$GOOGLE_APPLICATION_CREDENTIALS" \
