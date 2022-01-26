@@ -83,7 +83,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-stubs</artifactId>
-      <version>1.9.93</version>
+      <version>1.9.94</version>
       <scope>test</scope>
     </dependency>
 
@@ -110,7 +110,7 @@ limitations under the License.
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>4.3.0</version>
+      <version>4.3.1</version>
       <scope>test</scope>
     </dependency>
     <!-- [END_EXCLUDE] -->
