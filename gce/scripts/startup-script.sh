@@ -69,7 +69,9 @@ echo "JETTY_HOME=/opt/jetty" > /etc/default/jetty
 systemctl daemon-reload
 
 # Install logging monitor. The monitor will automatically pickup logs sent to syslog.
-curl -s "https://storage.googleapis.com/signals-agents/logging/google-fluentd-install.sh" | bash
+curl -sSO https://dl.google.com/cloudagents/add-logging-agent-repo.sh
+sudo bash add-logging-agent-repo.sh --also-install
+
 service google-fluentd restart &
 
 service jetty start
