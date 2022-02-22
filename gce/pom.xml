@@ -97,7 +97,7 @@ Copyright 2019 Google LLC
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.4.45.v20220203</version>
+        <version>11.0.8</version>
         <executions>
           <execution>
             <id>start-selenium</id>
