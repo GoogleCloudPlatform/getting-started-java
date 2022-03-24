@@ -61,7 +61,7 @@ Copyright 2016 Google Inc.
         <dependency>
           <groupId>com.google.cloud.sql</groupId>
           <artifactId>mysql-socket-factory</artifactId>
-          <version>1.4.3</version>
+          <version>1.4.4</version>
         </dependency>
         <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
           <groupId>mysql</groupId>
@@ -118,7 +118,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- Google Core Libraries for Java -->
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
-      <version>31.0.1-jre</version>
+      <version>31.1-jre</version>
       <scope>compile</scope>
     </dependency>
 
