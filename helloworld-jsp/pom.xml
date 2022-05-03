@@ -33,7 +33,7 @@
 
     <failOnMissingWebXml>false</failOnMissingWebXml> <!-- REQUIRED -->
     <appengine.maven.plugin>2.3.0</appengine.maven.plugin>
-    <jetty.maven.plugin>11.0.8</jetty.maven.plugin>
+    <jetty.maven.plugin>11.0.9</jetty.maven.plugin>
   </properties>
 
   <!-- Parent POM defines common plugins and properties. -->
