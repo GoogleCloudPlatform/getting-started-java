@@ -58,17 +58,17 @@ Copyright 2016 Google Inc.
         <dependency>
           <groupId>com.google.cloud.sql</groupId>
           <artifactId>mysql-socket-factory</artifactId>
-          <version>1.4.4</version>
+          <version>1.5.0</version>
         </dependency>
         <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
-          <version>8.0.28</version>  <!-- v5.x.x is Java 7, v6.x.x is Java 8 -->
+          <version>8.0.29</version>  <!-- v5.x.x is Java 7, v6.x.x is Java 8 -->
         </dependency>
         <dependency>
           <groupId>com.google.api-client</groupId>
           <artifactId>google-api-client-appengine</artifactId>
-          <version>1.33.2</version>
+          <version>1.33.4</version>
         </dependency>
       </dependencies>
     </profile>
@@ -128,7 +128,7 @@ Copyright 2016 Google Inc.
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>2.4.1</version>
+        <version>2.4.2</version>
         <configuration>
           <!-- can be set w/ -DprojectId=myProjectId on command line -->
           <projectId>myProjectId</projectId>

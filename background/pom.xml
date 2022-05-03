@@ -39,7 +39,7 @@ Copyright 2019 Google LLC
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>false</maven.compiler.failOnWarning>
     <maven.war.filteringDeploymentDescriptors>false</maven.war.filteringDeploymentDescriptors>
-    <jetty.version>11.0.8</jetty.version>
+    <jetty.version>11.0.9</jetty.version>
   </properties>
 
   <dependencies>
@@ -121,7 +121,7 @@ Copyright 2019 Google LLC
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
         <configuration>
           <to>
             <image>gcr.io/${gcloud.appId}/background</image>

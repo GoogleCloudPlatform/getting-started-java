@@ -110,7 +110,7 @@ limitations under the License.
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>4.4.0</version>
+      <version>4.5.0</version>
       <scope>test</scope>
     </dependency>
     <!-- [END_EXCLUDE] -->
@@ -124,7 +124,7 @@ limitations under the License.
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>2.4.1</version>
+        <version>2.4.2</version>
         <configuration>
           <!-- can be set w/ -DprojectId=myProjectId on command line -->
           <projectId>myProjectId</projectId>
@@ -166,7 +166,7 @@ limitations under the License.
 
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
       </plugin>
 
       <plugin>
@@ -181,7 +181,7 @@ limitations under the License.
 
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.11.0</version>
+        <version>3.12.0</version>
       </plugin>
 
       <plugin>
