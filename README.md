@@ -14,7 +14,7 @@ Managed VMs on Google Cloud Platform use the [Java Servlets](http://www.oracle.c
 
 ## Google Cloud Samples
 
-To browse ready to use code samples check [Google Cloud Samples](https://cloud.google.com/docs/samples).
+To browse ready to use code samples check [Google Cloud samples](https://cloud.google.com/docs/samples).
 
 ## Contributing changes
 
