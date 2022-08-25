@@ -114,7 +114,7 @@ limitations under the License.
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.36</version> <!-- TEST if not 1.7.25 -->
+      <version>2.0.0</version> <!-- TEST if not 1.7.25 -->
     </dependency>
   </dependencies>
 
