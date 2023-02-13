@@ -94,7 +94,7 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
 
     <dependency>

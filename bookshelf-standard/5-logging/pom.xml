@@ -131,7 +131,7 @@ Copyright 2016 Google Inc.
     <dependency>                        <!-- http://commons.apache.org/proper/commons-fileupload/ -->
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
   </dependencies>
 
