@@ -48,7 +48,7 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.0.1</version>
+      <version>4.0.1</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-firestore -->
