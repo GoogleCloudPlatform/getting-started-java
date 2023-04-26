@@ -114,7 +114,7 @@ limitations under the License.
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.36</version> <!-- TEST if not 1.7.25 -->
+      <version>2.0.0</version> <!-- TEST if not 1.7.25 -->
     </dependency>
   </dependencies>
 
@@ -157,7 +157,7 @@ limitations under the License.
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>2.4.3</version>
+        <version>2.4.4</version>
         <configuration>
           <!-- can be set w/ -DprojectId=myProjectId on command line -->
           <projectId>myProjectId</projectId>

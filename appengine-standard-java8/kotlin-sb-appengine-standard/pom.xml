@@ -49,7 +49,7 @@ limitations under the License.
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>2.6.5</version>
+      <version>2.6.6</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
@@ -137,7 +137,7 @@ limitations under the License.
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>2.4.3</version>
+        <version>2.4.4</version>
         <configuration>
           <!-- can be set w/ -DprojectId=myProjectId on command line -->
           <projectId>myProjectId</projectId>

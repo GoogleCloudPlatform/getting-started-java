@@ -56,7 +56,7 @@ limitations under the License.
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib</artifactId>
-      <version>1.5.31</version>
+      <version>1.6.0</version>
     </dependency>
   </dependencies>
 
@@ -100,7 +100,7 @@ limitations under the License.
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>2.4.3</version>
+        <version>2.4.4</version>
         <configuration>
           <!-- can be set w/ -DprojectId=myProjectId on command line -->
           <projectId>myProjectId</projectId>

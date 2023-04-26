@@ -21,7 +21,7 @@ To run your project locally:
   Where <YOUR_BUCKET_NAME> is the bucket you created above.
 * Run with the Jetty Maven plugin:
 
-      mvn jetty:run-exploded
+      mvn jetty:run
 
 **Note**: If you run into an error about `Invalid Credentials`, you may have to run:
 
@@ -36,10 +36,11 @@ To build your image:
 * Build and deploy to your GCR with [Jib][jib] Maven plugin.
 
       mvn clean package jib:build
+      
 * Deploy the app to Cloud Run:
 
-      gcloud beta run deploy bookshelf --image gcr.io/<MY_PROJECT>/bookshelf \
-            --platform managed --region us-central1 --memory 512M \
+      gcloud run deploy bookshelf --image gcr.io/<MY_PROJECT>/bookshelf \
+            --region us-central1 --memory 512M \
             --update-env-vars BOOKSHELF_BUCKET="<YOUR_BUCKET_NAME>"
 
 Where <MY_PROJECT> is the name of the project you created.
