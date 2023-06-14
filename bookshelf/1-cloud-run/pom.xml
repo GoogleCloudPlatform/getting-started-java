@@ -41,7 +41,7 @@ Copyright 2019 Google LLC
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>false</maven.compiler.failOnWarning>
-    <jetty.version>10.0.9</jetty.version>
+    <jetty.version>11.0.15</jetty.version>
   </properties>
 
   <dependencies>
