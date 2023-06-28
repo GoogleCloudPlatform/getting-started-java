@@ -78,6 +78,9 @@ set +e
 # Use RTN to return a non-zero value if the test fails.
 RTN=0
 ROOT=$(pwd)
+
+git config --global --add safe.directory $PWD
+
 # Find all POMs in the repository (may break on whitespace).
 for file in **/pom.xml; do
     cd "$ROOT"
