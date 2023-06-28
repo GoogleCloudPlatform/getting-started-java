@@ -38,7 +38,7 @@ with your Google Cloud Project Id:
     <artifactId>appengine-maven-plugin</artifactId>
     <version>2.3.0</version>
     <configuration>
-      <projectId>myProjectId</projectId>
+      <projectId>GCLOUD_CONFIG</projectId>
       <version>GCLOUD_CONFIG</version>
     </configuration>
   </plugin>
