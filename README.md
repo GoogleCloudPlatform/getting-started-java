@@ -12,6 +12,10 @@ Managed VMs on Google Cloud Platform use the [Java Servlets](http://www.oracle.c
 1. [HelloWorld-jsp](helloworld-jsp) Java Server Pages based Hello World app
 1. [Bookshelf](bookshelf) A full featured app that demonstrates Authentication and CRUD operations for [Cloud Datastore](https://cloud.google.com/datastore/docs/concepts/overview?hl=en) and [Cloud SQL](https://cloud.google.com/sql/docs/introduction).
 
+## Google Cloud Samples
+
+To browse ready to use code samples check [Google Cloud samples](https://cloud.google.com/docs/samples).
+
 ## Contributing changes
 
 * See [CONTRIBUTING.md](CONTRIBUTING.md)
