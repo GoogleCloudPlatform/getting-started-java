@@ -146,7 +146,7 @@ Copyright 2016 Google Inc.
         <version>2.4.4</version>
         <configuration>
           <!-- can be set w/ -DprojectId=myProjectId on command line -->
-          <projectId>myProjectId</projectId>
+          <projectId>GCLOUD_CONFIG</projectId>
           <version>bookshelf</version>
         </configuration>
       </plugin>
