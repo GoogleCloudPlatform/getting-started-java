@@ -41,42 +41,40 @@ Copyright 2019 Google LLC
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.failOnWarning>false</maven.compiler.failOnWarning>
-    <maven.war.filteringDeploymentDescriptors>false</maven.war.filteringDeploymentDescriptors>
-    <jetty.version>11.0.9</jetty.version>
+    <jetty.version>10.0.9</jetty.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>[4.0.1]</version>
-      <scope>provided</scope>
+      <version>4.0.1</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-firestore -->
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-firestore</artifactId>
-      <version>3.0.16</version>
+      <version>3.13.2</version>
     </dependency>
 
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
-      <version>2.10.11</version>
+      <version>2.12.5</version>
     </dependency>
 
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>31.1-jre</version>
+      <version>32.0.1-jre</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>io.opencensus</groupId>
       <artifactId>opencensus-contrib-http-util</artifactId>
-      <version>0.29.0</version>
+      <version>0.31.1</version>
     </dependency>
 
     <dependency>
@@ -88,19 +86,19 @@ Copyright 2019 Google LLC
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-storage</artifactId>
-      <version>2.1.8</version>
+      <version>2.23.0</version>
     </dependency>
 
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
 
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.11.0</version>
+      <version>2.13.0</version>
     </dependency>
   </dependencies>
 
@@ -118,11 +116,25 @@ Copyright 2019 Google LLC
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.3.2</version>
         <configuration>
+          <from>
+            <image>jetty:10.0.9-jre11</image>
+          </from>
+          <container>
+            <entrypoint>java,-jar,/usr/local/jetty/start.jar</entrypoint>
+          </container>
           <to>
             <image>gcr.io/${gcloud.appId}/bookshelf</image>
           </to>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
     </plugins>
