@@ -20,7 +20,7 @@ To run your project locally:
 
 * Run with the Jetty Maven plugin:
 
-      mvn jetty:run-exploded 
+      mvn jetty:run-war
 
 **Note**: If you run into an error about `Invalid Credentials`, you may have to run:
 
