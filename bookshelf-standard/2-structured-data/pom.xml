@@ -83,7 +83,7 @@ Copyright 2016 Google Inc.
 
     <dependency>                        <!-- REQUIRED -->
       <groupId>javax.servlet</groupId>  <!-- Java Servlet API -->
-      <artifactId>servlet-api</artifactId>
+      <artifactId>javax.servlet-api</artifactId>
       <version>4.0.1</version>
       <scope>provided</scope>           <!-- Provided by the Jetty Servlet engine -->
     </dependency>
