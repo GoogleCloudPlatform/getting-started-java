@@ -30,7 +30,7 @@ with your Google Cloud Project Id:
     <artifactId>appengine-maven-plugin</artifactId>
     <version>2.3.0</version>
     <configuration>
-      <projectId>myProjectId</projectId>
+      <projectId>GCLOUD_CONFIG</projectId>
       <version>bookshelf</version>
     </configuration>
   </plugin>

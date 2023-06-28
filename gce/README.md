@@ -9,7 +9,7 @@ and secret, and edit `pom.xml` with its values.
 
 ### Running Locally
 
-    mvn clean jetty:run-exploded -DprojectID=YOUR-PROJECT-ID
+    mvn clean jetty:run-war -DprojectID=YOUR-PROJECT-ID
 
 ### Deploying to Compute Engine
 
