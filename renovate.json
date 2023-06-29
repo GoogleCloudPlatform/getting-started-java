@@ -36,5 +36,8 @@
    "dependencyDashboard": true,
    "dependencyDashboardLabels": [
     "type: process"
-  ]
+  ],
+  "constraints": {
+    "java": "1.8"
+  }
 }
