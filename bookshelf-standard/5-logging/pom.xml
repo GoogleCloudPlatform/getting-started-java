@@ -60,8 +60,8 @@ Copyright 2016 Google Inc.
       <dependencies>
         <dependency>
           <groupId>com.google.cloud.sql</groupId>
-          <artifactId>mysql-socket-factory</artifactId>
-          <version>1.6.1</version>
+          <artifactId>mysql-socket-factory-connector-j-8</artifactId>
+          <version>1.13.1-SNAPSHOT</version>
         </dependency>
         <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
           <groupId>mysql</groupId>
