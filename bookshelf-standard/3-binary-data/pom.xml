@@ -63,9 +63,9 @@ Copyright 2016 Google Inc.
           <version>1.6.1</version>
         </dependency>
         <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
-          <groupId>mysql</groupId>
-          <artifactId>mysql-connector-java</artifactId>
-          <version>8.0.30</version>  <!-- v5.x.x is Java 7, v6.x.x is Java 8 -->
+          <groupId>com.mysql</groupId>
+          <artifactId>mysql-connector-j</artifactId>
+          <version>8.0.33</version>  <!-- v5.x.x is Java 7, v6.x.x is Java 8 -->
         </dependency>
         <dependency>
           <groupId>com.google.api-client</groupId>
