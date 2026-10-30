@@ -15,6 +15,7 @@
 
 package com.example.getstarted.util;
 
+import com.google.appengine.api.datastore.DatastoreNeedIndexException;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -35,6 +36,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -53,6 +56,8 @@ import org.joda.time.format.DateTimeFormatter;
 // [START init]
 public class DatastoreSessionFilter implements Filter {
 
+  private static final Logger logger = Logger.getLogger(DatastoreSessionFilter.class.getName());
+
   private static DatastoreService datastore;
   private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("yyyyMMddHHmmssSSS");
   private static final String SESSION_KIND = "SessionVariable";
@@ -62,14 +67,21 @@ public class DatastoreSessionFilter implements Filter {
     // initialize local copy of datastore session variables
 
     datastore = DatastoreServiceFactory.getDatastoreService();
-    // Delete all sessions unmodified for over two days
-    DateTime dt = DateTime.now(DateTimeZone.UTC);
-    Query query = new Query(SESSION_KIND).setFilter(new FilterPredicate(
-            "lastModified", FilterOperator.LESS_THAN_OR_EQUAL, dt.minusDays(2).toString(DTF)));
-    Iterator<Entity> results = datastore.prepare(query).asIterator();
-    while (results.hasNext()) {
-      Entity stateEntity = results.next();
-      datastore.delete(stateEntity.getKey());
+    // Delete all sessions unmodified for over two days. Best-effort: on a fresh
+    // deployment Datastore has no index yet for a property it has never seen
+    // written, so this throws DatastoreNeedIndexException until the first session
+    // is written. Don't let that take down the whole filter (and app) at startup.
+    try {
+      DateTime dt = DateTime.now(DateTimeZone.UTC);
+      Query query = new Query(SESSION_KIND).setFilter(new FilterPredicate(
+              "lastModified", FilterOperator.LESS_THAN_OR_EQUAL, dt.minusDays(2).toString(DTF)));
+      Iterator<Entity> results = datastore.prepare(query).asIterator();
+      while (results.hasNext()) {
+        Entity stateEntity = results.next();
+        datastore.delete(stateEntity.getKey());
+      }
+    } catch (DatastoreNeedIndexException e) {
+      logger.log(Level.WARNING, "Skipping stale-session cleanup; index not ready yet", e);
     }
   }
   // [END init]
